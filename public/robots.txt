@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://builtbygsv.in/sitemap.xml

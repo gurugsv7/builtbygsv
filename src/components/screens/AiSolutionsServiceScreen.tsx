@@ -1,0 +1,133 @@
+import React, { useState } from 'react';
+import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Brain, Search, Sparkles, Lock, Check } from 'lucide-react';
+import { ServiceDetail } from '../../types';
+
+interface AiSolutionsServiceScreenProps {
+  service: ServiceDetail;
+  isBookmarked: boolean;
+  onToggleBookmark: (serviceId: string) => void;
+  onBack: () => void;
+  onStartProject: () => void;
+}
+
+export const AiSolutionsServiceScreen: React.FC<AiSolutionsServiceScreenProps> = ({
+  service,
+  isBookmarked,
+  onToggleBookmark,
+  onBack,
+  onStartProject,
+}) => {
+  const [selectedFeatureId, setSelectedFeatureId] = useState<string | null>(null);
+
+  const getFeatureIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Brain': return Brain;
+      case 'Search': return Search;
+      case 'Sparkles': return Sparkles;
+      case 'Lock': return Lock;
+      default: return Brain;
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
+      <div className="flex items-center justify-between py-1 z-10">
+        <button
+          onClick={onBack}
+          id="btn-aisolutions-back"
+          className="p-2 -ml-2 rounded-xl text-slate-800 hover:bg-slate-200/60 active:scale-95 transition-all"
+        >
+          <ArrowLeft className="w-5 h-5 stroke-[2.2]" />
+        </button>
+
+        <button
+          onClick={() => onToggleBookmark(service.id)}
+          id="btn-aisolutions-bookmark"
+          className={`p-2 -mr-2 rounded-xl transition-all ${
+            isBookmarked ? 'text-purple-600 bg-purple-50' : 'text-slate-700 hover:bg-slate-200/60'
+          }`}
+        >
+          <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : 'stroke-[2]'}`} />
+        </button>
+      </div>
+
+      <div className="space-y-2 z-10">
+        <span className="text-[11px] font-extrabold tracking-widest text-purple-600 uppercase">
+          {service.tag}
+        </span>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#131921] leading-tight">
+          {service.title}
+        </h1>
+        <p className="font-handwritten text-xl text-purple-600 leading-none pt-0.5">
+          {service.scriptTagline}
+        </p>
+        <p className="text-xs font-medium text-slate-600 leading-relaxed pt-1">
+          {service.description}
+        </p>
+      </div>
+
+      <div className="space-y-2.5 z-10">
+        {service.features.map((feature) => {
+          const IconComp = getFeatureIcon(feature.icon);
+          const isExpanded = selectedFeatureId === feature.id;
+
+          return (
+            <button
+              type="button"
+              key={feature.id}
+              onClick={() => setSelectedFeatureId(isExpanded ? null : feature.id)}
+              aria-expanded={isExpanded}
+              className="w-full text-left bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs hover:border-purple-300 transition-all cursor-pointer group"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 border border-purple-100">
+                    <IconComp className="w-5 h-5 stroke-[2.2]" />
+                  </div>
+                  <div className="space-y-0.5 min-w-0">
+                    <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-purple-600 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-[11px] font-medium text-slate-500 leading-snug">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className={`w-4 h-4 text-slate-400 ${isExpanded ? 'rotate-90' : ''}`} />
+              </div>
+              {isExpanded && feature.details && (
+                <div className="mt-2.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-purple-50/50 p-2.5 rounded-xl border border-purple-100">
+                  <p className="font-medium">{feature.details}</p>
+                  <div className="flex items-center gap-1 text-purple-600 font-bold text-[10px] pt-1">
+                    <Check className="w-3 h-3 stroke-[3]" /> Included in Gemini AI Integration
+                  </div>
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 z-10">
+        {service.techStack.map((tech) => (
+          <span key={tech} className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <div className="z-10 pt-2">
+        <button
+          onClick={onStartProject}
+          id="btn-aisolutions-start-project"
+          className="w-full bg-purple-600 hover:bg-purple-700 rounded-3xl p-3.5 flex items-center justify-between text-white shadow-lg transition-all active:scale-[0.98]"
+        >
+          <span className="font-extrabold text-base tracking-tight pl-3">Start an AI Project</span>
+          <div className="w-9 h-9 rounded-full bg-white text-purple-600 flex items-center justify-center shadow-xs">
+            <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+};

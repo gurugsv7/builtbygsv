@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gurugsv.in SEO review</title>
+<style>
+  :root { --bg:#e2e9f3; --ink:#122650; --muted:#4f5f79; --rule:#c2cddd; --rule-strong:#122650; }
+  html { background:var(--bg); color-scheme:light; }
+  body { background:var(--bg); color:var(--ink); font-family:Charter,Georgia,"Times New Roman",serif; line-height:1.55; margin:0; padding:3.5rem 1.5rem 5rem; }
+  .page { max-width:860px; margin:0 auto; }
+  .mono { font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+  h1 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight:700; font-size:1.6rem; letter-spacing:-.01em; margin:.75rem 0 .25rem; text-wrap:balance; }
+  .subtitle { color:var(--muted); margin:0 0 2.5rem; font-size:1.02rem; max-width:46rem; }
+  .dateline { color:var(--muted); font-size:.92rem; margin:0 0 1.1rem; }
+  h2 { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight:700; font-size:1.25rem; margin:3rem 0 .75rem; }
+  .lede { font-size:1.05rem; max-width:46rem; }
+  section > p { max-width:46rem; }
+  hr.heavy { border:0; border-top:2px solid var(--rule-strong); margin:3rem 0 0; }
+  section .cols:first-of-type { border-top:1px solid var(--rule); }
+  .cols { display:grid; grid-template-columns:minmax(180px,5fr) 8fr; gap:1.25rem; padding:.6rem 0; border-bottom:1px solid var(--rule); }
+  .row-title { font-size:1.12rem; margin:0; }
+  .row-title .tag { display:block; margin-top:.35rem; }
+  .cols > div p { margin:0 0 .6rem; color:var(--muted); font-size:.95rem; }
+  .cols > div p:last-child { margin-bottom:0; }
+  .cols > div p.fix { color:var(--ink); }
+  .fix b { font-weight:600; }
+  code { font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:.85em; word-break:break-word; }
+  ol { padding-left:1.3rem; max-width:44rem; }
+  ol li { margin-bottom:.5rem; }
+  ul.plain { list-style:none; padding:0; max-width:46rem; }
+  ul.plain li { padding:.5rem 0; border-bottom:1px solid var(--rule); font-size:.98rem; }
+  ul.plain li:first-child { border-top:1px solid var(--rule); }
+  ul.plain .why { color:var(--muted); }
+  footer { margin-top:4rem; color:var(--muted); font-size:.88rem; max-width:46rem; }
+  @media (max-width:620px) { .cols { grid-template-columns:1fr; gap:.4rem; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>gurugsv.in</h1>
+    <p class="dateline">24 August 2026</p>
+    <p class="subtitle">OpenSEO crawled 21 live pages and flagged all 21 for thin content, nine as orphan pages, three for long descriptions and one for a long title. The local build now contains 20 indexable routes with 126 to 530 words and nine links in each generated page, plus a 404 page marked not to appear in search. Deploy the build and run a fresh crawl this week to see which live warnings remain.</p>
+  </header>
+
+  <section>
+    <h2>Where the site stands</h2>
+    <p class="lede">All 21 audited URLs returned a successful response. The crawl did not flag missing titles, duplicate descriptions, broken pages or conflicting preferred addresses.</p>
+    <p class="lede">The old generated HTML contained only 23 to 91 words per page. Nine pages were orphaned, which means no link from another crawled page led to them. The local replacement contains 126 to 530 words on indexable pages and nine static links per page.</p>
+  </section>
+
+  <hr class="heavy">
+
+  <section>
+    <h2>If you only do one thing</h2>
+    <p class="lede">Deploy the current build, then run a fresh crawl to see which thin-content and orphan-page warnings remain.</p>
+    <p>The local build addresses the measured gaps. Search engines will continue to see the older generated pages until this release reaches production.</p>
+    <ol>
+      <li>Deploy the branch containing the updated generated HTML, contact page and custom 404.</li>
+      <li>Open the deployed source for <i>/projects</i> and confirm that project links and case-study text appear without waiting for JavaScript.</li>
+      <li>Run the OpenSEO site audit again. Record the new orphan-page count and confirm that indexable pages exceed the old 23 to 91 word range.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Small fixes, in order</h2>
+    <div class="cols">
+      <div><p class="row-title">Thin generated pages <span class="mono tag">warning</span></p></div>
+      <div><p>OpenSEO reported <code>thin-content: 21</code>. The homepage exposed 91 words; several service and project pages exposed fewer than 30.</p><p class="fix"><b>Fix:</b> The new build renders the actual blog, project, service and location content into each HTML file. Deploy it and recrawl.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">Crawlable route links <span class="mono tag">warning</span></p></div>
+      <div><p>Nine URLs were orphaned, including all four service details and five live case studies.</p><p class="fix"><b>Fix:</b> Every prerendered page now includes primary navigation. The project and service hubs also list their detail routes directly.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">Branded error handling <span class="mono tag">complete</span></p></div>
+      <div><p>The deployment returned a generic hosting 404 and the client-side router treated unknown paths as home.</p><p class="fix"><b>Fix:</b> Unknown client routes now show a branded page. The build emits <code>404.html</code> with <code>noindex, follow</code>, which tells search engines not to list the error page. Verify the live HTTP status after deployment.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">Metadata length <span class="mono tag">info</span></p></div>
+      <div><p>The crawl found three descriptions over 160 characters and one title over 60 characters.</p><p class="fix"><b>Fix:</b> Homepage and location descriptions were tightened. Long project titles and descriptions were shortened without removing the useful subject.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">Contact destination <span class="mono tag">complete</span></p></div>
+      <div><p>The site had project buttons and email links but no indexable contact page that explained what to send.</p><p class="fix"><b>Fix:</b> <code>/contact</code> now offers email, phone, WhatsApp and a guided brief, while stating that the site stores no form data.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">Limited recorded off-site data <span class="mono tag">info</span></p></div>
+      <div><p>The overview recorded six links from six external websites, with no qualifying website rows after spam filtering. The provider recorded no organic keyword or traffic estimate.</p><p class="fix"><b>Fix:</b> Ask completed clients and relevant local organizations to link to the specific case study or service they can vouch for. Avoid directory batches.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where to focus first</h2>
+    <p>Build around proof-led website development. The provider used fallback suggestions because the local seed terms had limited direct matches. Treat the figures as starting tests rather than Karaikal forecasts. Keyword difficulty is the provider's 0 to 100 estimate of ranking competition; a lower number suggests an easier result set.</p>
+    <div class="cols">
+      <div><p class="row-title">website development services <span class="mono tag">5,400 searches/mo</span></p></div>
+      <div><p>Commercial intent with a reported difficulty of 31.</p><p class="fix"><b>Make:</b> Strengthen the existing web-development page with process, deliverables, ownership and relevant case-study links. The new prerender content starts this work.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">ecommerce website design <span class="mono tag">2,400 searches/mo</span></p></div>
+      <div><p>Commercial intent with a reported difficulty of 20. Pursue it only after a real ecommerce project can support the claim.</p><p class="fix"><b>Make:</b> A case study based on shipped ecommerce work, including platform constraints and conversion evidence.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">RFP (request for proposal) for website design and development <span class="mono tag">210 searches/mo</span></p></div>
+      <div><p>Specific commercial intent with a reported difficulty of 0.</p><p class="fix"><b>Make:</b> The new website project brief template answers this need and links readers to the contact route.</p></div>
+    </div>
+    <div class="cols">
+      <div><p class="row-title">web developer portfolio <span class="mono tag">1,900 searches/mo</span></p></div>
+      <div><p>Commercial intent with a reported difficulty of 9, though the query can also be used by developers seeking examples.</p><p class="fix"><b>Make:</b> Keep the projects hub clear about client work, lab work and current status. Link every card to a detailed case study.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Already working</h2>
+    <ul class="plain">
+      <li>All 21 audited live pages returned HTTP 200. <span class="why">Search crawlers could fetch the site without server errors.</span></li>
+      <li>The crawl did not flag missing titles, duplicate descriptions or conflicting preferred addresses. <span class="why">Those basic page signals are in place.</span></li>
+      <li>HTTPS redirects and HSTS are active. <span class="why">Visitors are sent to the encrypted version and browsers receive a strict transport policy.</span></li>
+      <li>The sitemap matched the active source routes before this expansion. <span class="why">Repository tests catch stale project URLs.</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Reviewed 24 August 2026. Crawl, backlink and keyword data came from OpenSEO. Live response headers were checked directly. Source routes, metadata, generated HTML and internal links were verified in the local production build. Keyword research used provider fallback suggestions because the local seed set had limited direct matches.</p>
+  </footer>
+</div>
+</body>
+</html>

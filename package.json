@@ -1,0 +1,37 @@
+{
+  "name": "builtbygsv",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": "^20.0.0 || >=22.0.0"
+  },
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "postbuild": "tsx scripts/og-image.ts && tsx scripts/prerender.ts",
+    "preview": "vite preview",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "lint": "tsc --noEmit",
+    "test": "tsx --test tests/**/*.test.ts",
+    "check": "npm run lint && npm test && npm run build",
+    "og": "tsx scripts/og-image.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  }
+}

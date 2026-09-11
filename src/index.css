@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-handwritten {
+    font-family: 'Kalam', 'Caveat', cursive, sans-serif;
+  }
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Custom brush stroke and hand-drawn accents */
+.brush-teal-highlight {
+  background: linear-gradient(100deg, rgba(15, 139, 117, 0.22) 0%, rgba(20, 184, 166, 0.35) 100%);
+  border-radius: 999px 120px 999px 80px / 80px 999px 60px 999px;
+  display: inline-block;
+  padding: 0 0.35em;
+  margin: 0 -0.1em;
+}
+
+.brush-amber-highlight {
+  background: linear-gradient(100deg, rgba(232, 93, 34, 0.22) 0%, rgba(249, 115, 22, 0.35) 100%);
+  border-radius: 999px 120px 999px 80px / 80px 999px 60px 999px;
+  display: inline-block;
+  padding: 0 0.35em;
+  margin: 0 -0.1em;
+}
+
+/* Handwritten circle oval surrounding text */
+.oval-loop {
+  position: relative;
+  display: inline-block;
+}
+.oval-loop::after {
+  content: '';
+  position: absolute;
+  inset: -4px -10px;
+  border: 2px solid rgba(19, 25, 33, 0.65);
+  border-radius: 55% 45% 60% 40% / 45% 65% 35% 55%;
+  pointer-events: none;
+  transform: rotate(-1.5deg);
+}
+
+.oval-loop-teal::after {
+  border-color: #0F8B75;
+}
+
+/* Painterly brush container buttons */
+.brush-btn-teal {
+  background: #0F8B75;
+  border-radius: 28px 24px 30px 22px / 22px 30px 24px 28px;
+  transition: all 0.2s ease;
+}
+.brush-btn-teal:hover {
+  background: #0d7966;
+  transform: translateY(-1px);
+}
+
+.brush-btn-orange {
+  background: #E85D22;
+  border-radius: 28px 24px 30px 22px / 22px 30px 24px 28px;
+  transition: all 0.2s ease;
+}
+.brush-btn-orange:hover {
+  background: #d44f17;
+  transform: translateY(-1px);
+}
+
+/* Dark brush bottom hero bar */
+.brush-banner-dark {
+  background-color: #131921;
+  background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+  border-radius: 24px 32px 18px 28px / 28px 18px 32px 24px;
+}
+
+/* Organic node line animations */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.animated-dash {
+  stroke-dasharray: 4 4;
+  animation: dash-flow 1.5s linear infinite;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Hide scrollbar for clean horizontal scrolls */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
