@@ -39,16 +39,16 @@ export const locationPages: LocationPage[] = [
     path: '/web-software-developer-karaikal',
     city: 'Karaikal',
     region: 'Puducherry',
-    title: 'Web Developer in Karaikal | Websites & Software — BuiltbyGSV',
+    title: 'Website Developer in Karaikal | Web Development | BuiltbyGSV',
     description:
-      'BuiltbyGSV creates fast websites, custom software and local SEO foundations for Karaikal businesses, led by developer Gurusabarivasan M.',
+      'Website developer in Karaikal. BuiltbyGSV handles web development, custom software and local SEO for Karaikal businesses, led by Gurusabarivasan M (GuruGSV).',
     eyebrow: 'Web development rooted in Karaikal',
     intro:
-      'Modern digital products for Karaikal businesses that need more than a template. BuiltbyGSV, led by Gurusabarivasan M (GuruGSV), combines responsive web design, clean engineering and practical local SEO.',
+      'Web development in Karaikal for businesses that need more than a template. BuiltbyGSV, led by Gurusabarivasan M (GuruGSV), combines responsive website development, custom software development and practical local SEO.',
     localFocus: [
-      'Local-business websites designed to convert calls and enquiries',
+      'Website development for local businesses, built to convert calls and enquiries',
       'Google-friendly service pages and technical local SEO foundations',
-      'Booking, billing and workflow software tailored to daily operations',
+      'Custom software development for booking, billing and daily workflows',
     ],
     industries: ['Clinics & healthcare', 'Retail & services', 'Education', 'Local startups'],
     proof:

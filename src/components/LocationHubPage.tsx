@@ -61,7 +61,7 @@ export const LocationHubPage: React.FC<LocationHubPageProps> = ({ page, onStartP
         <div className="lg:col-span-7">
           <p className="font-handwritten text-lg text-[#0F8B75]">{page.eyebrow}</p>
           <h1 className="mt-3 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl xl:text-[3.4rem]">
-            Web developer for local businesses{' '}
+            Website developer{' '}
             <span className="relative inline-block font-handwritten text-4xl font-normal text-[#0F8B75] sm:text-5xl xl:text-[3.4rem]">
               in {page.city}.
               <YellowUnderline />

@@ -392,7 +392,7 @@ export const MobileServiceAreaPage: React.FC<{ page: ServiceAreaPage; onStartPro
 
 export const MobileHubPage: React.FC<{ page: LocationPage; onStartProject: () => void }> = ({ page, onStartProject }) => (
   <MobileShell backHref="/" backLabel="Back to home" onStartProject={onStartProject}>
-    <MobileHero eyebrow={page.eyebrow} lead="Website & software developer" tail={`in ${page.city}.`} answer={page.intro} kind="hero" />
+    <MobileHero eyebrow={page.eyebrow} lead="Website developer" tail={`in ${page.city}.`} answer={page.intro} kind="hero" />
 
     <DarkBanner onClick={onStartProject} line1="Turning ideas into" line2="impactful digital" accent="products." />
 

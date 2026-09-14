@@ -387,7 +387,7 @@ const locationRenderPages: RenderPage[] = locationPages.map((page) => ({
   title: page.title,
   description: page.description,
   eyebrow: `${page.region} · ${page.eyebrow}`,
-  heading: `Website and software development in ${page.city}.`,
+  heading: `Website developer in ${page.city}.`,
   intro: page.intro,
   sections: [
     { heading: `Work for ${page.city} businesses`, paragraphs: ['BuiltbyGSV works directly with local businesses and product teams that need a clearer website, a custom operating tool or a practical way to automate repetitive work.'], bullets: page.localFocus },
