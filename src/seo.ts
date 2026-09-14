@@ -1,7 +1,7 @@
 import type { ContentPage } from './contentPages';
 import type { Faq, ServiceAreaPage } from './serviceAreas';
 
-export const SITE_URL = 'https://builtbygsv.in';
+export const SITE_URL = 'https://www.builtbygsv.in';
 
 export const brandEntity = {
   studioName: 'BuiltbyGSV',

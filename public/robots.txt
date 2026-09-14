@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://builtbygsv.in/sitemap.xml
+Sitemap: https://www.builtbygsv.in/sitemap.xml

@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'V² Productions Website Case Study | BuiltbyGSV',
       seoDescription: 'BuiltbyGSV designed a responsive React website for V² Productions to present video editing, web design, digital marketing and live courses.',
-      publicImageUrl: 'https://builtbygsv.in/og-cover.png',
+      publicImageUrl: 'https://www.builtbygsv.in/og-cover.png',
       answerBlock: {
         question: 'What did BuiltbyGSV build for V² Productions?',
         answer: 'BuiltbyGSV designed and developed a premium creative studio website for V² Productions using React, TypeScript, Vite, Tailwind CSS and motion-led UI. The project presents video editing, web design, digital marketing and live 1-on-1 course offerings through a cinematic, responsive experience.',
@@ -197,7 +197,7 @@ export const PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'Thaai Clinic App Case Study | BuiltbyGSV',
       seoDescription: 'See how BuiltbyGSV designed a mobile-first React companion for Thaai Clinic with appointment booking, health records and direct clinic contact.',
-      publicImageUrl: 'https://builtbygsv.in/og-cover.png',
+      publicImageUrl: 'https://www.builtbygsv.in/og-cover.png',
       answerBlock: {
         question: 'What did BuiltbyGSV build for Thaai Clinic?',
         answer: 'BuiltbyGSV designed and developed Thaai Clinic as a mobile-first patient companion app in React and TypeScript. It features appointment booking, medical record vault, health tips, and direct call/WhatsApp contact with localStorage persistence.',

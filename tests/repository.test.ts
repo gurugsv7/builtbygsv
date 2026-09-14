@@ -75,8 +75,8 @@ test('prerender uses source content and emits a custom noindex 404', async () =>
 
 test('contact is indexable while the error page stays out of the sitemap', async () => {
   const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
-  assert.match(sitemap, /<loc>https:\/\/builtbygsv\.in\/contact<\/loc>/);
-  assert.doesNotMatch(sitemap, /<loc>https:\/\/builtbygsv\.in\/404<\/loc>/);
+  assert.ok(sitemap.includes(`<loc>${SITE_URL}/contact</loc>`));
+  assert.ok(!sitemap.includes(`<loc>${SITE_URL}/404</loc>`));
   assert.equal(getScreenFromPath('/contact'), 'contact');
 });
 
@@ -233,4 +233,29 @@ test('prerender emits the new page collections, sitemap and llms.txt from source
   assert.match(prerender, /contentPages\.map/);
   assert.match(prerender, /sitemap\.xml/);
   assert.match(prerender, /llms\.txt/);
+});
+
+test('canonical host matches the host that actually serves 200, on every surface', async () => {
+  // The apex 308-redirects to www on Vercel. If SITE_URL ever points at the
+  // redirecting host again, every canonical, sitemap <loc> and robots.txt entry
+  // names a URL that redirects, and Google refuses to index any of them
+  // ("Redirect error"). This guards the whole 40-page set.
+  assert.equal(SITE_URL, 'https://www.builtbygsv.in');
+  assert.doesNotMatch(SITE_URL, /\/$/, 'SITE_URL must not end in a slash');
+
+  const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
+  for (const [, loc] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    assert.ok(loc.startsWith(`${SITE_URL}/`), `sitemap entry is not on the canonical host: ${loc}`);
+  }
+
+  const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
+  assert.match(robots, new RegExp(`Sitemap: ${SITE_URL}/sitemap\.xml`));
+});
+
+test('no source file hardcodes the bare apex domain', async () => {
+  for (const file of ['../index.html', '../vercel.json', '../src/data/mockData.ts', '../src/seo.ts']) {
+    const source = await readFile(new URL(file, import.meta.url), 'utf8');
+    // Match builtbygsv.in only when not already preceded by "www."
+    assert.doesNotMatch(source, /https:\/\/(?!www\.)builtbygsv\.in/, `${file} references the apex host`);
+  }
 });

@@ -14,7 +14,7 @@
           "value": "gurugsv.in"
         }
       ],
-      "destination": "https://builtbygsv.in/:path*",
+      "destination": "https://www.builtbygsv.in/:path*",
       "permanent": true
     },
     {
@@ -25,7 +25,7 @@
           "value": "www.gurugsv.in"
         }
       ],
-      "destination": "https://builtbygsv.in/:path*",
+      "destination": "https://www.builtbygsv.in/:path*",
       "permanent": true
     }
   ],
