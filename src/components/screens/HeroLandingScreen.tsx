@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowRight, Code2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { BrandLogo } from '../BrandLogo';
 import { HeroIllustration } from '../illustrations/HeroIllustration';
 
 interface HeroLandingScreenProps {
@@ -11,14 +12,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
     <div className="flex h-[100dvh] min-h-[440px] flex-col overflow-hidden bg-[#F8F9FA] px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-[#131921] sm:px-8">
       {/* Top Header Logo */}
       <div className="z-10 flex shrink-0 items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 text-[#0F8B75] font-black tracking-tighter">
-            <Code2 className="h-5 w-5 stroke-[3]" />
-            <span className="text-[13px] font-extrabold tracking-tight text-[#131921] sm:text-sm">
-              Builtby<span className="text-[#0F8B75]">GSV</span>
-            </span>
-          </div>
-        </div>
+        <BrandLogo imageClassName="h-8 w-8" nameClassName="text-[13px] sm:text-sm" />
       </div>
 
       {/* Main Heading & Subtitle */}
