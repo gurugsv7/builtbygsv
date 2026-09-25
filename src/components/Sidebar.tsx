@@ -3,6 +3,7 @@ import { ScreenType } from '../types';
 import { Home, LayoutGrid, Code2, User, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import { SCREEN_PATHS } from '../routes';
 import { brandEntity } from '../seo';
+import { BrandLogo } from './BrandLogo';
 
 
 interface SidebarProps {
@@ -37,11 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className="flex items-center gap-2.5 cursor-pointer group px-1 pt-1 text-left"
           aria-label="Go to BuiltbyGSV home"
         >
-          <div className="font-mono text-2xl font-black text-[#0F8B75] tracking-tight group-hover:scale-105 transition-transform">
-            &lt;/&gt;
-          </div>
-          <span className="font-extrabold text-xl text-[#131921] tracking-tight">
-            Builtby<span className="text-[#0F8B75]">GSV</span>
+          <BrandLogo imageClassName="h-10 w-10 group-hover:scale-105 transition-transform" nameClassName="text-xl" />
           </span>
         </button>
 
