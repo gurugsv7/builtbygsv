@@ -1,11 +1,12 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Code2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ServiceAreaPage } from '../serviceAreas';
 import { ContentPage, PRICE_TABLE } from '../contentPages';
 import { PriceBand } from '../serviceAreas';
 import { SoftwareDevIllustration } from './illustrations/SoftwareDevIllustration';
 import { WebDevIllustration } from './illustrations/WebDevIllustration';
 import { MobileContentPage, MobileServiceAreaPage } from './MobileSeoPages';
+import { BrandLogo } from './BrandLogo';
 
 /*
  * Landing pages in the site's own sketchbook language: hand-drawn underlines,
@@ -134,12 +135,7 @@ export const IllustrationDisk: React.FC<{ kind: 'web' | 'software' }> = ({ kind 
 export const SiteHeader: React.FC<{ onStartProject: () => void }> = ({ onStartProject }) => (
   <header className="px-5 pt-5 sm:px-8 lg:px-12">
     <div className="mx-auto flex max-w-6xl items-center justify-between">
-      <a href="/" className="flex items-center gap-1.5 font-extrabold tracking-tight text-[#131921]">
-        <Code2 className="h-5 w-5 stroke-[3] text-[#0F8B75]" />
-        <span className="text-sm">
-          Builtby<span className="text-[#0F8B75]">GSV</span>
-        </span>
-      </a>
+      <a href="/" aria-label="BuiltbyGSV home"><BrandLogo imageClassName="h-8 w-8" nameClassName="text-sm" /></a>
       <div className="flex items-center gap-3">
         <div className="hidden items-center gap-2 rounded-full border border-slate-200/80 bg-white px-3.5 py-1.5 shadow-2xs sm:flex">
           <span className="h-2 w-2 animate-pulse rounded-full bg-[#10B981]" />
