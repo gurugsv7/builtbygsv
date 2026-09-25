@@ -12,7 +12,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
     <div className="flex h-[100dvh] min-h-[440px] flex-col overflow-hidden bg-[#F8F9FA] px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-[#131921] sm:px-8">
       {/* Top Header Logo */}
       <div className="z-10 flex shrink-0 items-center justify-between">
-        <BrandLogo imageClassName="h-8 w-8" nameClassName="text-[13px] sm:text-sm" />
+        <BrandLogo nameClassName="text-[13px] sm:text-sm" />
       </div>
 
       {/* Main Heading & Subtitle */}

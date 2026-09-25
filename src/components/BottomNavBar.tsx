@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, LayoutGrid, Briefcase, User, Code2 } from 'lucide-react';
+import { Home, LayoutGrid, Briefcase, User } from 'lucide-react';
 import { ScreenType } from '../types';
 import { SCREEN_PATHS } from '../routes';
 
@@ -17,7 +17,7 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
   const navItems = [
     { id: 'home' as ScreenType, label: 'Home', icon: Home },
     { id: 'projects' as ScreenType, label: 'Projects', icon: LayoutGrid },
-    { id: 'start-action', label: 'Start', icon: Code2, isCenter: true },
+    { id: 'start-action', label: 'Start', isCenter: true },
     { id: 'services' as ScreenType, label: 'Services', icon: Briefcase },
     { id: 'profile' as ScreenType, label: 'Me', icon: User },
   ];
@@ -34,16 +34,16 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
               <button
                 key="center-cta"
                 onClick={onOpenStartProject}
-                className="pointer-events-auto relative -top-5 bg-[#00C4CC] hover:bg-[#00b2b8] text-white w-13 h-13 rounded-full flex items-center justify-center shadow-lg shadow-[#00C4CC]/35 transition-transform active:scale-95 border-2 border-white cursor-pointer"
+                className="pointer-events-auto relative -top-5 bg-[#101A19] hover:bg-[#17342E] text-white w-13 h-13 rounded-full flex items-center justify-center shadow-lg shadow-slate-900/20 transition-transform active:scale-95 border-2 border-white cursor-pointer"
                 title="Start a Project"
                 id="btn-center-start-project"
               >
-                <span className="font-mono font-black text-white text-base tracking-tighter">&lt;/&gt;</span>
+                <img src="/icon-192.png" alt="" className="h-9 w-9 rounded-lg object-cover" />
               </button>
             );
           }
 
-          const Icon = item.icon;
+          const Icon = item.icon!;
           const isActive =
             currentScreen === item.id ||
             (item.id === 'projects' && currentScreen === 'project-detail') ||

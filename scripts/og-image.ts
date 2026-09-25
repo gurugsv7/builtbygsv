@@ -14,8 +14,13 @@ const source = resolve('public', 'og-cover.svg');
 const targets = [resolve('public', 'og-cover.png'), resolve('dist', 'og-cover.png')];
 
 const svg = await readFile(source);
+const logo = await sharp(resolve('public', 'assets', 'builtbygsv-mark.png'))
+  .resize(220, 84)
+  .png()
+  .toBuffer();
 const png = await sharp(svg, { density: 144 })
   .resize(1200, 630, { fit: 'contain', background: '#F1F4F2' })
+  .composite([{ input: logo, left: 72, top: 72 }])
   .png({ compressionLevel: 9 })
   .toBuffer();
 

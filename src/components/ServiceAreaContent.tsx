@@ -135,7 +135,7 @@ export const IllustrationDisk: React.FC<{ kind: 'web' | 'software' }> = ({ kind 
 export const SiteHeader: React.FC<{ onStartProject: () => void }> = ({ onStartProject }) => (
   <header className="px-5 pt-5 sm:px-8 lg:px-12">
     <div className="mx-auto flex max-w-6xl items-center justify-between">
-      <a href="/" aria-label="BuiltbyGSV home"><BrandLogo imageClassName="h-8 w-8" nameClassName="text-sm" /></a>
+      <a href="/" aria-label="BuiltbyGSV home"><BrandLogo nameClassName="text-sm" /></a>
       <div className="flex items-center gap-3">
         <div className="hidden items-center gap-2 rounded-full border border-slate-200/80 bg-white px-3.5 py-1.5 shadow-2xs sm:flex">
           <span className="h-2 w-2 animate-pulse rounded-full bg-[#10B981]" />

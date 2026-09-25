@@ -38,7 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className="flex items-center gap-2.5 cursor-pointer group px-1 pt-1 text-left"
           aria-label="Go to BuiltbyGSV home"
         >
-          <BrandLogo imageClassName="h-10 w-10 group-hover:scale-105 transition-transform" nameClassName="text-xl" />
+          <BrandLogo nameClassName="text-xl" />
         </button>
 
         {/* Navigation Items List - Spaced out to use vertical space */}

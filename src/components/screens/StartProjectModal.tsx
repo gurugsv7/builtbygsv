@@ -61,9 +61,7 @@ export const StartProjectModal: React.FC<StartProjectModalProps> = ({
         {/* Header */}
         <div className="sticky top-0 bg-[#F8F9FA]/95 backdrop-blur-md px-5 py-4 border-b border-slate-200/80 flex items-center justify-between z-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#0F8B75] text-white flex items-center justify-center font-extrabold text-xs">
-              &lt;/&gt;
-            </div>
+            <img src="/icon-192.png" alt="" className="h-8 w-8 rounded-lg object-cover" />
             <div>
               <h2 id="start-project-title" className="text-sm font-extrabold text-slate-900">Start a Project</h2>
               <p className="text-[10px] text-slate-500">Create a pre-filled email with your project details</p>

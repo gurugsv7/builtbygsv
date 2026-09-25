@@ -114,6 +114,7 @@ export const createOrganizationSchema = () => ({
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: brandEntity.studioName,
+      logo: `${SITE_URL}/assets/builtbygsv-logo.png`,
       alternateName: ['Built by GSV', 'GuruGSV', 'Guru GSV'],
       url: SITE_URL,
       founder: { '@id': `${SITE_URL}/#gurusabarivasan` },

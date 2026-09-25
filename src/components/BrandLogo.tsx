@@ -2,23 +2,21 @@ import React from 'react';
 
 interface BrandLogoProps {
   showName?: boolean;
-  imageClassName?: string;
   nameClassName?: string;
   className?: string;
 }
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
   showName = true,
-  imageClassName = 'h-9 w-9',
   nameClassName = 'text-base',
   className = '',
 }) => (
   <span className={`inline-flex items-center gap-2.5 ${className}`}>
     <img
-      src="/builtbygsv-logo.png"
+      src="/assets/builtbygsv-mark.png"
       alt=""
       aria-hidden="true"
-      className={`${imageClassName} shrink-0 rounded-[22%] object-cover shadow-sm`}
+      className="h-7 w-[74px] shrink-0 rounded-md border border-[#0F8B75]/30 bg-[#050909] object-contain shadow-sm"
     />
     {showName ? (
       <span className={`font-extrabold tracking-tight text-[#131921] ${nameClassName}`}>

@@ -322,7 +322,7 @@ export default function App() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b pb-4">
                   <div className="flex items-center gap-2">
-                    <BrandLogo imageClassName="h-8 w-8" nameClassName="text-sm" />
+                    <BrandLogo nameClassName="text-sm" />
                     <span id="quick-menu-title" className="sr-only">BuiltbyGSV Menu</span>
                   </div>
                   <button

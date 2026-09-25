@@ -4,6 +4,7 @@ import {
   Zap, Bot, Layers, Cloud, Calendar, Sparkles, Mail
 } from 'lucide-react';
 import { ScreenType, ServiceType } from '../../types';
+import { BrandLogo } from '../BrandLogo';
 
 interface ServicesOverviewScreenProps {
   onBack?: () => void;
@@ -41,14 +42,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
             <ArrowLeft className="w-5 h-5 stroke-[2.2]" />
           </button>
 
-          <div className="flex items-center gap-1.5 select-none">
-            <div className="font-mono text-base font-black text-[#0F8B75] tracking-tight">
-              &lt;/&gt;
-            </div>
-            <span className="font-extrabold text-base text-[#131921] tracking-tight">
-              Builtby<span className="text-[#0F8B75]">GSV</span>
-            </span>
-          </div>
+          <BrandLogo nameClassName="text-sm" />
 
           <button
             onClick={onOpenMenu}

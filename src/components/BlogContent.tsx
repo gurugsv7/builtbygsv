@@ -6,7 +6,7 @@ import { blogPosts } from '../blog';
 const JournalHeader = () => (
   <header className="border-b border-slate-200/80 bg-[#F8F9FA] px-5 py-5 sm:px-8 lg:px-12">
     <div className="mx-auto flex max-w-6xl items-center justify-between">
-      <a href="/" aria-label="BuiltbyGSV home"><BrandLogo imageClassName="h-9 w-9" nameClassName="text-base" /></a>
+      <a href="/" aria-label="BuiltbyGSV home"><BrandLogo nameClassName="text-base" /></a>
       <nav aria-label="Journal navigation" className="hidden items-center gap-5 sm:flex">
         <a href="/web-software-developer-karaikal" className="flex items-center gap-2 text-xs font-extrabold text-slate-600 transition hover:text-[#0F8B75]">
           <MapPin className="h-4 w-4" /> Karaikal services

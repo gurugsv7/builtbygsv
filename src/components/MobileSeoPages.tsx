@@ -53,7 +53,7 @@ const MobileHeader: React.FC<{ backHref: string; backLabel: string }> = ({ backH
     >
       <ArrowLeft className="h-5 w-5 stroke-[2.2]" />
     </a>
-    <a href="/" className="select-none"><BrandLogo imageClassName="h-8 w-8" nameClassName="text-base" /></a>
+    <a href="/" className="select-none"><BrandLogo nameClassName="text-base" /></a>
     <a
       href="/contact"
       aria-label="Contact"
