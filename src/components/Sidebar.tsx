@@ -39,7 +39,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           aria-label="Go to BuiltbyGSV home"
         >
           <BrandLogo imageClassName="h-10 w-10 group-hover:scale-105 transition-transform" nameClassName="text-xl" />
-          </span>
         </button>
 
         {/* Navigation Items List - Spaced out to use vertical space */}
