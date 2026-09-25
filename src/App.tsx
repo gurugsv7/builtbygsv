@@ -30,7 +30,8 @@ import { ProjectDetailModal } from './components/screens/ProjectDetailModal';
 import { StartProjectModal } from './components/screens/StartProjectModal';
 import { NotificationsDrawer } from './components/screens/NotificationsDrawer';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
-import { X, Code2, Home, LayoutGrid, Briefcase, User, GitCommit, Mail } from 'lucide-react';
+import { X, Home, LayoutGrid, Briefcase, User, GitCommit, Mail } from 'lucide-react';
+import { BrandLogo } from './components/BrandLogo';
 
 const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
@@ -321,8 +322,8 @@ export default function App() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b pb-4">
                   <div className="flex items-center gap-2">
-                    <Code2 className="w-6 h-6 text-[#0F8B75]" />
-                    <span id="quick-menu-title" className="font-extrabold text-slate-900">BuiltbyGSV Menu</span>
+                    <BrandLogo imageClassName="h-8 w-8" nameClassName="text-sm" />
+                    <span id="quick-menu-title" className="sr-only">BuiltbyGSV Menu</span>
                   </div>
                   <button
                     onClick={() => setIsMenuOpen(false)}
