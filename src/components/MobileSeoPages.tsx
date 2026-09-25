@@ -22,6 +22,7 @@ import { HeroIllustration } from './illustrations/HeroIllustration';
 import { SoftwareDevIllustration } from './illustrations/SoftwareDevIllustration';
 import { WebDevIllustration } from './illustrations/WebDevIllustration';
 import { HandTick } from './ServiceAreaContent';
+import { BrandLogo } from './BrandLogo';
 
 /*
  * Mobile (<lg) versions of the SEO landing pages.
@@ -52,12 +53,7 @@ const MobileHeader: React.FC<{ backHref: string; backLabel: string }> = ({ backH
     >
       <ArrowLeft className="h-5 w-5 stroke-[2.2]" />
     </a>
-    <a href="/" className="flex select-none items-center gap-1.5">
-      <span className="font-mono text-base font-black tracking-tight text-[#0F8B75]">&lt;/&gt;</span>
-      <span className="text-base font-extrabold tracking-tight text-[#131921]">
-        Builtby<span className="text-[#0F8B75]">GSV</span>
-      </span>
-    </a>
+    <a href="/" className="select-none"><BrandLogo imageClassName="h-8 w-8" nameClassName="text-base" /></a>
     <a
       href="/contact"
       aria-label="Contact"
