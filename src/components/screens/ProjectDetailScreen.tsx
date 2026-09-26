@@ -21,6 +21,9 @@ import {
   Zap,
 } from 'lucide-react';
 import type { Project } from '../../types';
+import { motion } from 'motion/react';
+import { CaseFlow } from '../visuals/CaseFlow';
+import { EASE } from '../../motion/tokens';
 import v2Glimpse1 from '../../assets/v2productions/glimpse1.png';
 import v2Glimpse2 from '../../assets/v2productions/glimpse2.png';
 import v2Glimpse3 from '../../assets/v2productions/glimpse3.png';
@@ -96,7 +99,7 @@ export const ProjectDetailScreen = ({
           onClick={onBack}
           className="group inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#0F8B75]"
         >
-          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft className="nudge-l h-4 w-4" />
           Back to work
         </button>
         <button
@@ -111,7 +114,7 @@ export const ProjectDetailScreen = ({
       <section className="mx-auto grid w-full max-w-[1400px] gap-10 px-5 py-10 lg:grid-cols-12 lg:items-center lg:px-12 lg:py-16">
         <div className="space-y-6 lg:col-span-6">
           <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] ${accentBg} ${accent}`}>
-            <Sparkles className="h-3.5 w-3.5" /> {detail?.engagement} ? {project.category} case study
+            <Sparkles className="h-3.5 w-3.5" /> {detail?.engagement} · {project.category} case study
           </div>
           <div>
             <h1 className="text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">
@@ -163,11 +166,14 @@ export const ProjectDetailScreen = ({
         <div className="relative lg:col-span-6">
           <div className={`absolute inset-8 rounded-full ${isHealthcare ? 'bg-rose-200' : 'bg-emerald-200'} opacity-70 blur-2xl`} />
           {heroImage ? (
-            <img
+            <motion.img
               src={heroImage}
               alt={`${project.title} project preview`}
               className="relative mx-auto max-h-[34rem] w-full object-contain drop-shadow-2xl"
               fetchPriority="high"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: EASE.out, delay: 0.1 }}
             />
           ) : (
             <div className="relative mx-auto flex aspect-[4/3] max-w-xl items-center justify-center overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl">
@@ -179,6 +185,8 @@ export const ProjectDetailScreen = ({
           )}
         </div>
       </section>
+
+      <CaseFlow project={project} accent={isHealthcare ? '#E11D48' : '#0F8B75'} />
 
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto grid max-w-[1400px] gap-8 px-5 py-12 lg:grid-cols-[1fr_1.15fr] lg:px-12 lg:py-16">
@@ -224,9 +232,9 @@ export const ProjectDetailScreen = ({
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Inside the experience</h2>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {glimpses.map((glimpse) => (
-              <article key={glimpse.title} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <article key={glimpse.title} className="lift group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
                 {glimpse.image ? (
-                  <img src={glimpse.image} alt={`${project.title}: ${glimpse.title}`} className="aspect-[4/3] w-full object-cover object-top" loading="lazy" />
+                  <div className="zoom-frame"><img src={glimpse.image} alt={`${project.title}: ${glimpse.title}`} className="aspect-[4/3] w-full object-cover object-top" loading="lazy" /></div>
                 ) : (
                   <div className={`flex aspect-[4/3] items-center justify-center ${accentBg}`}>
                     <Smartphone className={`h-12 w-12 ${accent}`} />

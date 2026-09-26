@@ -1,7 +1,11 @@
 import { ServiceEngagement } from '../ServiceEngagement';
 import React, { useState } from 'react';
-import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Monitor, Rocket, Gauge, ShieldCheck, Check } from 'lucide-react';
+import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Monitor, Rocket, Gauge, ShieldCheck } from 'lucide-react';
 import { ServiceDetail } from '../../types';
+import { motion } from 'motion/react';
+import { ServiceDesktopLayout } from '../ServiceDesktopLayout';
+import { ServiceDiagram } from '../visuals/ServiceDiagrams';
+import { SERVICE_VISUALS } from '../../data/serviceVisuals';
 import { WebDevIllustration } from '../illustrations/WebDevIllustration';
 
 interface WebDevServiceScreenProps {
@@ -32,7 +36,12 @@ export const WebDevServiceScreen: React.FC<WebDevServiceScreenProps> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
+    <>
+    <div className="hidden lg:block">
+      <ServiceDesktopLayout service={service} icons={{ Monitor, Rocket, Gauge, ShieldCheck }} idPrefix="btn-webdev" isBookmarked={isBookmarked}
+        onToggleBookmark={onToggleBookmark} onBack={onBack} onStartProject={onStartProject} />
+    </div>
+    <div className="lg:hidden flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
       {/* Top Header Bar */}
       <div className="flex items-center justify-between py-1 z-10">
         <button
@@ -77,6 +86,11 @@ export const WebDevServiceScreen: React.FC<WebDevServiceScreenProps> = ({
           <WebDevIllustration className="w-28 h-28 sm:w-32 sm:h-32" />
         </div>
       </div>
+
+      <section aria-label="How it fits together" className="z-10 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs">
+        <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-wider" style={{ color: SERVICE_VISUALS['web-dev'].accent }}>How it fits together</p>
+        <ServiceDiagram visual={SERVICE_VISUALS['web-dev']} variant="mobile" />
+      </section>
 
       {/* Feature Cards Stack with Left Navy Strip Accent */}
       <div className="bg-white border border-slate-200/90 rounded-2xl shadow-sm overflow-hidden z-10">
@@ -124,13 +138,9 @@ export const WebDevServiceScreen: React.FC<WebDevServiceScreenProps> = ({
 
                   {/* Expanded Detail Panel */}
                   {isExpanded && feature.details && (
-                    <div className="mt-2.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-emerald-50/50 p-2.5 rounded-xl border border-emerald-100/60">
+                    <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-emerald-50/50 p-2.5 rounded-xl border border-emerald-100/60">
                       <p className="font-medium">{feature.details}</p>
-                      <div className="flex items-center gap-1 text-[#0F8B75] font-bold text-[10px] pt-1">
-                        <Check className="w-3 h-3 stroke-[3]" />
-                        Included in Web Development Package
-                      </div>
-                    </div>
+                    </motion.div>
                   )}
                 </button>
               );
@@ -166,5 +176,6 @@ export const WebDevServiceScreen: React.FC<WebDevServiceScreenProps> = ({
         </button>
       </div>
     </div>
+    </>
   );
 };

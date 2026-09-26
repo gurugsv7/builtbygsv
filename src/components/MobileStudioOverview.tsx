@@ -1,5 +1,7 @@
 import { ArrowRight, ChevronRight, Code2, Cpu, Laptop, Video, Workflow } from 'lucide-react';
 import type { Project, ScreenType } from '../types';
+import { motion } from 'motion/react';
+import { groupVariants, itemVariants } from '../motion/primitives';
 
 interface Props {
   recentProject: Project;
@@ -19,21 +21,21 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
   return <>
     <section className="space-y-3 pt-1" aria-label="What we build">
       <h2 className="inline-block border-b-2 border-[#0F8B75] pb-1 font-serif text-2xl font-extrabold italic">What we build.</h2>
-      <div className="grid grid-cols-2 gap-3">
+      <motion.div className="grid grid-cols-2 gap-3" initial="hidden" animate="shown" variants={groupVariants}>
         {capabilities.map(({ screen, title, icon: Icon, color, border }) => (
-          <button key={screen} onClick={() => onNavigate(screen)} className={`flex items-center gap-2.5 rounded-2xl border border-slate-200/90 border-b-2 bg-white p-3.5 text-left shadow-2xs ${border}`}>
+          <motion.button variants={itemVariants} key={screen} onClick={() => onNavigate(screen)} className={`flex items-center gap-2.5 rounded-2xl border border-slate-200/90 border-b-2 bg-white p-3.5 text-left shadow-2xs transition-transform active:scale-[0.97] ${border}`}>
             <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${color}`}><Icon className="h-5 w-5" /></span>
             <span className="text-xs font-extrabold leading-tight">{title}</span>
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
     </section>
     <section className="space-y-2.5 pt-1" aria-label="Selected work">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-extrabold">Selected Work</h2>
         <button onClick={() => onNavigate('projects')} id="btn-mobile-recent-projects-view-all" className="py-1 text-xs font-bold text-[#0F8B75]">View all</button>
       </div>
-      <button onClick={() => onOpenProjectDetail(recentProject)} id="card-mobile-recent-project" className="flex w-full items-center gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 text-left shadow-2xs">
+      <button onClick={() => onOpenProjectDetail(recentProject)} id="card-mobile-recent-project" className="flex w-full items-center gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 text-left shadow-2xs transition-transform active:scale-[0.98]">
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-teal-100 bg-[#D5EAE3] text-[#0F8B75]"><Video className="h-6 w-6" /></span>
         <span className="min-w-0 flex-1">
           <span className="block text-base font-extrabold">{recentProject.title}</span>
@@ -45,7 +47,7 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
     </section>
     <div className="grid grid-cols-2 gap-3 pb-3">
       {[{ screen: 'careers', title: 'Careers', subtitle: 'We’re hiring interns' }, { screen: 'process', title: 'How we build', subtitle: 'Scope to release' }].map(item => (
-        <button key={item.screen} onClick={() => onNavigate(item.screen as ScreenType)} className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200/80 bg-[#E2F1ED]/40 p-3 text-left">
+        <button key={item.screen} onClick={() => onNavigate(item.screen as ScreenType)} className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200/80 bg-[#E2F1ED]/40 p-3 text-left transition-transform active:scale-[0.97]">
           <span><span className="block text-xs font-extrabold">{item.title}</span><span className="mt-1 block text-[10px] text-slate-500">{item.subtitle}</span></span>
           <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#0F8B75]" />
         </button>

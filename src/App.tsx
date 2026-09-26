@@ -35,6 +35,9 @@ import { StartProjectScreen } from './components/screens/StartProjectScreen';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
 import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
 import { BrandLogo } from './components/BrandLogo';
+import { PageTransition } from './motion/primitives';
+import { AnimatePresence, motion } from 'motion/react';
+import { DURATION, EASE } from './motion/tokens';
 
 const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
@@ -312,7 +315,9 @@ export default function App() {
               currentScreen !== 'hero' ? 'pb-24 lg:pb-0' : ''
             }`}
           >
-            {renderScreenContent()}
+            <PageTransition routeKey={`${currentScreen}:${selectedProject?.id ?? ''}`}>
+              {renderScreenContent()}
+            </PageTransition>
             <div className={currentScreen === 'hero' ? 'hidden lg:block' : ''}><BusinessFooter /></div>
           </div>
 
@@ -327,8 +332,11 @@ export default function App() {
         </div>
 
         {/* Quick Menu Slide-over Drawer */}
+        <AnimatePresence>
         {isMenuOpen && (
-          <div className="fixed inset-0 z-50 flex bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <motion.div key="quick-menu" className="fixed inset-0 z-50 flex bg-slate-900/60 backdrop-blur-xs"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: DURATION.base }}>
+            <motion.div initial={{ x: -24 }} animate={{ x: 0 }} exit={{ x: -24 }} transition={{ duration: DURATION.base, ease: EASE.out }} className="h-full">
             <div ref={menuRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="quick-menu-title" className="bg-white w-72 h-full overflow-y-auto shadow-2xl p-5 flex flex-col justify-between">
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b pb-4">
@@ -381,8 +389,10 @@ export default function App() {
                 </button>
               </div>
             </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
         {/* Project Case Study Detail Modal (Mobile Only) */}
         {selectedProject && isMobile && (

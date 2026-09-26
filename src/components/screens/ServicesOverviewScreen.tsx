@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { ScreenType, ServiceType } from '../../types';
 import { BrandLogo } from '../BrandLogo';
+import { CapabilityScene } from '../visuals/CapabilityScenes';
 
 interface ServicesOverviewScreenProps {
   onBack?: () => void;
@@ -565,33 +566,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               role="link"
               tabIndex={0}
               id="card-service-01"
-              className="group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+              className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-3">
-                <div className="relative w-full h-32 rounded-xl bg-[#E2F1ED] flex items-center justify-center overflow-hidden border border-emerald-100/80">
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:6px_6px]" />
+                <div className="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200/70 flex items-center justify-center px-2" style={{ backgroundColor: '#E2F1ED' }}>
                   <span className="absolute top-2 left-2.5 font-extrabold text-[#0F8B75] text-sm font-mono">01</span>
-
-                  <div className="relative z-10 w-20 h-16 bg-white rounded-lg border border-[#131921] shadow-sm p-1.5 flex flex-col gap-1">
-                    <div className="h-2 flex items-center gap-1 border-b border-slate-200 pb-0.5">
-                      <span className="w-1 h-1 rounded-full bg-[#131921]" />
-                      <span className="w-1 h-1 rounded-full bg-[#131921]" />
-                      <span className="w-1 h-1 rounded-full bg-[#131921]" />
-                    </div>
-                    <div className="flex-1 flex gap-1">
-                      <div className="w-6 bg-[#0F8B75] rounded-[3px] flex items-center justify-center text-[8px] text-white font-mono font-bold">
-                        =/&gt;
-                      </div>
-                      <div className="flex-1 flex flex-col gap-1">
-                        <div className="h-2 bg-slate-100 rounded border border-slate-200" />
-                        <div className="h-2 bg-slate-100 rounded border border-slate-200" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <svg className="absolute bottom-1 right-2 w-8 h-4 text-[#131921]" viewBox="0 0 30 15" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 2 8 Q 12 15, 22 3 T 28 10" />
-                  </svg>
+                  <div className="h-full w-full py-3 transition-transform duration-500 group-hover:scale-[1.04]" aria-hidden="true"><CapabilityScene id="web-dev" /></div>
                 </div>
 
                 <div className="space-y-0.5">
@@ -624,7 +604,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="flex justify-end pt-3">
                 <div className="w-7 h-7 rounded-full bg-[#E2F1ED] text-[#0F8B75] group-hover:bg-[#0F8B75] group-hover:text-white flex items-center justify-center transition-all">
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
             </div>
@@ -636,32 +616,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               role="link"
               tabIndex={0}
               id="card-service-02"
-              className="group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+              className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-3">
-                <div className="relative w-full h-32 rounded-xl bg-[#FEF3C7] flex items-center justify-center overflow-hidden border border-amber-100/80">
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#D97706_1px,transparent_1px)] [background-size:6px_6px]" />
-                  <span className="absolute top-2 left-2.5 font-extrabold text-[#D97706] text-sm font-mono">02</span>
-
-                  <div className="relative z-10 w-16 h-16 flex items-center justify-center">
-                    <svg className="w-14 h-14 stroke-[#131921]" viewBox="0 0 40 40" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="20,4 28,8 20,12 12,8" fill="white" />
-                      <polygon points="12,8 20,12 20,20 12,16" fill="#F8FAFC" />
-                      <polygon points="20,12 28,8 28,16 20,20" fill="#E2E8F0" />
-
-                      <polygon points="12,16 20,20 12,24 4,20" fill="#F59E0B" />
-                      <polygon points="4,20 12,24 12,32 4,28" fill="#D97706" />
-                      <polygon points="12,24 20,20 20,28 12,32" fill="#FBBF24" />
-
-                      <polygon points="28,16 36,20 28,24 20,20" fill="white" />
-                      <polygon points="20,20 28,24 28,32 20,28" fill="#E2E8F0" />
-                      <polygon points="28,24 36,20 36,28 28,32" fill="#CBD5E1" />
-                    </svg>
-                  </div>
-
-                  <svg className="absolute bottom-1 right-2 w-8 h-4 text-[#131921]" viewBox="0 0 30 15" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 2 8 Q 12 15, 22 3 T 28 10" />
-                  </svg>
+                <div className="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200/70 flex items-center justify-center px-2" style={{ backgroundColor: '#FEF3C7' }}>
+                  <span className="absolute top-2 left-2.5 font-extrabold text-[#0F8B75] text-sm font-mono">02</span>
+                  <div className="h-full w-full py-3 transition-transform duration-500 group-hover:scale-[1.04]" aria-hidden="true"><CapabilityScene id="software-dev" /></div>
                 </div>
 
                 <div className="space-y-0.5">
@@ -694,7 +654,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="flex justify-end pt-3">
                 <div className="w-7 h-7 rounded-full bg-[#FEF3C7] text-[#D97706] group-hover:bg-[#D97706] group-hover:text-white flex items-center justify-center transition-all">
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
             </div>
@@ -706,29 +666,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               role="link"
               tabIndex={0}
               id="card-service-03"
-              className="group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+              className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-3">
-                <div className="relative w-full h-32 rounded-xl bg-[#E2F1ED] flex items-center justify-center overflow-hidden border border-teal-100/80">
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:6px_6px]" />
+                <div className="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200/70 flex items-center justify-center px-2" style={{ backgroundColor: '#E2F1ED' }}>
                   <span className="absolute top-2 left-2.5 font-extrabold text-[#0F8B75] text-sm font-mono">03</span>
-
-                  <div className="relative z-10 w-16 h-16 flex items-center justify-center">
-                    <svg className="w-14 h-14 stroke-[#131921]" viewBox="0 0 36 36" fill="none" strokeWidth="1.5" strokeLinecap="round">
-                      <rect x="4" y="7" width="28" height="22" rx="4" fill="white" />
-                      <path d="M 18 8 L 18 26" strokeDasharray="2 2" />
-                      <circle cx="10" cy="14" r="1.5" fill="#0F8B75" />
-                      <circle cx="26" cy="14" r="1.5" fill="#0F8B75" />
-                      <circle cx="14" cy="20" r="1.5" fill="#0F8B75" />
-                      <circle cx="22" cy="20" r="1.5" fill="#0F8B75" />
-                      <line x1="10" y1="14" x2="14" y2="20" />
-                      <line x1="26" y1="14" x2="22" y2="20" />
-                    </svg>
-                  </div>
-
-                  <svg className="absolute bottom-1 right-2 w-8 h-4 text-[#131921]" viewBox="0 0 30 15" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 2 8 Q 12 15, 22 3 T 28 10" />
-                  </svg>
+                  <div className="h-full w-full py-3 transition-transform duration-500 group-hover:scale-[1.04]" aria-hidden="true"><CapabilityScene id="ai-solutions" /></div>
                 </div>
 
                 <div className="space-y-0.5">
@@ -761,7 +704,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="flex justify-end pt-3">
                 <div className="w-7 h-7 rounded-full bg-[#E2F1ED] text-[#0F8B75] group-hover:bg-[#0F8B75] group-hover:text-white flex items-center justify-center transition-all">
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
             </div>
@@ -773,24 +716,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               role="link"
               tabIndex={0}
               id="card-service-04"
-              className="group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+              className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-3">
-                <div className="relative w-full h-32 rounded-xl bg-[#E6F4F1] flex items-center justify-center overflow-hidden border border-teal-100/80">
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:6px_6px]" />
+                <div className="relative w-full h-40 rounded-xl overflow-hidden border border-slate-200/70 flex items-center justify-center px-2" style={{ backgroundColor: '#E6F4F1' }}>
                   <span className="absolute top-2 left-2.5 font-extrabold text-[#0F8B75] text-sm font-mono">04</span>
-
-                  <div className="relative z-10 w-16 h-16 flex items-center justify-center">
-                    <svg className="w-14 h-14 stroke-[#131921]" viewBox="0 0 36 36" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M 8 22 C 4 22, 3 17, 7 14 C 6 10, 11 8, 15 10 C 18 7, 24 8, 25 12 C 29 12, 31 16, 28 20 C 31 24, 27 26, 23 25 L 8 25 Z" fill="white" />
-                      <path d="M 18 16 L 22 18 V 22 C 22 24.5 18 26 18 26 C 18 26 14 24.5 14 22 V 18 L 18 16 Z" fill="#E2F1ED" stroke="#0F8B75" strokeWidth="1.5" />
-                      <polyline points="16.5,21 17.5,22.5 19.5,19.5" stroke="#0F8B75" strokeWidth="1.5" />
-                    </svg>
-                  </div>
-
-                  <svg className="absolute bottom-1 right-2 w-8 h-4 text-[#131921]" viewBox="0 0 30 15" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M 2 8 Q 12 15, 22 3 T 28 10" />
-                  </svg>
+                  <div className="h-full w-full py-3 transition-transform duration-500 group-hover:scale-[1.04]" aria-hidden="true"><CapabilityScene id="automation" /></div>
                 </div>
 
                 <div className="space-y-0.5">
@@ -823,7 +754,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="flex justify-end pt-3">
                 <div className="w-7 h-7 rounded-full bg-[#E6F4F1] text-[#0F8B75] group-hover:bg-[#0F8B75] group-hover:text-white flex items-center justify-center transition-all">
-                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
             </div>

@@ -4,6 +4,8 @@ import { Home, LayoutGrid, Code2, Building2, Briefcase, Github, Linkedin, Mail, 
 import { SCREEN_PATHS } from '../routes';
 import { brandEntity } from '../seo';
 import { BrandLogo } from './BrandLogo';
+import { motion } from 'motion/react';
+import { SPRING } from '../motion/tokens';
 
 
 interface SidebarProps {
@@ -60,14 +62,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   event.preventDefault();
                   onNavigate(item.id);
                 }}
-                className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold transition-all cursor-pointer ${
+                className={`group relative w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-bold transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#E2F1ED] text-[#0F8B75] shadow-2xs font-extrabold translate-x-1'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 hover:translate-x-0.5'
+                    ? 'text-[#0F8B75] font-extrabold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
                 }`}
               >
-                <Icon className={`w-5 h-5 stroke-[2.2] ${isActive ? 'text-[#0F8B75]' : 'text-slate-500'}`} />
-                <span>{item.label}</span>
+                {isActive && <motion.span layoutId="sidebar-active" transition={SPRING.gentle} className="absolute inset-0 rounded-2xl bg-[#E2F1ED] shadow-2xs" />}
+                <Icon className={`relative w-5 h-5 stroke-[2.2] transition-transform duration-300 ${isActive ? 'text-[#0F8B75] translate-x-0.5' : 'text-slate-500 group-hover:translate-x-0.5'}`} />
+                <span className="relative">{item.label}</span>
               </a>
             );
           })}
@@ -103,11 +106,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={onOpenStartProject}
             id="btn-sidebar-start-project"
-            className="w-full bg-[#09121F] hover:bg-slate-800 text-white py-1.5 pl-4 pr-1.5 rounded-full text-xs font-bold flex items-center justify-between transition-all cursor-pointer group shadow-xs active:scale-98"
+            className="press group w-full bg-[#09121F] hover:bg-slate-800 text-white py-1.5 pl-4 pr-1.5 rounded-full text-xs font-bold flex items-center justify-between cursor-pointer shadow-xs"
           >
             <span>Start a Project</span>
-            <div className="w-6 h-6 rounded-full bg-[#10B981] text-slate-950 flex items-center justify-center group-hover:translate-x-0.5 transition-transform shrink-0">
-              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+            <div className="w-6 h-6 rounded-full bg-[#10B981] text-slate-950 flex items-center justify-center shrink-0">
+              <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[3]" />
             </div>
           </button>
         </div>

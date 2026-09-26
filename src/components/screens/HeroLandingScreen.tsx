@@ -2,6 +2,8 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { BrandLogo } from '../BrandLogo';
 import { HeroIllustration } from '../illustrations/HeroIllustration';
+import { motion } from 'motion/react';
+import { EASE } from '../../motion/tokens';
 
 interface HeroLandingScreenProps {
   onGetStarted: () => void;
@@ -18,7 +20,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
 
       <p className="mt-4 text-[9px] font-extrabold uppercase tracking-widest text-[#0F8B75]">Product &amp; AI Engineering Studio</p>
       {/* Main Heading & Subtitle */}
-      <div className="z-10 mt-6 shrink-0 space-y-3 sm:mt-8">
+      <motion.div className="z-10 mt-6 shrink-0 space-y-3 sm:mt-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out }}>
         <h1 className="text-[clamp(1.75rem,8.6vw,3.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#131921]">
           <span className="block whitespace-nowrap">We build</span>
           <span className="block whitespace-nowrap">
@@ -34,15 +36,15 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
           Product. Software. AI.<br />
           Engineered around real problems.
         </p>
-      </div>
+      </motion.div>
 
       {/* Hero Illustration Graphic */}
-      <div className="z-10 flex min-h-0 flex-1 items-center justify-center py-1">
+      <motion.div className="z-10 flex min-h-0 flex-1 items-center justify-center py-1" initial={{ opacity: 0, scale: 0.94, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: 0.8, ease: EASE.out, delay: 0.15 }}>
         <HeroIllustration className="my-0 w-[min(78vw,340px)] max-h-full mx-auto" />
-      </div>
+      </motion.div>
 
       {/* Bottom Dark Brush Call-to-Action Banner */}
-      <div className="z-10 shrink-0">
+      <motion.div className="z-10 shrink-0" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out, delay: 0.3 }}>
         <button
           onClick={onStartProject}
           id="btn-hero-cta"
@@ -109,7 +111,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
           </div>
         </button>
         <button onClick={onGetStarted} className="mt-3 w-full py-2 text-center text-xs font-bold text-[#0F8B75]">Explore the Studio <span aria-hidden="true">↗</span></button>
-      </div>
+      </motion.div>
     </div>
   );
 };

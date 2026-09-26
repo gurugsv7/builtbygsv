@@ -13,6 +13,7 @@ export default defineConfig(() => {
           // edit does not invalidate ~140 kB of React for every returning visitor.
           manualChunks: {
             react: ['react', 'react-dom', 'react-dom/client'],
+            motion: ['motion/react'],
           },
         },
       },

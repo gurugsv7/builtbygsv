@@ -8,11 +8,18 @@ import {
   Coins,
   Cross,
   Gamepad2,
+  Heart,
   PawPrint,
   Sprout,
   Video,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { motion } from 'motion/react';
+import { WORK_SUMMARIES } from '../../data/studio';
+import { DURATION, EASE, SPRING } from '../../motion/tokens';
+import v2Preview from '../../assets/v2productions/hero.png';
+
+const PROJECT_PREVIEWS: Record<string, string> = { 'v2-productions': v2Preview };
 import type { Project, ScreenType } from '../../types';
 
 interface ProjectsListScreenProps {
@@ -28,6 +35,7 @@ const projectIcons: Record<string, LucideIcon> = {
   Coins,
   Cross,
   Gamepad2,
+  Heart,
   PawPrint,
   Sprout,
   Video,
@@ -107,13 +115,14 @@ export const ProjectsListScreen = ({
                     key={item}
                     onClick={() => setCategory(item)}
                     aria-pressed={category === item}
-                    className={`shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition ${
+                    className={`relative shrink-0 rounded-full px-4 py-2 text-xs font-extrabold transition-colors ${
                       category === item
-                        ? 'bg-[#0F8B75] text-white'
+                        ? 'text-white'
                         : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-400'
                     }`}
                   >
-                    {item}
+                    {category === item && <motion.span layoutId="work-category" transition={SPRING.gentle} className="absolute inset-0 rounded-full bg-[#0F8B75]" />}
+                    <span className="relative">{item}</span>
                   </button>
                 ))}
               </div>
@@ -136,58 +145,56 @@ export const ProjectsListScreen = ({
           </div>
 
           {visibleProjects.length ? (
-            <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <motion.div layout className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {visibleProjects.map((project) => {
                 const Icon = projectIcons[project.iconName] ?? Briefcase;
                 return (
-                  <article key={project.id} className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5">
+                  <motion.article layout key={project.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out }}
+                    className="lift group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white hover:border-[#0F8B75]/50">
                     <button
                       type="button"
                       onClick={() => onOpenProjectDetail(project)}
-                      className="flex h-full w-full flex-col p-6 text-left sm:p-7"
+                      className="flex h-full w-full flex-col text-left"
                       aria-label={`View ${project.title} case study`}
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <span className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-100 ${project.iconBgColor} ${project.iconTextColor}`}>
-                          <Icon className="h-6 w-6" />
-                        </span>
-                        <span className={`rounded-full border px-2.5 py-1 text-[10px] font-extrabold ${project.statusColor ?? 'border-slate-200 bg-slate-50 text-slate-600'}`}>
+                      <div className={`zoom-frame relative flex h-44 items-center justify-center border-b border-slate-100 ${project.iconBgColor}`}>
+                        {PROJECT_PREVIEWS[project.id] ? (
+                          <img src={PROJECT_PREVIEWS[project.id]} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+                        ) : (
+                          <>
+                            <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(currentColor_1px,transparent_1px)] [background-size:14px_14px] opacity-15" />
+                            <span className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white bg-white/80 shadow-sm transition-transform duration-500 group-hover:-translate-y-1 ${project.iconTextColor}`}>
+                              <Icon className="h-8 w-8" />
+                            </span>
+                          </>
+                        )}
+                        <span className={`absolute right-4 top-4 rounded-full border px-2.5 py-1 text-[10px] font-extrabold ${project.statusColor ?? 'border-slate-200 bg-slate-50 text-slate-600'}`}>
                           {project.status}
                         </span>
                       </div>
-                      <div className="mt-10 flex-1">
-                        <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#0F8B75]">
-                          {project.detailData?.engagement}
+                      <div className="flex flex-1 flex-col p-6 sm:p-7">
+                        <div className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#0F8B75]">{project.detailData?.engagement}</div>
+                        <h3 className="mt-2 text-2xl font-extrabold tracking-tight transition group-hover:text-[#0F8B75]">{project.title}</h3>
+                        {WORK_SUMMARIES[project.id] ? (
+                          <dl className="mt-4 flex-1 space-y-3 text-sm leading-6">
+                            <div><dt className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Problem</dt><dd className="text-slate-700">{WORK_SUMMARIES[project.id].problem}</dd></div>
+                            <div><dt className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Built</dt><dd className="text-slate-700">{WORK_SUMMARIES[project.id].built}</dd></div>
+                          </dl>
+                        ) : (
+                          <p className="mt-3 flex-1 text-sm font-medium leading-6 text-slate-600">{project.subtitle}</p>
+                        )}
+                        <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
+                          <span className="font-mono text-[11px] text-slate-500">{project.tags.slice(0, 3).join(' · ')}</span>
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E2F1ED] text-[#0F8B75] transition group-hover:bg-[#0F8B75] group-hover:text-white">
+                            <ArrowRight className="nudge-r h-4 w-4" />
+                          </span>
                         </div>
-                        <h3 className="mt-3 text-2xl font-extrabold tracking-tight transition group-hover:text-[#0F8B75]">{project.title}</h3>
-                        <p className="mt-3 text-sm font-medium leading-6 text-slate-600">{project.subtitle}</p>
-                        <div className="mt-5 flex flex-wrap gap-1.5">
-                          {project.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="rounded-lg bg-slate-100 px-2.5 py-1 text-[10px] font-bold text-slate-600">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                      {project.metrics?.length ? (
-                        <div className="mt-7 grid grid-cols-2 gap-2 border-t border-slate-100 pt-5">
-                          {project.metrics.slice(0, 2).map((metric) => (
-                            <div key={metric.label}>
-                              <p className="text-sm font-black text-slate-900">{metric.value}</p>
-                              <p className="mt-0.5 text-[10px] font-bold text-slate-400">{metric.label}</p>
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-                      <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5 text-xs font-extrabold text-[#0F8B75]">
-                        View case study
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E2F1ED] transition group-hover:bg-[#0F8B75] group-hover:text-white">
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
                       </div>
                     </button>
-                  </article>
+                  </motion.article>
                 );
               })}
-            </div>
+            </motion.div>
           ) : (
             <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center">
               <Code2 className="mx-auto h-7 w-7 text-slate-400" />
