@@ -4,6 +4,8 @@ import test from 'node:test';
 import { blogPosts } from '../src/blog';
 import { blogRouteMetadata, getBlogRoute } from '../src/blogRoutes';
 import { PROJECTS } from '../src/data/mockData';
+import { CAREERS, careerEmail, careerPath, getCareerFromPath } from '../src/data/careers';
+import { brandEntity } from '../src/seo';
 import {
   appRouteMetadata,
   getAppRouteMetadata,
@@ -31,6 +33,22 @@ test('project routes are unique, canonical, and resolve to their project', () =>
     assert.equal(getScreenFromPath(path), 'project-detail');
     assert.equal(getAppRouteMetadata(path).title, project.detailData?.seoTitle ?? `${project.title} Case Study | BuiltbyGSV`);
   }
+});
+
+test('confirmed internship roles have routes, six-month terms and the business application address', () => {
+  assert.deepEqual(CAREERS.map(role => role.title), ['Software Engineer Intern', 'Web Developer Intern']);
+  assert.equal(brandEntity.email, 'admin@builtbygsv.in');
+  for (const role of CAREERS) {
+    assert.equal(role.duration, '6 months');
+    assert.equal(getScreenFromPath(careerPath(role)), 'careers');
+    assert.equal(getCareerFromPath(`${careerPath(role)}/`), role);
+    assert.ok(getAppRouteMetadata(careerPath(role)).title.includes(role.title));
+    const application = new URL(careerEmail(role));
+    assert.equal(application.protocol, 'mailto:');
+    assert.equal(application.pathname, brandEntity.email);
+    assert.ok(application.searchParams.get('subject')?.includes(role.title));
+  }
+  assert.equal(getScreenFromPath('/careers/unknown-role'), 'not-found');
 });
 
 test('unknown project slugs do not silently resolve to a different project', () => {

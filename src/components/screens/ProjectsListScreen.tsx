@@ -69,7 +69,7 @@ export const ProjectsListScreen = ({
             <ArrowLeft className="h-4 w-4" /> Back
           </button>
           <div className="hidden items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-extrabold text-emerald-700 sm:flex">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" /> Available for new projects
+            <span className="h-2 w-2 rounded-full bg-emerald-500" /> Product & AI Engineering Studio
           </div>
         </header>
 
@@ -77,7 +77,7 @@ export const ProjectsListScreen = ({
           <div>
             <p className="font-mono text-xs font-extrabold uppercase tracking-[0.18em] text-[#0F8B75]">Selected work</p>
             <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-7xl">
-              Real projects. <span className="text-[#0F8B75]">Useful outcomes.</span>
+              Engineered products. <span className="text-[#0F8B75]">Considered systems.</span>
             </h1>
           </div>
           <div className="lg:pb-2">
@@ -90,7 +90,7 @@ export const ProjectsListScreen = ({
                 onClick={onStartProject}
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#09121F] px-5 py-3 text-sm font-extrabold text-white transition hover:bg-slate-800"
               >
-                Start a project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
+                Start a Project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
               </button>
             ) : null}
           </div>
@@ -98,7 +98,7 @@ export const ProjectsListScreen = ({
 
         <section aria-labelledby="project-list-heading">
           <div className="border-y border-slate-200 py-4">
-            <h2 id="project-list-heading" className="sr-only">Project list</h2>
+            <h2 id="project-list-heading" className="sr-only">Case studies</h2>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar lg:pb-0" aria-label="Filter by category">
                 {categories.map((item) => (
@@ -157,7 +157,7 @@ export const ProjectsListScreen = ({
                       </div>
                       <div className="mt-10 flex-1">
                         <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#0F8B75]">
-                          {project.category} {project.featured ? '· Featured' : ''}
+                          {project.detailData?.engagement}
                         </div>
                         <h3 className="mt-3 text-2xl font-extrabold tracking-tight transition group-hover:text-[#0F8B75]">{project.title}</h3>
                         <p className="mt-3 text-sm font-medium leading-6 text-slate-600">{project.subtitle}</p>
@@ -204,7 +204,7 @@ export const ProjectsListScreen = ({
               <p className="mt-1 text-sm font-medium text-slate-300">Share the problem. We’ll shape the right first version.</p>
             </div>
             <button type="button" onClick={onStartProject} className="inline-flex items-center gap-2 self-start rounded-full bg-emerald-400 px-5 py-3 text-xs font-extrabold text-[#101A19] transition hover:bg-emerald-300 sm:self-auto">
-              Let's talk <ArrowUpRight className="h-4 w-4" />
+              Start a Project <ArrowUpRight className="h-4 w-4" />
             </button>
           </section>
         ) : null}

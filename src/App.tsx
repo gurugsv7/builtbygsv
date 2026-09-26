@@ -1,11 +1,15 @@
+import { useDialogFocus } from './components/useDialogFocus';
+import { CareersScreen } from './components/screens/CareersScreen';
+import { WebsiteInformationScreen } from './components/screens/WebsiteInformationScreen';
+import { BusinessFooter } from './components/BusinessFooter';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { useEffect, useState } from 'react';
-import { ScreenType, Project, ServiceType, NotificationItem } from './types';
-import { PROJECTS, SERVICES, INITIAL_NOTIFICATIONS } from './data/mockData';
+import { ScreenType, Project, ServiceType } from './types';
+import { PROJECTS, SERVICES } from './data/mockData';
 import { BottomNavBar } from './components/BottomNavBar';
 import { Sidebar } from './components/Sidebar';
 import { DeviceSimulatorFrame } from './components/DeviceSimulatorFrame';
@@ -21,29 +25,36 @@ import { AutomationServiceScreen } from './components/screens/AutomationServiceS
 import { ProjectsListScreen } from './components/screens/ProjectsListScreen';
 import { ProjectDetailScreen } from './components/screens/ProjectDetailScreen';
 import { ProcessScreen } from './components/screens/ProcessScreen';
-import { ProfileScreen } from './components/screens/ProfileScreen';
+import { AboutScreen } from './components/screens/AboutScreen';
 import { ContactScreen } from './components/screens/ContactScreen';
 import { NotFoundScreen } from './components/screens/NotFoundScreen';
 
 // Modals and Drawers
 import { ProjectDetailModal } from './components/screens/ProjectDetailModal';
-import { StartProjectModal } from './components/screens/StartProjectModal';
-import { NotificationsDrawer } from './components/screens/NotificationsDrawer';
+import { StartProjectScreen } from './components/screens/StartProjectScreen';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
-import { X, Home, LayoutGrid, Briefcase, User, GitCommit, Mail } from 'lucide-react';
+import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
 import { BrandLogo } from './components/BrandLogo';
 
 const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
   { screen: 'home' as const, label: 'Home', icon: Home, color: 'text-[#0F8B75]' },
-  { screen: 'projects' as const, label: 'Projects', icon: LayoutGrid, color: 'text-[#0F8B75]' },
+  { screen: 'projects' as const, label: 'Work', icon: LayoutGrid, color: 'text-[#0F8B75]' },
   { screen: 'services' as const, label: 'Services', icon: Briefcase, color: 'text-[#E85D22]' },
   { screen: 'process' as const, label: 'Process', icon: GitCommit, color: 'text-teal-600' },
-  { screen: 'profile' as const, label: 'About', icon: User, color: 'text-amber-600' },
+  { screen: 'about' as const, label: 'About us', icon: Building2, color: 'text-amber-600' },
+  { screen: 'careers' as const, label: 'Careers', icon: Briefcase, color: 'text-[#0F8B75]' },
   { screen: 'contact' as const, label: 'Contact', icon: Mail, color: 'text-emerald-600' },
 ];
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 1023px)');
+    const update = () => setIsMobile(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
   const [currentScreen, setCurrentScreenState] = useState<ScreenType>(() =>
     getScreenFromPath(window.location.pathname)
   );
@@ -51,15 +62,10 @@ export default function App() {
     getProjectFromPath(window.location.pathname)
   );
   const [bookmarkedServiceIds, setBookmarkedServiceIds] = useState<string[]>(['web-dev']);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isStartProjectOpen, setIsStartProjectOpen] = useState(
-    () => new URLSearchParams(window.location.search).get('startProject') === '1',
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [inquiryService, setInquiryService] = useState<ServiceType>('web-dev');
+  const menuRef = useDialogFocus(isMenuOpen);
 
-  const unreadNotifsCount = notifications.filter((n) => !n.read).length;
+
 
   const notifyRouteChange = () => {
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -98,7 +104,9 @@ export default function App() {
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has('startProject')) {
-      window.history.replaceState({}, '', window.location.pathname);
+      window.history.replaceState({}, '', '/start-project');
+      setCurrentScreenState('start-project');
+      notifyRouteChange();
     }
     const handlePopState = () => {
       setCurrentScreenState(getScreenFromPath(window.location.pathname));
@@ -124,16 +132,12 @@ export default function App() {
   };
 
   const handleOpenStartProject = (service: ServiceType = 'web-dev') => {
-    setInquiryService(service);
-    setIsStartProjectOpen(true);
-  };
-
-  const handleMarkAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-  };
-
-  const handleClearNotifs = () => {
-    setNotifications([]);
+    if (currentScreen === 'start-project') return;
+    setSelectedProject(null);
+    window.history.pushState({}, '', `/start-project?service=${service}`);
+    notifyRouteChange();
+    setCurrentScreenState('start-project');
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   // Render current screen content
@@ -146,6 +150,7 @@ export default function App() {
             <div className="block lg:hidden min-h-screen">
               <HeroLandingScreen
                 onGetStarted={() => setCurrentScreen('home')}
+                onStartProject={() => handleOpenStartProject('web-dev')}
               />
             </div>
 
@@ -153,10 +158,8 @@ export default function App() {
             <div className="hidden lg:flex flex-col justify-between min-h-screen w-full">
               <HomeDashboardScreen
                 recentProject={FEATURED_PROJECT}
-                unreadNotifsCount={unreadNotifsCount}
                 onNavigate={(screen) => setCurrentScreen(screen)}
                 onOpenProjectDetail={handleOpenProject}
-                onOpenNotifications={() => setIsNotificationsOpen(true)}
                 onOpenStartProject={() => handleOpenStartProject('web-dev')}
                 onOpenMenu={() => setIsMenuOpen(true)}
               />
@@ -168,10 +171,8 @@ export default function App() {
         return (
           <HomeDashboardScreen
             recentProject={FEATURED_PROJECT}
-            unreadNotifsCount={unreadNotifsCount}
             onNavigate={(screen) => setCurrentScreen(screen)}
             onOpenProjectDetail={handleOpenProject}
-            onOpenNotifications={() => setIsNotificationsOpen(true)}
             onOpenStartProject={() => handleOpenStartProject('web-dev')}
             onOpenMenu={() => setIsMenuOpen(true)}
           />
@@ -259,14 +260,23 @@ export default function App() {
           />
         );
 
-      case 'profile':
+      case 'about':
         return (
-          <ProfileScreen
+          <AboutScreen
             onBack={() => setCurrentScreen('home')}
             onOpenMenu={() => setIsMenuOpen(true)}
             onStartProject={() => handleOpenStartProject('web-dev')}
           />
         );
+
+      case 'start-project':
+        return <StartProjectScreen />;
+
+      case 'careers':
+        return <CareersScreen />;
+
+      case 'website-information':
+        return <WebsiteInformationScreen />;
 
       case 'contact':
         return (
@@ -303,6 +313,7 @@ export default function App() {
             }`}
           >
             {renderScreenContent()}
+            <div className={currentScreen === 'hero' ? 'hidden lg:block' : ''}><BusinessFooter /></div>
           </div>
 
           {/* Bottom Navigation Bar (Mobile only) */}
@@ -318,7 +329,7 @@ export default function App() {
         {/* Quick Menu Slide-over Drawer */}
         {isMenuOpen && (
           <div className="fixed inset-0 z-50 flex bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-            <div role="dialog" aria-modal="true" aria-labelledby="quick-menu-title" className="bg-white w-72 h-full shadow-2xl p-5 flex flex-col justify-between">
+            <div ref={menuRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="quick-menu-title" className="bg-white w-72 h-full overflow-y-auto shadow-2xl p-5 flex flex-col justify-between">
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b pb-4">
                   <div className="flex items-center gap-2">
@@ -358,6 +369,7 @@ export default function App() {
               </div>
 
               <div className="pt-4 border-t border-slate-100 text-center">
+                <div className="mb-5 flex flex-wrap justify-center gap-4 text-xs font-bold text-slate-500"><a href="/insights">Insights</a><a href="/pricing">Pricing</a><a href="/faq">FAQs</a></div>
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -373,7 +385,7 @@ export default function App() {
         )}
 
         {/* Project Case Study Detail Modal (Mobile Only) */}
-        {selectedProject && (
+        {selectedProject && isMobile && (
           <div className="block lg:hidden">
             <ProjectDetailModal
               project={selectedProject}
@@ -383,23 +395,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Start Project Interactive Wizard Modal */}
-        {isStartProjectOpen && (
-          <StartProjectModal
-            initialService={inquiryService}
-            onClose={() => setIsStartProjectOpen(false)}
-          />
-        )}
 
-        {/* Notifications Slide-over Drawer */}
-        {isNotificationsOpen && (
-          <NotificationsDrawer
-            notifications={notifications}
-            onClose={() => setIsNotificationsOpen(false)}
-            onMarkAllAsRead={handleMarkAllRead}
-            onClearNotifications={handleClearNotifs}
-          />
-        )}
       </div>
     </DeviceSimulatorFrame>
   );

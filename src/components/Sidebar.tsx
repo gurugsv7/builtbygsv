@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScreenType } from '../types';
-import { Home, LayoutGrid, Code2, User, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, Code2, Building2, Briefcase, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import { SCREEN_PATHS } from '../routes';
 import { brandEntity } from '../seo';
 import { BrandLogo } from './BrandLogo';
@@ -19,17 +19,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const navItems = [
     { id: 'home' as ScreenType, label: 'Home', icon: Home },
-    { id: 'projects' as ScreenType, label: 'Projects', icon: LayoutGrid },
+    { id: 'projects' as ScreenType, label: 'Work', icon: LayoutGrid },
     { id: 'services' as ScreenType, label: 'Services', icon: Code2 },
-    { id: 'profile' as ScreenType, label: 'About', icon: User },
+    { id: 'about' as ScreenType, label: 'About us', icon: Building2 },
+    { id: 'careers' as ScreenType, label: 'Careers', icon: Briefcase },
     { id: 'contact' as ScreenType, label: 'Contact', icon: Mail },
   ];
 
   return (
-    <aside className="w-60 xl:w-64 bg-[#F3F4F6] border-r border-slate-200/80 flex flex-col justify-between p-5 h-screen sticky top-0 shrink-0 hidden lg:flex select-none z-30">
+    <aside className="w-60 xl:w-64 bg-[#F3F4F6] border-r border-slate-200/80 flex flex-col justify-between p-5 h-screen sticky top-0 overflow-y-auto shrink-0 hidden lg:flex select-none z-30">
       
       {/* Top Section: Brand & Nav Links */}
-      <div className="space-y-8">
+      <div className="space-y-6">
         
         {/* Brand Logo */}
         <button
@@ -42,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
 
         {/* Navigation Items List - Spaced out to use vertical space */}
-        <nav className="space-y-3">
+        <nav aria-label="Main navigation" className="space-y-1.5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive =
@@ -54,6 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <a
                 key={item.id}
                 href={SCREEN_PATHS[item.id]}
+                aria-current={isActive ? 'page' : undefined}
                 onClick={(event) => {
                   event.preventDefault();
                   onNavigate(item.id);
@@ -86,7 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <path d="M 10 12 L 10 7 C 10 6 11 5 12 5 L 28 5 C 29 5 30 6 30 7 L 30 12" fill="#F8F9FA" strokeWidth="1.5" />
               <circle cx="20" cy="18" r="3" fill="#F5C748" stroke="none" />
             </svg>
-            <span className="absolute -top-1 -right-1 text-xs text-[#0F8B75] font-bold">✦</span>
+            <span aria-hidden="true" className="absolute -top-1 -right-1 text-xs text-[#0F8B75] font-bold">✦</span>
           </div>
 
           <div className="space-y-1">
@@ -94,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               Have a project in mind?
             </h4>
             <p className="text-xs text-slate-500 font-medium leading-relaxed">
-              Share the problem and the people it needs to help.
+              Tell us what you're trying to build. We'll help shape the right way to engineer it.
             </p>
           </div>
 

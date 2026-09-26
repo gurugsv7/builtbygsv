@@ -1,3 +1,4 @@
+import { DELIVERY_STEPS } from '../../data/studio';
 import React, { useState } from 'react';
 import { 
   ArrowLeft, Bookmark, Lightbulb, Pencil, Code2, Rocket, TrendingUp, MessageSquare, ArrowRight 
@@ -14,38 +15,8 @@ export const ProcessScreen: React.FC<ProcessScreenProps> = ({
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const steps = [
-    {
-      number: '01',
-      title: 'Discover',
-      description: 'Understand your goals, audience and challenges in depth.',
-      icon: Lightbulb,
-    },
-    {
-      number: '02',
-      title: 'Plan & Design',
-      description: 'Create strategy, wireframes and stunning UI/UX that converts.',
-      icon: Pencil,
-    },
-    {
-      number: '03',
-      title: 'Build',
-      description: 'Clean, scalable code with performance and best practices in mind.',
-      icon: Code2,
-    },
-    {
-      number: '04',
-      title: 'Launch',
-      description: 'Deploy, test and launch with everything optimised.',
-      icon: Rocket,
-    },
-    {
-      number: '05',
-      title: 'Support & Grow',
-      description: 'Ongoing support and improvements to help your product grow.',
-      icon: TrendingUp,
-    },
-  ];
+  const icons = [Lightbulb, Pencil, Code2, Rocket, TrendingUp];
+  const steps = DELIVERY_STEPS.map((step, index) => ({ ...step, number: `0${index + 1}`, icon: icons[index] }));
 
   return (
     <div className="min-h-full bg-[#F8F9FA] pb-20 text-[#131921] animate-in fade-in duration-300">
@@ -69,13 +40,13 @@ export const ProcessScreen: React.FC<ProcessScreenProps> = ({
         </button>
       </div>
 
-      <div className="px-4 sm:px-5 pt-2 space-y-5 max-w-xl mx-auto">
+      <div className="px-4 sm:px-5 pt-2 space-y-5 max-w-3xl mx-auto">
         
         {/* Screen Headline */}
         <div className="space-y-1.5 pt-1">
           <div className="inline-block relative">
             <h1 className="text-3xl font-extrabold text-[#131921] tracking-tight">
-              My Process
+              How We Build
             </h1>
             {/* Hand-drawn green underline */}
             <svg
@@ -155,10 +126,10 @@ export const ProcessScreen: React.FC<ProcessScreenProps> = ({
         </div>
 
         {/* Bottom Call to Action Banner */}
-        <div
+        <button type="button"
           onClick={onStartProject}
           id="banner-process-cta"
-          className="group bg-[#EBF7F4] rounded-2xl p-4 flex items-center justify-between gap-3 border border-emerald-200/80 hover:border-[#0F8B75] transition-all cursor-pointer shadow-2xs"
+          className="group w-full text-left bg-[#EBF7F4] rounded-2xl p-4 flex items-center justify-between gap-3 border border-emerald-200/80 hover:border-[#0F8B75] transition-all cursor-pointer shadow-2xs"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-100 text-[#0F8B75] flex items-center justify-center shrink-0">
@@ -167,10 +138,10 @@ export const ProcessScreen: React.FC<ProcessScreenProps> = ({
 
             <div>
               <h3 className="text-xs font-extrabold text-[#131921] group-hover:text-[#0F8B75] transition-colors">
-                Let's discuss your project
+                Start a Project
               </h3>
               <p className="text-[11px] font-medium text-slate-600">
-                Book a free consultation call.
+                Tell us what you're building.
               </p>
             </div>
           </div>
@@ -178,7 +149,7 @@ export const ProcessScreen: React.FC<ProcessScreenProps> = ({
           <div className="w-9 h-9 rounded-full bg-[#131921] group-hover:bg-[#0F8B75] text-white flex items-center justify-center shrink-0 transition-colors">
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />
           </div>
-        </div>
+        </button>
 
       </div>
     </div>

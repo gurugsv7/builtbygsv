@@ -3,8 +3,8 @@
   <circle cx="1090" cy="-10" r="280" fill="none" stroke="#0F8B75" stroke-opacity=".10" stroke-width="85"/>
   <circle cx="1050" cy="600" r="190" fill="#F3C258" fill-opacity=".32"/>
   <text x="72" y="250" fill="#131921" font-family="Arial, sans-serif" font-size="76" font-weight="800">Builtby<tspan fill="#0F8B75">GSV</tspan></text>
-  <text x="72" y="340" fill="#131921" font-family="Arial, sans-serif" font-size="44" font-weight="700">Websites. Software. AI products.</text>
-  <text x="72" y="408" fill="#52605D" font-family="Arial, sans-serif" font-size="29" font-weight="500">Built by Gurusabarivasan · GuruGSV</text>
+  <text x="72" y="340" fill="#131921" font-family="Arial, sans-serif" font-size="44" font-weight="700">Product. Software. AI.</text>
+  <text x="72" y="408" fill="#52605D" font-family="Arial, sans-serif" font-size="29" font-weight="500">Product &amp; AI Engineering Studio</text>
   <rect x="72" y="482" width="520" height="66" rx="33" fill="#101A19"/>
   <text x="108" y="525" fill="#F1F4F2" font-family="Arial, sans-serif" font-size="25" font-weight="700">Karaikal · Bengaluru · Thanjavur</text>
 </svg>

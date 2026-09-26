@@ -1,3 +1,7 @@
+import { BRIEF_STEPS } from '../src/data/projectBrief.ts';
+import { CAREERS, careerPath } from '../src/data/careers.ts';
+import { WEBSITE_INFORMATION } from '../src/data/websiteInformation.ts';
+import { CAPABILITIES, DELIVERY_STEPS, PRINCIPLES, STUDIO } from '../src/data/studio.ts';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { blogPosts } from '../src/blog.ts';
@@ -43,12 +47,14 @@ const escapeHtml = (value: unknown) =>
 
 const primaryLinks = [
   ['/', 'Home'],
-  ['/projects', 'Projects'],
+  ['/projects', 'Work'],
   ['/services', 'Services'],
   ['/process', 'Process'],
-  ['/about', 'About'],
+  ['/about', 'About us'],
+  ['/careers', 'Careers'],
   ['/insights', 'Insights'],
   ['/contact', 'Contact'],
+  ['/start-project', 'Start a Project'],
 ] as const;
 
 const servicePaths: Record<string, string> = {
@@ -60,24 +66,33 @@ const servicePaths: Record<string, string> = {
 
 const staticPageContent: Record<string, Omit<RenderPage, 'path' | 'title' | 'description'>> = {
   '/': {
-    eyebrow: 'Independent product studio',
-    heading: 'Websites, software and practical AI built by Gurusabarivasan M.',
+    eyebrow: STUDIO.positioning,
+    heading: 'We build digital products that create real impact.',
     intro:
       'BuiltbyGSV helps businesses and founders turn a specific customer problem or internal bottleneck into a product people can use. The work covers responsive websites, custom software, AI-assisted features and reliable automation.',
     sections: [
       {
-        heading: 'What BuiltbyGSV builds',
+        heading: 'Engineering products from idea to scale',
+        bullets: CAPABILITIES.map(item => `${item.title}: ${item.description}`),
         paragraphs: [
           'Website projects combine clear information architecture, responsive design, accessible interaction and search-ready technical foundations. Software projects start with the team workflow, then shape dashboards, portals and integrations around the people who will use them.',
           'AI work focuses on useful tasks such as search, extraction, assistance and content operations. Each feature needs a defined source of truth, cost boundary and human fallback before it reaches production.',
         ],
       },
       {
+        heading: 'Selected Work',
+        bullets: PROJECTS.map(project => `${project.title} (${project.detailData?.engagement}): ${project.subtitle}`),
+      },
+      {
         heading: 'A small studio with direct accountability',
         paragraphs: [
-          'Clients work with Gurusabarivasan from discovery through launch. That keeps product decisions close to implementation and gives every project one technical owner who understands the original goal.',
+          'We connect product thinking, design and engineering from discovery through launch. Each engagement has a defined scope, review points and a clear technical owner.',
         ],
         bullets: ['Based in Puducherry, working across Karaikal, Bengaluru and Thanjavur', 'React, TypeScript, Node.js, Python and modern cloud tooling', 'Project scope, ownership and launch criteria agreed before the build'],
+      },
+      {
+        heading: 'How we build',
+        bullets: DELIVERY_STEPS.map(step => `${step.title}: ${step.description}`),
       },
       {
         heading: 'Where BuiltbyGSV works',
@@ -156,15 +171,19 @@ const staticPageContent: Record<string, Omit<RenderPage, 'path' | 'title' | 'des
     ],
   },
   '/about': {
-    eyebrow: 'About BuiltbyGSV',
-    heading: 'Gurusabarivasan M builds products across design, software and AI.',
+    eyebrow: 'Company',
+    heading: 'We build technology around the problem.',
     intro:
-      'BuiltbyGSV is the independent development studio of Gurusabarivasan M, also known online as GuruGSV and Guru GSV. He works directly across product definition, interface design and implementation.',
+      'BuiltbyGSV is a product and AI engineering studio focused on designing and building useful, dependable digital products.',
     sections: [
+      {
+        heading: 'Our principles',
+        bullets: PRINCIPLES.map(item => `${item.title} ${item.description}`),
+      },
       {
         heading: 'Working style',
         paragraphs: [
-          'Gurusabarivasan starts with the user and the operating constraint, then chooses technology that fits the release. Clients have one person connecting business context to the code rather than passing decisions between separate sales and delivery teams.',
+          'We start with the user and the operating constraints, then choose technology that fits the release. Product thinking, interface design and engineering inform each other throughout the build.',
           'The studio works with React, TypeScript, Node.js, Python, PostgreSQL, Supabase, Docker and AWS. The exact stack follows the product, team and maintenance plan.',
         ],
       },
@@ -178,19 +197,50 @@ const staticPageContent: Record<string, Omit<RenderPage, 'path' | 'title' | 'des
     eyebrow: 'Contact BuiltbyGSV',
     heading: 'Bring the problem. We will shape a sensible first build.',
     intro:
-      'Contact Gurusabarivasan about a website, custom software product, AI feature or business automation. A short description is enough to begin.',
+      'Contact BuiltbyGSV about a website, custom software product, AI feature or business automation. A short description is enough to begin.',
     sections: [
       {
         heading: 'What to include',
         paragraphs: ['Describe the problem, who experiences it, what you use today and any fixed launch date. Screenshots or examples help when an existing workflow is involved.'],
-        bullets: ['Email: gurugsv777@gmail.com', 'Phone and WhatsApp: +91-74488-65095', 'Location: Puducherry, India'],
+        bullets: ['Email: admin@builtbygsv.in', 'Phone and WhatsApp: +91-74488-65095', 'Location: Puducherry, India'],
       },
       {
         heading: 'What happens next',
-        paragraphs: ['Gurusabarivasan will review the context and ask for the missing details needed to define scope. The guided project brief on this site creates an email draft on your device and does not store the information you enter.'],
+        paragraphs: ['We will review the context and ask for the missing details needed to define scope. The guided project brief lets you download or copy your answers and send them by email. Saving a draft in this browser is optional.'],
       },
     ],
   },
+};
+
+staticPageContent['/start-project'] = {
+  eyebrow: 'Project enquiry', heading: 'Start a Project.',
+  intro: 'Create a clear project brief for BuiltbyGSV. Describe your business, goals, scope, delivery needs, budget and timeline, then review and email your brief to admin@builtbygsv.in.',
+  sections: [...BRIEF_STEPS.map(step => ({ heading: step.title, paragraphs: [step.description], bullets: step.fields.map(field => field.label) })), { heading: 'Review and send', paragraphs: ['Download or copy the full brief and attach or paste it into your email. Nothing is submitted automatically. You can optionally save a draft in your browser and delete it later.'] }],
+};
+
+staticPageContent['/careers'] = {
+  eyebrow: 'Careers at BuiltbyGSV',
+  heading: 'Build with purpose. Grow through the work.',
+  intro: 'We are hiring Software Engineer Interns and Web Developer Interns for six-month internships at BuiltbyGSV.',
+  sections: [
+    ...CAREERS.map(role => ({ heading: role.title, paragraphs: [role.description, `Duration: ${role.duration}.`], bullets: [...role.contributions, `Role details: ${SITE_URL}${careerPath(role)}`] })),
+    { heading: 'Apply by email', paragraphs: ['Email admin@builtbygsv.in with the role in the subject, a short introduction, your resume or profile, relevant work and availability. Start date, work arrangement and compensation will be confirmed during application discussions.'] },
+  ],
+};
+for (const role of CAREERS) {
+  staticPageContent[careerPath(role)] = {
+    eyebrow: `Careers · ${role.duration} internship`, heading: role.title, intro: role.description,
+    sections: [
+      { heading: 'Work you could contribute to', bullets: [...role.contributions] },
+      { heading: 'What to bring', paragraphs: [role.interests] },
+      { heading: 'Apply by email', paragraphs: [`Email admin@builtbygsv.in with ${role.title} in the subject. Include an introduction, your resume or profile, work samples and availability. The internship lasts six months. Start date, work arrangement and compensation will be confirmed during application discussions.`] },
+    ],
+  };
+}
+staticPageContent['/website-information'] = {
+  eyebrow: 'Website information', heading: 'Using this website. Contacting our studio.',
+  intro: 'How BuiltbyGSV project briefs, internship applications and external links work on this website.',
+  sections: WEBSITE_INFORMATION.map(section => ({ heading: section.title, paragraphs: [section.text] })),
 };
 
 const renderHeader = () => `
@@ -353,7 +403,7 @@ const projectPages: RenderPage[] = PROJECTS.map((project) => {
     path,
     title,
     description,
-    eyebrow: `${project.category} case study · ${project.status}`,
+    eyebrow: `${project.detailData?.engagement} · ${project.category} case study · ${project.status}`,
     heading: project.title,
     intro: project.description,
     sections: [
@@ -362,7 +412,7 @@ const projectPages: RenderPage[] = PROJECTS.map((project) => {
       {
         heading: 'Scope and technology',
         paragraphs: [typeof answer === 'string' ? answer : answer?.answer ?? `${project.title} was built around a defined user problem and a maintainable release path.`],
-        bullets: [`Status: ${project.status}`, `Project type: ${project.detailData?.projectType ?? project.category}`, `Technology: ${project.tags.join(', ')}`, `Year: ${project.year ?? 'Current'}`],
+        bullets: [`Status: ${project.status}`, `Engagement: ${project.detailData?.engagement ?? project.category}`, `Technology: ${project.tags.join(', ')}`, `Year: ${project.year ?? 'Current'}`],
       },
       { heading: 'Next steps', paragraphs: [(project.detailData?.whatsNextItems ?? ['Measure real use, resolve launch feedback and prioritize the next release from evidence.']).join(' ')] },
     ],
@@ -374,7 +424,7 @@ const projectPages: RenderPage[] = PROJECTS.map((project) => {
       description,
       url: `${SITE_URL}${path}`,
       image: project.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`,
-      creator: { '@id': `${SITE_URL}/#gurusabarivasan` },
+      creator: { '@id': `${SITE_URL}/#organization` },
       dateCreated: project.year,
       keywords: [...project.tags, project.category, 'BuiltbyGSV'],
       inLanguage: 'en-IN',
@@ -548,7 +598,7 @@ const notFoundPage: RenderPage = {
   intro: 'The address may be old, mistyped or moved. Use the links below to return to working pages on BuiltbyGSV.',
   sections: [{
     heading: 'Try a working route',
-    bullets: ['Browse web, software and AI projects', 'Review BuiltbyGSV services', 'Read practical website guides', 'Contact Gurusabarivasan about a project'],
+    bullets: ['Browse web, software and AI projects', 'Review BuiltbyGSV services', 'Read practical website guides', 'Contact BuiltbyGSV about a project'],
   }],
 };
 await writeFile(resolve(distDir, '404.html'), renderDocument(notFoundPage, { noindex: true }));
@@ -599,12 +649,15 @@ await writeFile(resolve('public', 'sitemap.xml'), sitemapXml);
 const llmsTxt = [
   '# BuiltbyGSV',
   '',
-  '> BuiltbyGSV is the independent web, software and AI development studio of Gurusabarivasan M (GuruGSV).',
+  '> BuiltbyGSV is a Product & AI Engineering Studio.',
   '> It builds websites, custom business software, AI features and workflow automation for clients in',
   '> Karaikal, Thanjavur and Bengaluru, and remotely across India. It is a remote studio with no walk-in',
   '> office and no Google Business Profile listing.',
   '',
-  `Contact: gurugsv777@gmail.com | +91-74488-65095 | ${SITE_URL}/contact`,
+  `Contact: admin@builtbygsv.in | +91-74488-65095 | ${SITE_URL}/contact`,
+  '',
+  '## Careers',
+  ...CAREERS.map(role => `- [${role.title}](${SITE_URL}${careerPath(role)}): ${role.duration} internship. ${role.description} Apply to admin@builtbygsv.in.`),
   '',
   '## Services',
   ...Object.values(SERVICES).map(

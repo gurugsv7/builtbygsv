@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, LayoutGrid, Briefcase, User } from 'lucide-react';
+import { Home, LayoutGrid, Briefcase, Mail } from 'lucide-react';
 import { ScreenType } from '../types';
 import { SCREEN_PATHS } from '../routes';
 
@@ -16,10 +16,10 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
 }) => {
   const navItems = [
     { id: 'home' as ScreenType, label: 'Home', icon: Home },
-    { id: 'projects' as ScreenType, label: 'Projects', icon: LayoutGrid },
+    { id: 'projects' as ScreenType, label: 'Work', icon: LayoutGrid },
     { id: 'start-action', label: 'Start', isCenter: true },
     { id: 'services' as ScreenType, label: 'Services', icon: Briefcase },
-    { id: 'profile' as ScreenType, label: 'Me', icon: User },
+    { id: 'contact' as ScreenType, label: 'Contact', icon: Mail },
   ];
 
   return (
@@ -58,6 +58,7 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
             <a
               key={item.id}
               href={SCREEN_PATHS[item.id as ScreenType]}
+              aria-current={isActive ? 'page' : undefined}
               onClick={(event) => {
                 event.preventDefault();
                 onNavigate(item.id as ScreenType);

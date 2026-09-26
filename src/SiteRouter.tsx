@@ -1,3 +1,4 @@
+import { BusinessFooter } from './components/BusinessFooter';
 import React, { useEffect } from 'react';
 import App from './App';
 import { BlogArticlePage, BlogIndexPage } from './components/BlogContent';
@@ -161,7 +162,7 @@ export default function SiteRouter() {
         description: project.detailData?.seoDescription ?? project.description,
         url: canonicalUrl,
         image: project.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`,
-        creator: { '@id': `${SITE_URL}/#gurusabarivasan` },
+        creator: { '@id': `${SITE_URL}/#organization` },
         provider: { '@id': `${SITE_URL}/#organization` },
         dateCreated: project.year,
         keywords: [...project.tags, project.category, 'BuiltbyGSV'],
@@ -200,27 +201,29 @@ export default function SiteRouter() {
   ]);
 
   const returnToHomepage = () => {
-    window.location.href = '/?startProject=1';
+    window.location.href = '/start-project';
   };
 
+  const withBusinessFooter = (page: React.ReactNode) => <>{page}<div className="pb-24 lg:pb-0"><BusinessFooter /></div></>;
+
   if (blogPost) {
-    return <BlogArticlePage onStartProject={returnToHomepage} />;
+    return withBusinessFooter(<BlogArticlePage onStartProject={returnToHomepage} />);
   }
 
   if (isBlogIndex) {
-    return <BlogIndexPage />;
+    return withBusinessFooter(<BlogIndexPage />);
   }
 
   if (serviceAreaPage) {
-    return <ServiceAreaLandingPage page={serviceAreaPage} onStartProject={returnToHomepage} />;
+    return withBusinessFooter(<ServiceAreaLandingPage page={serviceAreaPage} onStartProject={returnToHomepage} />);
   }
 
   if (contentPage) {
-    return <StandaloneContentPage page={contentPage} onStartProject={returnToHomepage} />;
+    return withBusinessFooter(<StandaloneContentPage page={contentPage} onStartProject={returnToHomepage} />);
   }
 
   if (locationPage) {
-    return <LocationHubPage page={locationPage} onStartProject={returnToHomepage} />;
+    return withBusinessFooter(<LocationHubPage page={locationPage} onStartProject={returnToHomepage} />);
   }
 
   return <App />;

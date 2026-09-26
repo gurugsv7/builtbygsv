@@ -33,7 +33,7 @@ export const BlogIndexPage: React.FC = () => (
             <span className="brush-teal-highlight text-[#0F8B75]">local business.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600">
-            Practical guides from Gurusabarivasan M (GuruGSV / Guru GSV) about websites, software
+            Practical guides from BuiltbyGSV about websites, software
             and local visibility, starting with the questions Karaikal businesses ask before they
             build.
           </p>

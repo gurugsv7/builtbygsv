@@ -87,7 +87,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Business Automation', 'AI Solutions', 'Workflow Automation'],
     title: 'AI Automation Agency in Karaikal | BuiltbyGSV',
     description:
-      'AI automation for Karaikal businesses: WhatsApp enquiry handling, invoice and record extraction, appointment reminders and daily reporting, built and measured by GuruGSV.',
+      'AI automation for Karaikal businesses: WhatsApp enquiry handling, invoice and record extraction, appointment reminders and daily reporting, designed and engineered by BuiltbyGSV.',
     eyebrow: 'AI & automation for Karaikal',
     h1: 'AI automation agency in Karaikal.',
     answer:
@@ -117,7 +117,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       { question: 'Can it read Tamil documents and messages?', answer: 'Yes. Extraction and routing are tested against real Tamil and mixed-language samples from your own business rather than clean English test data, because that is where accuracy actually breaks.' },
     ],
     proof:
-      'The Thaai Clinic project in Karaikal covered the same ground from the patient side: appointment booking, structured health records and reminder-driven follow-up, replacing a phone-and-register workflow with something staff and patients could both rely on.',
+      'The Thaai Clinic concept prototype explores appointment booking and local record management in a mobile-first interface. Authentication, backend integration and production data handling remain future work.',
     related: [
       { path: '/web-software-developer-karaikal', label: 'Web & software developer in Karaikal' },
       { path: '/custom-software-development-karaikal', label: 'Custom software development in Karaikal' },
@@ -252,7 +252,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       { question: 'How long does a custom system take?', answer: 'A focused first release covering one core workflow properly is usually four to eight weeks. Full multi-module systems take longer and are deliberately built in reviewable slices so you see working software early rather than at the end.' },
     ],
     proof:
-      'Thaai Clinic in Karaikal is the closest reference: appointment booking, structured patient records and a reminder workflow, replacing a register-and-phone process with a system the front desk could run without training sessions.',
+      'The Thaai Clinic concept prototype explores appointment booking and local record management in a mobile-first interface. Authentication, backend integration and production data handling remain future work.',
     related: [
       { path: '/ai-automation-agency-karaikal', label: 'AI automation in Karaikal' },
       { path: '/clinic-website-development-karaikal', label: 'Clinic & hospital websites in Karaikal' },
@@ -271,7 +271,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     eyebrow: 'Healthcare, built locally',
     h1: 'Clinic and hospital website development in Karaikal.',
     answer:
-      'BuiltbyGSV builds websites and appointment systems for Karaikal clinics, hospitals and diagnostic centres: doctor and department pages, online booking, automated reminders, digital health records and local search visibility. The reference project is Thaai Clinic in Karaikal, built around booking, records and follow-up.',
+      'We design clinic websites and appointment workflows for Karaikal around service discovery, booking and contact. We scope integrations, access controls and deployment requirements before development. The Thaai Clinic concept prototype explores the patient experience; it is not evidence of a production healthcare deployment.',
     intro:
       'A patient looking for a clinic on a phone wants four things fast: is this the right specialisation, is it near me, when is it open, and how do I book. A clinic website that answers those four in under ten seconds outperforms a far prettier one that does not.',
     deliverables: [
@@ -290,14 +290,14 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     ],
     priceBands: [INR_BANDS.growthSite, INR_BANDS.software, INR_BANDS.starterSite],
     faqs: [
-      { question: 'Do you have experience with healthcare projects in Karaikal?', answer: 'Yes. Thaai Clinic in Karaikal is a BuiltbyGSV project covering appointment booking, a patient dashboard, digital health records and reminder-driven follow-up, alongside a website refresh and local search work.' },
+      { question: 'Do you have experience with healthcare projects in Karaikal?', answer: 'The Thaai Clinic concept prototype explores mobile booking, local records and clinic contact. It demonstrates frontend workflows; production healthcare infrastructure would need separate scoping and validation.' },
       { question: 'How is patient data protected?', answer: 'Records are access-controlled per role, transmitted over TLS and stored encrypted, with retention and access rules agreed in writing before launch. Health data is treated as sensitive by default rather than as ordinary application data.' },
       { question: 'Can patients still book by phone?', answer: 'Yes, and most will for a long time. Online booking is an additional channel; phone bookings are entered into the same calendar so there is one source of truth and no double-booked slot.' },
       { question: 'Will the site be available in Tamil?', answer: 'Yes, where you want it. Service descriptions, preparation instructions and contact information are the sections that benefit most from Tamil for a Karaikal patient audience.' },
       { question: 'How much does a clinic website cost?', answer: 'An informational clinic site with doctor pages and enquiry forms typically falls in the INR 60,000 to 1,60,000 range. Adding real online booking, records and reminders moves it into custom software territory, generally from INR 1,50,000 upward depending on the workflow.' },
     ],
     proof:
-      'Thaai Clinic, Karaikal: a mobile-first patient experience covering appointment booking, a home dashboard showing the next visit, a secure health-record vault and daily care content, delivered as a working product rather than a mockup.',
+      'The Thaai Clinic concept prototype explores appointment booking and local record management in a mobile-first interface. Authentication, backend integration and production data handling remain future work.',
     related: [
       { path: '/projects/thaai-clinic-website', label: 'Thaai Clinic case study' },
       { path: '/custom-software-development-karaikal', label: 'Custom software in Karaikal' },
@@ -466,7 +466,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       'Bengaluru founders are usually raising or pitching against a clock, so the deliverable that matters is a working product on a real domain by a specific date, not a comprehensive roadmap.',
       'A hired first engineer will assess the codebase within a week. An MVP built as disposable code becomes an expensive rewrite exactly when the team is least able to afford one.',
       'The market here is crowded with agencies selling large scopes. The more useful service is an honest reduction of scope to what actually needs to exist for the next milestone.',
-      'Working with one person who handles product definition, design and implementation removes the handoff loss that makes small scopes expensive at larger agencies.',
+      'Keeping product definition, design and implementation connected helps surface scope and integration decisions early.',
     ],
     priceBands: [INR_BANDS.mvp, INR_BANDS.software, INR_BANDS.aiBuild],
     faqs: [

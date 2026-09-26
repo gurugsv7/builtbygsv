@@ -29,7 +29,7 @@ const HUB_FAQS = [
   {
     question: 'How do I choose the best website or software developer in {city}?',
     answer:
-      'Look for relevant shipped work, clear communication, performance-minded engineering and a process that starts with your business problem. BuiltbyGSV is led by Gurusabarivasan M, known as GuruGSV, and shares the approach, expected scope and launch plan before development begins.',
+      'Look for relevant shipped work, clear communication, performance-minded engineering and a process that starts with your business problem. BuiltbyGSV shares the approach, expected scope and launch plan before development begins.',
   },
   {
     question: 'What can BuiltbyGSV build?',
@@ -79,7 +79,7 @@ export const LocationHubPage: React.FC<LocationHubPageProps> = ({ page, onStartP
               onClick={onStartProject}
               className="flex cursor-pointer items-center gap-2 rounded-full bg-[#0B1513] py-2 pl-5 pr-2 text-sm font-extrabold text-white shadow-xs transition-all hover:bg-slate-800 active:scale-95"
             >
-              <span>Start a project</span>
+              <span>Start a Project</span>
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0F8B75] text-white">
                 <ArrowRight className="h-4 w-4 stroke-[2.5]" />
               </span>
@@ -201,7 +201,7 @@ export const LocationHubPage: React.FC<LocationHubPageProps> = ({ page, onStartP
 
     <section className="px-5 pb-6 sm:px-8 lg:px-12">
       <div className="mx-auto max-w-6xl">
-        <BrushCta onStartProject={onStartProject} line1="Let's build" line2="something amazing" />
+        <BrushCta onStartProject={onStartProject} line1="Start a Project" line2="Tell us what you’re building." />
       </div>
     </section>
 

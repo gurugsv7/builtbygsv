@@ -16,7 +16,7 @@ export const HomepageSeoSection: React.FC<SeoContentProps> = ({ onStartProject }
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal-800/15 bg-white/70 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#0F8B75]">
             <Code2 className="h-3.5 w-3.5" />
-            Independent product studio
+            Product & AI Engineering Studio
           </div>
           <h2
             id="builtbygsv-studio-heading"
@@ -27,13 +27,9 @@ export const HomepageSeoSection: React.FC<SeoContentProps> = ({ onStartProject }
           </h2>
         </div>
         <p className="max-w-xl text-sm font-medium leading-7 text-slate-600 lg:pb-1">
-          BuiltbyGSV is the web and software development practice of{' '}
-          <strong className="font-extrabold text-slate-900">Gurusabarivasan M</strong>, known online
-          as <strong className="font-extrabold text-slate-900">GuruGSV</strong> and{' '}
-          <strong className="font-extrabold text-slate-900">Guru GSV</strong>. The studio creates
-          responsive websites, custom business software, AI features and reliable automations for
-          teams in Karaikal, Bengaluru, Thanjavur and Puducherry that value clear thinking and
-          careful execution.
+          BuiltbyGSV is a Product &amp; AI Engineering Studio. We design and engineer web platforms,
+          custom software, AI systems and automation for businesses and institutions in Karaikal,
+          Bengaluru, Thanjavur and Puducherry, and for remote teams across India.
         </p>
       </div>
 
@@ -100,7 +96,7 @@ export const HomepageSeoSection: React.FC<SeoContentProps> = ({ onStartProject }
             onClick={onStartProject}
             className="inline-flex items-center gap-2 rounded-full bg-[#F3C258] px-5 py-3 text-xs font-extrabold text-[#101A19] transition hover:-translate-y-0.5 hover:bg-amber-300"
           >
-            Start a project <ArrowRight className="h-4 w-4" />
+            Start a Project <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>

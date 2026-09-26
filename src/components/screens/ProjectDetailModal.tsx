@@ -1,3 +1,4 @@
+import { useDialogFocus } from '../useDialogFocus';
 import React, { useEffect } from 'react';
 import { X, Sprout, Code, Globe, Zap, Video, ExternalLink, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 import { Project } from '../../types';
@@ -13,6 +14,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   onClose,
   onStartSimilarProject,
 }) => {
+  const dialogRef = useDialogFocus();
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
@@ -38,7 +40,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div role="dialog" aria-modal="true" aria-labelledby="project-modal-title" className="bg-[#F8F9FA] w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl border border-slate-200/80 flex flex-col justify-between">
+      <div ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="project-modal-title" className="bg-[#F8F9FA] w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto no-scrollbar shadow-2xl border border-slate-200/80 flex flex-col justify-between">
         {/* Modal Top Header */}
         <div className="sticky top-0 bg-[#F8F9FA]/95 backdrop-blur-md px-5 py-4 border-b border-slate-200/80 flex items-center justify-between z-10">
           <div className="flex items-center gap-2.5">
@@ -71,10 +73,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               {project.subtitle}
             </p>
 
-            <div className="flex items-center gap-4 text-[11px] text-slate-500 pt-1">
+            <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-500 pt-1">
               {project.client && (
                 <span className="flex items-center gap-1">
-                  <span className="font-bold text-slate-700">Client:</span> {project.client}
+                  <span className="font-bold text-slate-700">Engagement:</span> {project.detailData?.engagement}
                 </span>
               )}
               {project.year && (
@@ -116,7 +118,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           {project.problemStatement && (
             <div className="space-y-3">
               <div className="bg-rose-50/60 border border-rose-100 rounded-2xl p-3.5 space-y-1">
-                <h4 className="text-xs font-extrabold text-rose-800">The Problem</h4>
+                <h4 className="text-xs font-extrabold text-rose-800">The Challenge</h4>
                 <p className="text-xs text-rose-950/80 leading-snug">{project.problemStatement}</p>
               </div>
 
@@ -124,7 +126,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 <div className="bg-emerald-50/60 border border-emerald-100 rounded-2xl p-3.5 space-y-1">
                   <h4 className="text-xs font-extrabold text-emerald-800 flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    The Solution
+                    The Approach
                   </h4>
                   <p className="text-xs text-emerald-950/80 leading-snug">{project.solutionProvided}</p>
                 </div>
@@ -132,9 +134,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             </div>
           )}
 
+          <div className="text-xs leading-6 text-slate-600"><span className="font-bold text-slate-900">Capabilities: </span>{project.detailData?.capabilities}</div>
           {/* Tech Stack */}
           <div className="space-y-2">
-            <h3 className="text-xs font-extrabold text-slate-900">Tech Stack Used</h3>
+            <h3 className="text-xs font-extrabold text-slate-900">Technology</h3>
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
                 <span key={tag} className="text-xs font-bold px-3 py-1 rounded-xl bg-white border border-slate-200/90 text-slate-800 shadow-2xs">
@@ -155,7 +158,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             id="btn-build-similar-project"
             className="flex-1 bg-[#131921] hover:bg-slate-800 text-white text-xs font-bold py-3 px-4 rounded-2xl transition-all active:scale-95 shadow-xs"
           >
-            Build Similar Project
+            Start a Project
           </button>
 
           {project.detailData?.liveUrl ? (

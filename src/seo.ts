@@ -9,7 +9,7 @@ export const brandEntity = {
   founderShortName: 'Gurusabarivasan',
   nickname: 'GuruGSV',
   spacedNickname: 'Guru GSV',
-  email: 'gurugsv777@gmail.com',
+  email: 'admin@builtbygsv.in',
   phone: '+91-74488-65095',
   location: 'Puducherry, India',
   linkedin: 'https://linkedin.com/in/gurugsv',
@@ -41,10 +41,10 @@ export const locationPages: LocationPage[] = [
     region: 'Puducherry',
     title: 'Website Developer in Karaikal | Web Development | BuiltbyGSV',
     description:
-      'Website developer in Karaikal. BuiltbyGSV handles web development, custom software and local SEO for Karaikal businesses, led by Gurusabarivasan M (GuruGSV).',
+      'Website developer in Karaikal. BuiltbyGSV designs websites, custom software and local SEO foundations for Karaikal businesses.',
     eyebrow: 'Web development rooted in Karaikal',
     intro:
-      'Web development in Karaikal for businesses that need more than a template. BuiltbyGSV, led by Gurusabarivasan M (GuruGSV), combines responsive website development, custom software development and practical local SEO.',
+      'Web development in Karaikal for businesses that need more than a template. BuiltbyGSV combines responsive website development, custom software development and practical local SEO.',
     localFocus: [
       'Website development for local businesses, built to convert calls and enquiries',
       'Google-friendly service pages and technical local SEO foundations',
@@ -52,7 +52,7 @@ export const locationPages: LocationPage[] = [
     ],
     industries: ['Clinics & healthcare', 'Retail & services', 'Education', 'Local startups'],
     proof:
-      'The Thaai Clinic project included a complete website refresh, appointment-focused UX, performance improvements and local-search optimisation for Karaikal.',
+      'The Thaai Clinic concept prototype explores appointment-focused UX and local record management for a Karaikal clinic context. It demonstrates interaction design, not a production healthcare deployment.',
   },
   {
     slug: 'bengaluru',
@@ -83,7 +83,7 @@ export const locationPages: LocationPage[] = [
     region: 'Tamil Nadu',
     title: 'Web & Software Developer in Thanjavur | BuiltbyGSV',
     description:
-      'BuiltbyGSV creates websites and custom business software for Thanjavur and Tanjore businesses, including SEO-ready sites, dashboards and automation by GuruGSV.',
+      'BuiltbyGSV creates websites and custom business software for Thanjavur and Tanjore businesses, including SEO-ready sites, dashboards and business automation.',
     eyebrow: 'Serving the Thanjavur region',
     intro:
       'BuiltbyGSV helps established businesses and new ventures in Thanjavur modernise how they present, sell and operate—with clear design and software built around real workflows.',
@@ -102,9 +102,9 @@ export const getLocationPage = (pathname: string) =>
   locationPages.find((page) => page.path === pathname.replace(/\/$/, '') || page.path === pathname);
 
 export const homeMetadata = {
-  title: 'BuiltbyGSV | GuruGSV - Web, Software & AI Developer',
+  title: 'BuiltbyGSV | Product & AI Engineering Studio',
   description:
-    'BuiltbyGSV is Gurusabarivasan M\'s product studio for fast websites, custom software, practical AI features and business automation.',
+    'BuiltbyGSV is a Product & AI Engineering Studio designing custom software, web platforms, AI systems and automation around real business problems.',
 };
 
 export const createOrganizationSchema = () => ({
@@ -114,8 +114,9 @@ export const createOrganizationSchema = () => ({
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: brandEntity.studioName,
+      description: homeMetadata.description,
       logo: `${SITE_URL}/assets/builtbygsv-logo.png`,
-      alternateName: ['Built by GSV', 'GuruGSV', 'Guru GSV'],
+      alternateName: ['Built by GSV'],
       url: SITE_URL,
       founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
       email: brandEntity.email,
@@ -195,7 +196,7 @@ export const createOrganizationSchema = () => ({
     {
       '@type': 'ProfessionalService',
       '@id': `${SITE_URL}/#professional-service`,
-      name: 'BuiltbyGSV Web and Software Development',
+      name: 'BuiltbyGSV Product & AI Engineering Studio',
       url: SITE_URL,
       image: `${SITE_URL}/og-cover.png`,
       founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
@@ -222,7 +223,7 @@ export const createOrganizationSchema = () => ({
       '@id': `${SITE_URL}/#website`,
       url: SITE_URL,
       name: brandEntity.studioName,
-      alternateName: ['GuruGSV', 'Guru GSV', 'Gurusabarivasan M'],
+      alternateName: ['Built by GSV'],
       publisher: { '@id': `${SITE_URL}/#organization` },
       inLanguage: 'en-IN',
     },

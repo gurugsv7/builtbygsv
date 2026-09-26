@@ -6,7 +6,7 @@ interface NotFoundScreenProps {
 }
 
 const routeCards: { screen: ScreenType; label: string; detail: string }[] = [
-  { screen: 'projects', label: 'Projects', detail: 'Case studies and shipped work' },
+  { screen: 'projects', label: 'Work', detail: 'Case studies and shipped work' },
   { screen: 'services', label: 'Services', detail: 'Web, software, AI and automation' },
   { screen: 'contact', label: 'Contact', detail: 'Start with a short project brief' },
 ];

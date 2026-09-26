@@ -31,7 +31,7 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
         <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-emerald-700">
-          Open to new work
+          Product enquiries
         </span>
       </header>
 
@@ -49,7 +49,7 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
           </h1>
         </div>
         <p className="max-w-xl text-base font-medium leading-8 text-slate-600 lg:pb-2">
-          Share what is slowing your team down, who the product needs to help and what already exists. Gurusabarivasan will reply with the questions needed to define a sensible first version.
+          Share what is slowing your team down, who the product needs to help and what already exists. We'll review your requirements and help define a sensible first version.
         </p>
       </section>
 
@@ -70,7 +70,7 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
               id="btn-contact-start-project"
               className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-[#101A19] transition hover:bg-emerald-50"
             >
-              Open project brief <ArrowUpRight className="h-4 w-4 text-[#0F8B75]" />
+              Start a Project <ArrowUpRight className="h-4 w-4 text-[#0F8B75]" />
             </button>
           </div>
         </div>
@@ -93,7 +93,7 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
           <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between rounded-3xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-emerald-500 hover:shadow-lg hover:shadow-slate-900/5">
             <span className="flex items-center gap-4">
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600"><MessageCircle className="h-5 w-5" /></span>
-              <span><span className="block text-xs font-bold text-slate-400">WhatsApp</span><span className="block text-sm font-extrabold">Message Gurusabarivasan</span></span>
+              <span><span className="block text-xs font-bold text-slate-400">WhatsApp</span><span className="block text-sm font-extrabold">Message BuiltbyGSV</span></span>
             </span>
             <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-emerald-600" />
           </a>
@@ -110,6 +110,11 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
             <li key={item} className="flex items-start gap-2 rounded-2xl bg-white/70 p-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0F8B75]" /> {item}</li>
           ))}
         </ul>
+      </section>
+
+      <section className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="Other enquiries">
+        <a href="/careers" className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5"><span><span className="block text-sm font-extrabold">Careers</span><span className="mt-1 block text-xs leading-6 text-slate-500">Two six-month engineering internships. View roles and apply.</span></span><ArrowUpRight className="h-4 w-4 shrink-0 text-[#0F8B75]" /></a>
+        <a href={`mailto:${brandEntity.email}?subject=BuiltbyGSV%20business%20enquiry`} className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5"><span><span className="block text-sm font-extrabold">General &amp; business enquiries</span><span className="mt-1 block text-xs leading-6 text-slate-500">For collaboration, existing projects or other questions.</span></span><ArrowUpRight className="h-4 w-4 shrink-0 text-[#0F8B75]" /></a>
       </section>
 
       <footer className="mt-6 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">

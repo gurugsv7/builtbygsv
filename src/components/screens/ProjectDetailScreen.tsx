@@ -97,21 +97,21 @@ export const ProjectDetailScreen = ({
           className="group inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#0F8B75]"
         >
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Back to projects
+          Back to work
         </button>
         <button
           type="button"
           onClick={onOpenStartProject}
           className="inline-flex items-center gap-2 rounded-full bg-[#09121F] px-4 py-2 text-xs font-bold text-white transition hover:bg-slate-800"
         >
-          Let's talk <ArrowUpRight className="h-4 w-4 text-emerald-400" />
+          Start a Project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
         </button>
       </header>
 
       <section className="mx-auto grid w-full max-w-[1400px] gap-10 px-5 py-10 lg:grid-cols-12 lg:items-center lg:px-12 lg:py-16">
         <div className="space-y-6 lg:col-span-6">
           <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] ${accentBg} ${accent}`}>
-            <Sparkles className="h-3.5 w-3.5" /> {project.category} case study
+            <Sparkles className="h-3.5 w-3.5" /> {detail?.engagement} ? {project.category} case study
           </div>
           <div>
             <h1 className="text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">
@@ -144,7 +144,7 @@ export const ProjectDetailScreen = ({
                 onClick={onOpenStartProject}
                 className="inline-flex items-center gap-2 rounded-full bg-[#09121F] px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
               >
-                Start a similar project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
+                Start a Project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
               </button>
             )}
             {detail?.sourceCodeUrl ? (
@@ -183,7 +183,7 @@ export const ProjectDetailScreen = ({
       <section className="border-y border-slate-200 bg-white">
         <div className="mx-auto grid max-w-[1400px] gap-8 px-5 py-12 lg:grid-cols-[1fr_1.15fr] lg:px-12 lg:py-16">
           <div>
-            <p className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${accent}`}>01 · The story</p>
+            <p className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${accent}`}>The Challenge</p>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
               {detail?.storyHeadline ?? 'From problem to a focused product.'}
             </h2>
@@ -252,13 +252,13 @@ export const ProjectDetailScreen = ({
         <div className="mx-auto max-w-[1400px] px-5 py-12 lg:px-12 lg:py-16">
           <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
             <div>
-              <p className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${accent}`}>03 · Built with care</p>
+              <p className={`font-mono text-xs font-bold uppercase tracking-[0.16em] ${accent}`}>Engineering</p>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">A maintainable foundation</h2>
               <dl className="mt-7 grid grid-cols-2 gap-4 text-sm">
                 {[
                   ['Timeline', detail?.timeline ?? project.year],
-                  ['Role', detail?.role],
-                  ['Type', detail?.projectType ?? project.category],
+                  ['Capabilities', detail?.capabilities],
+                  ['Engagement', detail?.engagement ?? project.category],
                   ['Platform', detail?.platform],
                 ].filter((entry): entry is [string, string] => Boolean(entry[1])).map(([label, value]) => (
                   <div key={label}><dt className="text-xs font-bold text-slate-400">{label}</dt><dd className="mt-1 font-extrabold">{value}</dd></div>
@@ -302,7 +302,7 @@ export const ProjectDetailScreen = ({
       {detail?.proofSignals?.length ? (
         <section className="border-y border-slate-200 bg-[#F1F4F2]">
           <div className="mx-auto max-w-[1400px] px-5 py-12 lg:px-12 lg:py-16">
-            <h2 className="text-3xl font-extrabold tracking-tight">Project proof</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight">Implementation details</h2>
             <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {detail.proofSignals.map((signal) => {
                 const Icon = ICONS[signal.iconName] ?? Shield;

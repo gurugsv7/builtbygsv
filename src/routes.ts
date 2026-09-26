@@ -1,3 +1,4 @@
+import { CAREERS, careerPath } from './data/careers';
 import { PROJECTS } from './data/mockData';
 import { ScreenType } from './types';
 
@@ -11,8 +12,11 @@ export const SCREEN_PATHS: Record<ScreenType, string> = {
   'software-dev': '/services/custom-software-development',
   'ai-solutions': '/services/ai-solutions',
   automation: '/services/automation',
-  profile: '/about',
+  about: '/about',
   contact: '/contact',
+  careers: '/careers',
+  'start-project': '/start-project',
+  'website-information': '/website-information',
   'not-found': '/404',
   'project-detail': '/projects',
 };
@@ -25,8 +29,12 @@ const PATH_SCREENS: Record<string, ScreenType> = {
   '/services/custom-software-development': 'software-dev',
   '/services/ai-solutions': 'ai-solutions',
   '/services/automation': 'automation',
-  '/about': 'profile',
+  '/about': 'about',
   '/contact': 'contact',
+  '/careers': 'careers',
+  '/start-project': 'start-project',
+  '/website-information': 'website-information',
+  ...Object.fromEntries(CAREERS.map(role => [careerPath(role), 'careers' as ScreenType])),
   '/404': 'not-found',
 };
 
@@ -51,20 +59,24 @@ export const isKnownAppPath = (pathname: string) => {
 };
 
 export const appRouteMetadata: Record<string, { title: string; description: string }> = {
+  '/start-project': { title: 'Start a Project | Client Brief | BuiltbyGSV', description: 'Tell BuiltbyGSV about your goals, users, project requirements, budget and timeline. Create, review and share a complete project brief with our studio.' },
+  '/careers': { title: 'Careers | Six-Month Engineering Internships | BuiltbyGSV', description: 'Apply for Software Engineer Intern and Web Developer Intern roles at BuiltbyGSV. Both internships run for six months. Explore the roles and apply by email.' },
+  '/website-information': { title: 'Website Information & Enquiries | BuiltbyGSV', description: 'How BuiltbyGSV project enquiries, career applications and external links work, plus contact information for website and accessibility questions.' },
+  ...Object.fromEntries(CAREERS.map(role => [careerPath(role), { title: `${role.title} | 6-Month Internship | BuiltbyGSV`, description: `${role.description} Explore this six-month internship at BuiltbyGSV and apply by email.` }])),
   '/': {
-    title: 'BuiltbyGSV | GuruGSV - Web, Software & AI Developer',
+    title: 'BuiltbyGSV | Product & AI Engineering Studio',
     description:
-      'BuiltbyGSV is Gurusabarivasan M\'s product studio for fast websites, custom software, practical AI features and business automation.',
+      'BuiltbyGSV is a Product & AI Engineering Studio designing custom software, web platforms, AI systems and automation around real business problems.',
   },
   '/projects': {
-    title: 'Web, Software & AI Projects | BuiltbyGSV',
+    title: 'Selected Work & Case Studies | BuiltbyGSV',
     description:
       'Explore websites, custom software and AI products built by BuiltbyGSV for businesses, startups and independent product ideas.',
   },
   '/services': {
     title: 'Web, Software, AI & Automation Services | BuiltbyGSV',
     description:
-      'Explore BuiltbyGSV services: website development, custom software, AI solutions and workflow automation by GuruGSV.',
+      'Explore product engineering, custom software, AI engineering and automation services from BuiltbyGSV.',
   },
   '/services/web-development': {
     title: 'Website Development Services | BuiltbyGSV',
@@ -92,14 +104,14 @@ export const appRouteMetadata: Record<string, { title: string; description: stri
       'See how BuiltbyGSV takes a product from discovery and design through development, launch and continuous improvement.',
   },
   '/about': {
-    title: 'About Gurusabarivasan M, GuruGSV & BuiltbyGSV',
+    title: 'Company | BuiltbyGSV Product & AI Engineering Studio',
     description:
-      'Meet Gurusabarivasan M, known online as GuruGSV and Guru GSV - the full stack developer behind BuiltbyGSV.',
+      'BuiltbyGSV brings product thinking, design and software engineering together to build useful, dependable digital products.',
   },
   '/contact': {
     title: 'Contact BuiltbyGSV | Start a Web or Software Project',
     description:
-      'Contact Gurusabarivasan at BuiltbyGSV about a website, custom software, AI feature or business automation project.',
+      'Contact BuiltbyGSV about a website, custom software, AI feature or business automation project.',
   },
 };
 

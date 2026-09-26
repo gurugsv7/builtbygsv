@@ -32,9 +32,9 @@ with sync_playwright() as playwright:
     assert page.locator('meta[name="robots"]').get_attribute("content") == "noindex, follow"
     page.screenshot(path=str(OUTPUT_DIR / "404-mobile.png"), full_page=True)
 
-    page.get_by_role("button", name="Projects", exact=False).click()
+    page.get_by_role("button", name="Work", exact=False).click()
     page.wait_for_url(f"{BASE_URL}/projects")
-    assert page.get_by_role("heading", name="Real projects. Useful outcomes.").is_visible()
+    assert page.get_by_role("heading", name="Engineered products. Considered systems.").is_visible()
 
     assert not console_errors, f"Browser console errors: {console_errors}"
     browser.close()

@@ -12,7 +12,7 @@ import { BrandLogo } from './BrandLogo';
  * Landing pages in the site's own sketchbook language: hand-drawn underlines,
  * a rotated sticky note, Kalam margin notes, the existing illustrations and the
  * hero's dark brush bar. Everything here is lifted from HeroLandingScreen,
- * ProfileScreen, ServicesOverviewScreen and ContactScreen so the pages read as
+ * AboutScreen, ServicesOverviewScreen and ContactScreen so the pages read as
  * the same hand, not a template dropped on top of the palette.
  */
 
@@ -88,7 +88,7 @@ export const InkNumber: React.FC<{ n: number }> = ({ n }) => (
   <span className="font-handwritten text-2xl leading-none text-[#0F8B75]">{String(n).padStart(2, '0')}</span>
 );
 
-/** Rotated paper note with a tape strip, from ProfileScreen. */
+/** Rotated paper note with a tape strip, from AboutScreen. */
 export const StickyNote: React.FC<{ lines: string[]; highlight: string; className?: string }> = ({
   lines,
   highlight,
@@ -111,7 +111,7 @@ export const StickyNote: React.FC<{ lines: string[]; highlight: string; classNam
   </div>
 );
 
-/** Illustration on the mint disk with the dot-grid corner, from ProfileScreen / ServicesOverview. */
+/** Illustration on the mint disk with the dot-grid corner, from AboutScreen / ServicesOverview. */
 export const IllustrationDisk: React.FC<{ kind: 'web' | 'software' }> = ({ kind }) => (
   <div className="relative flex h-56 w-56 items-center justify-center">
     <div className="absolute inset-0 overflow-hidden rounded-full bg-[#E2F1ED] opacity-90">
@@ -139,14 +139,14 @@ export const SiteHeader: React.FC<{ onStartProject: () => void }> = ({ onStartPr
       <div className="flex items-center gap-3">
         <div className="hidden items-center gap-2 rounded-full border border-slate-200/80 bg-white px-3.5 py-1.5 shadow-2xs sm:flex">
           <span className="h-2 w-2 animate-pulse rounded-full bg-[#10B981]" />
-          <span className="text-xs font-semibold text-slate-700">Available for new projects</span>
+          <span className="text-xs font-semibold text-slate-700">Product & AI Engineering Studio</span>
         </div>
         <button
           type="button"
           onClick={onStartProject}
           className="flex cursor-pointer items-center gap-2 rounded-full bg-[#0B1513] py-1.5 pl-4 pr-1.5 text-xs font-extrabold text-white shadow-xs transition-all hover:bg-slate-800 active:scale-95"
         >
-          <span>Let's Talk</span>
+          <span>Start a Project</span>
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0F8B75] text-white">
             <ArrowRight className="h-3.5 w-3.5 stroke-[2.5]" />
           </span>
@@ -191,12 +191,7 @@ export const BrushCta: React.FC<{ onStartProject: () => void; line1: string; lin
 );
 
 export const SiteFooter: React.FC<{ note: string }> = ({ note }) => (
-  <footer className="px-5 pb-8 pt-6 sm:px-8 lg:px-12">
-    <div className="mx-auto flex max-w-6xl flex-col justify-between gap-2 border-t border-slate-200/70 pt-5 text-xs font-semibold text-slate-500 sm:flex-row">
-      <p>© {new Date().getFullYear()} BuiltbyGSV · Gurusabarivasan M</p>
-      <p className="font-handwritten text-sm text-slate-600">{note}</p>
-    </div>
-  </footer>
+  <p className="px-5 pb-6 text-center font-handwritten text-sm text-slate-500">{note}</p>
 );
 
 /* ---------- content blocks ---------- */
@@ -332,7 +327,7 @@ export const ServiceAreaLandingPage: React.FC<ServiceAreaProps> = ({ page, onSta
                   onClick={onStartProject}
                   className="flex cursor-pointer items-center gap-2 rounded-full bg-[#0B1513] py-2 pl-5 pr-2 text-sm font-extrabold text-white shadow-xs transition-all hover:bg-slate-800 active:scale-95"
                 >
-                  <span>Start a project</span>
+                  <span>Start a Project</span>
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0F8B75] text-white">
                     <ArrowRight className="h-4 w-4 stroke-[2.5]" />
                   </span>
@@ -600,7 +595,7 @@ export const StandaloneContentPage: React.FC<ContentPageProps> = ({ page, onStar
 
       <section className="px-5 pb-6 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-6xl">
-          <BrushCta onStartProject={onStartProject} line1="Let's build" line2="something amazing" />
+          <BrushCta onStartProject={onStartProject} line1="Start a Project" line2="Tell us what you’re building." />
         </div>
       </section>
 

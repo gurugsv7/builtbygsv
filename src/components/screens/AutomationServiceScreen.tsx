@@ -1,3 +1,4 @@
+import { ServiceEngagement } from '../ServiceEngagement';
 import React, { useState } from 'react';
 import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Zap, RefreshCw, BellRing, Clock, Check } from 'lucide-react';
 import { ServiceDetail } from '../../types';
@@ -116,13 +117,15 @@ export const AutomationServiceScreen: React.FC<AutomationServiceScreenProps> = (
         ))}
       </div>
 
-      <div className="z-10 pt-2">
-        <button
+      <div className="z-10 pt-2 space-y-6">
+        <ServiceEngagement />
+
+      <button
           onClick={onStartProject}
           id="btn-automation-start-project"
           className="w-full bg-amber-600 hover:bg-amber-700 rounded-3xl p-3.5 flex items-center justify-between text-white shadow-lg transition-all active:scale-[0.98]"
         >
-          <span className="font-extrabold text-base tracking-tight pl-3">Automate Your Workflow</span>
+          <span className="font-extrabold text-base tracking-tight pl-3">Start a Project</span>
           <div className="w-9 h-9 rounded-full bg-white text-amber-600 flex items-center justify-center shadow-xs">
             <ArrowRight className="w-5 h-5 stroke-[2.5]" />
           </div>

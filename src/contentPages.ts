@@ -119,7 +119,7 @@ export const contentPages: ContentPage[] = [
       { path: '/insights/website-cost-karaikal', label: 'Website cost guide for Karaikal' },
       { path: '/services', label: 'All services' },
       { path: '/process', label: 'How projects run' },
-      { path: '/contact', label: 'Start a project' },
+      { path: '/contact', label: 'Start a Project' },
     ],
   },
   {
@@ -130,14 +130,14 @@ export const contentPages: ContentPage[] = [
     eyebrow: 'Common questions',
     h1: 'Questions people ask before starting.',
     answer:
-      'BuiltbyGSV is the remote web, software and AI studio of Gurusabarivasan M, working with clients in Karaikal, Thanjavur, Bengaluru and remotely across India. Projects are fee-based with agreed scope, clients own the source code and accounts at handover, and the first conversation and scoping discussion are free.',
+      'BuiltbyGSV is a Product & AI Engineering Studio working with clients in Karaikal, Thanjavur, Bengaluru and remotely across India. Projects are fee-based with agreed scope, clients own the source code and accounts at handover, and the first conversation and scoping discussion are free.',
     intro:
       'If your question is not answered here, the fastest route is to describe the problem in an email. A short description is enough to get a useful answer back.',
     sections: [
       {
         heading: 'Who you are working with',
         paragraphs: [
-          'BuiltbyGSV is the independent studio of Gurusabarivasan M, known online as GuruGSV. One person handles product definition, interface design and implementation, which means decisions stay close to the code and nothing is lost in a handoff between a sales team and a delivery team.',
+          'BuiltbyGSV is a Product & AI Engineering Studio. We connect product definition, interface design and implementation, with a clear technical owner and review points throughout the engagement.',
           'The studio operates remotely. There is no office you can walk into, and no Google Business Profile listing, because there is no physical address to verify. That is stated plainly here rather than implied otherwise elsewhere on the site.',
         ],
       },
@@ -163,7 +163,7 @@ export const contentPages: ContentPage[] = [
     related: [
       { path: '/pricing', label: 'Pricing' },
       { path: '/process', label: 'How projects run' },
-      { path: '/about', label: 'About Gurusabarivasan M' },
+      { path: '/about', label: 'About us' },
       { path: '/contact', label: 'Contact' },
     ],
   },
@@ -177,7 +177,7 @@ export const contentPages: ContentPage[] = [
     answer:
       'A freelance developer usually costs least and suits small, well-defined builds, but carries continuity risk. An agency costs most and suits large multi-workstream projects needing guaranteed cover. A small studio sits between: one accountable technical owner, agency-level process, but limited parallel capacity. Match the choice to project size and how much continuity risk you can absorb.',
     intro:
-      'This page exists because the comparison is usually written by whichever party wants your business. BuiltbyGSV is a one-person studio, so the bias is declared at the top rather than hidden. There are projects listed below that a studio like this should not take.',
+      'This page exists because the comparison is usually written by whichever party wants your business. BuiltbyGSV is a small product engineering studio, so this comparison includes the limits of that delivery model. There are projects listed below that a studio like this should not take.',
     sections: [
       {
         heading: 'Where a freelance developer is the right call',
@@ -206,7 +206,7 @@ export const contentPages: ContentPage[] = [
       {
         heading: 'Where a small studio is the right call',
         paragraphs: [
-          'Projects that need one person to hold product context, design and implementation together, with proper engineering practice but without agency overhead. This is where BuiltbyGSV fits: enough process to be reliable, small enough that the person you speak to is the person building it.',
+          'Projects that benefit from close coordination between product design and implementation. BuiltbyGSV keeps scope, technical decisions and delivery reviews connected, with capacity and support expectations agreed before work begins.',
         ],
         bullets: [
           'Strongest on: continuity of intent from problem to code, and no cost of internal handoffs.',
@@ -241,7 +241,7 @@ export const contentPages: ContentPage[] = [
       { question: 'What is the biggest risk with a solo developer?', answer: 'Key-person risk. If they become unavailable, you need someone else to pick up the code. Mitigate it by owning the repository from day one, requiring documentation, and insisting on standard conventional tooling rather than a personal framework.' },
       { question: 'How do I check whether a local company is any good?', answer: 'Open their own site on your phone and look at how it is built. If a web development company runs a single page trying to rank for every service, or their site loads slowly on mobile, that is the standard of work you are buying.' },
       { question: 'Should I choose someone local?', answer: 'Local helps for on-site discovery, training and trust, and it matters most where the project involves observing a physical workflow. For most web and software work, relevant experience and communication quality matter considerably more than distance.' },
-      { question: 'When should I not hire BuiltbyGSV?', answer: 'When you need several large projects running simultaneously, when you need contractual cover during any absence, or when you need design, development, content and paid media delivered together as one team. An agency serves those properly and a one-person studio does not.' },
+      { question: 'When should I not hire BuiltbyGSV?', answer: 'When you need several large projects running simultaneously, when you need contractual cover during any absence, or when you need design, development, content and paid media delivered together as one team. Those requirements need a delivery model and capacity agreed explicitly before an engagement.' },
     ],
     related: [
       { path: '/pricing', label: 'Pricing' },

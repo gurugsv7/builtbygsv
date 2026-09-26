@@ -93,7 +93,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
             {/* Paragraph */}
             <p className="text-slate-600 text-xs font-medium leading-relaxed pt-0.5 pr-1">
-              From powerful websites to smart automation, I build digital products that solve real problems and create real impact.
+              From digital platforms to AI-powered systems, we design and engineer solutions around real business problems.
             </p>
           </div>
 
@@ -139,7 +139,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
         {/* MOBILE 4 CARDS LIST */}
         <div className="flex flex-col gap-3.5">
           
-          {/* CARD 01: Web Development */}
+          {/* CARD 01: Product Engineering */}
           <div
             onClick={() => onNavigateToService('web-dev')}
             onKeyDown={(event) => handleServiceKeyDown(event, 'web-dev')}
@@ -186,13 +186,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               {/* Right Info */}
               <div className="space-y-1 flex-1 min-w-0">
                 <h3 className="text-base font-extrabold text-[#131921] leading-tight">
-                  Web Development
+                  Product Engineering
                 </h3>
                 <p className="font-serif italic text-xs text-[#0F8B75] font-semibold">
                   Fast. Modern. Responsive.
                 </p>
                 <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-0.5">
-                  We build beautiful, high-performance websites that look stunning and convert visitors.
+                  We engineer websites, web applications and portals with clear journeys and responsive interfaces.
                 </p>
               </div>
             </div>
@@ -215,7 +215,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
           </div>
 
 
-          {/* CARD 02: Custom Software Development */}
+          {/* CARD 02: Software Engineering */}
           <div
             onClick={() => onNavigateToService('software-dev')}
             onKeyDown={(event) => handleServiceKeyDown(event, 'software-dev')}
@@ -257,13 +257,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="space-y-1 flex-1 min-w-0">
                 <h3 className="text-base font-extrabold text-[#131921] leading-tight">
-                  Custom Software Development
+                  Software Engineering
                 </h3>
                 <p className="font-serif italic text-xs text-amber-600 font-semibold">
                   Built around your logic.
                 </p>
                 <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-0.5">
-                  Scalable, secure and custom software solutions that streamline your operations.
+                  Custom systems, dashboards and backend applications built around your operations.
                 </p>
               </div>
             </div>
@@ -285,7 +285,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
           </div>
 
 
-          {/* CARD 03: AI & Automation */}
+          {/* CARD 03: AI Engineering */}
           <div
             onClick={() => onNavigateToService('ai-solutions')}
             onKeyDown={(event) => handleServiceKeyDown(event, 'ai-solutions')}
@@ -294,24 +294,24 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
             className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all cursor-pointer space-y-3"
           >
             <div className="flex items-center justify-between">
-              <span className="font-extrabold text-purple-600 text-sm font-mono">03</span>
-              <span aria-hidden="true" className="w-8 h-8 rounded-full bg-purple-100/60 text-purple-700 flex items-center justify-center">
+              <span className="font-extrabold text-teal-600 text-sm font-mono">03</span>
+              <span aria-hidden="true" className="w-8 h-8 rounded-full bg-teal-100/60 text-teal-700 flex items-center justify-center">
                 <ArrowRight className="w-4 h-4 stroke-[2.2]" />
               </span>
             </div>
 
             <div className="flex items-start gap-3.5">
-              <div className="relative w-28 h-28 rounded-xl bg-[#F3E8FF] flex items-center justify-center shrink-0 overflow-hidden border border-purple-100">
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#7C3AED_1px,transparent_1px)] [background-size:6px_6px]" />
+              <div className="relative w-28 h-28 rounded-xl bg-[#E2F1ED] flex items-center justify-center shrink-0 overflow-hidden border border-teal-100">
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:6px_6px]" />
                 
                 <div className="relative z-10 w-14 h-14 flex items-center justify-center">
                   <svg className="w-12 h-12 stroke-[#131921]" viewBox="0 0 36 36" fill="none" strokeWidth="1.5" strokeLinecap="round">
-                    <path d="M 12 10 Q 8 6, 6 12 Q 4 18, 10 22 Q 12 26, 18 26 Q 24 26, 26 22 Q 32 18, 30 12 Q 28 6, 24 10 Q 18 6, 12 10 Z" fill="white" />
+                    <rect x="4" y="7" width="28" height="22" rx="4" fill="white" />
                     <path d="M 18 8 L 18 26" strokeDasharray="2 2" />
-                    <circle cx="10" cy="14" r="1.5" fill="#7C3AED" />
-                    <circle cx="26" cy="14" r="1.5" fill="#7C3AED" />
-                    <circle cx="14" cy="20" r="1.5" fill="#7C3AED" />
-                    <circle cx="22" cy="20" r="1.5" fill="#7C3AED" />
+                    <circle cx="10" cy="14" r="1.5" fill="#0F8B75" />
+                    <circle cx="26" cy="14" r="1.5" fill="#0F8B75" />
+                    <circle cx="14" cy="20" r="1.5" fill="#0F8B75" />
+                    <circle cx="22" cy="20" r="1.5" fill="#0F8B75" />
                     <line x1="10" y1="14" x2="14" y2="20" />
                     <line x1="26" y1="14" x2="22" y2="20" />
                   </svg>
@@ -324,35 +324,35 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="space-y-1 flex-1 min-w-0">
                 <h3 className="text-base font-extrabold text-[#131921] leading-tight">
-                  AI & Automation
+                  AI Engineering
                 </h3>
-                <p className="font-serif italic text-xs text-purple-600 font-semibold">
+                <p className="font-serif italic text-xs text-teal-600 font-semibold">
                   Work smarter. Save hours.
                 </p>
                 <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-0.5">
-                  Intelligent solutions and automation workflows that remove repetitive work.
+                  AI assistants, RAG search and model integrations with defined sources and evaluation.
                 </p>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-1.5 pt-1">
               <span className="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700 text-[10px] font-bold flex items-center gap-1.5">
-                <Cpu className="w-3 h-3 text-purple-600" />
+                <Cpu className="w-3 h-3 text-teal-600" />
                 <span>AI Integration</span>
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700 text-[10px] font-bold flex items-center gap-1.5">
-                <Zap className="w-3 h-3 text-purple-600" />
-                <span>Workflow Automation</span>
+                <Zap className="w-3 h-3 text-teal-600" />
+                <span>RAG Search</span>
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700 text-[10px] font-bold flex items-center gap-1.5">
-                <Bot className="w-3 h-3 text-purple-600" />
+                <Bot className="w-3 h-3 text-teal-600" />
                 <span>RPA</span>
               </span>
             </div>
           </div>
 
 
-          {/* CARD 04: Backend & Cloud Solutions */}
+          {/* CARD 04: Automation */}
           <div
             onClick={() => onNavigateToService('automation')}
             onKeyDown={(event) => handleServiceKeyDown(event, 'automation')}
@@ -386,13 +386,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
               <div className="space-y-1 flex-1 min-w-0">
                 <h3 className="text-base font-extrabold text-[#131921] leading-tight">
-                  Backend & Cloud Solutions
+                  Automation
                 </h3>
                 <p className="font-serif italic text-xs text-[#0F8B75] font-semibold">
                   Secure. Scalable. Reliable.
                 </p>
                 <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-0.5">
-                  Robust backend systems and cloud infrastructure that grow with your business.
+                  Connected workflows, API integrations and scheduled tasks that reduce repetitive work.
                 </p>
               </div>
             </div>
@@ -404,11 +404,11 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700 text-[10px] font-bold flex items-center gap-1.5">
                 <Server className="w-3 h-3 text-[#0F8B75]" />
-                <span>AWS / Cloud</span>
+                <span>APIs / Webhooks</span>
               </span>
               <span className="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700 text-[10px] font-bold flex items-center gap-1.5">
                 <Database className="w-3 h-3 text-[#0F8B75]" />
-                <span>Database Design</span>
+                <span>Data Sync</span>
               </span>
             </div>
           </div>
@@ -431,7 +431,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 Have a project in mind?
               </h3>
               <p className="text-[11px] text-slate-300 font-medium">
-                Let's build something amazing together.
+                Tell us about the problem you want to solve.
               </p>
             </div>
           </div>
@@ -453,7 +453,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
               <span className="text-xs font-semibold text-slate-600">
-                Available for new projects
+                Product & AI Engineering Studio
               </span>
             </div>
 
@@ -462,7 +462,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               id="btn-header-services-lets-talk"
               className="bg-[#09121F] hover:bg-slate-800 text-white pl-3.5 pr-1 py-1 rounded-full text-xs font-bold flex items-center gap-2 shadow-xs transition-all cursor-pointer active:scale-95 group"
             >
-              <span>Let's Talk</span>
+              <span>Start a Project</span>
               <div className="w-5 h-5 rounded-full bg-[#10B981] text-slate-950 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
                 <ArrowUpRight className="w-3 h-3 stroke-[2.8]" />
               </div>
@@ -512,7 +512,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               </h1>
 
               <p className="text-slate-600 text-sm font-medium max-w-md leading-relaxed pt-1">
-                From powerful websites to smart automation, I build digital products that solve real problems and create real impact.
+                From digital platforms to AI-powered systems, we design and engineer solutions around real business problems.
               </p>
             </div>
 
@@ -596,13 +596,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
                 <div className="space-y-0.5">
                   <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#0F8B75] transition-colors">
-                    Web Development
+                    Product Engineering
                   </h3>
                   <p className="font-serif italic text-xs text-[#0F8B75] font-normal">
                     Fast. Modern. Responsive.
                   </p>
                   <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-1">
-                    We build beautiful, high-performance websites that look stunning and convert visitors.
+                    We engineer websites, web applications and portals with clear journeys and responsive interfaces.
                   </p>
                 </div>
 
@@ -666,13 +666,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
                 <div className="space-y-0.5">
                   <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#D97706] transition-colors">
-                    Custom Software Development
+                    Software Engineering
                   </h3>
                   <p className="font-serif italic text-xs text-[#D97706] font-normal">
                     Built around your logic.
                   </p>
                   <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-1">
-                    Scalable, secure and custom software solutions that streamline your operations.
+                    Custom systems, dashboards and backend applications built around your operations.
                   </p>
                 </div>
 
@@ -709,18 +709,18 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
               className="group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
               <div className="space-y-3">
-                <div className="relative w-full h-32 rounded-xl bg-[#F3E8FF] flex items-center justify-center overflow-hidden border border-purple-100/80">
-                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#7C3AED_1px,transparent_1px)] [background-size:6px_6px]" />
-                  <span className="absolute top-2 left-2.5 font-extrabold text-[#7C3AED] text-sm font-mono">03</span>
+                <div className="relative w-full h-32 rounded-xl bg-[#E2F1ED] flex items-center justify-center overflow-hidden border border-teal-100/80">
+                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:6px_6px]" />
+                  <span className="absolute top-2 left-2.5 font-extrabold text-[#0F8B75] text-sm font-mono">03</span>
 
                   <div className="relative z-10 w-16 h-16 flex items-center justify-center">
                     <svg className="w-14 h-14 stroke-[#131921]" viewBox="0 0 36 36" fill="none" strokeWidth="1.5" strokeLinecap="round">
-                      <path d="M 12 10 Q 8 6, 6 12 Q 4 18, 10 22 Q 12 26, 18 26 Q 24 26, 26 22 Q 32 18, 30 12 Q 28 6, 24 10 Q 18 6, 12 10 Z" fill="white" />
+                      <rect x="4" y="7" width="28" height="22" rx="4" fill="white" />
                       <path d="M 18 8 L 18 26" strokeDasharray="2 2" />
-                      <circle cx="10" cy="14" r="1.5" fill="#7C3AED" />
-                      <circle cx="26" cy="14" r="1.5" fill="#7C3AED" />
-                      <circle cx="14" cy="20" r="1.5" fill="#7C3AED" />
-                      <circle cx="22" cy="20" r="1.5" fill="#7C3AED" />
+                      <circle cx="10" cy="14" r="1.5" fill="#0F8B75" />
+                      <circle cx="26" cy="14" r="1.5" fill="#0F8B75" />
+                      <circle cx="14" cy="20" r="1.5" fill="#0F8B75" />
+                      <circle cx="22" cy="20" r="1.5" fill="#0F8B75" />
                       <line x1="10" y1="14" x2="14" y2="20" />
                       <line x1="26" y1="14" x2="22" y2="20" />
                     </svg>
@@ -732,35 +732,35 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 </div>
 
                 <div className="space-y-0.5">
-                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#7C3AED] transition-colors">
-                    AI & Automation
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#0F8B75] transition-colors">
+                    AI Engineering
                   </h3>
-                  <p className="font-serif italic text-xs text-[#7C3AED] font-normal">
+                  <p className="font-serif italic text-xs text-[#0F8B75] font-normal">
                     Work smarter. Save hours.
                   </p>
                   <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-1">
-                    Intelligent solutions and automation workflows that remove repetitive work.
+                    AI assistants, RAG search and model integrations with defined sources and evaluation.
                   </p>
                 </div>
 
                 <div className="space-y-1.5 pt-1 text-[11px] font-bold text-slate-700">
                   <div className="flex items-center gap-2">
-                    <Cpu className="w-3.5 h-3.5 text-[#7C3AED]" />
+                    <Cpu className="w-3.5 h-3.5 text-[#0F8B75]" />
                     <span>AI Integration</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Zap className="w-3.5 h-3.5 text-[#7C3AED]" />
-                    <span>Workflow Automation</span>
+                    <Zap className="w-3.5 h-3.5 text-[#0F8B75]" />
+                    <span>RAG Search</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Bot className="w-3.5 h-3.5 text-[#7C3AED]" />
+                    <Bot className="w-3.5 h-3.5 text-[#0F8B75]" />
                     <span>RPA</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex justify-end pt-3">
-                <div className="w-7 h-7 rounded-full bg-[#F3E8FF] text-[#7C3AED] group-hover:bg-[#7C3AED] group-hover:text-white flex items-center justify-center transition-all">
+                <div className="w-7 h-7 rounded-full bg-[#E2F1ED] text-[#0F8B75] group-hover:bg-[#0F8B75] group-hover:text-white flex items-center justify-center transition-all">
                   <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
@@ -795,13 +795,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
 
                 <div className="space-y-0.5">
                   <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#0F8B75] transition-colors">
-                    Backend & Cloud Solutions
+                    Automation
                   </h3>
                   <p className="font-serif italic text-xs text-[#0F8B75] font-normal">
                     Secure. Scalable. Reliable.
                   </p>
                   <p className="text-slate-600 text-[11px] font-medium leading-relaxed pt-1">
-                    Robust backend systems and cloud infrastructure that grow with your business.
+                    Connected workflows, API integrations and scheduled tasks that reduce repetitive work.
                   </p>
                 </div>
 
@@ -812,11 +812,11 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   </div>
                   <div className="flex items-center gap-2">
                     <Server className="w-3.5 h-3.5 text-[#0F8B75]" />
-                    <span>AWS / Cloud</span>
+                    <span>APIs / Webhooks</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Database className="w-3.5 h-3.5 text-[#0F8B75]" />
-                    <span>Database Design</span>
+                    <span>Data Sync</span>
                   </div>
                 </div>
               </div>
@@ -846,7 +846,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                     Great solutions create impact.
                   </p>
                   <p className="text-xs font-serif italic text-[#0F8B75] pt-0.5 font-semibold">
-                    — GSV
+                    BuiltbyGSV
                   </p>
                 </div>
               </div>
@@ -864,7 +864,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                       Let's build something that matters.
                     </h4>
                     <p className="text-[11px] text-slate-600 font-medium leading-tight">
-                      Book a free consultation call and let's talk about your ideas.
+                      Tell us what you're building. We'll help define the scope.
                     </p>
                   </div>
                 </div>
@@ -874,7 +874,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   id="btn-services-schedule-call"
                   className="bg-[#09121F] hover:bg-slate-800 text-white pl-3.5 pr-1 py-1 rounded-full text-xs font-bold flex items-center gap-2 shadow-xs transition-all cursor-pointer active:scale-95 group shrink-0"
                 >
-                  <span>Schedule a Call</span>
+                  <span>Start a Project</span>
                   <div className="w-5 h-5 rounded-full bg-[#10B981] text-slate-950 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
                     <ArrowRight className="w-3 h-3 stroke-[2.8]" />
                   </div>

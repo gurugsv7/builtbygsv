@@ -1,3 +1,4 @@
+import { ServiceEngagement } from '../ServiceEngagement';
 import React, { useState } from 'react';
 import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Maximize2, GitBranch, Share2, Sliders, Check } from 'lucide-react';
 import { ServiceDetail } from '../../types';
@@ -137,6 +138,8 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
           </span>
         ))}
       </div>
+
+      <ServiceEngagement />
 
       {/* Bottom Call-To-Action Orange Brush Button */}
       <div className="z-10 pt-2">

@@ -9,8 +9,11 @@ export type ScreenType =
   | 'automation' 
   | 'projects' 
   | 'project-detail' 
-  | 'profile'
+  | 'about'
   | 'contact'
+  | 'start-project'
+  | 'careers'
+  | 'website-information'
   | 'not-found';
 
 export type ServiceType = 'web-dev' | 'software-dev' | 'ai-solutions' | 'automation';
@@ -41,8 +44,8 @@ export interface ProjectDetailData {
     iconName: string;
   }[];
   timeline?: string;
-  role?: string;
-  projectType?: string;
+  capabilities?: string;
+  engagement?: string;
   platform?: string;
   impactMetrics?: {
     value: string;
