@@ -1,8 +1,13 @@
 import { useRef, useState } from 'react';
+import { AnimatePresence } from 'motion/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { ServiceType } from '../../types';
+import { CapabilityScene } from './CapabilityScenes';
+import { DURATION } from '../../motion/tokens';
 import { motion, useInView, useScroll, useTransform } from 'motion/react';
 import type { FlowNode, ServiceVisual } from '../../data/serviceVisuals';
 import { useSequence } from '../../motion/primitives';
-import { EASE, VIEWPORT } from '../../motion/tokens';
+import { EASE, SPRING, VIEWPORT } from '../../motion/tokens';
 
 interface FlowProps { nodes: FlowNode[]; accent: string; accentSoft: string }
 
@@ -162,4 +167,76 @@ export function ServiceDiagram({ visual, variant }: { visual: ServiceVisual; var
   if (visual.fanIn) return variant === 'desktop' ? <FanInDiagramDesktop visual={visual} /> : <FanInDiagramMobile visual={visual} />;
   const props = { nodes: visual.flow!, accent: visual.accent, accentSoft: visual.accentSoft };
   return variant === 'desktop' ? <FlowDiagramDesktop {...props} /> : <FlowDiagramMobile {...props} />;
+}
+
+/**
+ * Mobile service visual: the service's own illustrated scene, then a swipeable stage
+ * track. Tapping a stage (or stepping with the arrows) swaps its explanation in, so the
+ * whole pipeline fits in one compact card instead of a long list.
+ */
+export function MobileServiceVisual({ serviceId, visual }: { serviceId: ServiceType; visual: ServiceVisual }) {
+  const [active, setActive] = useState(0);
+  const track = useRef<HTMLOListElement>(null);
+  const nodes = visual.flow;
+
+  const select = (index: number) => {
+    setActive(index);
+    const chip = track.current?.children[index] as HTMLElement | undefined;
+    chip?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  };
+
+  return (
+    <section aria-label="How it fits together" className="z-10 overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-2xs">
+      <div className="relative px-4 pb-1 pt-4" style={{ backgroundColor: visual.accentSoft }}>
+        <div className="flex items-center justify-between">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-wider" style={{ color: visual.accent }}>How it fits together</p>
+          {nodes && <p className="font-mono text-[10px] font-bold text-slate-500">0{active + 1}/0{nodes.length}</p>}
+        </div>
+        <div className="mx-auto mt-1 aspect-[400/280] w-full max-w-[320px]" aria-hidden="true"><CapabilityScene id={serviceId} /></div>
+      </div>
+
+      {nodes ? (
+        <div className="pb-4 pt-3">
+          <ol ref={track} className="no-scrollbar flex snap-x snap-mandatory items-center gap-1.5 overflow-x-auto px-4 pb-1" aria-label="Stages">
+            {nodes.map((node, index) => {
+              const on = index === active;
+              const passed = index < active;
+              return (
+                <li key={node.title} className="flex shrink-0 snap-center items-center gap-1.5">
+                  {index > 0 && <span aria-hidden="true" className="h-0.5 w-3 rounded-full transition-colors" style={{ backgroundColor: index <= active ? visual.accent : '#E2E8F0' }} />}
+                  <button type="button" onClick={() => select(index)} aria-pressed={on}
+                    className="relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-extrabold transition-colors active:scale-95"
+                    style={{ borderColor: on || passed ? visual.accent : '#E2E8F0', color: on ? '#FFFFFF' : passed ? visual.accent : '#64748B' }}>
+                    {on && <motion.span layoutId={`mobile-stage-${serviceId}`} transition={SPRING.gentle} className="absolute inset-0 rounded-full" style={{ backgroundColor: visual.accent }} />}
+                    <span className="relative font-mono text-[9px] opacity-80">0{index + 1}</span>
+                    <span className="relative whitespace-nowrap">{node.title}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+          <div className="mt-3 flex items-center gap-3 px-4">
+            <button type="button" onClick={() => select(Math.max(0, active - 1))} disabled={active === 0} aria-label="Previous stage"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-opacity disabled:opacity-30 active:scale-95">
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <div className="min-h-[2.75rem] flex-1" aria-live="polite">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p key={active} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: DURATION.fast }}
+                  className="text-xs leading-5 text-slate-600">
+                  <span className="font-extrabold text-[#131921]">{nodes[active].title}.</span> {nodes[active].caption}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+            <button type="button" onClick={() => select(Math.min(nodes.length - 1, active + 1))} disabled={active === nodes.length - 1} aria-label="Next stage"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-opacity disabled:opacity-30 active:scale-95" style={{ backgroundColor: visual.accent }}>
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="p-4"><FanInDiagramMobile visual={visual} /></div>
+      )}
+    </section>
+  );
 }

@@ -4,7 +4,7 @@ import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Maximize2, GitBranch, Sh
 import { ServiceDetail } from '../../types';
 import { motion } from 'motion/react';
 import { ServiceDesktopLayout } from '../ServiceDesktopLayout';
-import { ServiceDiagram } from '../visuals/ServiceDiagrams';
+import { MobileServiceVisual } from '../visuals/ServiceDiagrams';
 import { SERVICE_VISUALS } from '../../data/serviceVisuals';
 import { SoftwareDevIllustration } from '../illustrations/SoftwareDevIllustration';
 
@@ -87,10 +87,7 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
         </div>
       </div>
 
-      <section aria-label="How it fits together" className="z-10 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs">
-        <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-wider" style={{ color: SERVICE_VISUALS['software-dev'].accent }}>How it fits together</p>
-        <ServiceDiagram visual={SERVICE_VISUALS['software-dev']} variant="mobile" />
-      </section>
+      <MobileServiceVisual serviceId="software-dev" visual={SERVICE_VISUALS['software-dev']} />
 
       {/* Feature Cards Stack with Clean Light Design & Orange Accents */}
       <div className="space-y-2.5 z-10">

@@ -24,12 +24,8 @@ import type { Project } from '../../types';
 import { motion } from 'motion/react';
 import { CaseFlow } from '../visuals/CaseFlow';
 import { EASE } from '../../motion/tokens';
-import v2Glimpse1 from '../../assets/v2productions/glimpse1.png';
-import v2Glimpse2 from '../../assets/v2productions/glimpse2.png';
-import v2Glimpse3 from '../../assets/v2productions/glimpse3.png';
-import v2Glimpse4 from '../../assets/v2productions/glimpse4.png';
-import v2HeroImg from '../../assets/v2productions/hero.png';
-import v2StoryImg from '../../assets/v2productions/the_story.png';
+import { projectMedia } from '../../data/projectMedia';
+import { MobileProjectDetail } from './MobileProjectDetail';
 
 interface ProjectDetailScreenProps {
   project: Project;
@@ -52,14 +48,6 @@ const ICONS: Record<string, LucideIcon> = {
   User,
   Users,
   Zap,
-};
-
-const projectMedia: Record<string, { hero?: string; story?: string; glimpses?: string[] }> = {
-  'v2-productions': {
-    hero: v2HeroImg,
-    story: v2StoryImg,
-    glimpses: [v2Glimpse1, v2Glimpse2, v2Glimpse3, v2Glimpse4],
-  },
 };
 
 export const ProjectDetailScreen = ({
@@ -92,7 +80,9 @@ export const ProjectDetailScreen = ({
   const answer = typeof answerBlock === 'object' ? answerBlock.answer : answerBlock;
 
   return (
-    <main className="min-h-screen w-full bg-[#FBFBFB] pb-20 text-[#131921]">
+    <>
+    <div className="lg:hidden"><MobileProjectDetail project={project} onBack={onBack} onOpenStartProject={onOpenStartProject} /></div>
+    <main className="hidden min-h-screen w-full bg-[#FBFBFB] pb-20 text-[#131921] lg:block">
       <header className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-12">
         <button
           type="button"
@@ -353,5 +343,6 @@ export const ProjectDetailScreen = ({
         </div>
       </footer>
     </main>
+    </>
   );
 };

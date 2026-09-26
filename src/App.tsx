@@ -30,7 +30,6 @@ import { ContactScreen } from './components/screens/ContactScreen';
 import { NotFoundScreen } from './components/screens/NotFoundScreen';
 
 // Modals and Drawers
-import { ProjectDetailModal } from './components/screens/ProjectDetailModal';
 import { StartProjectScreen } from './components/screens/StartProjectScreen';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
 import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
@@ -51,13 +50,6 @@ const QUICK_NAV_ITEMS = [
 ];
 
 export default function App() {
-  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
-  useEffect(() => {
-    const query = window.matchMedia('(max-width: 1023px)');
-    const update = () => setIsMobile(query.matches);
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
   const [currentScreen, setCurrentScreenState] = useState<ScreenType>(() =>
     getScreenFromPath(window.location.pathname)
   );
@@ -151,10 +143,7 @@ export default function App() {
           <>
             {/* Mobile View: Hero Splash Landing Screen */}
             <div className="block lg:hidden min-h-screen">
-              <HeroLandingScreen
-                onGetStarted={() => setCurrentScreen('home')}
-                onStartProject={() => handleOpenStartProject('web-dev')}
-              />
+              <HeroLandingScreen onGetStarted={() => setCurrentScreen('home')} />
             </div>
 
             {/* Desktop View: Directly show Home Dashboard Screen */}
@@ -308,7 +297,7 @@ export default function App() {
         />
 
         {/* Right Main Content Area */}
-        <div className="flex-1 flex flex-col justify-between min-w-0 min-h-screen relative overflow-x-hidden">
+        <div className="flex-1 flex flex-col justify-between min-w-0 min-h-screen relative overflow-x-clip">
           {/* Dynamic Screen View Content */}
           <div
             className={`flex-1 flex flex-col justify-between ${
@@ -394,16 +383,7 @@ export default function App() {
         )}
         </AnimatePresence>
 
-        {/* Project Case Study Detail Modal (Mobile Only) */}
-        {selectedProject && isMobile && (
-          <div className="block lg:hidden">
-            <ProjectDetailModal
-              project={selectedProject}
-              onClose={handleCloseProject}
-              onStartSimilarProject={() => handleOpenStartProject('web-dev')}
-            />
-          </div>
-        )}
+
 
 
       </div>

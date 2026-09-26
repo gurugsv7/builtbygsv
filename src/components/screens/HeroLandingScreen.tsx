@@ -7,10 +7,9 @@ import { EASE } from '../../motion/tokens';
 
 interface HeroLandingScreenProps {
   onGetStarted: () => void;
-  onStartProject: () => void;
 }
 
-export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStarted, onStartProject }) => {
+export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStarted }) => {
   return (
     <div className="flex h-[100dvh] min-h-[440px] flex-col overflow-hidden bg-[#F8F9FA] px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-[#131921] sm:px-8">
       {/* Top Header Logo */}
@@ -46,7 +45,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
       {/* Bottom Dark Brush Call-to-Action Banner */}
       <motion.div className="z-10 shrink-0" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out, delay: 0.3 }}>
         <button
-          onClick={onStartProject}
+          onClick={onGetStarted}
           id="btn-hero-cta"
           className="w-full relative group cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-[#0F8B75]"
         >
@@ -80,7 +79,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
             {/* Left Content: Handwritten Text + Doodle Underline */}
             <div className="relative z-10 flex flex-col justify-center pr-2">
               <span className="font-handwritten text-xl sm:text-2xl font-medium text-slate-50 tracking-wide leading-[1.05] group-hover:text-amber-100 transition-colors">
-                <span className="block">Start a Project</span>
+                <span className="block">Enter the studio</span>
               </span>
 
               {/* Hand-drawn Underline Doodle */}
@@ -110,7 +109,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
 
           </div>
         </button>
-        <button onClick={onGetStarted} className="mt-3 w-full py-2 text-center text-xs font-bold text-[#0F8B75]">Explore the Studio <span aria-hidden="true">↗</span></button>
+        <p className="mt-3 text-center text-[11px] font-semibold text-slate-500">Work, services and how we build — all inside.</p>
       </motion.div>
     </div>
   );

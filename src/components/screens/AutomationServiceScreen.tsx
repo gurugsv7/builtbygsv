@@ -4,7 +4,7 @@ import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Zap, RefreshCw, BellRing
 import { ServiceDetail } from '../../types';
 import { motion } from 'motion/react';
 import { ServiceDesktopLayout } from '../ServiceDesktopLayout';
-import { ServiceDiagram } from '../visuals/ServiceDiagrams';
+import { MobileServiceVisual } from '../visuals/ServiceDiagrams';
 import { SERVICE_VISUALS } from '../../data/serviceVisuals';
 
 interface AutomationServiceScreenProps {
@@ -76,10 +76,7 @@ export const AutomationServiceScreen: React.FC<AutomationServiceScreenProps> = (
         </p>
       </div>
 
-      <section aria-label="How it fits together" className="z-10 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs">
-        <p className="mb-4 font-mono text-[10px] font-bold uppercase tracking-wider" style={{ color: SERVICE_VISUALS['automation'].accent }}>How it fits together</p>
-        <ServiceDiagram visual={SERVICE_VISUALS['automation']} variant="mobile" />
-      </section>
+      <MobileServiceVisual serviceId="automation" visual={SERVICE_VISUALS['automation']} />
 
       <div className="space-y-2.5 z-10">
         {service.features.map((feature) => {
