@@ -1,7 +1,11 @@
 import { ServiceEngagement } from '../ServiceEngagement';
 import React, { useState } from 'react';
-import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Brain, Search, Sparkles, Lock, Check } from 'lucide-react';
+import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Brain, Search, Sparkles, Lock } from 'lucide-react';
 import { ServiceDetail } from '../../types';
+import { motion } from 'motion/react';
+import { ServiceDesktopLayout } from '../ServiceDesktopLayout';
+import { MobileServiceVisual } from '../visuals/ServiceDiagrams';
+import { SERVICE_VISUALS } from '../../data/serviceVisuals';
 
 interface AiSolutionsServiceScreenProps {
   service: ServiceDetail;
@@ -31,7 +35,12 @@ export const AiSolutionsServiceScreen: React.FC<AiSolutionsServiceScreenProps> =
   };
 
   return (
-    <div className="flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
+    <>
+    <div className="hidden lg:block">
+      <ServiceDesktopLayout service={service} icons={{ Brain, Search, Sparkles, Lock }} idPrefix="btn-aisolutions" isBookmarked={isBookmarked}
+        onToggleBookmark={onToggleBookmark} onBack={onBack} onStartProject={onStartProject} />
+    </div>
+    <div className="lg:hidden flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
       <div className="flex items-center justify-between py-1 z-10">
         <button
           onClick={onBack}
@@ -67,6 +76,8 @@ export const AiSolutionsServiceScreen: React.FC<AiSolutionsServiceScreenProps> =
         </p>
       </div>
 
+      <MobileServiceVisual serviceId="ai-solutions" visual={SERVICE_VISUALS['ai-solutions']} />
+
       <div className="space-y-2.5 z-10">
         {service.features.map((feature) => {
           const IconComp = getFeatureIcon(feature.icon);
@@ -97,12 +108,9 @@ export const AiSolutionsServiceScreen: React.FC<AiSolutionsServiceScreenProps> =
                 <ChevronRight className={`w-4 h-4 text-slate-400 ${isExpanded ? 'rotate-90' : ''}`} />
               </div>
               {isExpanded && feature.details && (
-                <div className="mt-2.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-teal-50/50 p-2.5 rounded-xl border border-teal-100">
+                <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5 pt-2 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-teal-50/50 p-2.5 rounded-xl border border-teal-100">
                   <p className="font-medium">{feature.details}</p>
-                  <div className="flex items-center gap-1 text-teal-600 font-bold text-[10px] pt-1">
-                    <Check className="w-3 h-3 stroke-[3]" /> Included in Gemini AI Integration
-                  </div>
-                </div>
+                </motion.div>
               )}
             </button>
           );
@@ -132,5 +140,6 @@ export const AiSolutionsServiceScreen: React.FC<AiSolutionsServiceScreenProps> =
         </button>
       </div>
     </div>
+    </>
   );
 };

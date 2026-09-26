@@ -1,7 +1,11 @@
 import { ServiceEngagement } from '../ServiceEngagement';
 import React, { useState } from 'react';
-import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Maximize2, GitBranch, Share2, Sliders, Check } from 'lucide-react';
+import { ArrowLeft, Bookmark, ArrowRight, ChevronRight, Maximize2, GitBranch, Share2, Sliders } from 'lucide-react';
 import { ServiceDetail } from '../../types';
+import { motion } from 'motion/react';
+import { ServiceDesktopLayout } from '../ServiceDesktopLayout';
+import { MobileServiceVisual } from '../visuals/ServiceDiagrams';
+import { SERVICE_VISUALS } from '../../data/serviceVisuals';
 import { SoftwareDevIllustration } from '../illustrations/SoftwareDevIllustration';
 
 interface SoftwareDevServiceScreenProps {
@@ -32,7 +36,12 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
   };
 
   return (
-    <div className="flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
+    <>
+    <div className="hidden lg:block">
+      <ServiceDesktopLayout service={service} icons={{ Maximize2, GitBranch, Share2, Sliders }} idPrefix="btn-softwaredev" isBookmarked={isBookmarked}
+        onToggleBookmark={onToggleBookmark} onBack={onBack} onStartProject={onStartProject} />
+    </div>
+    <div className="lg:hidden flex flex-col min-h-full px-5 pt-3 pb-8 bg-[#F8F9FA] text-[#131921] relative justify-between space-y-6">
       {/* Top Header Bar */}
       <div className="flex items-center justify-between py-1 z-10">
         <button
@@ -78,6 +87,8 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
         </div>
       </div>
 
+      <MobileServiceVisual serviceId="software-dev" visual={SERVICE_VISUALS['software-dev']} />
+
       {/* Feature Cards Stack with Clean Light Design & Orange Accents */}
       <div className="space-y-2.5 z-10">
         {service.features.map((feature) => {
@@ -117,13 +128,9 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
 
               {/* Expanded Detail Panel */}
               {isExpanded && feature.details && (
-                <div className="mt-2.5 pt-2.5 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-amber-50/50 p-2.5 rounded-xl border border-amber-100/60">
+                <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5 pt-2.5 border-t border-slate-100 text-[11px] text-slate-600 space-y-1 bg-amber-50/50 p-2.5 rounded-xl border border-amber-100/60">
                   <p className="font-medium">{feature.details}</p>
-                  <div className="flex items-center gap-1 text-[#E85D22] font-bold text-[10px] pt-1">
-                    <Check className="w-3 h-3 stroke-[3]" />
-                    Included in Custom Software Architecture
-                  </div>
-                </div>
+                </motion.div>
               )}
             </button>
           );
@@ -157,5 +164,6 @@ export const SoftwareDevServiceScreen: React.FC<SoftwareDevServiceScreenProps> =
         </button>
       </div>
     </div>
+    </>
   );
 };

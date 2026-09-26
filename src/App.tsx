@@ -30,11 +30,13 @@ import { ContactScreen } from './components/screens/ContactScreen';
 import { NotFoundScreen } from './components/screens/NotFoundScreen';
 
 // Modals and Drawers
-import { ProjectDetailModal } from './components/screens/ProjectDetailModal';
 import { StartProjectScreen } from './components/screens/StartProjectScreen';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
 import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
 import { BrandLogo } from './components/BrandLogo';
+import { PageTransition } from './motion/primitives';
+import { AnimatePresence, motion } from 'motion/react';
+import { DURATION, EASE } from './motion/tokens';
 
 const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
@@ -48,13 +50,6 @@ const QUICK_NAV_ITEMS = [
 ];
 
 export default function App() {
-  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
-  useEffect(() => {
-    const query = window.matchMedia('(max-width: 1023px)');
-    const update = () => setIsMobile(query.matches);
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
   const [currentScreen, setCurrentScreenState] = useState<ScreenType>(() =>
     getScreenFromPath(window.location.pathname)
   );
@@ -148,10 +143,7 @@ export default function App() {
           <>
             {/* Mobile View: Hero Splash Landing Screen */}
             <div className="block lg:hidden min-h-screen">
-              <HeroLandingScreen
-                onGetStarted={() => setCurrentScreen('home')}
-                onStartProject={() => handleOpenStartProject('web-dev')}
-              />
+              <HeroLandingScreen onGetStarted={() => setCurrentScreen('home')} />
             </div>
 
             {/* Desktop View: Directly show Home Dashboard Screen */}
@@ -305,14 +297,16 @@ export default function App() {
         />
 
         {/* Right Main Content Area */}
-        <div className="flex-1 flex flex-col justify-between min-w-0 min-h-screen relative overflow-x-hidden">
+        <div className="flex-1 flex flex-col justify-between min-w-0 min-h-screen relative overflow-x-clip">
           {/* Dynamic Screen View Content */}
           <div
             className={`flex-1 flex flex-col justify-between ${
               currentScreen !== 'hero' ? 'pb-24 lg:pb-0' : ''
             }`}
           >
-            {renderScreenContent()}
+            <PageTransition routeKey={`${currentScreen}:${selectedProject?.id ?? ''}`}>
+              {renderScreenContent()}
+            </PageTransition>
             <div className={currentScreen === 'hero' ? 'hidden lg:block' : ''}><BusinessFooter /></div>
           </div>
 
@@ -327,8 +321,11 @@ export default function App() {
         </div>
 
         {/* Quick Menu Slide-over Drawer */}
+        <AnimatePresence>
         {isMenuOpen && (
-          <div className="fixed inset-0 z-50 flex bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+          <motion.div key="quick-menu" className="fixed inset-0 z-50 flex bg-slate-900/60 backdrop-blur-xs"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: DURATION.base }}>
+            <motion.div initial={{ x: -24 }} animate={{ x: 0 }} exit={{ x: -24 }} transition={{ duration: DURATION.base, ease: EASE.out }} className="h-full">
             <div ref={menuRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="quick-menu-title" className="bg-white w-72 h-full overflow-y-auto shadow-2xl p-5 flex flex-col justify-between">
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b pb-4">
@@ -381,19 +378,12 @@ export default function App() {
                 </button>
               </div>
             </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
-        {/* Project Case Study Detail Modal (Mobile Only) */}
-        {selectedProject && isMobile && (
-          <div className="block lg:hidden">
-            <ProjectDetailModal
-              project={selectedProject}
-              onClose={handleCloseProject}
-              onStartSimilarProject={() => handleOpenStartProject('web-dev')}
-            />
-          </div>
-        )}
+
 
 
       </div>

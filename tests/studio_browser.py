@@ -32,12 +32,8 @@ with sync_playwright() as p:
 
         page.goto(BASE + '/', wait_until='networkidle')
         if width < 1024:
-            page.get_by_role('button', name='Start a Project', exact=True).click()
-            page.wait_for_url('**/start-project?service=web-dev')
-            assert page.get_by_role('heading', name='Start a Project.').is_visible()
-            assert page.get_by_role('dialog').count() == 0
-            page.go_back(wait_until='networkidle')
-            page.get_by_role('button', name='Explore the Studio').click()
+            assert page.get_by_role('button', name='Start a Project', exact=True).count() == 0, 'splash should lead into the studio, not the brief'
+            page.get_by_role('button', name='Enter the studio', exact=True).click()
             assert not page.get_by_role('heading', name='Product decisions, grounded in engineering.').is_visible()
             assert page.locator('#card-mobile-recent-project').is_visible()
             assert page.get_by_role('button', name='Product Engineering', exact=True).is_visible()
@@ -61,11 +57,13 @@ with sync_playwright() as p:
         page.get_by_role('button', name='View V² Productions case study').click()
         page.wait_for_url(BASE + '/projects/v2-productions')
         if width < 1024:
-            assert page.get_by_role('dialog').is_visible()
-            assert page.get_by_role('dialog').get_by_text('Client Work', exact=False).is_visible()
-            page.get_by_role('button', name='Close project details').click()
+            assert page.get_by_role('dialog').count() == 0, 'mobile case study should be a page, not a dialog'
+            assert page.get_by_role('heading', name='V² Productions', exact=True).is_visible()
+            assert page.locator('main:visible').get_by_text('Client Work · Web case study', exact=True).is_visible()
+            page.get_by_role('button', name='Back to work').click()
+            page.wait_for_url(BASE + '/projects')
         else:
-            assert page.get_by_text('UX Design · Frontend Engineering', exact=True).is_visible()
+            assert page.locator('main:visible').get_by_text('UX Design · Frontend Engineering', exact=True).is_visible()
         page.goto(BASE + '/contact?startProject=1', wait_until='networkidle')
         page.wait_for_url(BASE + '/start-project')
         assert page.get_by_role('heading', name='Start a Project.').is_visible()

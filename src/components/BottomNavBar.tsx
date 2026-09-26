@@ -2,6 +2,8 @@ import React from 'react';
 import { Home, LayoutGrid, Briefcase, Mail } from 'lucide-react';
 import { ScreenType } from '../types';
 import { SCREEN_PATHS } from '../routes';
+import { motion } from 'motion/react';
+import { SPRING } from '../motion/tokens';
 
 interface BottomNavBarProps {
   currentScreen: ScreenType;
@@ -64,15 +66,15 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
                 onNavigate(item.id as ScreenType);
               }}
               id={`nav-item-${item.id}`}
-              className={`pointer-events-auto flex flex-col items-center gap-0.5 py-1 px-3 rounded-2xl transition-colors ${
+              className={`pointer-events-auto flex flex-col items-center gap-0.5 py-1 px-3 rounded-2xl transition-[color,transform] active:scale-95 ${
                 isActive ? 'text-[#0F8B75] font-semibold' : 'text-slate-400 hover:text-slate-700'
               }`}
             >
               <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.8]'}`} />
               <span className="text-[10px] tracking-tight">{item.label}</span>
-              {isActive && (
-                <span className="w-1 h-1 rounded-full bg-[#0F8B75] mt-0.5 animate-pulse" />
-              )}
+              <span className="mt-0.5 flex h-1 w-3 justify-center">
+                {isActive && <motion.span layoutId="bottom-nav-active" transition={SPRING.gentle} className="h-1 w-3 rounded-full bg-[#0F8B75]" />}
+              </span>
             </a>
           );
         })}

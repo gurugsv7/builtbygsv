@@ -9,7 +9,12 @@ import {
   Phone,
   Send,
 } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'motion/react';
+import { ChevronRight, FileText } from 'lucide-react';
 import { brandEntity } from '../../seo';
+import { groupVariants, itemVariants } from '../../motion/primitives';
+import { EASE } from '../../motion/tokens';
 
 interface ContactScreenProps {
   onBack: () => void;
@@ -19,7 +24,124 @@ interface ContactScreenProps {
 const phoneHref = `tel:${brandEntity.phone.replace(/[^+\d]/g, '')}`;
 const whatsappHref = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`;
 
-export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) => (
+const FIRST_MESSAGE = ['The problem you need to solve', 'Who will use the product', 'What you use today', 'Any fixed launch date'];
+
+export const ContactScreen = (props: ContactScreenProps) => (
+  <>
+    <div className="lg:hidden"><MobileContact {...props} /></div>
+    <div className="hidden lg:block"><DesktopContact {...props} /></div>
+  </>
+);
+
+/** Mobile contact: an app-style screen built around one-tap ways to reach the studio. */
+function MobileContact({ onBack, onStartProject }: ContactScreenProps) {
+  const [ticked, setTicked] = useState<string[]>([]);
+  const toggle = (item: string) => setTicked((list) => (list.includes(item) ? list.filter((entry) => entry !== item) : [...list, item]));
+  const channels = [
+    { href: `mailto:${brandEntity.email}`, label: 'Email', icon: Mail, tone: 'bg-[#E2F1ED] text-[#0F8B75]', external: false },
+    { href: phoneHref, label: 'Call', icon: Phone, tone: 'bg-[#FDF1E7] text-[#E85D22]', external: false },
+    { href: whatsappHref, label: 'WhatsApp', icon: MessageCircle, tone: 'bg-emerald-50 text-emerald-600', external: true },
+  ];
+
+  return (
+    <main className="mx-auto max-w-xl space-y-5 px-4 pb-6 pt-3 text-[#131921]">
+      <header className="flex items-center justify-between">
+        <button type="button" onClick={onBack} aria-label="Back" className="rounded-full p-1.5 text-slate-700 hover:bg-slate-200/60"><ArrowLeft className="h-5 w-5" /></button>
+        <span className="text-sm font-extrabold">Contact</span>
+        <span className="w-8" aria-hidden="true" />
+      </header>
+
+      <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE.out }}>
+        <p className="text-[9px] font-extrabold uppercase tracking-widest text-[#0F8B75]">Product enquiries</p>
+        <h1 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight">
+          Bring the problem.<br />
+          <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">
+            We&apos;ll shape the build.
+            <svg aria-hidden="true" className="absolute -bottom-1.5 left-0 h-2 w-full overflow-visible text-[#F5C748]" viewBox="0 0 200 8" fill="none">
+              <motion.path d="M2 5 C 60 1, 140 8, 198 3" stroke="currentColor" strokeWidth="3" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.3, ease: EASE.out }} />
+            </svg>
+          </span>
+        </h1>
+        <p className="mt-3 text-xs font-medium leading-6 text-slate-600">Share what is slowing your team down, who the product needs to help and what already exists. We&apos;ll help define a sensible first version.</p>
+      </motion.section>
+
+      <motion.ul className="grid grid-cols-3 gap-2.5" aria-label="Contact options" initial="hidden" animate="shown" variants={groupVariants}>
+        {channels.map(({ href, label, icon: Icon, tone, external }) => (
+          <motion.li key={label} variants={itemVariants}>
+            <a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="flex flex-col items-center gap-2 rounded-2xl border border-slate-200/90 bg-white px-2 py-3.5 shadow-2xs transition-transform active:scale-95">
+              <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${tone}`}><Icon className="h-5 w-5" /></span>
+              <span className="text-[11px] font-extrabold">{label}</span>
+            </a>
+          </motion.li>
+        ))}
+      </motion.ul>
+      <p className="-mt-2 text-center text-[10px] font-semibold text-slate-500">{brandEntity.email} · {brandEntity.phone}</p>
+
+      <button type="button" onClick={onStartProject} id="btn-contact-start-project"
+        className="relative w-full overflow-hidden rounded-3xl bg-[#101A19] p-5 text-left text-white shadow-lg transition-transform active:scale-[0.99]">
+        <span aria-hidden="true" className="absolute -right-10 -top-12 h-36 w-36 rounded-full border-[26px] border-[#174B40]" />
+        <span className="relative flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-widest text-emerald-400"><FileText className="h-3.5 w-3.5" /> Guided project brief</span>
+        <span className="relative mt-2 block text-lg font-extrabold leading-snug">Start with a short brief.</span>
+        <span className="relative mt-4 flex items-center gap-1.5 text-[10px] font-bold text-slate-300" aria-hidden="true">
+          {['Answer', 'Review', 'Send by email'].map((step, index) => (
+            <span key={step} className="flex items-center gap-1.5">
+              {index > 0 && <span className="h-px w-3 bg-emerald-400/60" />}
+              <span className="rounded-full border border-white/15 px-2 py-1">{step}</span>
+            </span>
+          ))}
+        </span>
+        <span className="relative mt-4 flex items-center justify-between gap-3">
+          <span className="text-[11px] leading-5 text-slate-400">You stay in control of what gets sent.</span>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5C748] text-[#131921]"><ArrowUpRight className="h-5 w-5" /></span>
+        </span>
+      </button>
+
+      <section className="rounded-2xl border border-slate-200/80 bg-[#F2EFE4] p-4" aria-labelledby="first-message">
+        <div className="flex items-baseline justify-between">
+          <h2 id="first-message" className="font-handwritten text-xl font-bold text-[#E85D22]">Before you write</h2>
+          <span className="font-mono text-[10px] font-bold text-slate-500">{ticked.length}/4 ready</span>
+        </div>
+        <p className="text-[11px] text-slate-600">Four details are enough to begin. Tick off what you know.</p>
+        <ul className="mt-3 space-y-2">
+          {FIRST_MESSAGE.map((item) => {
+            const on = ticked.includes(item);
+            return (
+              <li key={item}>
+                <button type="button" onClick={() => toggle(item)} aria-pressed={on}
+                  className={`flex w-full items-center gap-2.5 rounded-xl p-2.5 text-left text-xs font-semibold transition-colors ${on ? 'bg-white text-[#131921]' : 'bg-white/60 text-slate-600'}`}>
+                  <motion.span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2" initial={false}
+                    animate={{ backgroundColor: on ? '#0F8B75' : '#FFFFFF', borderColor: on ? '#0F8B75' : '#CBD5E1', scale: on ? [1, 1.15, 1] : 1 }} transition={{ duration: 0.25 }}>
+                    {on && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
+                  </motion.span>
+                  {item}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white">
+        <a href="/careers" className="flex items-center justify-between gap-3 border-b border-slate-100 p-4 text-xs font-extrabold">
+          <span>Careers<span className="mt-0.5 block text-[11px] font-medium text-slate-500">Two six-month engineering internships. View roles and apply.</span></span>
+          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+        </a>
+        <a href={`mailto:${brandEntity.email}?subject=BuiltbyGSV%20business%20enquiry`} className="flex items-center justify-between gap-3 p-4 text-xs font-extrabold">
+          <span>General &amp; business enquiries<span className="mt-0.5 block text-[11px] font-medium text-slate-500">For collaboration, existing projects or other questions.</span></span>
+          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+        </a>
+      </div>
+
+      <div className="flex items-center justify-center gap-5 text-[11px] font-bold text-slate-500">
+        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+        <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><Github className="h-4 w-4" /> GitHub</a>
+      </div>
+    </main>
+  );
+}
+
+const DesktopContact = ({ onBack, onStartProject }: ContactScreenProps) => (
   <main className="min-h-screen bg-[#F8F9FA] px-4 pb-28 pt-4 text-[#131921] sm:px-6 lg:px-10 lg:pb-16 lg:pt-8">
     <div className="mx-auto max-w-6xl">
       <header className="flex items-center justify-between">
@@ -67,7 +189,7 @@ export const ContactScreen = ({ onBack, onStartProject }: ContactScreenProps) =>
             <button
               type="button"
               onClick={onStartProject}
-              id="btn-contact-start-project"
+              id="btn-contact-start-project-desktop"
               className="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-[#101A19] transition hover:bg-emerald-50"
             >
               Start a Project <ArrowUpRight className="h-4 w-4 text-[#0F8B75]" />
