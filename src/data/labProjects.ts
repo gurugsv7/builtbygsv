@@ -281,7 +281,7 @@ export const LAB_PROJECTS: Project[] = [
       seoTitle: 'KAMAYUU: A Memory and Nerve Card Game | BuiltbyGSV',
       seoDescription: 'Play KAMAYUU, a card game of memory and nerve. Practice solo against AI or invite friends to a private online table. Play in your browser.',
       publicImageUrl: OG,
-      liveUrl: 'https://kamayuu.vercel.app',
+      liveUrl: 'https://kamayuu.builtbygsv.in',
       sourceCodeUrl: 'https://github.com/gurugsv7/kamayuu',
       answerBlock: {
         question: 'What is KAMAYUU?',
