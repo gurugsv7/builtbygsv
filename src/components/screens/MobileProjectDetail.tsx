@@ -13,7 +13,8 @@ interface Props {
   onOpenStartProject: () => void;
 }
 
-const ICONS: Record<string, LucideIcon> = { Video, Sprout, Heart };
+export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Sprout, Heart };
+const ICONS = PROJECT_ICONS;
 const ACCENTS: Record<string, string> = { 'thaai-clinic-website': '#E11D48', 'budget-diet-app': '#15803D' };
 
 /**
@@ -229,7 +230,7 @@ function StoryDeck({ cards, accent }: { cards: { label: string; body: ReactNode 
 }
 
 /** Cover for projects without screenshots: a phone frame composed from the project's own data. */
-function PhoneCover({ project, Icon, accent }: { project: Project; Icon: LucideIcon; accent: string }) {
+export function PhoneCover({ project, Icon, accent }: { project: Project; Icon: LucideIcon; accent: string }) {
   return (
     <motion.div className="relative h-full" initial={{ opacity: 0, y: 20, rotate: -2 }} animate={{ opacity: 1, y: 0, rotate: -5 }} transition={{ duration: 0.8, ease: EASE.out }}>
       <div className="flex h-full w-[150px] flex-col rounded-[1.6rem] border-2 border-[#131921] bg-white p-3 shadow-xl">

@@ -121,7 +121,7 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
       <RevealGroup className="mt-5 grid gap-5 sm:grid-cols-2">
         {others.map(project => (
           <RevealItem key={project.id}>
-            <button onClick={() => onOpenProjectDetail(project)} className="lift group flex h-full w-full flex-col rounded-[1.75rem] border border-slate-200 bg-white p-7 text-left hover:border-[#0F8B75]/60">
+            <button onClick={() => onOpenProjectDetail(project)} className="lift group flex h-full w-full flex-col items-stretch rounded-[1.75rem] border border-slate-200 bg-white p-7 text-left hover:border-[#0F8B75]/60">
               <div className="flex items-center justify-between gap-3">
                 <Eyebrow>{project.detailData?.engagement}</Eyebrow>
                 <span className="rounded-full border border-slate-200 px-2.5 py-1 text-[10px] font-bold text-slate-500">{project.status}</span>

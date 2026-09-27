@@ -17,6 +17,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { WORK_SUMMARIES } from '../../data/studio';
 import { DURATION, EASE, SPRING } from '../../motion/tokens';
+import { WorkIndexHero, WorkShowcaseRows } from '../visuals/WorkShowcase';
 import v2Preview from '../../assets/v2productions/hero.png';
 
 const PROJECT_PREVIEWS: Record<string, string> = { 'v2-productions': v2Preview };
@@ -81,14 +82,14 @@ export const ProjectsListScreen = ({
           </div>
         </header>
 
-        <section className="grid gap-8 py-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end lg:py-16">
+        <section className="grid gap-8 py-12 lg:hidden">
           <div>
             <p className="font-mono text-xs font-extrabold uppercase tracking-[0.18em] text-[#0F8B75]">Selected work</p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-7xl">
+            <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl">
               Engineered products. <span className="text-[#0F8B75]">Considered systems.</span>
             </h1>
           </div>
-          <div className="lg:pb-2">
+          <div>
             <p className="max-w-xl text-sm font-medium leading-7 text-slate-600 sm:text-base">
               A selection of web, software, and AI products—each shaped around a concrete problem, a maintainable implementation, and a clear next step.
             </p>
@@ -103,9 +104,12 @@ export const ProjectsListScreen = ({
             ) : null}
           </div>
         </section>
+        <div className="hidden lg:block">
+          <WorkIndexHero projects={projects} onOpenProjectDetail={onOpenProjectDetail} onStartProject={onStartProject} />
+        </div>
 
         <section aria-labelledby="project-list-heading">
-          <div className="border-y border-slate-200 py-4">
+          <div className="border-y border-slate-200 py-4 lg:sticky lg:bg-[#F8F9FA]/90 lg:top-0 lg:z-20 lg:backdrop-blur-md">
             <h2 id="project-list-heading" className="sr-only">Case studies</h2>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar lg:pb-0" aria-label="Filter by category">
@@ -145,7 +149,9 @@ export const ProjectsListScreen = ({
           </div>
 
           {visibleProjects.length ? (
-            <motion.div layout className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <>
+            <div className="hidden lg:block"><WorkShowcaseRows projects={visibleProjects} onOpenProjectDetail={onOpenProjectDetail} /></div>
+            <motion.div layout className="mt-8 grid gap-5 md:grid-cols-2 lg:hidden">
               {visibleProjects.map((project) => {
                 const Icon = projectIcons[project.iconName] ?? Briefcase;
                 return (
@@ -154,7 +160,7 @@ export const ProjectsListScreen = ({
                     <button
                       type="button"
                       onClick={() => onOpenProjectDetail(project)}
-                      className="flex h-full w-full flex-col text-left"
+                      className="flex h-full w-full flex-col items-stretch text-left"
                       aria-label={`View ${project.title} case study`}
                     >
                       <div className={`zoom-frame relative flex h-44 items-center justify-center border-b border-slate-100 ${project.iconBgColor}`}>
@@ -195,6 +201,7 @@ export const ProjectsListScreen = ({
                 );
               })}
             </motion.div>
+            </>
           ) : (
             <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center">
               <Code2 className="mx-auto h-7 w-7 text-slate-400" />
