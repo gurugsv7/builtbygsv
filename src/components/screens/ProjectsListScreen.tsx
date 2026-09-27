@@ -1,26 +1,8 @@
-import type { LucideIcon } from 'lucide-react';
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Briefcase,
-  Code2,
-  Coins,
-  Cross,
-  Gamepad2,
-  Heart,
-  PawPrint,
-  Sprout,
-  Video,
-} from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Code2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
-import { WORK_SUMMARIES } from '../../data/studio';
-import { DURATION, EASE, SPRING } from '../../motion/tokens';
-import { WorkIndexHero, WorkShowcaseRows } from '../visuals/WorkShowcase';
-import v2Preview from '../../assets/v2productions/hero.png';
-
-const PROJECT_PREVIEWS: Record<string, string> = { 'v2-productions': v2Preview };
+import { SPRING } from '../../motion/tokens';
+import { MobileWorkHero, MobileWorkList, WorkIndexHero, WorkShowcaseRows } from '../visuals/WorkShowcase';
 import type { Project, ScreenType } from '../../types';
 
 interface ProjectsListScreenProps {
@@ -30,17 +12,6 @@ interface ProjectsListScreenProps {
   onStartProject?: () => void;
   onNavigate?: (screen: ScreenType) => void;
 }
-
-const projectIcons: Record<string, LucideIcon> = {
-  Briefcase,
-  Coins,
-  Cross,
-  Gamepad2,
-  Heart,
-  PawPrint,
-  Sprout,
-  Video,
-};
 
 export const ProjectsListScreen = ({
   projects,
@@ -82,37 +53,16 @@ export const ProjectsListScreen = ({
           </div>
         </header>
 
-        <section className="grid gap-8 py-12 lg:hidden">
-          <div>
-            <p className="font-mono text-xs font-extrabold uppercase tracking-[0.18em] text-[#0F8B75]">Selected work</p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl">
-              Engineered products. <span className="text-[#0F8B75]">Considered systems.</span>
-            </h1>
-          </div>
-          <div>
-            <p className="max-w-xl text-sm font-medium leading-7 text-slate-600 sm:text-base">
-              A selection of web, software, and AI products—each shaped around a concrete problem, a maintainable implementation, and a clear next step.
-            </p>
-            {onStartProject ? (
-              <button
-                type="button"
-                onClick={onStartProject}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#09121F] px-5 py-3 text-sm font-extrabold text-white transition hover:bg-slate-800"
-              >
-                Start a Project <ArrowUpRight className="h-4 w-4 text-emerald-400" />
-              </button>
-            ) : null}
-          </div>
-        </section>
+        <div className="lg:hidden"><MobileWorkHero projects={projects} onOpenProjectDetail={onOpenProjectDetail} /></div>
         <div className="hidden lg:block">
           <WorkIndexHero projects={projects} onOpenProjectDetail={onOpenProjectDetail} onStartProject={onStartProject} />
         </div>
 
         <section aria-labelledby="project-list-heading">
-          <div className="border-y border-slate-200 py-4 lg:sticky lg:bg-[#F8F9FA]/90 lg:top-0 lg:z-20 lg:backdrop-blur-md">
+          <div className="sticky top-0 z-20 -mx-4 border-y border-slate-200 bg-[#F8F9FA]/90 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 lg:py-4">
             <h2 id="project-list-heading" className="sr-only">Case studies</h2>
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar lg:pb-0" aria-label="Filter by category">
+            <div className="no-scrollbar flex items-center gap-3 overflow-x-auto lg:justify-between lg:overflow-visible">
+              <div className="flex shrink-0 items-center gap-2" aria-label="Filter by category">
                 {categories.map((item) => (
                   <button
                     type="button"
@@ -130,7 +80,8 @@ export const ProjectsListScreen = ({
                   </button>
                 ))}
               </div>
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar lg:pb-0" aria-label="Filter by status">
+              <span aria-hidden="true" className="h-5 w-px shrink-0 bg-slate-300 lg:hidden" />
+              <div className="flex shrink-0 items-center gap-2" aria-label="Filter by status">
                 {statuses.map((item) => (
                   <button
                     type="button"
@@ -151,56 +102,7 @@ export const ProjectsListScreen = ({
           {visibleProjects.length ? (
             <>
             <div className="hidden lg:block"><WorkShowcaseRows projects={visibleProjects} onOpenProjectDetail={onOpenProjectDetail} /></div>
-            <motion.div layout className="mt-8 grid gap-5 md:grid-cols-2 lg:hidden">
-              {visibleProjects.map((project) => {
-                const Icon = projectIcons[project.iconName] ?? Briefcase;
-                return (
-                  <motion.article layout key={project.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out }}
-                    className="lift group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white hover:border-[#0F8B75]/50">
-                    <button
-                      type="button"
-                      onClick={() => onOpenProjectDetail(project)}
-                      className="flex h-full w-full flex-col items-stretch text-left"
-                      aria-label={`View ${project.title} case study`}
-                    >
-                      <div className={`zoom-frame relative flex h-44 items-center justify-center border-b border-slate-100 ${project.iconBgColor}`}>
-                        {PROJECT_PREVIEWS[project.id] ? (
-                          <img src={PROJECT_PREVIEWS[project.id]} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
-                        ) : (
-                          <>
-                            <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(currentColor_1px,transparent_1px)] [background-size:14px_14px] opacity-15" />
-                            <span className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border border-white bg-white/80 shadow-sm transition-transform duration-500 group-hover:-translate-y-1 ${project.iconTextColor}`}>
-                              <Icon className="h-8 w-8" />
-                            </span>
-                          </>
-                        )}
-                        <span className={`absolute right-4 top-4 rounded-full border px-2.5 py-1 text-[10px] font-extrabold ${project.statusColor ?? 'border-slate-200 bg-slate-50 text-slate-600'}`}>
-                          {project.status}
-                        </span>
-                      </div>
-                      <div className="flex flex-1 flex-col p-6 sm:p-7">
-                        <div className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#0F8B75]">{project.detailData?.engagement}</div>
-                        <h3 className="mt-2 text-2xl font-extrabold tracking-tight transition group-hover:text-[#0F8B75]">{project.title}</h3>
-                        {WORK_SUMMARIES[project.id] ? (
-                          <dl className="mt-4 flex-1 space-y-3 text-sm leading-6">
-                            <div><dt className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Problem</dt><dd className="text-slate-700">{WORK_SUMMARIES[project.id].problem}</dd></div>
-                            <div><dt className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Built</dt><dd className="text-slate-700">{WORK_SUMMARIES[project.id].built}</dd></div>
-                          </dl>
-                        ) : (
-                          <p className="mt-3 flex-1 text-sm font-medium leading-6 text-slate-600">{project.subtitle}</p>
-                        )}
-                        <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
-                          <span className="font-mono text-[11px] text-slate-500">{project.tags.slice(0, 3).join(' · ')}</span>
-                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E2F1ED] text-[#0F8B75] transition group-hover:bg-[#0F8B75] group-hover:text-white">
-                            <ArrowRight className="nudge-r h-4 w-4" />
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  </motion.article>
-                );
-              })}
-            </motion.div>
+            <div className="lg:hidden"><MobileWorkList projects={visibleProjects} onOpenProjectDetail={onOpenProjectDetail} /></div>
             </>
           ) : (
             <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center">
@@ -212,9 +114,9 @@ export const ProjectsListScreen = ({
         </section>
 
         {onStartProject ? (
-          <section className="mt-12 flex flex-col gap-5 rounded-[2rem] bg-[#101A19] p-7 text-white sm:flex-row sm:items-center sm:justify-between lg:p-9">
+          <section className="mt-8 flex flex-col gap-4 rounded-3xl bg-[#101A19] p-5 text-white sm:flex-row sm:items-center sm:justify-between sm:p-7 lg:mt-12 lg:gap-5 lg:rounded-[2rem] lg:p-9">
             <div>
-              <p className="text-xl font-extrabold">Have an idea worth building?</p>
+              <p className="text-lg font-extrabold lg:text-xl">Have an idea worth building?</p>
               <p className="mt-1 text-sm font-medium text-slate-300">Share the problem. We’ll shape the right first version.</p>
             </div>
             <button type="button" onClick={onStartProject} className="inline-flex items-center gap-2 self-start rounded-full bg-emerald-400 px-5 py-3 text-xs font-extrabold text-[#101A19] transition hover:bg-emerald-300 sm:self-auto">
