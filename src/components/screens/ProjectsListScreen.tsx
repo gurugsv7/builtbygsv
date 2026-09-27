@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowUpRight, Code2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { SPRING } from '../../motion/tokens';
+import { FEATURED_WORK } from '../../data/studio';
 import { MobileWorkHero, MobileWorkList, WorkIndexHero, WorkShowcaseRows } from '../visuals/WorkShowcase';
 import type { Project, ScreenType } from '../../types';
 
@@ -36,6 +37,10 @@ export const ProjectsListScreen = ({
       (status === 'All' || project.status === status),
   );
   const goBack = onBack ?? (() => onNavigate?.('home'));
+  const featured = useMemo(() => {
+    const picks = FEATURED_WORK.map((id) => projects.find((project) => project.id === id)).filter((project): project is Project => Boolean(project));
+    return picks.length ? picks : projects.slice(0, 4);
+  }, [projects]);
 
   return (
     <main className="min-h-screen bg-[#F8F9FA] px-4 pb-28 pt-4 text-[#131921] sm:px-6 lg:px-10 lg:pb-16 lg:pt-8">
@@ -53,9 +58,9 @@ export const ProjectsListScreen = ({
           </div>
         </header>
 
-        <div className="lg:hidden"><MobileWorkHero projects={projects} onOpenProjectDetail={onOpenProjectDetail} /></div>
+        <div className="lg:hidden"><MobileWorkHero projects={featured} onOpenProjectDetail={onOpenProjectDetail} /></div>
         <div className="hidden lg:block">
-          <WorkIndexHero projects={projects} onOpenProjectDetail={onOpenProjectDetail} onStartProject={onStartProject} />
+          <WorkIndexHero projects={featured} allProjects={projects} onOpenProjectDetail={onOpenProjectDetail} onStartProject={onStartProject} />
         </div>
 
         <section aria-labelledby="project-list-heading">

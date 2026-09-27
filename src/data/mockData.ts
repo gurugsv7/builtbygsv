@@ -1,6 +1,7 @@
 import { Project, ServiceDetail, NotificationItem } from '../types';
+import { LAB_PROJECTS } from './labProjects';
 
-export const PROJECTS: Project[] = [
+const CORE_PROJECTS: Project[] = [
   {
     id: 'budget-diet-app',
     title: 'Budget Diet App',
@@ -228,6 +229,15 @@ export const PROJECTS: Project[] = [
       ],
     }
   }
+];
+
+/** Client work first, then lab builds; the three original case studies keep their ids. */
+const coreById = (id: string) => CORE_PROJECTS.find((project) => project.id === id)!;
+export const PROJECTS: Project[] = [
+  coreById('v2-productions'),
+  ...LAB_PROJECTS,
+  coreById('budget-diet-app'),
+  coreById('thaai-clinic-website'),
 ];
 
 export const SERVICES: Record<string, ServiceDetail> = {

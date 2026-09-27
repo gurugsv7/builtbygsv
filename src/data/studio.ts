@@ -37,8 +37,43 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
     problem: 'Clinic visits depend on queues, phone calls and paper records.',
     built: 'A mobile-first prototype with simulated booking, local records and direct clinic contact.',
   },
+  'striatum-4-symposium-platform': {
+    problem: 'Symposium attendees need one place to discover activities, apply for delegate access and manage registrations.',
+    built: 'An event site with searchable listings, delegate access, registration and cart flows, payment-proof submission and organizer review.',
+  },
+  'e-care-emergency-learning': {
+    problem: 'Emergency-care learners need structured practice and feedback, while research needs controlled content and oversight.',
+    built: 'A PWA with student learning journeys, authored cases, assessments, Tutor support and researcher tools.',
+  },
+  'karaikal-one': {
+    problem: 'Transport, local services and community help depend on scattered information, calls and informal messages.',
+    built: 'One accessible interface for buses, trains, service providers, community requests and local guidance.',
+  },
+  'neon-rail': {
+    problem: 'Most browser runners use standard keyboard controls, leaving room to make movement part of the play.',
+    built: 'A three-lane runner where players dodge, jump and slide using body movement or a keyboard.',
+  },
+  'kamayuu-card-game': {
+    problem: 'Many card games rely on visible information, leaving room for one built around memory and reading the table.',
+    built: 'A card game with solo practice against AI and private online tables for friends.',
+  },
+  'tempo-word-game': {
+    problem: 'Word puzzles often reveal answers or allow partial and repeated selections.',
+    built: 'A timed four-letter game where players build words from shuffled tiles before the clock runs out.',
+  },
+  'pulse-personal-finance-analyst': {
+    problem: 'Reviewing bank transactions by hand makes spending patterns and unusual debits hard to spot.',
+    built: 'A local-first app that categorizes transactions, analyzes cash flow, flags anomalies and forecasts expenses.',
+  },
+  'gsv-os-studio-operations': {
+    problem: 'Studio work gets hard to track when decisions and client details live across chats, sheets and tabs.',
+    built: 'An internal platform for leads, clients, proposals, delivery, finance, maintenance and decisions.',
+  },
   'budget-diet-app': {
     problem: 'Students in PGs struggle to eat balanced meals on a strict daily budget.',
     built: 'An in-development AI meal planner built around local food options and daily budgets.',
   },
 };
+
+/** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
+export const FEATURED_WORK = ['v2-productions', 'striatum-4-symposium-platform', 'karaikal-one', 'neon-rail'];

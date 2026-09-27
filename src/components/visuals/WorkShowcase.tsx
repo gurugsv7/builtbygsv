@@ -2,19 +2,13 @@ import { useEffect, useRef, useState, type PointerEvent, type UIEvent } from 're
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Briefcase, ChevronRight } from 'lucide-react';
 import type { Project } from '../../types';
-import { projectMedia } from '../../data/projectMedia';
+import { projectMedia, projectTheme } from '../../data/projectMedia';
 import { WORK_SUMMARIES } from '../../data/studio';
 import { PROJECT_ICONS, PhoneCover } from '../screens/MobileProjectDetail';
 import { DURATION, EASE, SPRING } from '../../motion/tokens';
 import { useFinePointer } from '../../motion/primitives';
 
-/** Per-project stage colours. Anything not listed falls back to the studio teal. */
-const THEMES: Record<string, { bg: string; accent: string; dark?: boolean }> = {
-  'v2-productions': { bg: '#0B1622', accent: '#10B981', dark: true },
-  'budget-diet-app': { bg: '#E6F4EA', accent: '#15803D' },
-  'thaai-clinic-website': { bg: '#FBE4EE', accent: '#E11D48' },
-};
-const themeOf = (project: Project) => THEMES[project.id] ?? { bg: '#E2F1ED', accent: '#0F8B75' };
+const themeOf = (project: Project) => projectTheme(project.id);
 
 function Cover({ project, size = 'lg' }: { project: Project; size?: 'lg' | 'md' | 'sm' }) {
   const image = projectMedia[project.id]?.hero;
@@ -28,6 +22,8 @@ function Cover({ project, size = 'lg' }: { project: Project; size?: 'lg' | 'md' 
 
 interface HeroProps {
   projects: Project[];
+  /** Every project, for the counts under the index. Defaults to `projects`. */
+  allProjects?: Project[];
   onOpenProjectDetail: (project: Project) => void;
   onStartProject?: () => void;
 }
@@ -36,7 +32,7 @@ interface HeroProps {
  * Desktop hero: a numbered index of the work beside a large preview stage. Hovering or
  * focusing a row brings that project onto the stage; left alone, the stage cycles.
  */
-export function WorkIndexHero({ projects, onOpenProjectDetail, onStartProject }: HeroProps) {
+export function WorkIndexHero({ projects, allProjects = projects, onOpenProjectDetail, onStartProject }: HeroProps) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
@@ -48,7 +44,7 @@ export function WorkIndexHero({ projects, onOpenProjectDetail, onStartProject }:
   const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [4, -4]), SPRING.depth);
   const current = projects[active] ?? projects[0];
   const theme = themeOf(current);
-  const completed = projects.filter((project) => project.status === 'Completed').length;
+  const completed = allProjects.filter((project) => project.status === 'Completed').length;
 
   useEffect(() => {
     if (paused || reduce || projects.length < 2) return;
@@ -106,7 +102,7 @@ export function WorkIndexHero({ projects, onOpenProjectDetail, onStartProject }:
               Start a Project <ArrowUpRight className="nudge-ur h-4 w-4 text-emerald-400" />
             </button>
           ) : null}
-          <span className="font-mono text-[11px] font-bold text-slate-500">{String(projects.length).padStart(2, '0')} case studies · {String(completed).padStart(2, '0')} completed</span>
+          <span className="font-mono text-[11px] font-bold text-slate-500">{String(allProjects.length).padStart(2, '0')} case studies · {String(completed).padStart(2, '0')} completed</span>
         </div>
       </div>
 
@@ -163,12 +159,29 @@ interface RowsProps { projects: Project[]; onOpenProjectDetail: (project: Projec
 
 /** Desktop showcase: one editorial row per project, alternating sides. */
 export function WorkShowcaseRows({ projects, onOpenProjectDetail }: RowsProps) {
+  const lead = projects.slice(0, 4);
+  const rest = projects.slice(4);
   return (
-    <motion.ol layout className="mt-6">
-      {projects.map((project, index) => (
-        <ShowcaseRow key={project.id} project={project} index={index} flip={index % 2 === 1} onOpen={() => onOpenProjectDetail(project)} />
-      ))}
-    </motion.ol>
+    <>
+      <motion.ol layout className="mt-6">
+        {lead.map((project, index) => (
+          <ShowcaseRow key={project.id} project={project} index={index} flip={index % 2 === 1} onOpen={() => onOpenProjectDetail(project)} />
+        ))}
+      </motion.ol>
+      {rest.length > 0 && (
+        <section aria-labelledby="more-work" className="border-t border-slate-200 pt-12">
+          <div className="flex items-end justify-between">
+            <h2 id="more-work" className="text-2xl font-extrabold tracking-tight">More from the studio <span className="font-serif font-normal italic text-[#0F8B75]">and lab.</span></h2>
+            <span className="font-mono text-xs font-bold text-slate-500">{String(rest.length).padStart(2, '0')} projects</span>
+          </div>
+          <motion.ol layout className="mt-6 grid grid-cols-2 gap-4 xl:grid-cols-3">
+            {rest.map((project, index) => (
+              <CompactProjectCard key={project.id} project={project} index={index} size="lg" onOpen={() => onOpenProjectDetail(project)} />
+            ))}
+          </motion.ol>
+        </section>
+      )}
+    </>
   );
 }
 
@@ -291,35 +304,43 @@ export function MobileWorkHero({ projects, onOpenProjectDetail }: { projects: Pr
 export function MobileWorkList({ projects, onOpenProjectDetail }: RowsProps) {
   return (
     <motion.ol layout className="mt-4 space-y-2.5">
-      {projects.map((project, index) => {
-        const theme = themeOf(project);
-        const image = projectMedia[project.id]?.hero;
-        const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
-        return (
-          <motion.li key={project.id} layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out, delay: index * 0.05 }}>
-            <button type="button" onClick={() => onOpenProjectDetail(project)} aria-label={`View ${project.title} case study`}
-              className="flex w-full items-center gap-3.5 rounded-2xl border border-slate-200/90 bg-white p-3 text-left shadow-2xs transition-transform active:scale-[0.99]">
-              <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl" style={{ backgroundColor: theme.bg }}>
-                {image ? <img src={image} alt="" loading="lazy" className="h-full w-full object-cover object-top" /> : (
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-2xs" style={{ color: theme.accent }}><Icon className="h-5 w-5" /></span>
-                )}
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-[9px] font-extrabold uppercase tracking-widest" style={{ color: theme.accent }}>{project.detailData?.engagement}</span>
-                <span className="mt-0.5 block text-sm font-extrabold">{project.title}</span>
-                <span className="mt-0.5 line-clamp-2 block text-[11px] leading-4 text-slate-600">{WORK_SUMMARIES[project.id]?.built ?? project.subtitle}</span>
-                <span className="mt-1.5 flex items-center gap-1.5 whitespace-nowrap text-[10px] font-bold text-slate-500">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: project.status === 'Completed' ? '#10B981' : '#F5C748' }} />
-                  <span className="shrink-0">{project.status}</span>
-                  <span className="min-w-0 truncate font-mono font-semibold text-slate-400">· {project.tags.slice(0, 2).join(' · ')}</span>
-                </span>
-              </span>
-              <ChevronRight className="h-4 w-4 shrink-0 text-slate-300" />
-            </button>
-          </motion.li>
-        );
-      })}
+      {projects.map((project, index) => (
+        <CompactProjectCard key={project.id} project={project} index={index} onOpen={() => onOpenProjectDetail(project)} />
+      ))}
     </motion.ol>
+  );
+}
+
+/** A tappable project summary: themed thumbnail, title, one-line build, status and stack. */
+function CompactProjectCard({ project, index, onOpen, size = 'sm' }: { project: Project; index: number; onOpen: () => void; size?: 'sm' | 'lg' }) {
+  const theme = themeOf(project);
+  const image = projectMedia[project.id]?.hero;
+  const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
+  const lg = size === 'lg';
+  return (
+    <motion.li layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out, delay: Math.min(index, 6) * 0.05 }}>
+      <button type="button" onClick={onOpen} aria-label={`View ${project.title} case study`}
+        className={`group flex h-full w-full items-center text-left transition-transform active:scale-[0.99] ${lg ? 'lift gap-4 rounded-3xl border border-slate-200 bg-white p-4 hover:border-[#0F8B75]/40' : 'gap-3.5 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-2xs'}`}>
+        <span className={`relative flex shrink-0 items-center justify-center overflow-hidden ${lg ? 'h-24 w-24 rounded-2xl' : 'h-20 w-20 rounded-xl'}`} style={{ backgroundColor: theme.bg }}>
+          {image ? <img src={image} alt="" loading="lazy" className="h-full w-full object-cover object-top" /> : (
+            <span className={`flex items-center justify-center rounded-xl shadow-2xs transition-transform duration-500 group-hover:-translate-y-0.5 ${lg ? 'h-12 w-12' : 'h-10 w-10'} ${theme.dark ? 'bg-white/10' : 'bg-white'}`} style={{ color: theme.dark ? '#FFFFFF' : theme.accent }}>
+              <Icon className={lg ? 'h-6 w-6' : 'h-5 w-5'} />
+            </span>
+          )}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[9px] font-extrabold uppercase tracking-widest" style={{ color: theme.accent }}>{project.detailData?.engagement}</span>
+          <span className={`mt-0.5 block font-extrabold ${lg ? 'text-lg tracking-tight group-hover:text-[#0F8B75]' : 'text-sm'}`}>{project.title}</span>
+          <span className={`mt-0.5 line-clamp-2 block text-slate-600 ${lg ? 'text-xs leading-5' : 'text-[11px] leading-4'}`}>{WORK_SUMMARIES[project.id]?.built ?? project.subtitle}</span>
+          <span className="mt-1.5 flex items-center gap-1.5 whitespace-nowrap text-[10px] font-bold text-slate-500">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: project.status === 'Completed' ? '#10B981' : '#F5C748' }} />
+            <span className="shrink-0">{project.status}</span>
+            <span className="min-w-0 truncate font-mono font-semibold text-slate-400">· {project.tags.slice(0, 2).join(' · ')}</span>
+          </span>
+        </span>
+        <ChevronRight className={`h-4 w-4 shrink-0 text-slate-300 ${lg ? 'nudge-r group-hover:text-[#0F8B75]' : ''}`} />
+      </button>
+    </motion.li>
   );
 }

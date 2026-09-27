@@ -1,8 +1,8 @@
 import { useRef, useState, type ReactNode, type UIEvent } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, ChevronDown, ExternalLink, Heart, Layers, MapPin, Monitor, Sprout, Video, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, CalendarDays, ChartLine, ChevronDown, ExternalLink, Heart, LayoutDashboard, Layers, MapPin, Monitor, Spade, Sprout, Stethoscope, Timer, TrainFront, Video, type LucideIcon } from 'lucide-react';
 import type { Project } from '../../types';
-import { projectMedia } from '../../data/projectMedia';
+import { projectMedia, projectTheme } from '../../data/projectMedia';
 import { WORK_SUMMARIES } from '../../data/studio';
 import { Reveal, RevealGroup, RevealItem } from '../../motion/primitives';
 import { EASE, SPRING } from '../../motion/tokens';
@@ -13,9 +13,8 @@ interface Props {
   onOpenStartProject: () => void;
 }
 
-export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Sprout, Heart };
+export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Sprout, Heart, CalendarDays, Stethoscope, MapPin, TrainFront, Spade, Timer, ChartLine, LayoutDashboard };
 const ICONS = PROJECT_ICONS;
-const ACCENTS: Record<string, string> = { 'thaai-clinic-website': '#E11D48', 'budget-diet-app': '#15803D' };
 
 /**
  * Mobile case study, driven entirely by the project record so every project gets the
@@ -25,7 +24,7 @@ const ACCENTS: Record<string, string> = { 'thaai-clinic-website': '#E11D48', 'bu
 export function MobileProjectDetail({ project, onBack, onOpenStartProject }: Props) {
   const detail = project.detailData;
   const media = projectMedia[project.id] ?? {};
-  const accent = ACCENTS[project.id] ?? '#0F8B75';
+  const accent = projectTheme(project.id).accent;
   const Icon = ICONS[project.iconName] ?? Briefcase;
   const cover = useRef<HTMLDivElement>(null);
   const { scrollYProgress: reading } = useScroll();
