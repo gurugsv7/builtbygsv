@@ -1,3 +1,5 @@
+import { guideSections } from './content/reelPressGuide';
+
 export interface BlogSection {
   heading: string;
   paragraphs: string[];
@@ -17,9 +19,29 @@ export interface BlogPost {
   readTime: string;
   takeaway: string;
   sections: BlogSection[];
+  /** 'guide' renders the rich, chapter-based layout instead of the standard article. */
+  layout?: 'guide';
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'reel-press-workflow',
+    path: '/insights/reel-press-workflow',
+    title: 'How I made a reel without opening a video editor',
+    seoTitle: 'Make Instagram Reels with Claude Code & HyperFrames | BuiltbyGSV',
+    description:
+      'The full workflow behind an AI-made Instagram reel: Claude Code, HyperFrames and FFmpeg, with every command, the scene plan, voice-driven timing, sound rules and prompts to copy.',
+    excerpt:
+      'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and my voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
+    category: 'Workflow guide',
+    published: '2026-09-29',
+    updated: '2026-09-29',
+    readTime: '14 min read',
+    takeaway:
+      'Script + voice recording → Claude Code plans the scenes → HyperFrames builds them as HTML → Claude checks screenshots and fixes problems → you give feedback → render to MP4.',
+    sections: guideSections(),
+    layout: 'guide',
+  },
   {
     slug: 'website-cost-karaikal',
     path: '/insights/website-cost-karaikal',

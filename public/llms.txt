@@ -54,6 +54,7 @@ Contact: admin@builtbygsv.in | +91-74488-65095 | https://www.builtbygsv.in/conta
 - [Thaai Clinic](https://www.builtbygsv.in/projects/thaai-clinic-website): Thaai Clinic is a React + TypeScript healthcare app that simulates a full patient journey in a polished mobile interface. It includes onboarding, appointment booking, appointment tracking, medical record management, health education content, clinic details, and instant contact options through call and WhatsApp.
 
 ## Guides
+- [How I made a reel without opening a video editor](https://www.builtbygsv.in/insights/reel-press-workflow): The full workflow behind an AI-made Instagram reel: Claude Code, HyperFrames and FFmpeg, with every command, the scene plan, voice-driven timing, sound rules and prompts to copy.
 - [What does a business website cost in Karaikal?](https://www.builtbygsv.in/insights/website-cost-karaikal): A practical guide to website costs in Karaikal: what changes the price, what local businesses actually need and how to compare development quotes.
 - [Local SEO for Karaikal businesses: a practical starting plan](https://www.builtbygsv.in/insights/local-seo-karaikal-business): A practical local SEO plan for Karaikal businesses covering Google Business Profile, service pages, reviews, consistency and useful local content.
 - [The Karaikal small-business website checklist](https://www.builtbygsv.in/insights/karaikal-business-website-checklist): A launch checklist for Karaikal business websites covering mobile UX, speed, local information, ownership, security, analytics and search readiness.

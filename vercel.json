@@ -7,6 +7,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/video",
+      "destination": "/insights/reel-press-workflow",
+      "permanent": false
+    },
+    {
       "source": "/:path*",
       "has": [
         {

@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, Check, Clock, Mail, MapPin } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { blogPosts } from '../blog';
+import { ReelPressGuide } from './ReelPressGuide';
 
 const JournalHeader = () => (
   <header className="border-b border-slate-200/80 bg-[#F8F9FA] px-5 py-5 sm:px-8 lg:px-12">
@@ -88,6 +89,15 @@ export const BlogArticlePage: React.FC<BlogArticleProps> = ({ onStartProject }) 
       candidate.path === window.location.pathname,
   )!;
   const relatedPosts = blogPosts.filter((candidate) => candidate.slug !== post.slug).slice(0, 2);
+
+  if (post.layout === 'guide') {
+    return (
+      <>
+        <JournalHeader />
+        <ReelPressGuide onStartProject={onStartProject} title={post.title} readTime={post.readTime} published={post.published} />
+      </>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#F8F9FA] text-[#131921]">
