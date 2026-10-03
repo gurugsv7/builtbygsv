@@ -7,6 +7,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/projects/budget-diet-app",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
       "source": "/video",
       "destination": "/insights/reel-press-workflow",
       "permanent": false

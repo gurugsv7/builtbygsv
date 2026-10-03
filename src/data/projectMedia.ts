@@ -38,7 +38,6 @@ export const projectMedia: Record<string, { hero?: string; story?: string; glimp
 /** Per-project colours for covers and stages. Anything not listed uses the studio teal. */
 export const PROJECT_THEMES: Record<string, { bg: string; accent: string; dark?: boolean }> = {
   'v2-productions': { bg: '#0B1622', accent: '#10B981', dark: true },
-  'budget-diet-app': { bg: '#E6F4EA', accent: '#15803D' },
   'thaai-clinic-website': { bg: '#FBE4EE', accent: '#E11D48' },
   'striatum-4-symposium-platform': { bg: '#E8F1FB', accent: '#1D4ED8' },
   'e-care-emergency-learning': { bg: '#FDECEC', accent: '#DC2626' },

@@ -73,7 +73,7 @@ export const locationPages: LocationPage[] = [
     ],
     industries: ['SaaS & startups', 'Consumer apps', 'Professional services', 'AI products'],
     proof:
-      'The Budget Diet App is a BuiltbyGSV lab project designed around a distinctly Bengaluru problem: helping PG residents plan affordable, balanced meals.',
+      'PULSE, a BuiltbyGSV lab build, shows the approach Bengaluru product teams can expect: a clearly scoped problem, transparent analysis logic and a working release that runs without vendor lock-in.',
   },
   {
     slug: 'thanjavur',

@@ -95,7 +95,6 @@ Type: Proof pages, case studies
 Current important URLs:
 
 - `/projects/thaai-clinic-website`
-- `/projects/budget-diet-app`
 - `/projects/chit-fund-manager`
 - `/projects/my-pets-choice`
 - `/projects/goalbuddy`
@@ -228,7 +227,7 @@ Design/content needed:
 - Prediction tools
 - Data extraction
 - Content automation
-- Related projects: MindEase, ADR Predict, Budget Diet App
+- Related projects: MindEase, ADR Predict, PULSE
 - Important: explain limits and guardrails
 
 Notes:
@@ -311,7 +310,7 @@ Design/content needed:
 - SaaS and web app builds
 - AI product features
 - Fast iteration and product thinking
-- Related project: Budget Diet App
+- Related project: KAMAYUU
 - Mention Bangalore naturally
 
 ### 11. `/web-software-developer-thanjavur`

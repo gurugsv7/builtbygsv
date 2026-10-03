@@ -1,6 +1,6 @@
 import { useRef, useState, type ReactNode, type UIEvent } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, CalendarDays, ChartLine, ChevronDown, ExternalLink, Heart, LayoutDashboard, Layers, MapPin, Monitor, Spade, Sprout, Stethoscope, Timer, TrainFront, Video, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, CalendarDays, ChartLine, ChevronDown, ExternalLink, Heart, LayoutDashboard, Layers, MapPin, Monitor, Spade, Stethoscope, Timer, TrainFront, Video, type LucideIcon } from 'lucide-react';
 import type { Project } from '../../types';
 import { projectMedia, projectTheme } from '../../data/projectMedia';
 import { WORK_SUMMARIES } from '../../data/studio';
@@ -13,7 +13,7 @@ interface Props {
   onOpenStartProject: () => void;
 }
 
-export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Sprout, Heart, CalendarDays, Stethoscope, MapPin, TrainFront, Spade, Timer, ChartLine, LayoutDashboard };
+export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Heart, CalendarDays, Stethoscope, MapPin, TrainFront, Spade, Timer, ChartLine, LayoutDashboard };
 const ICONS = PROJECT_ICONS;
 
 /**

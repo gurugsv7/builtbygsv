@@ -477,7 +477,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       { question: 'Do you take equity instead of fees?', answer: 'No. Engagements are fee-based with an agreed scope, which keeps the incentive on shipping the right small thing rather than on maximising the build.' },
     ],
     proof:
-      'The Budget Diet App is a BuiltbyGSV lab product built to this exact shape: one clearly defined user problem, a focused feature set covering daily planning, search and price tracking, and a release that could be judged on use rather than on a specification.',
+      'KAMAYUU is a BuiltbyGSV lab product built to this exact shape: one clearly defined core loop, a focused first release with solo practice and private tables, and a live web build that can be judged on use rather than on a specification.',
     related: [
       { path: '/web-software-developer-bengaluru', label: 'Web & software developer in Bengaluru' },
       { path: '/saas-development-company-bengaluru', label: 'SaaS development in Bengaluru' },

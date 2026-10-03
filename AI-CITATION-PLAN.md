@@ -109,7 +109,6 @@ Proof pages to strengthen first:
 
 - `/projects/thaai-clinic-website`
 - `/projects/chit-fund-manager`
-- `/projects/budget-diet-app`
 - `/projects/my-pets-choice`
 - `/projects/goalbuddy`
 

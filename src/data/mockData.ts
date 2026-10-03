@@ -3,56 +3,6 @@ import { LAB_PROJECTS } from './labProjects';
 
 const CORE_PROJECTS: Project[] = [
   {
-    id: 'budget-diet-app',
-    title: 'Budget Diet App',
-    subtitle: 'An internal AI meal-planning product exploring affordable nutrition for PG residents. In development.',
-    category: 'AI',
-    status: 'In Progress',
-    statusColor: 'text-[#854D0E] bg-amber-50 border-amber-200',
-    iconName: 'Sprout',
-    iconBgColor: 'bg-[#EBF7EF]',
-    iconTextColor: 'text-[#15803D]',
-    description: 'An AI-driven hyper-local meal planner designed specifically for students and PG residents in Bangalore trying to maintain balanced nutrition on a strict budget.',
-    tags: ['React Native', 'Supabase', 'Python', 'Machine Learning'],
-    metrics: [],
-    problemStatement: 'PG residents and college students in urban hubs like Bangalore struggle with poor diet variety and high food delivery expenses, while local PG messes lack customizable nutritional tracking.',
-    solutionProvided: 'Developing meal recommendations and daily budgeting around local food options. The lab build explores how AI can support affordable meal planning.',
-    client: 'BuiltbyGSV Lab Project',
-    location: 'Bangalore, India',
-    year: '2026',
-    featured: true,
-    detailData: {
-      storyHeadline: 'Every rupee counts.',
-      storyParagraphs: [
-        'Budget Diet App explores a familiar problem for PG residents: planning balanced meals within a daily budget.',
-        'The internal product explores meal suggestions and budgeting. It remains in development; production adoption and savings have not been established.'
-      ],
-      stickyNoteText: 'The goal wasn\'t just to build an app. It was to build a better everyday life for students.',
-      stickyNoteHighlight: 'better everyday life for students.',
-      heroDoodleText: 'Good meals. Great prices.',
-      glimpseScreenshots: [],
-      builtWithTech: [
-        { name: 'React Native', iconName: 'React' },
-        { name: 'Supabase', iconName: 'Database' },
-        { name: 'Python', iconName: 'Code' },
-        { name: 'FastAPI', iconName: 'Zap' },
-        { name: 'PostgreSQL', iconName: 'Database' },
-        { name: 'Vercel', iconName: 'Globe' },
-      ],
-      timeline: 'In development',
-      capabilities: 'Application Architecture · AI Integration',
-      engagement: 'BuiltbyGSV Lab',
-      platform: 'Android, iOS, Web',
-      impactMetrics: [],
-      whatsNextItems: [
-        'Grocery price alerts',
-        'Nutrition insights',
-        'Shared budgets for PG groups',
-        'AI coach for better habits',
-      ],
-    }
-  },
-  {
     id: 'v2-productions',
     title: 'V² Productions',
     subtitle: 'Creative Studio Platform. Responsive service showcases, course discovery and enquiry flows.',
@@ -236,7 +186,6 @@ const coreById = (id: string) => CORE_PROJECTS.find((project) => project.id === 
 export const PROJECTS: Project[] = [
   coreById('v2-productions'),
   ...LAB_PROJECTS,
-  coreById('budget-diet-app'),
   coreById('thaai-clinic-website'),
 ];
 

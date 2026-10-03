@@ -51,7 +51,7 @@ with sync_playwright() as p:
         page.get_by_role('link', name='Work', exact=True).click()
         page.wait_for_url(BASE + '/projects')
         page.get_by_role('button', name='AI', exact=True).click()
-        assert page.get_by_role('button', name='View Budget Diet App case study').is_visible()
+        assert page.get_by_role('button', name='View PULSE case study').is_visible()
         assert page.get_by_role('button', name='View V² Productions case study').count() == 0
         page.get_by_role('button', name='All', exact=True).first.click()
         page.get_by_role('button', name='View V² Productions case study').click()

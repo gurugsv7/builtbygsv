@@ -69,10 +69,6 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
     problem: 'Studio work gets hard to track when decisions and client details live across chats, sheets and tabs.',
     built: 'An internal platform for leads, clients, proposals, delivery, finance, maintenance and decisions.',
   },
-  'budget-diet-app': {
-    problem: 'Students in PGs struggle to eat balanced meals on a strict daily budget.',
-    built: 'An in-development AI meal planner built around local food options and daily budgets.',
-  },
 };
 
 /** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
