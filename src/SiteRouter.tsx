@@ -93,10 +93,13 @@ export default function SiteRouter() {
     setMeta('meta[property="og:description"]', 'property', 'og:description', metadata.description);
     setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
     setMeta('meta[property="og:type"]', 'property', 'og:type', blogPost ? 'article' : 'website');
-    setMeta('meta[property="og:image"]', 'property', 'og:image', project?.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`);
+    const socialImage = project?.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`;
+    setMeta('meta[property="og:image"]', 'property', 'og:image', socialImage);
+    setMeta('meta[property="og:image:type"]', 'property', 'og:image:type', socialImage.endsWith('.jpg') ? 'image/jpeg' : 'image/png');
+    setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', project ? `${project.title} by BuiltbyGSV: ${project.subtitle}` : 'BuiltbyGSV - Product & AI Engineering Studio');
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', metadata.title);
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', metadata.description);
-    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', project?.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`);
+    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', socialImage);
 
     const canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (canonical) canonical.href = canonicalUrl;

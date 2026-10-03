@@ -62,7 +62,7 @@ export const appRouteMetadata: Record<string, { title: string; description: stri
   '/start-project': { title: 'Start a Project | Client Brief | BuiltbyGSV', description: 'Tell BuiltbyGSV about your goals, users, project requirements, budget and timeline. Create, review and share a complete project brief with our studio.' },
   '/careers': { title: 'Careers | Six-Month Engineering Internships | BuiltbyGSV', description: 'Apply for Software Engineer Intern and Web Developer Intern roles at BuiltbyGSV. Both internships run for six months. Explore the roles and apply by email.' },
   '/website-information': { title: 'Website Information & Enquiries | BuiltbyGSV', description: 'How BuiltbyGSV project enquiries, career applications and external links work, plus contact information for website and accessibility questions.' },
-  ...Object.fromEntries(CAREERS.map(role => [careerPath(role), { title: `${role.title} | 6-Month Internship | BuiltbyGSV`, description: `${role.description} Explore this six-month internship at BuiltbyGSV and apply by email.` }])),
+  ...Object.fromEntries(CAREERS.map(role => [careerPath(role), { title: `${role.title} | 6-Month Internship | BuiltbyGSV`, description: `${role.description} A six-month BuiltbyGSV internship; apply by email.` }])),
   '/': {
     title: 'BuiltbyGSV | Product & AI Engineering Studio',
     description:
@@ -76,7 +76,7 @@ export const appRouteMetadata: Record<string, { title: string; description: stri
   '/services': {
     title: 'Web, Software, AI & Automation Services | BuiltbyGSV',
     description:
-      'Explore product engineering, custom software, AI engineering and automation services from BuiltbyGSV.',
+      'Product engineering, custom software, AI engineering and business automation from BuiltbyGSV, scoped around a real business problem and built to maintain.',
   },
   '/services/web-development': {
     title: 'Website Development Services | BuiltbyGSV',
@@ -96,7 +96,7 @@ export const appRouteMetadata: Record<string, { title: string; description: stri
   '/services/automation': {
     title: 'Business Automation & Integrations | BuiltbyGSV',
     description:
-      'Connect tools, automate repetitive work and build reliable webhook, notification and data-sync workflows.',
+      'Connect your tools and automate repetitive work with reliable API, webhook, notification, data-sync and scheduled workflows, built and monitored by BuiltbyGSV.',
   },
   '/process': {
     title: 'Product Development Process | BuiltbyGSV',
@@ -111,7 +111,7 @@ export const appRouteMetadata: Record<string, { title: string; description: stri
   '/contact': {
     title: 'Contact BuiltbyGSV | Start a Web or Software Project',
     description:
-      'Contact BuiltbyGSV about a website, custom software, AI feature or business automation project.',
+      'Contact BuiltbyGSV about a website, custom software, AI feature or business automation project. Share your brief, timeline and budget; we reply by email.',
   },
 };
 

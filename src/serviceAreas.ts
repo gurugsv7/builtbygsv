@@ -87,7 +87,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Business Automation', 'AI Solutions', 'Workflow Automation'],
     title: 'AI Automation Agency in Karaikal | BuiltbyGSV',
     description:
-      'AI automation for Karaikal businesses: WhatsApp enquiry handling, invoice and record extraction, appointment reminders and daily reporting, designed and engineered by BuiltbyGSV.',
+      'AI automation for Karaikal businesses: WhatsApp enquiry handling, invoice and record extraction, appointment reminders and daily reports, built by BuiltbyGSV.',
     eyebrow: 'AI & automation for Karaikal',
     h1: 'AI automation agency in Karaikal.',
     answer:
@@ -132,7 +132,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['E-commerce Website Development', 'Web Development'],
     title: 'Ecommerce Website Development in Karaikal | BuiltbyGSV',
     description:
-      'Online stores for Karaikal businesses: product catalogue, UPI and card payments, delivery zones, WhatsApp ordering and stock control, built to load fast on mobile data.',
+      'Online stores for Karaikal businesses: product catalogue, UPI and card payments, delivery zones, WhatsApp ordering and stock control, fast on mobile data.',
     eyebrow: 'Selling online from Karaikal',
     h1: 'Ecommerce website development in Karaikal.',
     answer:
@@ -177,7 +177,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Search Engine Optimization', 'Technical SEO', 'Local SEO'],
     title: 'SEO Services in Karaikal | Local Search | BuiltbyGSV',
     description:
-      'Technical and local SEO for Karaikal businesses: page architecture, schema, Google Business Profile and the content a city query actually needs. Honest reporting, no rank guarantees.',
+      'Technical and local SEO for Karaikal businesses: site structure, schema, Google Business Profile and local content, with honest reports and no rank guarantees.',
     eyebrow: 'Local search, done honestly',
     h1: 'SEO services in Karaikal.',
     answer:
@@ -267,7 +267,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Healthcare Website Development', 'Appointment Booking Software'],
     title: 'Clinic & Hospital Website Development in Karaikal | BuiltbyGSV',
     description:
-      'Websites and appointment systems for Karaikal clinics, hospitals and diagnostic centres. Built from a real local project: booking, records, reminders and local search visibility.',
+      'Websites and appointment systems for Karaikal clinics, hospitals and diagnostic centres: online booking, patient records, reminders and local search visibility.',
     eyebrow: 'Healthcare, built locally',
     h1: 'Clinic and hospital website development in Karaikal.',
     answer:
@@ -312,7 +312,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Business Automation', 'AI Solutions', 'Workflow Automation'],
     title: 'AI Automation Agency in Thanjavur (Tanjore) | BuiltbyGSV',
     description:
-      'AI automation for Thanjavur and Tanjore businesses: order and enquiry routing, document extraction, dispatch tracking and automated reporting for manufacturers, schools and clinics.',
+      'AI automation for Thanjavur businesses: order and enquiry routing, document extraction, dispatch tracking and automated reports for schools and clinics.',
     eyebrow: 'AI & automation for Thanjavur',
     h1: 'AI automation agency in Thanjavur.',
     answer:
@@ -357,7 +357,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['Custom Software Development', 'Business Software'],
     title: 'Custom Software Development in Thanjavur (Tanjore) | BuiltbyGSV',
     description:
-      'Billing, inventory, dispatch, admission and portal software for Thanjavur and Tanjore businesses, schools and hospitals. Built around your existing process, with full ownership handover.',
+      'Billing, inventory, dispatch, admission and portal software for Thanjavur businesses, schools and hospitals, built around your process with full code ownership.',
     eyebrow: 'Software for established teams',
     h1: 'Custom software development in Thanjavur.',
     answer:
@@ -400,9 +400,9 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     path: '/ecommerce-website-development-thanjavur',
     serviceName: 'E-commerce websites',
     serviceType: ['E-commerce Website Development', 'Web Development'],
-    title: 'Ecommerce Website Development in Thanjavur (Tanjore) | BuiltbyGSV',
+    title: 'Ecommerce Website Development in Thanjavur | BuiltbyGSV',
     description:
-      'Online stores for Thanjavur and Tanjore businesses: handicrafts, textiles, food products and trade catalogues, with UPI checkout, shipping rules and stock control.',
+      'Online stores for Thanjavur businesses selling handicrafts, textiles, food products and trade catalogues, with UPI checkout, shipping rules and stock control.',
     eyebrow: 'Selling beyond the district',
     h1: 'Ecommerce website development in Thanjavur.',
     answer:
@@ -447,7 +447,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['MVP Development', 'Product Development', 'Software Development'],
     title: 'MVP Development Company in Bengaluru | BuiltbyGSV',
     description:
-      'MVP development for Bengaluru founders: a shippable first release with auth, payments, core workflow and analytics in six to ten weeks, built to be extended rather than thrown away.',
+      'MVP development for Bengaluru founders: a shippable first release with auth, payments, a core workflow and analytics in six to ten weeks, built to extend.',
     eyebrow: 'First releases for founders',
     h1: 'MVP development company in Bengaluru.',
     answer:
@@ -492,7 +492,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['SaaS Development', 'Web Application Development'],
     title: 'SaaS Development Company in Bengaluru | BuiltbyGSV',
     description:
-      'SaaS product development for Bengaluru teams: multi-tenant architecture, subscription billing, roles and permissions, admin tooling and usage analytics built on React and TypeScript.',
+      'SaaS development for Bengaluru teams: multi-tenant architecture, subscription billing, roles and permissions, admin tooling and usage analytics in TypeScript.',
     eyebrow: 'Products that have to keep running',
     h1: 'SaaS development company in Bengaluru.',
     answer:
@@ -537,7 +537,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
     serviceType: ['AI Solutions', 'Business Automation', 'AI Agent Development'],
     title: 'AI Automation Agency in Bengaluru | BuiltbyGSV',
     description:
-      'AI automation for Bengaluru teams: RAG assistants over internal data, document extraction, agent workflows and internal tooling, with evaluation, guardrails and per-tenant cost caps.',
+      'AI automation for Bengaluru teams: RAG assistants over internal data, document extraction and agent workflows, built with evaluation, guardrails and cost caps.',
     eyebrow: 'AI that survives production',
     h1: 'AI automation agency in Bengaluru.',
     answer:

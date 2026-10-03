@@ -28,9 +28,9 @@ export const blogPosts: BlogPost[] = [
     slug: 'reel-press-workflow',
     path: '/insights/reel-press-workflow',
     title: 'How I made a reel without opening a video editor',
-    seoTitle: 'Make Instagram Reels with Claude Code & HyperFrames | BuiltbyGSV',
+    seoTitle: 'Make Reels with Claude Code & HyperFrames | BuiltbyGSV',
     description:
-      'The full workflow behind an AI-made Instagram reel: Claude Code, HyperFrames and FFmpeg, with every command, the scene plan, voice-driven timing, sound rules and prompts to copy.',
+      'The full workflow behind an AI-made Instagram reel with Claude Code, HyperFrames and FFmpeg: every command, the scene plan, voice timing and prompts to copy.',
     excerpt:
       'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and my voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
     category: 'Workflow guide',
@@ -416,7 +416,7 @@ export const blogPosts: BlogPost[] = [
     title: 'Why a one-page website stops ranking as you grow',
     seoTitle: 'Why One-Page Websites Stop Ranking on Google | BuiltbyGSV',
     description:
-      'A single page cannot rank for ten different services in ten different towns. How search intent, cannibalisation and page architecture actually work, with the fix.',
+      'A single page cannot rank for ten services in ten towns. How search intent, cannibalisation and page architecture actually work, and how to fix your site.',
     excerpt:
       'The most common structural reason a local business site plateaus, explained with the specific fix rather than a recommendation to publish more blogs.',
     category: 'Search visibility',
@@ -598,7 +598,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'google-business-profile-setup-guide',
     path: '/insights/google-business-profile-setup-guide',
     title: 'Setting up Google Business Profile properly',
-    seoTitle: 'Google Business Profile Setup Guide for Indian Businesses | BuiltbyGSV',
+    seoTitle: 'Google Business Profile Setup Guide for India | BuiltbyGSV',
     description:
       'A step-by-step guide to claiming and completing a Google Business Profile, choosing the right primary category, and what to do if you have no physical address.',
     excerpt:

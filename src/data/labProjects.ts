@@ -1,6 +1,7 @@
 import type { Project } from '../types';
 
-const OG = 'https://www.builtbygsv.in/og-cover.png';
+/** Per-project social preview, generated from the project's own screens (public/og/projects). */
+const og = (id: string) => `https://www.builtbygsv.in/og/projects/${id}.jpg`;
 const IN_PROGRESS = 'text-[#854D0E] bg-amber-50 border-amber-200';
 const COMPLETED = 'text-[#0284C7] bg-[#E0F2FE] border-sky-200';
 const signal = (value: string, description: string, iconName: string) => ({ value, label: 'Key feature', description, iconName });
@@ -33,7 +34,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'STRIATUM 4.0 Symposium Event Platform | BuiltbyGSV',
       seoDescription: 'Explore STRIATUM 4.0, a mobile-first medical symposium site for discovering workshops, quizzes, and presentations and managing delegate registrations.',
-      publicImageUrl: OG,
+      publicImageUrl: og('striatum-4-symposium-platform'),
       liveUrl: 'https://striatum4.vercel.app',
       sourceCodeUrl: 'https://github.com/gurugsv7/striatum4',
       answerBlock: {
@@ -95,7 +96,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'E-CARE Emergency-Care Learning and Research App | BuiltbyGSV',
       seoDescription: 'E-CARE is a research-oriented emergency-care learning PWA with structured sessions, assessments, case reasoning, Tutor support, and researcher tools.',
-      publicImageUrl: OG,
+      publicImageUrl: og('e-care-emergency-learning'),
       answerBlock: {
         question: 'What is E-CARE?',
         answer: 'E-CARE is an AI-supported emergency-care learning and research web app for enrolled students and research staff. It combines structured sessions, video, assessment, authored cases, guided reasoning, revision, and researcher administration. Its repository documents a deployed Supabase API and database alongside a local mock mode. Study content remains demo-only until required materials and approvals are supplied, and the public frontend deployment is still an open item.',
@@ -157,7 +158,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'Karaikal One: Local Services, Transport & Community | BuiltbyGSV',
       seoDescription: 'Karaikal One helps residents find local transport, services and community information through a clear, mobile-first experience for Karaikal.',
-      publicImageUrl: OG,
+      publicImageUrl: og('karaikal-one'),
       answerBlock: {
         question: 'What did BuiltbyGSV build for Karaikal?',
         answer: 'BuiltbyGSV built Karaikal One, a mobile-first local information hub for Karaikal residents. It brings together bus and train schedule browsing, local service discovery, community help requests and an Ask Karaikal interface. The application is designed around clear trust labels so users can distinguish scheduled, demo, unverified and community-reported information.',
@@ -218,7 +219,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'Neon Rail: A Webcam-Controlled Browser Runner | BuiltbyGSV',
       seoDescription: 'Play Neon Rail, a Three.js endless runner controlled by keyboard or webcam gestures. Pose tracking runs on-device; video stays on your computer.',
-      publicImageUrl: OG,
+      publicImageUrl: og('neon-rail'),
       liveUrl: 'https://neon-rail-gurus-projects-0640c5c1.vercel.app',
       sourceCodeUrl: 'https://github.com/gurugsv7/neon-rail',
       answerBlock: {
@@ -280,7 +281,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'KAMAYUU: A Memory and Nerve Card Game | BuiltbyGSV',
       seoDescription: 'Play KAMAYUU, a card game of memory and nerve. Practice solo against AI or invite friends to a private online table. Play in your browser.',
-      publicImageUrl: OG,
+      publicImageUrl: og('kamayuu-card-game'),
       liveUrl: 'https://kamayuu.builtbygsv.in',
       sourceCodeUrl: 'https://github.com/gurugsv7/kamayuu',
       answerBlock: {
@@ -343,7 +344,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'TEMPO: A Timed Four-Letter Word Game | BuiltbyGSV',
       seoDescription: 'Play TEMPO, a mobile-first word game. Build four-letter answers from scrambled tiles as the clock speeds up. No account or download required.',
-      publicImageUrl: OG,
+      publicImageUrl: og('tempo-word-game'),
       liveUrl: 'https://tempo-blond-mu.vercel.app',
       sourceCodeUrl: 'https://github.com/gurugsv7/tempo',
       answerBlock: {
@@ -406,7 +407,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'PULSE: AI Personal Finance Analyst | BuiltbyGSV',
       seoDescription: 'Review transaction exports with PULSE. Categorize spending, inspect unusual debits, forecast expenses, and generate a monthly briefing locally.',
-      publicImageUrl: OG,
+      publicImageUrl: og('pulse-personal-finance-analyst'),
       sourceCodeUrl: 'https://github.com/gurugsv7/ai-personal-finance-analyst',
       answerBlock: {
         question: 'What does PULSE do?',
@@ -468,7 +469,7 @@ export const LAB_PROJECTS: Project[] = [
     detailData: {
       seoTitle: 'GSV OS: BuiltbyGSV Studio Operations Platform',
       seoDescription: 'GSV OS is BuiltbyGSV’s private operations platform for client pipeline, proposals, project delivery, finance, maintenance, and studio knowledge.',
-      publicImageUrl: OG,
+      publicImageUrl: og('gsv-os-studio-operations'),
       answerBlock: {
         question: 'What is GSV OS?',
         answer: 'GSV OS is a private operations platform built for BuiltbyGSV. It organizes the studio’s work across leads, clients, proposals, projects, finances, maintenance, and structured knowledge. The repository describes a React and Supabase architecture with database-enforced workflow rules. Optional AI can suggest actions, but the core product is designed to work without an AI provider.',

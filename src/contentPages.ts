@@ -169,9 +169,9 @@ export const contentPages: ContentPage[] = [
   },
   {
     path: '/compare/freelance-developer-vs-web-development-agency',
-    title: 'Freelance Developer vs Web Development Agency: How to Choose | BuiltbyGSV',
+    title: 'Freelancer vs Web Development Agency: How to Choose | BuiltbyGSV',
     description:
-      'An honest comparison of hiring a freelance developer, a local web development agency or a studio, including cost, risk, continuity and when each is genuinely the right choice.',
+      'An honest comparison of hiring a freelance developer, a local web agency or a product studio: cost, risk, continuity and when each one is the right choice.',
     eyebrow: 'Choosing who builds it',
     h1: 'Freelancer, agency or studio?',
     answer:

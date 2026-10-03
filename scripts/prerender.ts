@@ -35,6 +35,8 @@ type RenderPage = {
   intro: string;
   sections: ContentSection[];
   schemaNodes?: Record<string, unknown>[];
+  /** Social preview for this page; defaults to the site-wide cover. */
+  image?: { url: string; alt: string };
 };
 
 const escapeHtml = (value: unknown) =>
@@ -326,6 +328,7 @@ const renderDocument = (page: RenderPage, options: { noindex?: boolean } = {}) =
     schema['@graph'] = [...byId.values(), ...anonymous] as typeof schema['@graph'];
   }
 
+  const image = page.image ?? DEFAULT_IMAGE;
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(page.title)}</title>`)
     .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${escapeHtml(page.description)}" />`)
@@ -337,6 +340,10 @@ const renderDocument = (page: RenderPage, options: { noindex?: boolean } = {}) =
     .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonical}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${escapeHtml(page.title)}" />`)
     .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${escapeHtml(page.description)}" />`)
+    .replace(/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${escapeHtml(image.url)}" />`)
+    .replace(/<meta property="og:image:type" content="[^"]*" \/>/, `<meta property="og:image:type" content="${image.url.endsWith('.jpg') ? 'image/jpeg' : 'image/png'}" />`)
+    .replace(/<meta property="og:image:alt" content="[^"]*" \/>/, `<meta property="og:image:alt" content="${escapeHtml(image.alt)}" />`)
+    .replace(/<meta name="twitter:image" content="[^"]*" \/>/, `<meta name="twitter:image" content="${escapeHtml(image.url)}" />`)
     .replace(/<script id="structured-data" type="application\/ld\+json">[\s\S]*?<\/script>/, `<script id="structured-data" type="application/ld+json">${JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>`)
     .replace(/<!-- SEO_SNAPSHOT_START -->[\s\S]*?<!-- SEO_SNAPSHOT_END -->/, renderSnapshot(page).trim());
 };
@@ -394,6 +401,8 @@ for (const service of Object.values(SERVICES)) {
   }];
 }
 
+const DEFAULT_IMAGE = { url: `${SITE_URL}/og-cover.png`, alt: 'BuiltbyGSV - Product & AI Engineering Studio' };
+
 const projectPages: RenderPage[] = PROJECTS.map((project) => {
   const path = `/projects/${project.id}`;
   const title = project.detailData?.seoTitle ?? `${project.title} Case Study | BuiltbyGSV`;
@@ -404,6 +413,7 @@ const projectPages: RenderPage[] = PROJECTS.map((project) => {
     title,
     description,
     eyebrow: `${project.detailData?.engagement} · ${project.category} case study · ${project.status}`,
+    image: { url: project.detailData?.publicImageUrl ?? DEFAULT_IMAGE.url, alt: `${project.title} by BuiltbyGSV: ${project.subtitle}` },
     heading: project.title,
     intro: project.description,
     sections: [
@@ -621,7 +631,7 @@ const today = new Date().toISOString().slice(0, 10);
 
 const sitemapXml = [
   '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
   ...allRenderPages.map((page) => {
     const rule = CHANGE_FREQUENCY.find((entry) => entry.match(page.path))!;
     const lastmod = blogPosts.find((post) => post.path === page.path)?.updated ?? today;
@@ -631,6 +641,7 @@ const sitemapXml = [
       `    <lastmod>${lastmod}</lastmod>`,
       `    <changefreq>${rule.freq}</changefreq>`,
       `    <priority>${rule.priority}</priority>`,
+      ...(page.image ? [`    <image:image><image:loc>${escapeHtml(page.image.url)}</image:loc></image:image>`] : []),
       '  </url>',
     ].join('\n');
   }),
