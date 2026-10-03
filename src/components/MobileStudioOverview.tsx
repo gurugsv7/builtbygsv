@@ -1,7 +1,12 @@
-import { ArrowRight, ChevronRight, Code2, Cpu, Laptop, Video, Workflow } from 'lucide-react';
+import { ArrowRight, ChevronRight, Code2, Cpu, Laptop, Workflow } from 'lucide-react';
 import type { Project, ScreenType } from '../types';
 import { motion } from 'motion/react';
 import { groupVariants, itemVariants } from '../motion/primitives';
+import { PROJECTS } from '../data/mockData';
+import { projectMedia, projectTheme } from '../data/projectMedia';
+
+/** Shown after the featured project in the home strip: work with real screens to show. */
+const STRIP_IDS = ['striatum-4-symposium-platform', 'karaikal-one', 'neon-rail', 'kamayuu-card-game'];
 
 interface Props {
   recentProject: Project;
@@ -35,15 +40,30 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
         <h2 className="text-base font-extrabold">Selected Work</h2>
         <button onClick={() => onNavigate('projects')} id="btn-mobile-recent-projects-view-all" className="py-1 text-xs font-bold text-[#0F8B75]">View all</button>
       </div>
-      <button onClick={() => onOpenProjectDetail(recentProject)} id="card-mobile-recent-project" className="flex w-full items-center gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 text-left shadow-2xs transition-transform active:scale-[0.98]">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-teal-100 bg-[#D5EAE3] text-[#0F8B75]"><Video className="h-6 w-6" /></span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-base font-extrabold">{recentProject.title}</span>
-          <span className="mt-1 block text-xs text-slate-500">Creative Studio Platform</span>
-          <span className="mt-1 block text-[10px] font-bold text-[#0F8B75]">Client work · Case study</span>
-        </span>
-        <ChevronRight className="h-5 w-5 shrink-0 text-slate-400" />
-      </button>
+      <ol aria-label="Selected work covers" className="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1">
+        {[recentProject, ...STRIP_IDS.map((id) => PROJECTS.find((project) => project.id === id)!)].map((project, index) => {
+          const theme = projectTheme(project.id);
+          const hero = projectMedia[project.id]?.hero;
+          return (
+            <li key={project.id} className="w-[72%] shrink-0 snap-start">
+              <button onClick={() => onOpenProjectDetail(project)} id={index === 0 ? 'card-mobile-recent-project' : undefined} aria-label={`${project.title} case study`}
+                className="block w-full overflow-hidden rounded-2xl border border-slate-200/90 bg-white text-left shadow-2xs transition-transform active:scale-[0.98]">
+                <span className="relative flex aspect-[16/10] items-center justify-center p-3" style={{ backgroundColor: theme.bg }}>
+                  <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:12px_12px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
+                  {hero && <img src={hero} alt="" loading={index === 0 ? undefined : 'lazy'} className="relative max-h-full w-full object-contain drop-shadow-lg" />}
+                </span>
+                <span className="flex items-center gap-2 px-3.5 py-3">
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-extrabold">{project.title}</span>
+                    <span className="mt-0.5 block truncate text-[10px] font-bold" style={{ color: theme.accent }}>{project.detailData?.engagement} · {project.category}</span>
+                  </span>
+                  <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
     </section>
     <div className="grid grid-cols-2 gap-3 pb-3">
       {[{ screen: 'careers', title: 'Careers', subtitle: 'We’re hiring interns' }, { screen: 'process', title: 'How we build', subtitle: 'Scope to release' }].map(item => (

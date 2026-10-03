@@ -47,7 +47,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Keep the experience focused on symposium events and delegate needs.',
       heroDoodleText: 'Find your event. Join the journey.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Home and delegate access' }, { title: 'Event explorer' }, { title: 'Event detail' }, { title: 'Programme' }],
       builtWithTech: [
         { name: 'TypeScript', iconName: 'Code' },
         { name: 'Vite', iconName: 'Zap' },
@@ -107,7 +107,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Learning content must be approved before a study can begin.',
       heroDoodleText: 'Learn. Reason. Review.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Study landing' }, { title: 'Participant information' }, { title: 'Participant sign-in' }, { title: 'Research staff access' }],
       builtWithTech: [
         { name: 'React', iconName: 'React' },
         { name: 'TypeScript', iconName: 'Code' },
@@ -169,7 +169,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Make everyday information easier to find and safer to trust.',
       heroDoodleText: 'Local help, one place.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Home and Ask Karaikal' }, { title: 'Bus availability' }, { title: 'Local services' }, { title: 'Community board' }],
       builtWithTech: [
         { name: 'Vite', iconName: 'Zap' },
         { name: 'JavaScript (ES modules)', iconName: 'Code' },
@@ -232,7 +232,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'The camera should make play more physical without making privacy a trade-off.',
       heroDoodleText: 'Run with your whole body.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Departure board' }, { title: 'Running the line' }, { title: 'Combo streak' }, { title: 'End of the line' }],
       builtWithTech: [
         { name: 'Three.js', iconName: 'Layers' },
         { name: 'MediaPipe Tasks Vision', iconName: 'Brain' },
@@ -294,7 +294,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Make memory and nerve the center of every turn.',
       heroDoodleText: 'Remember what they forgot.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Table entry' }, { title: 'Desktop handoff' }, { title: 'Card art and identity' }],
       builtWithTech: [
         { name: 'React', iconName: 'React' },
         { name: 'TypeScript', iconName: 'Code' },
@@ -357,7 +357,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Keep the answer hidden until the player builds it.',
       heroDoodleText: 'Find the word. Beat the clock.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Word Rush' }, { title: 'Live round' }, { title: 'Pace rising' }],
       builtWithTech: [
         { name: 'React', iconName: 'React' },
         { name: 'TypeScript', iconName: 'Code' },
@@ -419,7 +419,7 @@ export const LAB_PROJECTS: Project[] = [
       ],
       stickyNoteText: 'Show how the analysis reached its conclusion.',
       heroDoodleText: 'Understand the month ahead.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Cash-flow position' }, { title: 'Spending map' }, { title: 'Unusual activity' }, { title: 'Forecast and buffer' }],
       builtWithTech: [
         { name: 'Python', iconName: 'Code' },
         { name: 'Streamlit', iconName: 'Laptop' },

@@ -5,13 +5,34 @@ import v2Glimpse4 from '../assets/v2productions/glimpse4.png';
 import v2HeroImg from '../assets/v2productions/hero.png';
 import v2StoryImg from '../assets/v2productions/the_story.png';
 
+/** Real captures of each build, composed into covers by device frame. Folder name → project id. */
+const captured = import.meta.glob<string>('../assets/*/*.webp', { eager: true, import: 'default' });
+const CAPTURE_FOLDERS: Record<string, string> = {
+  'striatum-4-symposium-platform': 'striatum',
+  'e-care-emergency-learning': 'e-care',
+  'karaikal-one': 'karaikal-one',
+  'neon-rail': 'neon-rail',
+  'kamayuu-card-game': 'kamayuu',
+  'tempo-word-game': 'tempo',
+  'pulse-personal-finance-analyst': 'pulse',
+  'gsv-os-studio-operations': 'gsv-os',
+  'thaai-clinic-website': 'thaai-clinic',
+};
+const capture = (folder: string, name: string) => captured[`../assets/${folder}/${name}.webp`];
+
 /** Bundled screenshots per project, shared by the desktop and mobile case studies. */
-export const projectMedia: Record<string, { hero?: string; story?: string; glimpses?: string[] }> = {
+export const projectMedia: Record<string, { hero?: string; story?: string; glimpses?: string[]; thumb?: string }> = {
   'v2-productions': {
     hero: v2HeroImg,
     story: v2StoryImg,
     glimpses: [v2Glimpse1, v2Glimpse2, v2Glimpse3, v2Glimpse4],
   },
+  ...Object.fromEntries(Object.entries(CAPTURE_FOLDERS).map(([id, folder]) => [id, {
+    hero: capture(folder, 'hero'),
+    story: capture(folder, 'story'),
+    thumb: capture(folder, 'thumb'),
+    glimpses: [1, 2, 3, 4].map((n) => capture(folder, `glimpse${n}`)).filter(Boolean),
+  }])),
 };
 
 /** Per-project colours for covers and stages. Anything not listed uses the studio teal. */

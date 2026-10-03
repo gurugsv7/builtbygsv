@@ -314,7 +314,9 @@ export function MobileWorkList({ projects, onOpenProjectDetail }: RowsProps) {
 /** A tappable project summary: themed thumbnail, title, one-line build, status and stack. */
 function CompactProjectCard({ project, index, onOpen, size = 'sm' }: { project: Project; index: number; onOpen: () => void; size?: 'sm' | 'lg' }) {
   const theme = themeOf(project);
-  const image = projectMedia[project.id]?.hero;
+  const media = projectMedia[project.id];
+  // Wide device covers crop badly at thumbnail size; a square phone-screen crop reads better.
+  const image = media?.thumb ?? media?.hero;
   const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
   const lg = size === 'lg';
   return (

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import type { Project, ScreenType } from '../types';
 import { PROJECTS } from '../data/mockData';
 import { WORK_SUMMARIES } from '../data/studio';
+import { projectMedia, projectTheme } from '../data/projectMedia';
 import v2Preview from '../assets/v2productions/hero.png';
 import { CapabilityExplorer } from './visuals/CapabilityExplorer';
 import { ProcessRail } from './visuals/ProcessRail';
@@ -80,7 +81,7 @@ function ProductSystemDiagram() {
 }
 
 export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStartProject }: Props) {
-  const work = ['v2-productions', 'thaai-clinic-website', 'budget-diet-app'].map(id => PROJECTS.find(project => project.id === id)!);
+  const work = ['v2-productions', 'striatum-4-symposium-platform', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
   const [featured, ...others] = work;
   return <div className="space-y-20 pb-12 pt-10 lg:space-y-28 lg:pt-16">
     <section aria-labelledby="home-capabilities" className="border-t border-slate-200 pt-10 lg:pt-14">
@@ -121,16 +122,24 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
       <RevealGroup className="mt-5 grid gap-5 sm:grid-cols-2">
         {others.map(project => (
           <RevealItem key={project.id}>
-            <button onClick={() => onOpenProjectDetail(project)} className="lift group flex h-full w-full flex-col items-stretch rounded-[1.75rem] border border-slate-200 bg-white p-7 text-left hover:border-[#0F8B75]/60">
-              <div className="flex items-center justify-between gap-3">
-                <Eyebrow>{project.detailData?.engagement}</Eyebrow>
-                <span className="rounded-full border border-slate-200 px-2.5 py-1 text-[10px] font-bold text-slate-500">{project.status}</span>
-              </div>
-              <h3 className="mt-4 text-2xl font-extrabold tracking-tight">{project.title}</h3>
-              <div className="mt-5 flex-1"><SummaryRows id={project.id} /></div>
-              <div className="mt-5 flex items-center justify-between">
-                <span className="font-mono text-[11px] text-slate-500">{project.tags.slice(0, 3).join(' · ')}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E2F1ED] text-[#0F8B75] transition-colors group-hover:bg-[#0F8B75] group-hover:text-white"><ArrowUpRight className="nudge-ur h-4 w-4" /></span>
+            <button onClick={() => onOpenProjectDetail(project)} className="lift group flex h-full w-full flex-col items-stretch overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white text-left hover:border-[#0F8B75]/60">
+              {projectMedia[project.id]?.hero && (
+                <span className="relative flex aspect-[16/9] items-center justify-center overflow-hidden px-8 pt-6" style={{ backgroundColor: projectTheme(project.id).bg }}>
+                  <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${projectTheme(project.id).accent} 1px, transparent 1px)` }} />
+                  <img src={projectMedia[project.id].hero} alt={`${project.title} interface`} loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-[1.03]" />
+                </span>
+              )}
+              <div className="flex flex-1 flex-col p-7">
+                <div className="flex items-center justify-between gap-3">
+                  <Eyebrow>{project.detailData?.engagement}</Eyebrow>
+                  <span className="rounded-full border border-slate-200 px-2.5 py-1 text-[10px] font-bold text-slate-500">{project.status}</span>
+                </div>
+                <h3 className="mt-4 text-2xl font-extrabold tracking-tight">{project.title}</h3>
+                <div className="mt-5 flex-1"><SummaryRows id={project.id} /></div>
+                <div className="mt-5 flex items-center justify-between">
+                  <span className="font-mono text-[11px] text-slate-500">{project.tags.slice(0, 3).join(' · ')}</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E2F1ED] text-[#0F8B75] transition-colors group-hover:bg-[#0F8B75] group-hover:text-white"><ArrowUpRight className="nudge-ur h-4 w-4" /></span>
+                </div>
               </div>
             </button>
           </RevealItem>

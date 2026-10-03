@@ -175,7 +175,7 @@ const CORE_PROJECTS: Project[] = [
       stickyNoteText: 'A concept build for exploring a simpler patient journey.',
       stickyNoteHighlight: 'a simpler patient journey.',
       heroDoodleText: 'Care that fits in your pocket.',
-      glimpseScreenshots: [],
+      glimpseScreenshots: [{ title: 'Patient home' }, { title: 'Book an appointment' }, { title: 'Health records' }, { title: 'Doctor profile' }],
       builtWithTech: [
         { name: 'React 19', iconName: 'React' },
         { name: 'TypeScript', iconName: 'Code' },
