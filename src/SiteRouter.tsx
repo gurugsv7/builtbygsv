@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import App from './App';
 import { BlogArticlePage, BlogIndexPage } from './components/BlogContent';
 import { LocationHubPage } from './components/LocationHubPage';
+import { StudentToolsPage } from './components/StudentToolsPage';
+import { createStudentPageSchema, STUDENT_PAGE } from './content/studentTools';
 import { ServiceAreaLandingPage, StandaloneContentPage } from './components/ServiceAreaContent';
 import { getBlogRoute } from './blogRoutes';
 import { getContentPage } from './contentPages';
@@ -38,9 +40,11 @@ export default function SiteRouter() {
   const project = getProjectFromPath(pathname);
   const isBlogIndex = pathname.replace(/\/$/, '') === '/insights';
   const appMetadata = getAppRouteMetadata(pathname);
+  const isStudentPage = normalizedPath === STUDENT_PAGE.path;
   const isNotFound =
     normalizedPath === '/404' ||
     (!blogPost &&
+      !isStudentPage &&
       !isBlogIndex &&
       !locationPage &&
       !serviceAreaPage &&
@@ -58,7 +62,9 @@ export default function SiteRouter() {
       ? { title: blogPost.seoTitle, description: blogPost.description }
       : isBlogIndex
         ? blogIndexMetadata
-        : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
+        : isStudentPage
+          ? STUDENT_PAGE
+          : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
     const pagePath =
       isNotFound
         ? '/404'
@@ -92,11 +98,13 @@ export default function SiteRouter() {
     setMeta('meta[property="og:title"]', 'property', 'og:title', metadata.title);
     setMeta('meta[property="og:description"]', 'property', 'og:description', metadata.description);
     setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
-    setMeta('meta[property="og:type"]', 'property', 'og:type', blogPost ? 'article' : 'website');
-    const socialImage = project?.detailData?.publicImageUrl ?? `${SITE_URL}/og-cover.png`;
+    setMeta('meta[property="og:type"]', 'property', 'og:type', blogPost || isStudentPage ? 'article' : 'website');
+    const socialImage =
+      project?.detailData?.publicImageUrl ??
+      (isStudentPage ? `${SITE_URL}${STUDENT_PAGE.image.path}` : `${SITE_URL}/og-cover.png`);
     setMeta('meta[property="og:image"]', 'property', 'og:image', socialImage);
     setMeta('meta[property="og:image:type"]', 'property', 'og:image:type', socialImage.endsWith('.jpg') ? 'image/jpeg' : 'image/png');
-    setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', project ? `${project.title} by BuiltbyGSV: ${project.subtitle}` : 'BuiltbyGSV - Product & AI Engineering Studio');
+    setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', project ? `${project.title} by BuiltbyGSV: ${project.subtitle}` : isStudentPage ? STUDENT_PAGE.image.alt : 'BuiltbyGSV - Product & AI Engineering Studio');
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', metadata.title);
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', metadata.description);
     setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', socialImage);
@@ -139,6 +147,11 @@ export default function SiteRouter() {
     }
     if (contentPage) {
       for (const node of createContentPageSchema(contentPage)) {
+        schema['@graph'].push(node as never);
+      }
+    }
+    if (isStudentPage) {
+      for (const node of createStudentPageSchema()) {
         schema['@graph'].push(node as never);
       }
     }
@@ -196,6 +209,7 @@ export default function SiteRouter() {
     contentPage,
     isBlogIndex,
     isNotFound,
+    isStudentPage,
     locationPage,
     normalizedPath,
     pathname,
@@ -208,6 +222,10 @@ export default function SiteRouter() {
   };
 
   const withBusinessFooter = (page: React.ReactNode) => <>{page}<div className="pb-24 lg:pb-0"><BusinessFooter /></div></>;
+
+  if (isStudentPage) {
+    return <StudentToolsPage />;
+  }
 
   if (blogPost) {
     return withBusinessFooter(<BlogArticlePage onStartProject={returnToHomepage} />);

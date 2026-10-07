@@ -21,6 +21,7 @@ import {
   SITE_URL,
 } from '../src/seo';
 import { getServiceAreaPage, serviceAreaPages } from '../src/serviceAreas';
+import { STUDENT_FAQS, STUDENT_PAGE, STUDENT_TOOLS, createStudentPageSchema } from '../src/content/studentTools';
 
 test('project routes are unique, canonical, and resolve to their project', () => {
   const ids = PROJECTS.map((project) => project.id);
@@ -76,6 +77,7 @@ test('sitemap contains every public route and no stale project routes', async ()
     ...contentPages.map((page) => page.path),
     '/insights',
     ...blogPosts.map((post) => post.path),
+    STUDENT_PAGE.path,
   ]);
   const expected = [...expectedPaths].map((path) => `${SITE_URL}${path === '/' ? '/' : path}`);
 
@@ -133,6 +135,7 @@ test('every public path is unique across every page collection', () => {
     ...serviceAreaPages.map((page) => page.path),
     ...contentPages.map((page) => page.path),
     ...blogPosts.map((post) => post.path),
+    STUDENT_PAGE.path,
   ];
   assert.equal(new Set(paths).size, paths.length, 'two pages claim the same path');
 });
@@ -144,6 +147,7 @@ test('titles and descriptions are unique so pages do not cannibalise each other'
     ...serviceAreaPages.map((page) => page.title),
     ...contentPages.map((page) => page.title),
     ...blogPosts.map((post) => post.seoTitle),
+    STUDENT_PAGE.title,
   ];
   assert.equal(new Set(titles).size, titles.length, 'duplicate title tag');
 
@@ -153,6 +157,7 @@ test('titles and descriptions are unique so pages do not cannibalise each other'
     ...serviceAreaPages.map((page) => page.description),
     ...contentPages.map((page) => page.description),
     ...blogPosts.map((post) => post.description),
+    STUDENT_PAGE.description,
   ];
   assert.equal(new Set(descriptions).size, descriptions.length, 'duplicate meta description');
 });
@@ -276,4 +281,22 @@ test('no source file hardcodes the bare apex domain', async () => {
     // Match builtbygsv.in only when not already preceded by "www."
     assert.doesNotMatch(source, /https:\/\/(?!www\.)builtbygsv\.in/, `${file} references the apex host`);
   }
+});
+
+test('student tools page links only to official https pages and fits search snippets', () => {
+  const official = ['github.com', 'nc.me', 'adobe.com', 'figma.com', 'notion.com', 'autodesk.com', 'google.com'];
+  const ids = STUDENT_TOOLS.map((tool) => tool.id);
+  assert.equal(new Set(ids).size, ids.length, 'two tools share an anchor id');
+  for (const tool of STUDENT_TOOLS) {
+    const url = new URL(tool.url);
+    assert.equal(url.protocol, 'https:');
+    assert.ok(official.some((domain) => url.hostname === domain || url.hostname.endsWith(`.${domain}`)), `${tool.id} links off an official domain: ${tool.url}`);
+    assert.ok(url.hostname.endsWith(tool.host), `${tool.id} button names ${tool.host} but links to ${url.hostname}`);
+    assert.equal(url.search, '', `${tool.id} carries a tracking query`);
+    assert.ok(tool.steps.length >= 3, `${tool.id} needs claim steps`);
+  }
+  assert.ok(STUDENT_PAGE.title.length <= 65, 'title truncates in search');
+  assert.ok(STUDENT_PAGE.description.length >= 110 && STUDENT_PAGE.description.length <= 160, `description is ${STUDENT_PAGE.description.length} chars`);
+  assert.ok(STUDENT_FAQS.length >= 3);
+  assert.deepEqual(createStudentPageSchema().map((node) => node['@type']), ['Article', 'FAQPage']);
 });

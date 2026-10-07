@@ -16,6 +16,9 @@ import {
   SITE_URL,
 } from '../src/seo.ts';
 import { serviceAreaPages, serviceAreaPagesForCity } from '../src/serviceAreas.ts';
+import {
+  createStudentPageSchema, LAST_CHECKED, PACK_EXTRAS, STUDENT_FAQS, STUDENT_PAGE, STUDENT_SOURCES, STUDENT_TOOLS,
+} from '../src/content/studentTools.ts';
 
 const distDir = resolve('dist');
 const template = await readFile(resolve(distDir, 'index.html'), 'utf8');
@@ -586,6 +589,36 @@ const contentRenderPages: RenderPage[] = contentPages.map((page) => ({
   schemaNodes: createContentPageSchema(page) as Record<string, unknown>[],
 }));
 
+/** The student free-tools list, linked from the reel's DM auto-reply. */
+const studentRenderPage: RenderPage = {
+  path: STUDENT_PAGE.path,
+  title: STUDENT_PAGE.title,
+  description: STUDENT_PAGE.description,
+  eyebrow: STUDENT_PAGE.tag,
+  heading: STUDENT_PAGE.headline,
+  intro: STUDENT_PAGE.tip,
+  image: { url: `${SITE_URL}${STUDENT_PAGE.image.path}`, alt: STUDENT_PAGE.image.alt },
+  sections: [
+    ...STUDENT_TOOLS.map((tool) => ({
+      heading: tool.name,
+      paragraphs: [
+        `${tool.gets} Eligibility: ${tool.eligibility}. Official link: ${tool.url}`,
+        ...(tool.caveat ? [`The catch: ${tool.caveat}`] : []),
+        ...(tool.tip ? [tool.tip] : []),
+      ],
+      bullets: tool.steps,
+    })),
+    { heading: 'More in the GitHub Student Developer Pack', bullets: PACK_EXTRAS },
+    { heading: 'Common questions', paragraphs: STUDENT_FAQS.map((faq) => `${faq.question} ${faq.answer}`) },
+    {
+      heading: 'Sources',
+      paragraphs: [`Last checked ${LAST_CHECKED}. Offers change; the official pages are the source of truth.`],
+      bullets: STUDENT_SOURCES.map((source) => `${source.label}: ${source.url}`),
+    },
+  ],
+  schemaNodes: createStudentPageSchema(),
+};
+
 const allRenderPages = [
   ...appPages,
   ...projectPages,
@@ -594,6 +627,7 @@ const allRenderPages = [
   ...contentRenderPages,
   blogIndex,
   ...blogRenderPages,
+  studentRenderPage,
 ];
 
 for (const page of allRenderPages) {
@@ -634,7 +668,9 @@ const sitemapXml = [
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
   ...allRenderPages.map((page) => {
     const rule = CHANGE_FREQUENCY.find((entry) => entry.match(page.path))!;
-    const lastmod = blogPosts.find((post) => post.path === page.path)?.updated ?? today;
+    const lastmod =
+      blogPosts.find((post) => post.path === page.path)?.updated ??
+      (page.path === STUDENT_PAGE.path ? STUDENT_PAGE.updated : today);
     return [
       '  <url>',
       `    <loc>${SITE_URL}${page.path === '/' ? '/' : page.path}</loc>`,
@@ -692,11 +728,14 @@ const llmsTxt = [
   '## Guides',
   ...blogPosts.map((post) => `- [${post.title}](${SITE_URL}${post.path}): ${post.description}`),
   '',
+  '## Resources',
+  `- [Free tools for college students in India](${SITE_URL}${STUDENT_PAGE.path}): ${STUDENT_PAGE.description}`,
+  '',
 ].join('\n');
 
 await writeFile(resolve(distDir, 'llms.txt'), llmsTxt);
 await writeFile(resolve('public', 'llms.txt'), llmsTxt);
 
 console.log(
-  `Prerendered ${allRenderPages.length} pages (${appPages.length} app, ${projectPages.length} project, ${locationRenderPages.length} location hub, ${serviceAreaRenderPages.length} service area, ${contentRenderPages.length} reference, ${blogRenderPages.length + 1} insight) plus a custom 404, sitemap.xml and llms.txt.`,
+  `Prerendered ${allRenderPages.length} pages (${appPages.length} app, ${projectPages.length} project, ${locationRenderPages.length} location hub, ${serviceAreaRenderPages.length} service area, ${contentRenderPages.length} reference, ${blogRenderPages.length + 1} insight, 1 resource) plus a custom 404, sitemap.xml and llms.txt.`,
 );

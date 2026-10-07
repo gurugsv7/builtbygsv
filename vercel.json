@@ -12,6 +12,11 @@
       "permanent": true
     },
     {
+      "source": "/students",
+      "destination": "/student",
+      "permanent": true
+    },
+    {
       "source": "/video",
       "destination": "/insights/reel-press-workflow",
       "permanent": false
