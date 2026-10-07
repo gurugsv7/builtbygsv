@@ -63,3 +63,6 @@ Contact: admin@builtbygsv.in | +91-74488-65095 | https://www.builtbygsv.in/conta
 - [A digital checklist for established Thanjavur businesses](https://www.builtbygsv.in/insights/thanjavur-business-digital-checklist): What an established Thanjavur manufacturer, trader, school or clinic should fix first online, ordered by return rather than by how modern it sounds.
 - [The scope mistakes that sink a first release](https://www.builtbygsv.in/insights/mvp-scope-mistakes-founders-make): Six ways founders scope an MVP into failure, and the questions that catch each one before development starts rather than six weeks in.
 - [Setting up Google Business Profile properly](https://www.builtbygsv.in/insights/google-business-profile-setup-guide): A step-by-step guide to claiming and completing a Google Business Profile, choosing the right primary category, and what to do if you have no physical address.
+
+## Resources
+- [Free tools for college students in India](https://www.builtbygsv.in/student): Free software for college students in India, with official links: GitHub Student Pack, Copilot, Figma, Notion, Autodesk, Adobe and 12 months of Google AI Plus.

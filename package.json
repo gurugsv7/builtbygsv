@@ -15,7 +15,8 @@
     "lint": "tsc --noEmit",
     "test": "tsx --test tests/**/*.test.ts",
     "check": "npm run lint && npm test && npm run build",
-    "og": "tsx scripts/og-image.ts"
+    "og": "tsx scripts/og-image.ts",
+    "og:student": "tsx scripts/og-student.ts"
   },
   "dependencies": {
     "lucide-react": "^0.546.0",
