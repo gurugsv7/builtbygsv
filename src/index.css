@@ -168,6 +168,13 @@
 }
 .marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
 
+/* Tour cover collage: each column holds its tiles twice and scrolls by half. */
+@keyframes collage-up {
+  to { transform: translateY(calc(-50% - 0.375rem)); }
+}
+.collage-col { animation: collage-up 40s linear infinite; }
+.collage-reverse { animation-direction: reverse; }
+
 /* A slow sheen across gradient text. */
 @keyframes sheen {
   to { background-position: 200% center; }

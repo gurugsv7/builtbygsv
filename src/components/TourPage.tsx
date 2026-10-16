@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Linkedin, MessageCircle, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
-import { ConceptCover } from './visuals/ConceptScreens';
+import { CONCEPT_SCREENS, ConceptCover, REEL_COVERS } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
 import { CAPABILITIES, WORK_SUMMARIES } from '../data/studio';
 import { projectMedia, projectTheme } from '../data/projectMedia';
@@ -26,8 +26,9 @@ const SLIDES: Slide[] = [
 
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
 const PAPER = '#F4F1EA';
-const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'contact' ? '#131921' : PAPER;
-const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind === 'contact';
+const TEAL = '#0C6E5D';
+const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'contact' ? '#131921' : slide.kind === 'services' ? TEAL : PAPER;
+const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind === 'contact' || slide.kind === 'services';
 
 const item = (delay: number) => ({
   initial: { opacity: 0, y: 18 },
@@ -110,7 +111,7 @@ export function TourPage() {
         onPointerDown={down} onPointerUp={up} onPointerCancel={() => { press.current = null; setPaused(false); }}
         onContextMenu={(event) => event.preventDefault()}>
 
-        <div className="absolute inset-x-0 top-0 z-30 px-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
+        <div className={`absolute inset-x-0 top-0 z-30 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] transition-[padding] ${slide.kind === 'intro' ? 'bg-gradient-to-b from-[#F4F1EA] from-70% to-transparent pb-5' : ''}`}>
           <div className="flex gap-1">
             {SLIDES.map((_, i) => (
               <span key={i} className={`relative h-[3px] flex-1 overflow-hidden rounded-full ${dark ? 'bg-white/25' : 'bg-black/15'}`}>
@@ -120,7 +121,7 @@ export function TourPage() {
             ))}
           </div>
           <div className="mt-3 flex items-center justify-between">
-            <BrandLogo nameClassName={dark ? 'text-xs !text-white' : 'text-xs'} />
+            <BrandLogo nameClassName={slide.kind === 'services' ? 'text-xs !text-white [&_span]:!text-[#F5C748]' : dark ? 'text-xs !text-white' : 'text-xs'} />
             <div className="flex items-center gap-1">
               <span className={`mr-1 font-mono text-[11px] font-bold ${dark ? 'text-white/60' : 'text-[#64748B]'}`}>{paused && !last ? 'Paused' : `${String(index + 1).padStart(2, '0')}/${SLIDES.length}`}</span>
               <button type="button" onClick={() => setPaused((value) => !value)} aria-label={paused ? 'Play' : 'Pause'}
@@ -157,33 +158,79 @@ function close() {
   else window.location.href = '/devday';
 }
 
+type CollageTile = { id: string; src?: string };
+const COLLAGE: CollageTile[] = PROJECTS.flatMap((project): CollageTile[] => {
+  if (CONCEPT_SCREENS[project.id]) return [{ id: project.id }];
+  const media = projectMedia[project.id];
+  const src = media?.thumb ?? media?.hero;
+  return src ? [{ id: project.id, src }] : [];
+}).flatMap((tile, i) => (REEL_COVERS[i] ? [tile, { id: 'reelcut-ai-video-editor', src: REEL_COVERS[i] }] : [tile]));
+const COLUMNS = [0, 1, 2].map((column) => COLLAGE.filter((_, i) => i % 3 === column));
+const STATS = [
+  { value: PROJECTS.length, label: 'products built' },
+  { value: PROJECTS.filter((project) => project.detailData?.engagement === 'Client Work').length, label: 'client builds' },
+  { value: PROJECTS.filter((project) => project.detailData?.liveUrl).length, label: 'live right now' },
+];
+const STACK = ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Three.js', 'MediaPipe', 'Python', 'FFmpeg', 'Whisper', 'Capacitor', 'Tailwind CSS', 'Web Workers'];
+
+function CollageColumn({ tiles, duration, reverse }: { tiles: CollageTile[]; duration: number; reverse?: boolean }) {
+  return (
+    <div className="flex-1 overflow-hidden">
+      <div className={`collage-col flex flex-col gap-3 ${reverse ? 'collage-reverse' : ''}`} style={{ animationDuration: `${duration}s` }}>
+        {[...tiles, ...tiles].map((tile, i) => {
+          const theme = projectTheme(tile.id);
+          return (
+            <div key={`${tile.id}-${i}`} className={`relative overflow-hidden rounded-2xl ${i % 2 ? 'aspect-square' : 'aspect-[4/5]'}`} style={{ backgroundColor: theme.bg }}>
+              {tile.src
+                ? <img src={tile.src} alt="" className="h-full w-full object-cover object-top" draggable={false} />
+                : <ConceptCover projectId={tile.id} peek={0.5} className="h-full w-full" />}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function IntroSlide() {
   return (
-    <div className="flex flex-1 flex-col text-[#131921]">
-      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">BuiltbyGSV · Puducherry, India</motion.p>
-      <motion.h1 {...item(0.12)} className="mt-5 text-[2.6rem] font-extrabold leading-[1.04] tracking-tight [@media(max-height:700px)]:text-[2.2rem]">
-        I’m Guru.<br />I build{' '}
-        <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">
-          software
-          <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.6} />
-        </span>
-        <br />that ships.
-      </motion.h1>
-      <motion.p {...item(0.22)} className="mt-5 max-w-sm text-[15px] leading-7 text-[#475569]">
-        Founder of BuiltbyGSV. I design and engineer web platforms, business software and AI products, from the first sketch to production.
-      </motion.p>
-      <ol className="mt-auto border-t border-[#131921]/15">
-        {CAPABILITIES.map((capability, i) => (
-          <motion.li key={capability.id} {...item(0.32 + i * 0.07)} className="flex items-baseline gap-4 border-b border-[#131921]/15 py-3">
-            <span className="font-mono text-xs font-bold text-[#94A3B8]">0{i + 1}</span>
-            <span className="text-[17px] font-bold">{capability.title}</span>
-          </motion.li>
-        ))}
-      </ol>
-      <motion.p {...item(0.7)} className="mt-4 flex items-center justify-between text-xs font-semibold text-[#64748B]">
-        <span>{PROJECTS.length} projects inside</span>
-        <span className="flex items-center gap-1.5 text-[#131921]">Tap to start <ArrowRight className="h-3.5 w-3.5" /></span>
-      </motion.p>
+    <div className="relative flex flex-1 flex-col text-[#131921]">
+      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-6 top-[calc(-1*(max(0.75rem,env(safe-area-inset-top))+4.5rem))] h-[64%] overflow-hidden [@media(max-height:700px)]:h-[54%] [mask-image:linear-gradient(transparent,#000_20%,#000_62%,transparent)]">
+        <div className="flex h-[130%] gap-3 px-3" style={{ transform: 'translateY(-8%) rotate(-7deg) scale(1.15)' }}>
+          <CollageColumn tiles={COLUMNS[0]} duration={38} />
+          <CollageColumn tiles={COLUMNS[1]} duration={46} reverse />
+          <CollageColumn tiles={COLUMNS[2]} duration={34} />
+        </div>
+      </div>
+
+      <div className="relative -mx-6 mt-auto bg-gradient-to-t from-[#F4F1EA] from-[82%] to-transparent px-6 pt-10">
+        <motion.p {...item(0.1)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">BuiltbyGSV · Puducherry, India</motion.p>
+        <motion.h1 {...item(0.18)} className="mt-3 text-[2.5rem] font-extrabold leading-[1.04] tracking-tight [@media(max-height:700px)]:text-[2.1rem]">
+          I’m Guru. I build{' '}
+          <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">
+            software
+            <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.7} />
+          </span>{' '}
+          that ships.
+        </motion.h1>
+        <motion.dl {...item(0.3)} className="mt-5 grid grid-cols-3 divide-x divide-[#131921]/15 border-y border-[#131921]/15">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="px-3 py-3 first:pl-0">
+              <dd className="text-[1.75rem] font-extrabold leading-none tracking-tight">{String(stat.value).padStart(2, '0')}</dd>
+              <dt className="mt-1 text-[11px] font-semibold text-[#64748B]">{stat.label}</dt>
+            </div>
+          ))}
+        </motion.dl>
+        <motion.div {...item(0.4)} className="marquee mt-3 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <p className="marquee-track flex gap-4 font-mono text-[11px] font-bold text-[#475569]" style={{ animationDuration: '28s' }}>
+            {[...STACK, ...STACK].map((name, i) => <span key={i} className="flex items-center gap-4">{name}<span className="text-[#0F8B75]">/</span></span>)}
+          </p>
+        </motion.div>
+        <motion.p {...item(0.55)} className="mt-4 flex items-center justify-between text-xs font-semibold text-[#64748B]">
+          <span>Founder, BuiltbyGSV</span>
+          <span className="flex items-center gap-1.5 text-[#131921]">Tap to start <ArrowRight className="h-3.5 w-3.5" /></span>
+        </motion.p>
+      </div>
     </div>
   );
 }
@@ -231,22 +278,26 @@ function ProjectSlide({ id, number, reduce }: { id: string; number: number; redu
 
 function ServicesSlide() {
   return (
-    <div className="flex flex-1 flex-col text-[#131921]">
-      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">How I can help</motion.p>
+    <div className="flex flex-1 flex-col text-white">
+      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C748]">How I can help</motion.p>
       <motion.h2 {...item(0.12)} className="mt-3 text-[2.3rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.9rem]">
-        From a rough idea<br /><span className="font-serif font-normal italic text-[#0F8B75]">to a shipped product.</span>
+        From a rough idea to a{' '}
+        <span className="relative inline-block font-serif font-normal italic">
+          shipped product.
+          <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.5} />
+        </span>
       </motion.h2>
-      <ol className="mt-auto border-t border-[#131921]/15">
+      <div className="mt-6 grid flex-1 grid-cols-2 grid-rows-2 gap-2.5">
         {CAPABILITIES.map((capability, i) => (
-          <motion.li key={capability.id} {...item(0.25 + i * 0.1)} className="border-b border-[#131921]/15 py-3.5">
-            <div className="flex items-baseline gap-4">
-              <span className="font-mono text-xs font-bold text-[#94A3B8]">0{i + 1}</span>
-              <span className="text-[17px] font-bold">{capability.title}</span>
-            </div>
-            <p className="mt-1 pl-9 font-mono text-[11px] text-[#475569]">{capability.flow.join(' → ')}</p>
-          </motion.li>
+          <motion.div key={capability.id} initial={{ opacity: 0, y: 20, rotate: i % 2 ? 1.5 : -1.5 }} animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ duration: 0.5, ease: EASE.out, delay: 0.25 + i * 0.09 }}
+            className={`flex flex-col justify-between rounded-2xl p-3.5 ${i === 0 ? 'bg-[#F5C748] text-[#131921]' : 'bg-white/10'}`}>
+            <span className={`font-mono text-[11px] font-bold ${i === 0 ? 'text-[#131921]/60' : 'text-white/50'}`}>0{i + 1}</span>
+            <span className="mt-auto text-[17px] font-extrabold leading-tight">{capability.title}</span>
+            <span className={`mt-2 font-mono text-[10px] leading-4 ${i === 0 ? 'text-[#131921]/70' : 'text-white/70'}`}>{capability.flow.join(' → ')}</span>
+          </motion.div>
         ))}
-      </ol>
+      </div>
     </div>
   );
 }

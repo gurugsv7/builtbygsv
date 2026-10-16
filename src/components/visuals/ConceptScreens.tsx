@@ -3,6 +3,11 @@ import { motion, useReducedMotion } from 'motion/react';
 import {
   BatteryFull, Bell, BookOpen, CalendarDays, Check, ChevronLeft, Home, Scissors, Signal, User, Wallet, Wifi,
 } from 'lucide-react';
+import editingIsDead from '../../assets/reels/editing-is-dead.webp';
+import stopChatgptCode from '../../assets/reels/stop-chatgpt-code.webp';
+import claudeCredits from '../../assets/reels/claude-credits.webp';
+import studentFreebies from '../../assets/reels/student-freebies.webp';
+import aiLieDetector from '../../assets/reels/ai-lie-detector.webp';
 
 /**
  * Phone-screen previews for builds that have no captured screens yet. Each screen is
@@ -72,45 +77,21 @@ function useTicker(count: number, ms: number) {
 
 /* ------------------------------------------------------------------ Reelcut */
 
-const CAPTION_LINES = [['THIS', 'IS', 'HOW'], ['WE', 'SHIP', 'FASTER']];
-const CAPTION_WORDS = CAPTION_LINES.flat();
+/** Real BuiltbyGSV reel covers, produced with the studio's own video pipeline. */
+export const REEL_COVERS = [editingIsDead, stopChatgptCode, claudeCredits, studentFreebies, aiLieDetector];
+
 type Word = { text: string; cut?: boolean };
 const TRANSCRIPT: Word[] = [
-  { text: 'So' }, { text: 'um,', cut: true }, { text: 'this' }, { text: 'is' }, { text: 'how' }, { text: 'we' },
-  { text: 'you know,', cut: true }, { text: 'ship' }, { text: 'faster.' }, { text: 'Every' }, { text: 'release' },
-  { text: 'starts' }, { text: 'with' }, { text: 'like,', cut: true }, { text: 'one' }, { text: 'real' }, { text: 'problem.' },
+  { text: 'So' }, { text: 'um,', cut: true }, { text: 'video' }, { text: 'editing' }, { text: 'is' },
+  { text: 'you know,', cut: true }, { text: 'basically' }, { text: 'dead.' }, { text: 'Claude' }, { text: 'cuts,' },
+  { text: 'captions' }, { text: 'and' }, { text: 'like,', cut: true }, { text: 'renders' }, { text: 'the' }, { text: 'whole' }, { text: 'reel.' },
 ];
 const SPOKEN = TRANSCRIPT.map((word, index) => ({ ...word, index })).filter((word) => !word.cut);
-const CUTS = [14, 37, 61, 83];
+const CUTS = [19, 41, 58, 81];
 
-function Speaker() {
-  const reduce = useReducedMotion();
-  return (
-    <svg viewBox="0 0 270 300" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
-      <rect width="270" height="300" fill="#2A2420" />
-      <rect x="150" y="26" width="96" height="120" rx="4" fill="#3A322C" />
-      <rect x="156" y="32" width="84" height="108" rx="2" fill="#4B4038" />
-      <line x1="198" y1="32" x2="198" y2="140" stroke="#3A322C" strokeWidth="3" />
-      <rect x="18" y="168" width="54" height="132" fill="#221D1A" />
-      <path d="M36 168 C 30 140, 52 128, 48 104 M48 120 C 62 112, 66 98, 74 92 M44 140 C 30 128, 22 124, 16 112" stroke="#5E7A55" strokeWidth="6" strokeLinecap="round" fill="none" />
-      <motion.g animate={reduce ? undefined : { y: [0, -1.5, 0] }} transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}>
-        <path d="M58 300 C 62 236, 92 214, 135 212 C 178 214, 208 236, 212 300 Z" fill="#2F5D50" />
-        <path d="M118 212 L135 236 L152 212 Z" fill="#E9E2D6" />
-        <rect x="122" y="182" width="26" height="34" rx="10" fill="#B07A57" />
-        <ellipse cx="135" cy="150" rx="38" ry="44" fill="#C08A65" />
-        <path d="M97 146 C 94 108, 120 96, 138 98 C 162 98, 178 114, 173 146 C 168 128, 156 118, 136 118 C 116 118, 102 128, 97 146 Z" fill="#1E1916" />
-        <motion.ellipse cx="135" cy="172" rx="9" fill="#7A4632" animate={reduce ? { ry: 2.5 } : { ry: [2, 5, 2.5, 4.5, 2] }} transition={{ duration: 1.1, repeat: Infinity }} />
-        <circle cx="122" cy="148" r="3" fill="#2A1C14" />
-        <circle cx="148" cy="148" r="3" fill="#2A1C14" />
-      </motion.g>
-    </svg>
-  );
-}
-
-/** Reelcut: transcript-first video editing on a phone. */
+/** Reelcut: transcript-first video editing on a phone, shown on a real reel. */
 export function ReelcutScreen() {
   const spoken = useTicker(SPOKEN.length, 520);
-  const captionIndex = useTicker(CAPTION_WORDS.length, 520);
   const reduce = useReducedMotion();
   const activeWord = SPOKEN[spoken].index;
   return (
@@ -118,25 +99,18 @@ export function ReelcutScreen() {
       <div className="flex shrink-0 items-center gap-2 px-4 pb-2 pt-1">
         <ChevronLeft className="h-5 w-5 text-white/70" />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[14px] font-bold leading-tight">Launch teaser</p>
-          <p className="text-[11px] text-white/50">0:58 · 9:16 · 2 speakers</p>
+          <p className="truncate text-[14px] font-bold leading-tight">Editing is dead</p>
+          <p className="text-[11px] text-white/50">0:42 · 9:16 · Captions EN</p>
         </div>
         <span className="rounded-full bg-[#FF5A36] px-3 py-1.5 text-[12px] font-bold">Export</span>
       </div>
 
-      <div className="relative mx-3 h-[262px] shrink-0 overflow-hidden rounded-[18px]">
-        <Speaker />
-        <span className="absolute left-2.5 top-2.5 rounded-md bg-black/55 px-1.5 py-0.5 text-[10px] font-semibold text-white/90">Auto-framed</span>
-        <span className="absolute right-2.5 top-2.5 font-mono text-[10px] font-semibold text-white/80">00:12</span>
-        <div className="absolute inset-x-0 bottom-5 flex flex-col items-center gap-0.5">
-          {CAPTION_LINES.map((line, lineIndex) => (
-            <p key={lineIndex} className="flex gap-1.5 text-[19px] font-black leading-none tracking-tight [text-shadow:0_2px_0_#000,0_0_6px_rgba(0,0,0,.6)]">
-              {line.map((word) => {
-                const on = CAPTION_WORDS[captionIndex] === word;
-                return <span key={word} className={on ? 'text-[#FFD43B]' : 'text-white'}>{word}</span>;
-              })}
-            </p>
-          ))}
+      <div className="relative mx-3 h-[262px] shrink-0 overflow-hidden rounded-[18px] bg-[#E9E1D2]">
+        <motion.img src={editingIsDead} alt="" draggable={false} className="h-full w-full object-cover object-[50%_18%]"
+          animate={reduce ? undefined : { scale: [1, 1.05] }} transition={{ duration: 9, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} />
+        <div className="absolute inset-x-3 bottom-3 h-1 overflow-hidden rounded-full bg-black/25">
+          <motion.div className="h-full bg-[#FF5A36]" animate={reduce ? { width: '30%' } : { width: ['0%', '100%'] }}
+            transition={reduce ? { duration: 0 } : { duration: 8, repeat: Infinity, ease: 'linear' }} />
         </div>
       </div>
 
@@ -159,19 +133,19 @@ export function ReelcutScreen() {
       </div>
 
       <div className="mx-3 mt-3 shrink-0">
-        <div className="relative h-10 overflow-hidden rounded-[10px]">
+        <div className="relative h-12 overflow-hidden rounded-[10px]">
           <div className="flex h-full gap-[2px]">
-            {['#3A322C', '#2F5D50', '#4B4038', '#2A2420', '#3A322C', '#2F5D50', '#4B4038', '#3A322C'].map((color, index) => (
-              <span key={index} className="h-full flex-1" style={{ backgroundColor: color }} />
+            {REEL_COVERS.map((src) => (
+              <img key={src} src={src} alt="" draggable={false} className="h-full min-w-0 flex-1 object-cover object-top" />
             ))}
           </div>
           {CUTS.map((left) => <span key={left} className="absolute inset-y-0 w-[3px] bg-[#FF5A36]" style={{ left: `${left}%` }} />)}
-          <motion.span className="absolute inset-y-0 w-[2px] bg-white" animate={reduce ? { left: '40%' } : { left: ['0%', '99%'] }}
+          <motion.span className="absolute inset-y-0 w-[2px] bg-white shadow-[0_0_0_1px_rgba(0,0,0,.4)]" animate={reduce ? { left: '40%' } : { left: ['0%', '99%'] }}
             transition={reduce ? { duration: 0 } : { duration: 8, repeat: Infinity, ease: 'linear' }} />
         </div>
         <div className="mt-2.5 flex gap-1.5 text-[11px] font-semibold">
           <span className="flex items-center gap-1 rounded-full bg-[#FF5A36]/15 px-2 py-1 text-[#FF8A70]"><Scissors className="h-3 w-3" /> 3 fillers · −42s silence</span>
-          <span className="rounded-full bg-white/10 px-2 py-1 text-white/70">Captions EN</span>
+          <span className="rounded-full bg-white/10 px-2 py-1 text-white/70">5 reels</span>
         </div>
       </div>
     </Phone>
