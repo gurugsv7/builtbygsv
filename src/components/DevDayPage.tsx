@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Check, Github, Linkedin, Mail, MessageCircle, Play, QrCode, Share2, UserPlus, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Play, QrCode, Share2, UserPlus, X } from 'lucide-react';
+import { BrandTile, WhatsappMark, type BrandName } from './BrandIcons';
 import { BrandLogo } from './BrandLogo';
 import { ProjectMarquee } from './visuals/ProjectMarquee';
 import { ConceptCover } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
 import { WORK_SUMMARIES } from '../data/studio';
-import { projectTheme } from '../data/projectMedia';
+import { projectMedia, projectTheme } from '../data/projectMedia';
 import { brandEntity, SITE_URL } from '../seo';
 import { EASE } from '../motion/tokens';
 import { DrawnUnderline } from '../motion/primitives';
@@ -15,7 +16,7 @@ import type { Project } from '../types';
 
 const PAGE_URL = `${SITE_URL}${DEVDAY_PAGE.path}`;
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
-const NOW_BUILDING = ['reelcut-ai-video-editor', 'campus-one-institute-portal'];
+const FEATURED = ['kamayuu-card-game', 'reelcut-ai-video-editor'];
 
 const open = (project: Project) => { window.location.href = `/projects/${project.id}`; };
 
@@ -43,11 +44,11 @@ export function DevDayPage() {
   };
 
   const channels = [
-    { href: whatsapp, label: 'WhatsApp', icon: MessageCircle, tone: 'bg-emerald-500 text-white', external: true },
-    { href: brandEntity.linkedin, label: 'LinkedIn', icon: Linkedin, tone: 'bg-[#0A66C2] text-white', external: true },
-    { href: brandEntity.github, label: 'GitHub', icon: Github, tone: 'bg-[#131921] text-white', external: true },
-    { href: `mailto:${brandEntity.email}?subject=${encodeURIComponent('We met at DevDay')}`, label: 'Email', icon: Mail, tone: 'bg-[#E2F1ED] text-[#0F8B75]', external: false },
-  ];
+    { href: whatsapp, label: 'WhatsApp', brand: 'whatsapp' },
+    { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
+    { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+    { href: brandEntity.github, label: 'GitHub', brand: 'github' },
+  ] satisfies { href: string; label: string; brand: BrandName }[];
 
   return (
     <main className="relative min-h-screen overflow-x-clip bg-[#F8F9FA] pb-24 font-sans text-[#131921] antialiased lg:pb-0">
@@ -84,11 +85,11 @@ export function DevDayPage() {
             </motion.div>
 
             <motion.ul {...rise(0.32)} className="mt-6 grid grid-cols-4 gap-2.5 sm:max-w-md" aria-label="Ways to connect">
-              {channels.map(({ href, label, icon: Icon, tone, external }) => (
+              {channels.map(({ href, label, brand }) => (
                 <li key={label}>
-                  <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}
+                  <a href={href} target="_blank" rel="noopener noreferrer"
                     className="group flex flex-col items-center gap-1.5 rounded-2xl border border-slate-200 bg-white p-3 text-[11px] font-extrabold shadow-2xs transition hover:-translate-y-0.5 hover:shadow-md active:scale-95">
-                    <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${tone}`}><Icon className="h-5 w-5" /></span>
+                    <BrandTile name={brand} className="h-10 w-10" />
                     {label}
                   </a>
                 </li>
@@ -110,10 +111,10 @@ export function DevDayPage() {
         </section>
 
         <section className="mt-14 lg:mt-20" aria-labelledby="devday-building">
-          <p className="font-mono text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#0F8B75]">In the lab right now</p>
-          <h2 id="devday-building" className="mt-2 text-2xl font-extrabold tracking-tight lg:text-3xl">What I’m <span className="font-serif font-normal italic text-[#0F8B75]">building.</span></h2>
+          <p className="font-mono text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#0F8B75]">Shipped and in the lab</p>
+          <h2 id="devday-building" className="mt-2 text-2xl font-extrabold tracking-tight lg:text-3xl">Start <span className="font-serif font-normal italic text-[#0F8B75]">here.</span></h2>
           <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-5 md:grid-cols-2">
-            {NOW_BUILDING.map((id, index) => {
+            {FEATURED.map((id, index) => {
               const project = PROJECTS.find((item) => item.id === id)!;
               const theme = projectTheme(id);
               return (
@@ -122,7 +123,9 @@ export function DevDayPage() {
                   className="group block overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xs transition hover:-translate-y-1 hover:shadow-xl">
                   <span className="relative flex aspect-[16/10] items-center justify-center overflow-hidden px-6 pt-6" style={{ backgroundColor: theme.bg }}>
                     <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
-                    <ConceptCover projectId={id} peek={0.6} className="relative h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />
+                    {projectMedia[id]?.hero
+                      ? <img src={projectMedia[id].hero} alt={`${project.title} interface`} loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-[1.03]" />
+                      : <ConceptCover projectId={id} peek={0.6} className="relative h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />}
                   </span>
                   <span className="flex items-center justify-between gap-4 p-5">
                     <span className="min-w-0">
@@ -152,7 +155,7 @@ export function DevDayPage() {
             <p className="mt-2 text-sm text-slate-300">Tell me the problem. We’ll shape the right first version together.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="press inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-extrabold text-white"><MessageCircle className="h-4 w-4" /> Message me</a>
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="press inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-extrabold text-white"><WhatsappMark className="h-4 w-4 text-[#25D366]" /> Message me</a>
             <a href="/start-project" className="press inline-flex items-center gap-2 rounded-full bg-[#F5C748] px-5 py-3 text-sm font-extrabold text-[#09121F]">Start a Project <ArrowRight className="h-4 w-4" /></a>
           </div>
         </section>
@@ -161,7 +164,7 @@ export function DevDayPage() {
       <motion.nav aria-label="Quick actions" initial={{ y: 100 }} animate={{ y: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 26, delay: 0.6 }}
         className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-1.5 rounded-[1.4rem] border border-white/10 bg-[#131921]/95 p-1.5 shadow-2xl backdrop-blur-md lg:hidden">
         <a href="/gurusabarivasan.vcf" className="flex items-center justify-center gap-1.5 rounded-2xl bg-[#F5C748] py-3 text-xs font-extrabold text-[#131921] active:scale-95"><UserPlus className="h-4 w-4" /> Save contact</a>
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><MessageCircle className="h-4 w-4" /> Chat</a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><WhatsappMark className="h-4 w-4 text-[#25D366]" /> Chat</a>
         <button type="button" onClick={() => setShowQr(true)} className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><QrCode className="h-4 w-4" /> QR</button>
         <a href="/tour" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><Play className="h-4 w-4" /> Tour</a>
       </motion.nav>

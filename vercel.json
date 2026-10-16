@@ -12,6 +12,21 @@
       "permanent": true
     },
     {
+      "source": "/projects/campus-one-institute-portal",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
+      "source": "/projects/e-care-emergency-learning",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
+      "source": "/projects/pulse-personal-finance-analyst",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
       "source": "/students",
       "destination": "/student",
       "permanent": true

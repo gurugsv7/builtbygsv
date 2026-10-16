@@ -137,7 +137,6 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
           <ArrowRight className="h-4 w-4 shrink-0 text-[#0F8B75]" />
         </a>
         <NowBuilding onNavigate={onNavigate} />
-        <ProjectMarquee compact onOpenProjectDetail={onOpenProjectDetail} />
 
         <MobileStudioOverview recentProject={recentProject} onNavigate={onNavigate} onOpenProjectDetail={onOpenProjectDetail} />
       </div>
@@ -270,7 +269,7 @@ function NowBuilding({ onNavigate }: { onNavigate: (screen: ScreenType) => void 
         <span className="relative inline-flex h-2 w-2 rounded-full bg-[#F59E0B]" />
       </span>
       <span className="shrink-0 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">In the lab</span>
-      <span className="truncate font-bold text-[#131921]">Reelcut · Campus One</span>
+      <span className="truncate font-bold text-[#131921]">Reelcut, an AI video editor</span>
       <ArrowUpRight className="nudge-ur h-3.5 w-3.5 shrink-0 text-[#0F8B75]" />
     </button>
   );

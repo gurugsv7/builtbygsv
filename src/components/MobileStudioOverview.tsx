@@ -1,4 +1,5 @@
-import { ArrowRight, ChevronRight, Code2, Cpu, Github, Laptop, Linkedin, MessageCircle, Workflow } from 'lucide-react';
+import { ArrowRight, ChevronRight, Code2, Cpu, Laptop, Workflow } from 'lucide-react';
+import { BrandTile, type BrandName } from './BrandIcons';
 import { brandEntity } from '../seo';
 import type { Project, ScreenType } from '../types';
 import { motion } from 'motion/react';
@@ -8,7 +9,7 @@ import { projectMedia, projectTheme } from '../data/projectMedia';
 import { ConceptCover } from './visuals/ConceptScreens';
 
 /** Shown after the featured project in the home strip: work with real screens to show. */
-const STRIP_IDS = ['reelcut-ai-video-editor', 'campus-one-institute-portal', 'striatum-4-symposium-platform', 'karaikal-one', 'neon-rail', 'kamayuu-card-game'];
+const STRIP_IDS = ['kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail'];
 
 interface Props {
   recentProject: Project;
@@ -71,14 +72,15 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
     <section aria-label="Connect with BuiltbyGSV" className="rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-2xs">
       <p className="text-xs font-extrabold">Let’s connect</p>
       <p className="mt-0.5 text-[10px] text-slate-500">Say hi from wherever you are.</p>
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        {[
-          { href: brandEntity.linkedin, label: 'LinkedIn', icon: Linkedin, tone: 'bg-[#0A66C2]' },
-          { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', icon: MessageCircle, tone: 'bg-emerald-500' },
-          { href: brandEntity.github, label: 'GitHub', icon: Github, tone: 'bg-[#131921]' },
-        ].map(({ href, label, icon: Icon, tone }) => (
-          <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-[11px] font-extrabold text-white transition-transform active:scale-95 ${tone}`}>
-            <Icon className="h-3.5 w-3.5" /> {label}
+      <div className="mt-3 grid grid-cols-4 gap-2">
+        {([
+          { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', brand: 'whatsapp' },
+          { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
+          { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+          { href: brandEntity.github, label: 'GitHub', brand: 'github' },
+        ] satisfies { href: string; label: string; brand: BrandName }[]).map(({ href, label, brand }) => (
+          <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1.5 rounded-xl py-1.5 text-[10px] font-bold text-slate-700 transition-transform active:scale-95">
+            <BrandTile name={brand} className="h-10 w-10" /> {label}
           </a>
         ))}
       </div>

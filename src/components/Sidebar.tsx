@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScreenType } from '../types';
-import { Home, LayoutGrid, Code2, Building2, Briefcase, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, Code2, Building2, Briefcase, Mail, ArrowRight } from 'lucide-react';
+import { BrandMark } from './BrandIcons';
 import { SCREEN_PATHS } from '../routes';
 import { brandEntity } from '../seo';
 import { BrandLogo } from './BrandLogo';
@@ -118,10 +119,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Social Icons Row */}
         <div className="flex items-center justify-between px-2 text-slate-500 pt-1">
           <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="GitHub">
-            <Github className="w-4 h-4" />
+            <BrandMark name="github" />
+          </a>
+          <a href={brandEntity.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="Instagram">
+            <BrandMark name="instagram" />
           </a>
           <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="LinkedIn">
-            <Linkedin className="w-4 h-4" />
+            <BrandMark name="linkedin" />
           </a>
           <a href={`mailto:${brandEntity.email}`} className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="Email">
             <Mail className="w-4 h-4" />

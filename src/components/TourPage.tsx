@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Linkedin, MessageCircle, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
+import { BrandMark } from './BrandIcons';
 import { BrandLogo } from './BrandLogo';
 import { CONCEPT_SCREENS, ConceptCover, REEL_COVERS } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
@@ -13,8 +14,7 @@ import { DrawnUnderline } from '../motion/primitives';
 /** How long each slide stays up before advancing, in ms. */
 const SLIDE_MS = 6500;
 const TOUR_PROJECTS = [
-  'v2-productions', 'reelcut-ai-video-editor', 'campus-one-institute-portal', 'striatum-4-symposium-platform',
-  'e-care-emergency-learning', 'karaikal-one', 'neon-rail', 'kamayuu-card-game', 'pulse-personal-finance-analyst',
+  'v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail',
 ];
 type Slide = { kind: 'intro' } | { kind: 'project'; id: string } | { kind: 'services' } | { kind: 'contact' };
 const SLIDES: Slide[] = [
@@ -354,10 +354,11 @@ function ContactSlide({ onReplay }: { onReplay: () => void }) {
           <p className="mt-2 font-mono text-[11px] font-bold">builtbygsv.in/devday</p>
         </div>
       </motion.div>
-      <motion.div {...item(0.35)} className="grid grid-cols-2 gap-2.5">
-        <a href="/gurusabarivasan.vcf" className="col-span-2 flex items-center justify-center gap-2 rounded-2xl bg-[#F5C748] py-3.5 text-[15px] font-extrabold text-[#131921]"><UserPlus className="h-4 w-4" /> Save my contact</a>
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
-        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+      <motion.div {...item(0.35)} className="grid grid-cols-3 gap-2.5">
+        <a href="/gurusabarivasan.vcf" className="col-span-3 flex items-center justify-center gap-2 rounded-2xl bg-[#F5C748] py-3.5 text-[15px] font-extrabold text-[#131921]"><UserPlus className="h-4 w-4" /> Save my contact</a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><BrandMark name="whatsapp" /> WhatsApp</a>
+        <a href={brandEntity.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><BrandMark name="instagram" /> Reels</a>
+        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><span className="rounded-[3px] bg-white"><BrandMark name="linkedin" /></span> LinkedIn</a>
       </motion.div>
       <button type="button" onClick={onReplay} className="mt-4 inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-white/60"><RotateCcw className="h-3.5 w-3.5" /> Replay</button>
     </div>

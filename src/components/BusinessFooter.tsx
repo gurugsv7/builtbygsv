@@ -1,4 +1,5 @@
-import { ArrowUpRight, Github, Linkedin, Mail, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
+import { BrandMark, type BrandName } from './BrandIcons';
 import { brandEntity } from '../seo';
 
 const groups = [
@@ -16,16 +17,17 @@ export function BusinessFooter() {
       <div className="hidden gap-10 lg:grid lg:grid-cols-[.8fr_1.6fr]"><div><p className="text-xl font-extrabold">Builtby<span className="text-[#0F8B75]">GSV</span></p><p className="mt-3 text-xs leading-6 text-slate-600">Product &amp; AI Engineering Studio.<br />Useful products. Thoughtful engineering.</p><a href={`mailto:${brandEntity.email}`} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#0F8B75]">{brandEntity.email}<ArrowUpRight className="h-3 w-3" /></a></div>{links}</div>
       <details className="group lg:hidden"><summary className="flex cursor-pointer list-none items-center justify-between text-xs font-extrabold [&::-webkit-details-marker]:hidden">Explore BuiltbyGSV <span className="text-lg text-[#0F8B75] group-open:rotate-45">+</span></summary><div className="py-5">{links}</div><a href={`mailto:${brandEntity.email}`} className="mb-5 inline-block text-xs font-bold text-[#0F8B75]">{brandEntity.email}</a></details>
       <ul className="mt-5 flex flex-wrap gap-2" aria-label="Connect with BuiltbyGSV">
-        {[
-          { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', icon: MessageCircle },
-          { href: brandEntity.linkedin, label: 'LinkedIn', icon: Linkedin },
-          { href: brandEntity.github, label: 'GitHub', icon: Github },
-          { href: `mailto:${brandEntity.email}`, label: 'Email', icon: Mail },
-        ].map(({ href, label, icon: Icon }) => (
+        {([
+          { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', brand: 'whatsapp' },
+          { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
+          { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+          { href: brandEntity.github, label: 'GitHub', brand: 'github' },
+          { href: `mailto:${brandEntity.email}`, label: 'Email' },
+        ] as { href: string; label: string; brand?: BrandName }[]).map(({ href, label, brand }) => (
           <li key={label}>
             <a href={href} target={href.startsWith('mailto:') ? undefined : '_blank'} rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-[11px] font-bold text-slate-700 transition hover:border-[#0F8B75] hover:text-[#0F8B75]">
-              <Icon className="h-3.5 w-3.5" /> {label}
+              {brand ? <BrandMark name={brand} className="h-3.5 w-3.5" /> : <Mail className="h-3.5 w-3.5" />} {label}
             </a>
           </li>
         ))}

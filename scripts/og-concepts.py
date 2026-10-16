@@ -21,12 +21,6 @@ CARDS = [
         'subtitle': 'AI-assisted editing that turns long recordings into captioned reels.',
         'bg': '#1C1916', 'accent': '#FF5A36', 'text': '#FFFFFF', 'muted': '#D6D3D1', 'dot': 'rgba(255,255,255,.10)',
     },
-    {
-        'id': 'campus-one-institute-portal',
-        'title': 'Campus One',
-        'subtitle': 'One portal for attendance, courses, fees and notices.',
-        'bg': '#E6ECF3', 'accent': '#1F4E79', 'text': '#131921', 'muted': '#475569', 'dot': 'rgba(19,25,33,.12)',
-    },
 ]
 
 COMPOSE = """

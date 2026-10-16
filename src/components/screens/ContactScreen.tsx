@@ -2,13 +2,11 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Check,
-  Github,
-  Linkedin,
   Mail,
-  MessageCircle,
   Phone,
   Send,
 } from 'lucide-react';
+import { BrandMark, WhatsappMark } from '../BrandIcons';
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, FileText } from 'lucide-react';
@@ -40,7 +38,7 @@ function MobileContact({ onBack, onStartProject }: ContactScreenProps) {
   const channels = [
     { href: `mailto:${brandEntity.email}`, label: 'Email', icon: Mail, tone: 'bg-[#E2F1ED] text-[#0F8B75]', external: false },
     { href: phoneHref, label: 'Call', icon: Phone, tone: 'bg-[#FDF1E7] text-[#E85D22]', external: false },
-    { href: whatsappHref, label: 'WhatsApp', icon: MessageCircle, tone: 'bg-emerald-50 text-emerald-600', external: true },
+    { href: whatsappHref, label: 'WhatsApp', icon: WhatsappMark, tone: 'bg-[#25D366] text-white', external: true },
   ];
 
   return (
@@ -134,8 +132,9 @@ function MobileContact({ onBack, onStartProject }: ContactScreenProps) {
       </div>
 
       <div className="flex items-center justify-center gap-5 text-[11px] font-bold text-slate-500">
-        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><Linkedin className="h-4 w-4" /> LinkedIn</a>
-        <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><Github className="h-4 w-4" /> GitHub</a>
+        <a href={brandEntity.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><BrandMark name="instagram" /> Instagram</a>
+        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><BrandMark name="linkedin" /> LinkedIn</a>
+        <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5"><BrandMark name="github" /> GitHub</a>
       </div>
     </main>
   );
@@ -156,7 +155,7 @@ function DesktopContact({ onBack, onStartProject }: ContactScreenProps) {
   const channels = [
     { href: `mailto:${brandEntity.email}`, label: 'Email', value: brandEntity.email, icon: Mail, tone: 'bg-[#E2F1ED] text-[#0F8B75]', external: false },
     { href: phoneHref, label: 'Phone', value: brandEntity.phone, icon: Phone, tone: 'bg-[#FDF1E7] text-[#E85D22]', external: false },
-    { href: whatsappHref, label: 'WhatsApp', value: 'Message BuiltbyGSV', icon: MessageCircle, tone: 'bg-emerald-50 text-emerald-600', external: true },
+    { href: whatsappHref, label: 'WhatsApp', value: 'Message BuiltbyGSV', icon: WhatsappMark, tone: 'bg-[#25D366] text-white', external: true },
   ];
   const next = [
     { title: 'You send the brief', text: 'From your own email, with the file attached or pasted in.' },
@@ -216,8 +215,9 @@ function DesktopContact({ onBack, onStartProject }: ContactScreenProps) {
           </div>
           <div className="mt-5 flex items-center gap-4 text-xs font-bold text-slate-500">
             <span>Elsewhere:</span>
-            <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0F8B75]"><Linkedin className="h-4 w-4" /> LinkedIn</a>
-            <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0F8B75]"><Github className="h-4 w-4" /> GitHub</a>
+            <a href={brandEntity.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0F8B75]"><BrandMark name="instagram" /> Instagram</a>
+            <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0F8B75]"><BrandMark name="linkedin" /> LinkedIn</a>
+            <a href={brandEntity.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-[#0F8B75]"><BrandMark name="github" /> GitHub</a>
           </div>
         </section>
 

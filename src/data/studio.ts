@@ -33,10 +33,6 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
     problem: 'Turning long recordings into short reels takes hours of trimming, captioning and reframing.',
     built: 'An AI-assisted editor with transcript editing, silence removal, word-timed captions and vertical reframing.',
   },
-  'campus-one-institute-portal': {
-    problem: 'Institutes juggle registers, spreadsheets and chat groups for attendance, academics and fees.',
-    built: 'One role-based portal for timetables, attendance, courses, assessments, fees and notices.',
-  },
   'v2-productions': {
     problem: 'A creative studio needed one place for showcases, services, courses and enquiries.',
     built: 'A responsive React platform with distinct mobile and desktop experiences.',
@@ -48,10 +44,6 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
   'striatum-4-symposium-platform': {
     problem: 'Symposium attendees need one place to discover activities, apply for delegate access and manage registrations.',
     built: 'An event site with searchable listings, delegate access, registration and cart flows, payment-proof submission and organizer review.',
-  },
-  'e-care-emergency-learning': {
-    problem: 'Emergency-care learners need structured practice and feedback, while research needs controlled content and oversight.',
-    built: 'A PWA with student learning journeys, authored cases, assessments, Tutor support and researcher tools.',
   },
   'karaikal-one': {
     problem: 'Transport, local services and community help depend on scattered information, calls and informal messages.',
@@ -69,10 +61,6 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
     problem: 'Word puzzles often reveal answers or allow partial and repeated selections.',
     built: 'A timed four-letter game where players build words from shuffled tiles before the clock runs out.',
   },
-  'pulse-personal-finance-analyst': {
-    problem: 'Reviewing bank transactions by hand makes spending patterns and unusual debits hard to spot.',
-    built: 'A local-first app that categorizes transactions, analyzes cash flow, flags anomalies and forecasts expenses.',
-  },
   'gsv-os-studio-operations': {
     problem: 'Studio work gets hard to track when decisions and client details live across chats, sheets and tabs.',
     built: 'An internal platform for leads, clients, proposals, delivery, finance, maintenance and decisions.',
@@ -80,4 +68,4 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
 };
 
 /** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
-export const FEATURED_WORK = ['v2-productions', 'reelcut-ai-video-editor', 'striatum-4-symposium-platform', 'campus-one-institute-portal', 'karaikal-one', 'neon-rail'];
+export const FEATURED_WORK = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail'];

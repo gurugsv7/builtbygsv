@@ -82,7 +82,7 @@ function ProductSystemDiagram() {
 }
 
 export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStartProject }: Props) {
-  const work = ['v2-productions', 'reelcut-ai-video-editor', 'campus-one-institute-portal', 'striatum-4-symposium-platform', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
+  const work = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
   const [featured, ...others] = work;
   return <div className="space-y-20 pb-12 pt-10 lg:space-y-28 lg:pt-16">
     <section aria-labelledby="home-capabilities" className="border-t border-slate-200 pt-10 lg:pt-14">

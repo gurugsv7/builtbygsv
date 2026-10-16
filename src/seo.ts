@@ -14,6 +14,7 @@ export const brandEntity = {
   location: 'Puducherry, India',
   linkedin: 'https://linkedin.com/in/gurugsv',
   github: 'https://github.com/gurugsv7',
+  instagram: 'https://www.instagram.com/builtbygsv/',
 };
 
 export type LocationSlug = 'karaikal' | 'bengaluru' | 'thanjavur';
@@ -73,7 +74,7 @@ export const locationPages: LocationPage[] = [
     ],
     industries: ['SaaS & startups', 'Consumer apps', 'Professional services', 'AI products'],
     proof:
-      'PULSE, a BuiltbyGSV lab build, shows the approach Bengaluru product teams can expect: a clearly scoped problem, transparent analysis logic and a working release that runs without vendor lock-in.',
+      'KAMAYUU, a BuiltbyGSV lab build, shows the approach Bengaluru product teams can expect: a clearly scoped idea, a dedicated rules engine and a working browser release with realtime multiplayer.',
   },
   {
     slug: 'thanjavur',
@@ -121,7 +122,7 @@ export const createOrganizationSchema = () => ({
       founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
       email: brandEntity.email,
       telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github],
+      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram],
       areaServed: [
         { '@type': 'City', name: 'Karaikal' },
         { '@type': 'City', name: 'Bengaluru' },
@@ -162,7 +163,7 @@ export const createOrganizationSchema = () => ({
       jobTitle: 'Full Stack Developer',
       email: brandEntity.email,
       telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github],
+      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram],
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Puducherry',
