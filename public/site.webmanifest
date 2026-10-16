@@ -34,10 +34,10 @@
       ]
     },
     {
-      "name": "LinkedIn & X card",
+      "name": "Show LinkedIn & X QR",
       "short_name": "Connect",
       "description": "Flip card with LinkedIn and X QR codes",
-      "url": "/connect",
+      "url": "/connect?show",
       "icons": [
         {
           "src": "/icon-192.png",

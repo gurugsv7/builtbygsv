@@ -85,7 +85,7 @@ export function DevDayPage() {
                 <Play className="h-3.5 w-3.5 fill-current" /> 1-min tour
               </a>
               <a href="/connect" className="press inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-[#131921] hover:border-slate-500">
-                <BrandMark name="linkedin" className="h-3.5 w-3.5" /><BrandMark name="x" className="h-3 w-3" /> Card
+                <BrandMark name="linkedin" className="h-3.5 w-3.5" /><BrandMark name="x" className="h-3 w-3" /> Connect
               </a>
             </motion.div>
 

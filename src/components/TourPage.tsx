@@ -365,7 +365,7 @@ function ContactSlide({ onReplay }: { onReplay: () => void }) {
         <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><span className="rounded-[3px] bg-white"><BrandMark name="linkedin" /></span> LinkedIn</a>
       </motion.div>
       <button type="button" onClick={onReplay} className="mt-4 inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-white/60"><RotateCcw className="h-3.5 w-3.5" /> Replay</button>
-      <a href="/connect" className="mt-2 text-center text-xs font-semibold text-white/60 underline underline-offset-4">LinkedIn &amp; X card</a>
+      <a href="/connect?show" className="mt-2 text-center text-xs font-semibold text-white/60 underline underline-offset-4">Show LinkedIn &amp; X QR</a>
     </div>
   );
 }
