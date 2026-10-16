@@ -35,6 +35,14 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
           Product. Software. AI.<br />
           Engineered around real problems.
         </p>
+        <motion.p className="inline-flex max-w-full items-center gap-2 rounded-full border border-violet-200 bg-violet-50 py-1 pl-2 pr-3 text-[11px] font-bold text-slate-700"
+          initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}>
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
+          </span>
+          <span className="truncate"><span className="font-extrabold text-violet-600">Now building:</span> Reelcut AI · Campus One</span>
+        </motion.p>
       </motion.div>
 
       {/* Hero Illustration Graphic */}

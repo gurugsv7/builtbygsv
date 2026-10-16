@@ -86,6 +86,19 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    },
+    {
+      "source": "/gurusabarivasan.vcf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/vcard; charset=utf-8"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Gurusabarivasan-BuiltbyGSV.vcf\""
+        }
+      ]
     }
   ]
 }

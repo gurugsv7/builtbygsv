@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:M;Gurusabarivasan;;;
+FN:Gurusabarivasan M
+ORG:BuiltbyGSV
+TITLE:Founder\, BuiltbyGSV
+TEL;TYPE=CELL:+917448865095
+EMAIL;TYPE=WORK:admin@builtbygsv.in
+URL:https://www.builtbygsv.in
+X-SOCIALPROFILE;TYPE=linkedin:https://linkedin.com/in/gurugsv
+X-SOCIALPROFILE;TYPE=github:https://github.com/gurugsv7
+NOTE:Product & AI Engineering Studio. We met at DevDay.
+END:VCARD

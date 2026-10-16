@@ -19,6 +19,7 @@ import { serviceAreaPages, serviceAreaPagesForCity } from '../src/serviceAreas.t
 import {
   createStudentPageSchema, LAST_CHECKED, PACK_EXTRAS, STUDENT_FAQS, STUDENT_PAGE, STUDENT_SOURCES, STUDENT_TOOLS,
 } from '../src/content/studentTools.ts';
+import { DEVDAY_PAGE } from '../src/content/devday.ts';
 
 const distDir = resolve('dist');
 const template = await readFile(resolve(distDir, 'index.html'), 'utf8');
@@ -646,6 +647,19 @@ const notFoundPage: RenderPage = {
   }],
 };
 await writeFile(resolve(distDir, '404.html'), renderDocument(notFoundPage, { noindex: true }));
+
+/** The DevDay event page is shared by QR code only, so it stays out of search and the sitemap. */
+const devDayPage: RenderPage = {
+  path: DEVDAY_PAGE.path,
+  title: DEVDAY_PAGE.title,
+  description: DEVDAY_PAGE.description,
+  eyebrow: 'DevDay',
+  heading: 'Great to meet you. Let’s stay in touch.',
+  intro: DEVDAY_PAGE.description,
+  sections: [],
+};
+await mkdir(resolve(distDir, 'devday'), { recursive: true });
+await writeFile(resolve(distDir, 'devday', 'index.html'), renderDocument(devDayPage, { noindex: true }));
 
 /**
  * Sitemap and llms.txt are generated from the same page list that was just

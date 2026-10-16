@@ -1,11 +1,12 @@
 import { useRef, useState, type ReactNode, type UIEvent } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, CalendarDays, ChartLine, ChevronDown, ExternalLink, Heart, LayoutDashboard, Layers, MapPin, Monitor, Spade, Stethoscope, Timer, TrainFront, Video, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Briefcase, Calendar, CalendarDays, ChartLine, ChevronDown, Clapperboard, ExternalLink, GraduationCap, Heart, LayoutDashboard, Layers, MapPin, Monitor, Spade, Stethoscope, Timer, TrainFront, Video, type LucideIcon } from 'lucide-react';
 import type { Project } from '../../types';
 import { projectMedia, projectTheme } from '../../data/projectMedia';
 import { WORK_SUMMARIES } from '../../data/studio';
 import { Reveal, RevealGroup, RevealItem } from '../../motion/primitives';
 import { EASE, SPRING } from '../../motion/tokens';
+import { CONCEPT_SCREENS, ConceptCover } from '../visuals/ConceptScreens';
 
 interface Props {
   project: Project;
@@ -13,7 +14,7 @@ interface Props {
   onOpenStartProject: () => void;
 }
 
-export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Heart, CalendarDays, Stethoscope, MapPin, TrainFront, Spade, Timer, ChartLine, LayoutDashboard };
+export const PROJECT_ICONS: Record<string, LucideIcon> = { Video, Heart, CalendarDays, Stethoscope, MapPin, TrainFront, Spade, Timer, ChartLine, LayoutDashboard, Clapperboard, GraduationCap };
 const ICONS = PROJECT_ICONS;
 
 /**
@@ -77,6 +78,8 @@ export function MobileProjectDetail({ project, onBack, onOpenStartProject }: Pro
             {media.hero ? (
               <motion.img src={media.hero} alt={`${project.title} project preview`} fetchPriority="high" className="max-h-full w-full object-contain drop-shadow-xl"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE.out }} />
+            ) : CONCEPT_SCREENS[project.id] ? (
+              <ConceptCover projectId={project.id} className="max-h-full w-full" />
             ) : (
               <PhoneCover project={project} Icon={Icon} accent={accent} />
             )}

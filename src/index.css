@@ -158,6 +158,29 @@
 .zoom-frame > img { transition: transform 700ms var(--ease-out); }
 .group:hover .zoom-frame > img { transform: scale(1.03); }
 
+/* Endless project ribbon: the track holds the list twice and slides by half. */
+@keyframes marquee {
+  to { transform: translateX(calc(-50% - 0.5rem)); }
+}
+.marquee-track {
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+/* A slow sheen across gradient text. */
+@keyframes sheen {
+  to { background-position: 200% center; }
+}
+.text-sheen {
+  background: linear-gradient(90deg, #0F8B75 0%, #10B981 30%, #F5C748 50%, #10B981 70%, #0F8B75 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen 6s linear infinite;
+}
+
 /* Consistent keyboard affordances across the studio website. */
 a:focus-visible, button:focus-visible, summary:focus-visible, [role="link"]:focus-visible {
   outline: 2px solid #0F8B75;

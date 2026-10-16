@@ -4,6 +4,8 @@ import { MobileStudioOverview } from '../MobileStudioOverview';
 import { ArrowRight, ArrowUpRight, Menu, Mail } from 'lucide-react';
 import { motion, stagger, type Variants } from 'motion/react';
 import { StudioHeroScene } from '../illustrations/StudioHeroScene';
+import { CountUp, ProjectMarquee } from '../visuals/ProjectMarquee';
+import { PROJECTS } from '../../data/mockData';
 import { DrawnUnderline } from '../../motion/primitives';
 import { EASE, STAGGER } from '../../motion/tokens';
 
@@ -124,6 +126,9 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
           </div>
         </button>
 
+        <NowBuilding onNavigate={onNavigate} />
+        <ProjectMarquee compact onOpenProjectDetail={onOpenProjectDetail} />
+
         <MobileStudioOverview recentProject={recentProject} onNavigate={onNavigate} onOpenProjectDetail={onOpenProjectDetail} />
       </div>
 
@@ -170,7 +175,7 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
                 <h1 className="text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.85rem] font-extrabold tracking-tight text-[#131921] leading-[1.06]">
                   We build digital<br />
                   products that<br />
-                  <span className="font-serif italic text-[#0F8B75] relative inline-block font-normal pt-1">
+                  <span className="text-sheen font-serif italic relative inline-block font-normal pt-1">
                     create real impact.
                     <DrawnUnderline className="-bottom-2 h-4" delay={0.7} />
                   </span>
@@ -206,6 +211,23 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
                 </button>
               </motion.div>
 
+              <motion.div variants={heroItem} className="space-y-5 pt-4">
+                <NowBuilding onNavigate={onNavigate} />
+                <dl className="flex gap-8 border-t border-slate-200 pt-5">
+                  {[
+                    { value: PROJECTS.length, label: 'Products in the portfolio' },
+                    { value: PROJECTS.filter((project) => project.status === 'In Progress').length, label: 'Builds in progress' },
+                    { value: 4, label: 'Engineering capabilities' },
+                  ].map((stat) => (
+                    <div key={stat.label}>
+                      <dt className="sr-only">{stat.label}</dt>
+                      <dd><CountUp to={stat.value} className="block font-mono text-3xl font-extrabold tracking-tight text-[#131921]" /></dd>
+                      <dd className="mt-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">{stat.label}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </motion.div>
+
             </motion.div>
 
 
@@ -213,6 +235,10 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
 
           </div>
 
+
+          <section aria-label="Project ribbon" className="pt-4">
+            <ProjectMarquee onOpenProjectDetail={onOpenProjectDetail} />
+          </section>
 
           <StudioHomeSections onNavigate={onNavigate} onOpenProjectDetail={onOpenProjectDetail} onOpenStartProject={onOpenStartProject} />
 
@@ -223,3 +249,19 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
   );
 };
 
+
+/** A live ticker naming what the studio is building right now. */
+function NowBuilding({ onNavigate }: { onNavigate: (screen: ScreenType) => void }) {
+  return (
+    <button type="button" onClick={() => onNavigate('projects')}
+      className="group inline-flex max-w-full items-center gap-2.5 rounded-full border border-violet-200 bg-gradient-to-r from-violet-50 to-indigo-50 py-1.5 pl-2 pr-3.5 text-left text-xs font-bold text-slate-700 shadow-2xs transition hover:border-violet-300">
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
+      </span>
+      <span className="shrink-0 whitespace-nowrap font-mono text-[10px] font-extrabold uppercase tracking-wider text-violet-600">Now building</span>
+      <span className="truncate">Reelcut AI video editor · Campus One portal</span>
+      <ArrowUpRight className="nudge-ur h-3.5 w-3.5 shrink-0 text-violet-500" />
+    </button>
+  );
+}

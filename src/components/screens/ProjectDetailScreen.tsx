@@ -23,6 +23,7 @@ import {
 import type { Project } from '../../types';
 import { motion } from 'motion/react';
 import { CaseFlow } from '../visuals/CaseFlow';
+import { CONCEPT_SCREENS, ConceptCover } from '../visuals/ConceptScreens';
 import { EASE } from '../../motion/tokens';
 import { projectMedia } from '../../data/projectMedia';
 import { MobileProjectDetail } from './MobileProjectDetail';
@@ -165,6 +166,11 @@ export const ProjectDetailScreen = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease: EASE.out, delay: 0.1 }}
             />
+          ) : CONCEPT_SCREENS[project.id] ? (
+            <motion.div className="relative mx-auto max-w-2xl" initial={{ opacity: 0, y: 18, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: EASE.out, delay: 0.1 }}>
+              <ConceptCover projectId={project.id} className="rounded-2xl" />
+            </motion.div>
           ) : (
             <div className="relative mx-auto flex aspect-[4/3] max-w-xl items-center justify-center overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl">
               <div className="absolute inset-0 bg-[radial-gradient(#0F8B75_1px,transparent_1px)] [background-size:16px_16px] opacity-15" />
@@ -305,7 +311,7 @@ export const ProjectDetailScreen = ({
               {detail.proofSignals.map((signal) => {
                 const Icon = ICONS[signal.iconName] ?? Shield;
                 return (
-                  <article key={signal.label} className="rounded-3xl border border-slate-200 bg-white p-5">
+                  <article key={`${signal.label}-${signal.value}`} className="rounded-3xl border border-slate-200 bg-white p-5">
                     <Icon className={`h-5 w-5 ${accent}`} />
                     <p className="mt-5 text-lg font-black">{signal.value}</p>
                     <h3 className="mt-1 text-xs font-extrabold uppercase tracking-wider text-slate-500">{signal.label}</h3>

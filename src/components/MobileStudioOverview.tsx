@@ -1,12 +1,14 @@
-import { ArrowRight, ChevronRight, Code2, Cpu, Laptop, Workflow } from 'lucide-react';
+import { ArrowRight, ChevronRight, Code2, Cpu, Github, Laptop, Linkedin, MessageCircle, Workflow } from 'lucide-react';
+import { brandEntity } from '../seo';
 import type { Project, ScreenType } from '../types';
 import { motion } from 'motion/react';
 import { groupVariants, itemVariants } from '../motion/primitives';
 import { PROJECTS } from '../data/mockData';
 import { projectMedia, projectTheme } from '../data/projectMedia';
+import { ConceptCover } from './visuals/ConceptScreens';
 
 /** Shown after the featured project in the home strip: work with real screens to show. */
-const STRIP_IDS = ['striatum-4-symposium-platform', 'karaikal-one', 'neon-rail', 'kamayuu-card-game'];
+const STRIP_IDS = ['reelcut-ai-video-editor', 'campus-one-institute-portal', 'striatum-4-symposium-platform', 'karaikal-one', 'neon-rail', 'kamayuu-card-game'];
 
 interface Props {
   recentProject: Project;
@@ -50,7 +52,8 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
                 className="block w-full overflow-hidden rounded-2xl border border-slate-200/90 bg-white text-left shadow-2xs transition-transform active:scale-[0.98]">
                 <span className="relative flex aspect-[16/10] items-center justify-center p-3" style={{ backgroundColor: theme.bg }}>
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:12px_12px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
-                  {hero && <img src={hero} alt="" loading={index === 0 ? undefined : 'lazy'} className="relative max-h-full w-full object-contain drop-shadow-lg" />}
+                  {hero ? <img src={hero} alt="" loading={index === 0 ? undefined : 'lazy'} className="relative max-h-full w-full object-contain drop-shadow-lg" />
+                    : <ConceptCover projectId={project.id} className="relative max-h-full w-full" />}
                 </span>
                 <span className="flex items-center gap-2 px-3.5 py-3">
                   <span className="min-w-0 flex-1">
@@ -64,6 +67,21 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
           );
         })}
       </ol>
+    </section>
+    <section aria-label="Connect with BuiltbyGSV" className="rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-2xs">
+      <p className="text-xs font-extrabold">Let’s connect</p>
+      <p className="mt-0.5 text-[10px] text-slate-500">Say hi from wherever you are.</p>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {[
+          { href: brandEntity.linkedin, label: 'LinkedIn', icon: Linkedin, tone: 'bg-[#0A66C2]' },
+          { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', icon: MessageCircle, tone: 'bg-emerald-500' },
+          { href: brandEntity.github, label: 'GitHub', icon: Github, tone: 'bg-[#131921]' },
+        ].map(({ href, label, icon: Icon, tone }) => (
+          <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-[11px] font-extrabold text-white transition-transform active:scale-95 ${tone}`}>
+            <Icon className="h-3.5 w-3.5" /> {label}
+          </a>
+        ))}
+      </div>
     </section>
     <div className="grid grid-cols-2 gap-3 pb-3">
       {[{ screen: 'careers', title: 'Careers', subtitle: 'We’re hiring interns' }, { screen: 'process', title: 'How we build', subtitle: 'Scope to release' }].map(item => (

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { MotionConfig, motion, stagger, useInView, useReducedMotion, type Variants } from 'motion/react';
-import { DURATION, EASE, RISE, STAGGER, VIEWPORT, revealTransition } from './tokens';
+import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from 'react';
+import { MotionConfig, motion, stagger, useInView, useMotionTemplate, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type Variants } from 'motion/react';
+import { DURATION, EASE, RISE, SPRING, STAGGER, VIEWPORT, revealTransition } from './tokens';
 
 /**
  * Site-wide motion defaults. `reducedMotion="user"` makes Motion drop transform and
@@ -138,4 +138,47 @@ export function DrawnUnderline({ className = '', color = '#F5C748', delay = 0.35
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: EASE.out, delay: delay + 0.25 }} />
     </svg>
   );
+}
+
+/**
+ * Pointer-driven 3D tilt with a soft glare that follows the cursor. Only active on
+ * precise pointers without reduced motion; elsewhere it renders a plain wrapper.
+ */
+export function Tilt({ children, className, max = 6 }: { children: ReactNode; className?: string; max?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const fine = useFinePointer();
+  const px = useMotionValue(0.5);
+  const py = useMotionValue(0.5);
+  const rotateY = useSpring(useTransform(px, [0, 1], [-max, max]), SPRING.depth);
+  const rotateX = useSpring(useTransform(py, [0, 1], [max * 0.8, -max * 0.8]), SPRING.depth);
+  const glare = useMotionTemplate`radial-gradient(circle at ${useTransform(px, (v) => v * 100)}% ${useTransform(py, (v) => v * 100)}%, rgba(255,255,255,.28), transparent 55%)`;
+  const glareOpacity = useSpring(0, SPRING.depth);
+  const live = fine && !reduce;
+
+  const move = (event: PointerEvent<HTMLDivElement>) => {
+    if (!live || !ref.current) return;
+    const box = ref.current.getBoundingClientRect();
+    px.set((event.clientX - box.left) / box.width);
+    py.set((event.clientY - box.top) / box.height);
+    glareOpacity.set(1);
+  };
+  const leave = () => { px.set(0.5); py.set(0.5); glareOpacity.set(0); };
+
+  return (
+    <div style={{ perspective: 1100 }} className={className}>
+      <motion.div ref={ref} onPointerMove={move} onPointerLeave={leave} className="relative h-full w-full [transform-style:preserve-3d]"
+        style={live ? { rotateX, rotateY } : undefined}>
+        {children}
+        {live && <motion.span aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 rounded-[inherit]" style={{ background: glare, opacity: glareOpacity }} />}
+      </motion.div>
+    </div>
+  );
+}
+
+/** A thin bar pinned to the top of the viewport that fills as the page scrolls. */
+export function ScrollProgress({ color = '#0F8B75' }: { color?: string }) {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30, mass: 0.4 });
+  return <motion.div aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left" style={{ scaleX, background: `linear-gradient(90deg, ${color}, #10B981, #F5C748)` }} />;
 }

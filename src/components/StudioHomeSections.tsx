@@ -7,7 +7,8 @@ import { projectMedia, projectTheme } from '../data/projectMedia';
 import v2Preview from '../assets/v2productions/hero.png';
 import { CapabilityExplorer } from './visuals/CapabilityExplorer';
 import { ProcessRail } from './visuals/ProcessRail';
-import { Reveal, RevealGroup, RevealItem, useSequence } from '../motion/primitives';
+import { Reveal, RevealGroup, RevealItem, Tilt, useSequence } from '../motion/primitives';
+import { ConceptCover, CONCEPT_SCREENS } from './visuals/ConceptScreens';
 import { EASE } from '../motion/tokens';
 
 interface Props {
@@ -81,7 +82,7 @@ function ProductSystemDiagram() {
 }
 
 export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStartProject }: Props) {
-  const work = ['v2-productions', 'striatum-4-symposium-platform', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
+  const work = ['v2-productions', 'reelcut-ai-video-editor', 'campus-one-institute-portal', 'striatum-4-symposium-platform', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
   const [featured, ...others] = work;
   return <div className="space-y-20 pb-12 pt-10 lg:space-y-28 lg:pt-16">
     <section aria-labelledby="home-capabilities" className="border-t border-slate-200 pt-10 lg:pt-14">
@@ -99,7 +100,7 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
 
     <section aria-labelledby="home-work">
       <Reveal className="mb-8 flex items-end justify-between gap-4">
-        <div><Eyebrow>Evidence, not decoration</Eyebrow><h2 id="home-work" className="mt-3 text-3xl font-extrabold tracking-tight">Selected <span className="font-serif font-normal italic text-[#0F8B75]">work.</span></h2></div>
+        <div><Eyebrow>Shipped and in the works</Eyebrow><h2 id="home-work" className="mt-3 text-3xl font-extrabold tracking-tight">Selected <span className="font-serif font-normal italic text-[#0F8B75]">work.</span></h2></div>
         <button onClick={() => onNavigate('projects')} className="group inline-flex items-center gap-1 text-xs font-bold text-[#0F8B75]"><span className="u-link">Explore Our Work</span> <ArrowUpRight className="nudge-ur h-3.5 w-3.5" /></button>
       </Reveal>
       <Reveal>
@@ -122,11 +123,14 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
       <RevealGroup className="mt-5 grid gap-5 sm:grid-cols-2">
         {others.map(project => (
           <RevealItem key={project.id}>
+            <Tilt className="h-full" max={4}>
             <button onClick={() => onOpenProjectDetail(project)} className="lift group flex h-full w-full flex-col items-stretch overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white text-left hover:border-[#0F8B75]/60">
-              {projectMedia[project.id]?.hero && (
+              {(projectMedia[project.id]?.hero || CONCEPT_SCREENS[project.id]) && (
                 <span className="relative flex aspect-[16/9] items-center justify-center overflow-hidden px-8 pt-6" style={{ backgroundColor: projectTheme(project.id).bg }}>
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${projectTheme(project.id).accent} 1px, transparent 1px)` }} />
-                  <img src={projectMedia[project.id].hero} alt={`${project.title} interface`} loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-[1.03]" />
+                  {projectMedia[project.id]?.hero
+                    ? <img src={projectMedia[project.id].hero} alt={`${project.title} interface`} loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-[1.03]" />
+                    : <ConceptCover projectId={project.id} className="relative max-h-full w-full max-w-md transition-transform duration-700 group-hover:scale-[1.03]" />}
                 </span>
               )}
               <div className="flex flex-1 flex-col p-7">
@@ -142,6 +146,7 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
                 </div>
               </div>
             </button>
+            </Tilt>
           </RevealItem>
         ))}
       </RevealGroup>

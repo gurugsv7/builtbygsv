@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState, type PointerEvent, type UIEvent } from 'react';
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Briefcase, ChevronRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Briefcase } from 'lucide-react';
 import type { Project } from '../../types';
 import { projectMedia, projectTheme } from '../../data/projectMedia';
 import { WORK_SUMMARIES } from '../../data/studio';
 import { PROJECT_ICONS, PhoneCover } from '../screens/MobileProjectDetail';
 import { DURATION, EASE, SPRING } from '../../motion/tokens';
-import { useFinePointer } from '../../motion/primitives';
+import { Tilt, useFinePointer } from '../../motion/primitives';
+import { CONCEPT_SCREENS, ConceptCover } from './ConceptScreens';
 
 const themeOf = (project: Project) => projectTheme(project.id);
 
 function Cover({ project, size = 'lg' }: { project: Project; size?: 'lg' | 'md' | 'sm' }) {
   const image = projectMedia[project.id]?.hero;
+  if (!image && CONCEPT_SCREENS[project.id]) {
+    return <ConceptCover projectId={project.id} className={size === 'sm' ? 'mx-auto max-h-full w-full' : 'mx-auto max-h-full w-full max-w-[30rem]'} />;
+  }
   const theme = themeOf(project);
   const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
   const imageHeight = { lg: 'max-h-[20rem]', md: 'max-h-[18rem]', sm: 'max-h-full' }[size];
@@ -174,9 +178,9 @@ export function WorkShowcaseRows({ projects, onOpenProjectDetail }: RowsProps) {
             <h2 id="more-work" className="text-2xl font-extrabold tracking-tight">More from the studio <span className="font-serif font-normal italic text-[#0F8B75]">and lab.</span></h2>
             <span className="font-mono text-xs font-bold text-slate-500">{String(rest.length).padStart(2, '0')} projects</span>
           </div>
-          <motion.ol layout className="mt-6 grid grid-cols-2 gap-4 xl:grid-cols-3">
+          <motion.ol layout className="mt-6 grid grid-cols-2 gap-6">
             {rest.map((project, index) => (
-              <CompactProjectCard key={project.id} project={project} index={index} size="lg" onOpen={() => onOpenProjectDetail(project)} />
+              <MediaProjectCard key={project.id} project={project} index={index + lead.length} onOpen={() => onOpenProjectDetail(project)} />
             ))}
           </motion.ol>
         </section>
@@ -197,7 +201,8 @@ function ShowcaseRow({ project, index, flip, onOpen }: { project: Project; index
     <motion.li ref={ref} layout transition={{ layout: SPRING.gentle }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="border-t border-slate-200 first:border-t-0">
       <button type="button" onClick={onOpen} aria-label={`View ${project.title} case study`}
         className="group grid w-full grid-cols-12 items-center gap-10 py-14 text-left xl:gap-14">
-        <motion.div className={`relative col-span-7 aspect-[16/11] overflow-hidden rounded-[2rem] ${flip ? 'order-2' : ''}`} style={{ backgroundColor: theme.bg }}
+        <Tilt className={`col-span-7 ${flip ? 'order-2' : ''}`} max={5}>
+        <motion.div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-40px_rgba(9,18,31,.55)]" style={{ backgroundColor: theme.bg }}
           initial={{ clipPath: 'inset(10% 8% 10% 8% round 32px)', opacity: 0.4 }} whileInView={{ clipPath: 'inset(0% 0% 0% 0% round 32px)', opacity: 1 }}
           viewport={{ once: true, amount: 0.35 }} transition={{ duration: 0.9, ease: EASE.out }}>
           <div aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:18px_18px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
@@ -205,11 +210,13 @@ function ShowcaseRow({ project, index, flip, onOpen }: { project: Project; index
           <motion.div className="absolute inset-10 flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ y: drift }}>
             <Cover project={project} size="md" />
           </motion.div>
+          <StatusChip project={project} className="absolute right-5 top-5" />
         </motion.div>
+        </Tilt>
 
         <div className={`col-span-5 ${flip ? 'order-1' : ''}`}>
           <p className="text-[10px] font-extrabold uppercase tracking-widest" style={{ color: theme.accent }}>{project.detailData?.engagement} · {project.year} · {project.status}</p>
-          <h3 className="mt-3 text-4xl font-extrabold tracking-tight transition-colors group-hover:text-[#0F8B75]">{project.title}</h3>
+          <h3 className="mt-3 text-4xl font-extrabold tracking-tight transition-colors group-hover:text-[#0F8B75] xl:text-5xl">{project.title}</h3>
           {summary ? (
             <div className="relative mt-7 space-y-5 pl-6">
               <span aria-hidden="true" className="absolute bottom-2 left-[3px] top-2 w-px bg-slate-200" />
@@ -303,46 +310,61 @@ export function MobileWorkHero({ projects, onOpenProjectDetail }: { projects: Pr
 /** Mobile project list: compact, tappable rows instead of tall cards. */
 export function MobileWorkList({ projects, onOpenProjectDetail }: RowsProps) {
   return (
-    <motion.ol layout className="mt-4 space-y-2.5">
+    <motion.ol layout className="mt-5 space-y-5">
       {projects.map((project, index) => (
-        <CompactProjectCard key={project.id} project={project} index={index} onOpen={() => onOpenProjectDetail(project)} />
+        <MediaProjectCard key={project.id} project={project} index={index} onOpen={() => onOpenProjectDetail(project)} />
       ))}
     </motion.ol>
   );
 }
 
-/** A tappable project summary: themed thumbnail, title, one-line build, status and stack. */
-function CompactProjectCard({ project, index, onOpen, size = 'sm' }: { project: Project; index: number; onOpen: () => void; size?: 'sm' | 'lg' }) {
-  const theme = themeOf(project);
-  const media = projectMedia[project.id];
-  // Wide device covers crop badly at thumbnail size; a square phone-screen crop reads better.
-  const image = media?.thumb ?? media?.hero;
-  const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
-  const lg = size === 'lg';
+/** Status pill; work in progress gets a pulsing dot. */
+function StatusChip({ project, className = '' }: { project: Project; className?: string }) {
+  const live = project.status !== 'Completed';
   return (
-    <motion.li layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out, delay: Math.min(index, 6) * 0.05 }}>
-      <button type="button" onClick={onOpen} aria-label={`View ${project.title} case study`}
-        className={`group flex h-full w-full items-center text-left transition-transform active:scale-[0.99] ${lg ? 'lift gap-4 rounded-3xl border border-slate-200 bg-white p-4 hover:border-[#0F8B75]/40' : 'gap-3.5 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-2xs'}`}>
-        <span className={`relative flex shrink-0 items-center justify-center overflow-hidden ${lg ? 'h-24 w-24 rounded-2xl' : 'h-20 w-20 rounded-xl'}`} style={{ backgroundColor: theme.bg }}>
-          {image ? <img src={image} alt="" loading="lazy" className="h-full w-full object-cover object-top" /> : (
-            <span className={`flex items-center justify-center rounded-xl shadow-2xs transition-transform duration-500 group-hover:-translate-y-0.5 ${lg ? 'h-12 w-12' : 'h-10 w-10'} ${theme.dark ? 'bg-white/10' : 'bg-white'}`} style={{ color: theme.dark ? '#FFFFFF' : theme.accent }}>
-              <Icon className={lg ? 'h-6 w-6' : 'h-5 w-5'} />
+    <span className={`z-10 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-extrabold text-[#131921] shadow-sm backdrop-blur ${className}`}>
+      <span className="relative flex h-1.5 w-1.5">
+        {live && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />}
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ backgroundColor: live ? '#F59E0B' : '#10B981' }} />
+      </span>
+      {project.status}
+    </span>
+  );
+}
+
+/** A large project card: a full-width themed cover, then title, one-line build and stack. */
+function MediaProjectCard({ project, index, onOpen }: { project: Project; index: number; onOpen: () => void }) {
+  const theme = themeOf(project);
+  return (
+    <motion.li layout initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }}
+      transition={{ layout: SPRING.gentle, duration: DURATION.reveal, ease: EASE.out, delay: (index % 2) * 0.08 }}>
+      <Tilt className="h-full" max={4}>
+        <button type="button" onClick={onOpen} aria-label={`View ${project.title} case study`}
+          className="group flex h-full w-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white text-left shadow-2xs transition-[box-shadow,border-color] duration-300 hover:border-transparent hover:shadow-[0_30px_60px_-30px_rgba(9,18,31,.45)] active:scale-[0.99]">
+          <span className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden px-6 pt-6 sm:px-8" style={{ backgroundColor: theme.bg }}>
+            <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
+            <span aria-hidden="true" className="absolute -bottom-16 left-1/2 h-40 w-3/4 -translate-x-1/2 rounded-full opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70" style={{ backgroundColor: theme.accent }} />
+            <span aria-hidden="true" className="absolute left-5 top-3 font-mono text-5xl font-bold" style={{ color: theme.dark ? 'rgba(255,255,255,.08)' : 'rgba(19,25,33,.07)' }}>{String(index + 1).padStart(2, '0')}</span>
+            <StatusChip project={project} className="absolute right-4 top-4" />
+            <span className="relative flex h-full w-full items-center justify-center transition-transform duration-700 ease-out group-hover:-translate-y-1 group-hover:scale-[1.04]">
+              <Cover project={project} size="sm" />
             </span>
-          )}
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block truncate text-[9px] font-extrabold uppercase tracking-widest" style={{ color: theme.accent }}>{project.detailData?.engagement}</span>
-          <span className={`mt-0.5 block font-extrabold ${lg ? 'text-lg tracking-tight group-hover:text-[#0F8B75]' : 'text-sm'}`}>{project.title}</span>
-          <span className={`mt-0.5 line-clamp-2 block text-slate-600 ${lg ? 'text-xs leading-5' : 'text-[11px] leading-4'}`}>{WORK_SUMMARIES[project.id]?.built ?? project.subtitle}</span>
-          <span className="mt-1.5 flex items-center gap-1.5 whitespace-nowrap text-[10px] font-bold text-slate-500">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: project.status === 'Completed' ? '#10B981' : '#F5C748' }} />
-            <span className="shrink-0">{project.status}</span>
-            <span className="min-w-0 truncate font-mono font-semibold text-slate-400">· {project.tags.slice(0, 2).join(' · ')}</span>
           </span>
-        </span>
-        <ChevronRight className={`h-4 w-4 shrink-0 text-slate-300 ${lg ? 'nudge-r group-hover:text-[#0F8B75]' : ''}`} />
-      </button>
+          <span className="flex flex-1 flex-col p-5 lg:p-6">
+            <span className="block text-[10px] font-extrabold uppercase tracking-widest" style={{ color: theme.accent }}>{project.detailData?.engagement} · {project.category} · {project.year}</span>
+            <span className="mt-1.5 block text-2xl font-extrabold tracking-tight transition-colors group-hover:text-[#0F8B75] lg:text-[1.7rem]">{project.title}</span>
+            <span className="mt-2 line-clamp-2 block text-sm leading-6 text-slate-600">{WORK_SUMMARIES[project.id]?.built ?? project.subtitle}</span>
+            <span className="mt-auto flex items-center justify-between gap-3 pt-5">
+              <span className="flex min-w-0 flex-wrap gap-1.5">
+                {project.tags.slice(0, 3).map((tag) => <span key={tag} className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[10px] font-bold text-slate-600">{tag}</span>)}
+              </span>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:-rotate-45 group-hover:scale-110" style={{ backgroundColor: theme.accent }}>
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </span>
+          </span>
+        </button>
+      </Tilt>
     </motion.li>
   );
 }

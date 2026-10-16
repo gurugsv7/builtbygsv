@@ -47,5 +47,7 @@ export const PROJECT_THEMES: Record<string, { bg: string; accent: string; dark?:
   'tempo-word-game': { bg: '#FFF1E6', accent: '#E85D22' },
   'pulse-personal-finance-analyst': { bg: '#E9F7EF', accent: '#059669' },
   'gsv-os-studio-operations': { bg: '#131921', accent: '#0F8B75', dark: true },
+  'reelcut-ai-video-editor': { bg: '#120E1F', accent: '#8B5CF6', dark: true },
+  'campus-one-institute-portal': { bg: '#ECEBFF', accent: '#4F46E5' },
 };
 export const projectTheme = (id: string) => PROJECT_THEMES[id] ?? { bg: '#E2F1ED', accent: '#0F8B75' };

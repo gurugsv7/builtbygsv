@@ -13,7 +13,10 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 }) => (
   <span className={`inline-flex items-center gap-2.5 ${className}`}>
     <img
-      src="/assets/builtbygsv-mark.png"
+      src="/assets/builtbygsv-mark-222.webp"
+      width={222}
+      height={84}
+      decoding="async"
       alt=""
       aria-hidden="true"
       className="h-7 w-[74px] shrink-0 rounded-md border border-[#0F8B75]/30 bg-[#050909] object-contain shadow-sm"

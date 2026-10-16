@@ -29,6 +29,14 @@ export const DELIVERY_STEPS = [
 
 /** One-line problem and delivery summaries, condensed from each project's case study. */
 export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> = {
+  'reelcut-ai-video-editor': {
+    problem: 'Turning long recordings into short reels takes hours of trimming, captioning and reframing.',
+    built: 'An AI-assisted editor with transcript editing, silence removal, word-timed captions and vertical reframing.',
+  },
+  'campus-one-institute-portal': {
+    problem: 'Institutes juggle registers, spreadsheets and chat groups for attendance, academics and fees.',
+    built: 'One role-based portal for timetables, attendance, courses, assessments, fees and notices.',
+  },
   'v2-productions': {
     problem: 'A creative studio needed one place for showcases, services, courses and enquiries.',
     built: 'A responsive React platform with distinct mobile and desktop experiences.',
@@ -72,4 +80,4 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
 };
 
 /** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
-export const FEATURED_WORK = ['v2-productions', 'striatum-4-symposium-platform', 'karaikal-one', 'neon-rail'];
+export const FEATURED_WORK = ['v2-productions', 'reelcut-ai-video-editor', 'striatum-4-symposium-platform', 'campus-one-institute-portal', 'karaikal-one', 'neon-rail'];

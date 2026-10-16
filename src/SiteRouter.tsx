@@ -1,11 +1,18 @@
 import { BusinessFooter } from './components/BusinessFooter';
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import App from './App';
-import { BlogArticlePage, BlogIndexPage } from './components/BlogContent';
-import { LocationHubPage } from './components/LocationHubPage';
-import { StudentToolsPage } from './components/StudentToolsPage';
 import { createStudentPageSchema, STUDENT_PAGE } from './content/studentTools';
-import { ServiceAreaLandingPage, StandaloneContentPage } from './components/ServiceAreaContent';
+import { DEVDAY_PAGE } from './content/devday';
+
+// Standalone pages load on demand so the main studio app ships a smaller first bundle.
+const BlogArticlePage = lazy(() => import('./components/BlogContent').then((m) => ({ default: m.BlogArticlePage })));
+const BlogIndexPage = lazy(() => import('./components/BlogContent').then((m) => ({ default: m.BlogIndexPage })));
+const LocationHubPage = lazy(() => import('./components/LocationHubPage').then((m) => ({ default: m.LocationHubPage })));
+const StudentToolsPage = lazy(() => import('./components/StudentToolsPage').then((m) => ({ default: m.StudentToolsPage })));
+const ServiceAreaLandingPage = lazy(() => import('./components/ServiceAreaContent').then((m) => ({ default: m.ServiceAreaLandingPage })));
+const StandaloneContentPage = lazy(() => import('./components/ServiceAreaContent').then((m) => ({ default: m.StandaloneContentPage })));
+const DevDayPage = lazy(() => import('./components/DevDayPage').then((m) => ({ default: m.DevDayPage })));
+const pageFallback = <div className="min-h-screen bg-[#F8F9FA]" />;
 import { getBlogRoute } from './blogRoutes';
 import { getContentPage } from './contentPages';
 import { getServiceAreaPage } from './serviceAreas';
@@ -41,10 +48,12 @@ export default function SiteRouter() {
   const isBlogIndex = pathname.replace(/\/$/, '') === '/insights';
   const appMetadata = getAppRouteMetadata(pathname);
   const isStudentPage = normalizedPath === STUDENT_PAGE.path;
+  const isDevDayPage = normalizedPath === DEVDAY_PAGE.path;
   const isNotFound =
     normalizedPath === '/404' ||
     (!blogPost &&
       !isStudentPage &&
+      !isDevDayPage &&
       !isBlogIndex &&
       !locationPage &&
       !serviceAreaPage &&
@@ -64,7 +73,9 @@ export default function SiteRouter() {
         ? blogIndexMetadata
         : isStudentPage
           ? STUDENT_PAGE
-          : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
+          : isDevDayPage
+            ? DEVDAY_PAGE
+            : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
     const pagePath =
       isNotFound
         ? '/404'
@@ -91,7 +102,7 @@ export default function SiteRouter() {
       'meta[name="robots"]',
       'name',
       'robots',
-      isNotFound
+      isNotFound || isDevDayPage
         ? 'noindex, follow'
         : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     );
@@ -210,6 +221,7 @@ export default function SiteRouter() {
     isBlogIndex,
     isNotFound,
     isStudentPage,
+    isDevDayPage,
     locationPage,
     normalizedPath,
     pathname,
@@ -221,10 +233,14 @@ export default function SiteRouter() {
     window.location.href = '/start-project';
   };
 
-  const withBusinessFooter = (page: React.ReactNode) => <>{page}<div className="pb-24 lg:pb-0"><BusinessFooter /></div></>;
+  const withBusinessFooter = (page: React.ReactNode) => <Suspense fallback={pageFallback}>{page}<div className="pb-24 lg:pb-0"><BusinessFooter /></div></Suspense>;
+
+  if (isDevDayPage) {
+    return <Suspense fallback={pageFallback}><DevDayPage /></Suspense>;
+  }
 
   if (isStudentPage) {
-    return <StudentToolsPage />;
+    return <Suspense fallback={pageFallback}><StudentToolsPage /></Suspense>;
   }
 
   if (blogPost) {

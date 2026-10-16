@@ -1,13 +1,11 @@
 import { useDialogFocus } from './components/useDialogFocus';
-import { CareersScreen } from './components/screens/CareersScreen';
-import { WebsiteInformationScreen } from './components/screens/WebsiteInformationScreen';
 import { BusinessFooter } from './components/BusinessFooter';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ScreenType, Project, ServiceType } from './types';
 import { PROJECTS, SERVICES } from './data/mockData';
 import { BottomNavBar } from './components/BottomNavBar';
@@ -17,26 +15,30 @@ import { DeviceSimulatorFrame } from './components/DeviceSimulatorFrame';
 // Primary Screens
 import { HeroLandingScreen } from './components/screens/HeroLandingScreen';
 import { HomeDashboardScreen } from './components/screens/HomeDashboardScreen';
-import { ServicesOverviewScreen } from './components/screens/ServicesOverviewScreen';
-import { WebDevServiceScreen } from './components/screens/WebDevServiceScreen';
-import { SoftwareDevServiceScreen } from './components/screens/SoftwareDevServiceScreen';
-import { AiSolutionsServiceScreen } from './components/screens/AiSolutionsServiceScreen';
-import { AutomationServiceScreen } from './components/screens/AutomationServiceScreen';
 import { ProjectsListScreen } from './components/screens/ProjectsListScreen';
 import { ProjectDetailScreen } from './components/screens/ProjectDetailScreen';
-import { ProcessScreen } from './components/screens/ProcessScreen';
-import { AboutScreen } from './components/screens/AboutScreen';
-import { ContactScreen } from './components/screens/ContactScreen';
 import { NotFoundScreen } from './components/screens/NotFoundScreen';
 
 // Modals and Drawers
-import { StartProjectScreen } from './components/screens/StartProjectScreen';
 import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
 import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
 import { BrandLogo } from './components/BrandLogo';
-import { PageTransition } from './motion/primitives';
+import { PageTransition, ScrollProgress } from './motion/primitives';
 import { AnimatePresence, motion } from 'motion/react';
 import { DURATION, EASE } from './motion/tokens';
+
+// Secondary screens load on demand; home, work and case studies stay in the first bundle.
+const CareersScreen = lazy(() => import('./components/screens/CareersScreen').then((m) => ({ default: m.CareersScreen })));
+const WebsiteInformationScreen = lazy(() => import('./components/screens/WebsiteInformationScreen').then((m) => ({ default: m.WebsiteInformationScreen })));
+const ServicesOverviewScreen = lazy(() => import('./components/screens/ServicesOverviewScreen').then((m) => ({ default: m.ServicesOverviewScreen })));
+const WebDevServiceScreen = lazy(() => import('./components/screens/WebDevServiceScreen').then((m) => ({ default: m.WebDevServiceScreen })));
+const SoftwareDevServiceScreen = lazy(() => import('./components/screens/SoftwareDevServiceScreen').then((m) => ({ default: m.SoftwareDevServiceScreen })));
+const AiSolutionsServiceScreen = lazy(() => import('./components/screens/AiSolutionsServiceScreen').then((m) => ({ default: m.AiSolutionsServiceScreen })));
+const AutomationServiceScreen = lazy(() => import('./components/screens/AutomationServiceScreen').then((m) => ({ default: m.AutomationServiceScreen })));
+const ProcessScreen = lazy(() => import('./components/screens/ProcessScreen').then((m) => ({ default: m.ProcessScreen })));
+const AboutScreen = lazy(() => import('./components/screens/AboutScreen').then((m) => ({ default: m.AboutScreen })));
+const ContactScreen = lazy(() => import('./components/screens/ContactScreen').then((m) => ({ default: m.ContactScreen })));
+const StartProjectScreen = lazy(() => import('./components/screens/StartProjectScreen').then((m) => ({ default: m.StartProjectScreen })));
 
 const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
@@ -298,6 +300,7 @@ export default function App() {
 
         {/* Right Main Content Area */}
         <div className="flex-1 flex flex-col justify-between min-w-0 min-h-screen relative overflow-x-clip">
+          {currentScreen !== 'project-detail' && <ScrollProgress />}
           {/* Dynamic Screen View Content */}
           <div
             className={`flex-1 flex flex-col justify-between ${
@@ -305,7 +308,7 @@ export default function App() {
             }`}
           >
             <PageTransition routeKey={`${currentScreen}:${selectedProject?.id ?? ''}`}>
-              {renderScreenContent()}
+              <Suspense fallback={<div className="min-h-screen" />}>{renderScreenContent()}</Suspense>
             </PageTransition>
             <div className={currentScreen === 'hero' ? 'hidden lg:block' : ''}><BusinessFooter /></div>
           </div>
