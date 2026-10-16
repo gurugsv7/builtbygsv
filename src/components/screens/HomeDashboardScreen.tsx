@@ -1,7 +1,7 @@
 import React from 'react';
 import { StudioHomeSections } from '../StudioHomeSections';
 import { MobileStudioOverview } from '../MobileStudioOverview';
-import { ArrowRight, ArrowUpRight, Menu, Mail } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Menu, Mail, Play } from 'lucide-react';
 import { motion, stagger, type Variants } from 'motion/react';
 import { StudioHeroScene } from '../illustrations/StudioHeroScene';
 import { CountUp, ProjectMarquee } from '../visuals/ProjectMarquee';
@@ -126,6 +126,17 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
           </div>
         </button>
 
+        <a href="/tour" className="group relative flex items-center gap-3 overflow-hidden rounded-3xl bg-gradient-to-r from-violet-600 to-fuchsia-500 p-4 text-white shadow-lg shadow-violet-500/25 active:scale-[0.98]">
+          <span aria-hidden="true" className="absolute -right-6 -top-10 h-28 w-28 rounded-full bg-white/15 blur-xl" />
+          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-violet-600">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-30" />
+            <Play className="relative h-5 w-5 fill-current" />
+          </span>
+          <span className="relative min-w-0">
+            <span className="block text-sm font-extrabold">Watch the 1-minute tour</span>
+            <span className="block truncate text-[11px] font-medium text-white/80">Tap through every product, story-style</span>
+          </span>
+        </a>
         <NowBuilding onNavigate={onNavigate} />
         <ProjectMarquee compact onOpenProjectDetail={onOpenProjectDetail} />
 

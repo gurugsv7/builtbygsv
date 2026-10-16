@@ -19,6 +19,42 @@
       "type": "image/png",
       "purpose": "any"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "1-minute tour",
+      "short_name": "Tour",
+      "description": "Story-style tour of BuiltbyGSV work",
+      "url": "/tour",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "DevDay contact",
+      "short_name": "DevDay",
+      "description": "Save contact, WhatsApp and QR",
+      "url": "/devday",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Selected work",
+      "short_name": "Work",
+      "url": "/projects",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
-

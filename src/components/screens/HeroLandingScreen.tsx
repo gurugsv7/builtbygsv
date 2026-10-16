@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import { BrandLogo } from '../BrandLogo';
 import { HeroIllustration } from '../illustrations/HeroIllustration';
 import { motion } from 'motion/react';
@@ -19,7 +19,7 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
 
       <p className="mt-4 text-[9px] font-extrabold uppercase tracking-widest text-[#0F8B75]">Product &amp; AI Engineering Studio</p>
       {/* Main Heading & Subtitle */}
-      <motion.div className="z-10 mt-6 shrink-0 space-y-3 sm:mt-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out }}>
+      <motion.div className="relative z-20 mt-6 shrink-0 space-y-3 sm:mt-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out }}>
         <h1 className="text-[clamp(1.75rem,8.6vw,3.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#131921]">
           <span className="block whitespace-nowrap">We build</span>
           <span className="block whitespace-nowrap">
@@ -35,14 +35,14 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
           Product. Software. AI.<br />
           Engineered around real problems.
         </p>
-        <motion.p className="inline-flex max-w-full items-center gap-2 rounded-full border border-violet-200 bg-violet-50 py-1 pl-2 pr-3 text-[11px] font-bold text-slate-700"
+        <motion.a href="/tour" className="relative z-20 inline-flex max-w-full items-center gap-2 rounded-full border border-violet-200 bg-violet-50 py-1 pl-1 pr-3 text-[11px] font-bold text-slate-700 active:scale-95"
           initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.5, type: 'spring', stiffness: 300, damping: 20 }}>
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
+          <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-50" />
+            <Play className="relative h-3 w-3 fill-current" />
           </span>
-          <span className="truncate"><span className="font-extrabold text-violet-600">Now building:</span> Reelcut AI · Campus One</span>
-        </motion.p>
+          <span className="truncate"><span className="font-extrabold text-violet-600">1-min tour</span> · Reelcut, Campus One &amp; more</span>
+        </motion.a>
       </motion.div>
 
       {/* Hero Illustration Graphic */}

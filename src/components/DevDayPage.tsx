@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Check, Github, Linkedin, Mail, MessageCircle, QrCode, Share2, UserPlus, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Check, Github, Linkedin, Mail, MessageCircle, Play, QrCode, Share2, UserPlus, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { ProjectMarquee } from './visuals/ProjectMarquee';
 import { ConceptCover } from './visuals/ConceptScreens';
@@ -49,7 +49,7 @@ export function DevDayPage() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-[#F8F9FA] font-sans text-[#131921] antialiased">
+    <main className="relative min-h-screen overflow-x-clip bg-[#F8F9FA] pb-24 font-sans text-[#131921] antialiased lg:pb-0">
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[28rem] bg-[radial-gradient(60%_60%_at_20%_0%,rgba(16,185,129,.18),transparent),radial-gradient(50%_60%_at_90%_10%,rgba(139,92,246,.16),transparent)]" />
       <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-5 sm:px-6 lg:px-10 lg:pt-8">
         <header className="flex items-center justify-between">
@@ -78,9 +78,9 @@ export function DevDayPage() {
                 <UserPlus className="h-4 w-4 text-emerald-400" /> Save my contact
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-400 text-[#09121F]"><ArrowRight className="nudge-r h-3.5 w-3.5" /></span>
               </a>
-              <button type="button" onClick={() => setShowQr(true)} className="press inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold hover:border-slate-500 lg:hidden">
-                <QrCode className="h-4 w-4" /> Show QR
-              </button>
+              <a href="/tour" className="press inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-violet-500/25">
+                <Play className="h-4 w-4 fill-current" /> 1-min tour
+              </a>
             </motion.div>
 
             <motion.ul {...rise(0.32)} className="mt-6 grid grid-cols-4 gap-2.5 sm:max-w-md" aria-label="Ways to connect">
@@ -158,6 +158,14 @@ export function DevDayPage() {
           </div>
         </section>
       </div>
+
+      <motion.nav aria-label="Quick actions" initial={{ y: 100 }} animate={{ y: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 26, delay: 0.6 }}
+        className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-1.5 rounded-[1.4rem] border border-white/10 bg-[#09121F]/90 p-1.5 shadow-2xl backdrop-blur-md lg:hidden">
+        <a href="/gurusabarivasan.vcf" className="flex items-center justify-center gap-1.5 rounded-2xl bg-emerald-400 py-3 text-xs font-extrabold text-[#09121F] active:scale-95"><UserPlus className="h-4 w-4" /> Save contact</a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><MessageCircle className="h-4 w-4" /> Chat</a>
+        <button type="button" onClick={() => setShowQr(true)} className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><QrCode className="h-4 w-4" /> QR</button>
+        <a href="/tour" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><Play className="h-4 w-4" /> Tour</a>
+      </motion.nav>
 
       <AnimatePresence>
         {showQr && (

@@ -19,7 +19,7 @@ import { serviceAreaPages, serviceAreaPagesForCity } from '../src/serviceAreas.t
 import {
   createStudentPageSchema, LAST_CHECKED, PACK_EXTRAS, STUDENT_FAQS, STUDENT_PAGE, STUDENT_SOURCES, STUDENT_TOOLS,
 } from '../src/content/studentTools.ts';
-import { DEVDAY_PAGE } from '../src/content/devday.ts';
+import { DEVDAY_PAGE, TOUR_PAGE } from '../src/content/devday.ts';
 
 const distDir = resolve('dist');
 const template = await readFile(resolve(distDir, 'index.html'), 'utf8');
@@ -660,6 +660,17 @@ const devDayPage: RenderPage = {
 };
 await mkdir(resolve(distDir, 'devday'), { recursive: true });
 await writeFile(resolve(distDir, 'devday', 'index.html'), renderDocument(devDayPage, { noindex: true }));
+const tourPage: RenderPage = {
+  path: TOUR_PAGE.path,
+  title: TOUR_PAGE.title,
+  description: TOUR_PAGE.description,
+  eyebrow: 'Tour',
+  heading: TOUR_PAGE.title,
+  intro: TOUR_PAGE.description,
+  sections: [],
+};
+await mkdir(resolve(distDir, 'tour'), { recursive: true });
+await writeFile(resolve(distDir, 'tour', 'index.html'), renderDocument(tourPage, { noindex: true }));
 
 /**
  * Sitemap and llms.txt are generated from the same page list that was just
