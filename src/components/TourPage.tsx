@@ -26,9 +26,10 @@ const SLIDES: Slide[] = [
 
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
 const PAPER = '#F4F1EA';
-const TEAL = '#0C6E5D';
-const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'contact' ? '#131921' : slide.kind === 'services' ? TEAL : PAPER;
-const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind === 'contact' || slide.kind === 'services';
+/** The house tokens from the BuiltbyGSV reel covers. */
+const REEL = { paper: '#EFE6D3', paper2: '#E2D6BD', ink: '#1C1714', clay: '#E4572E', teal: '#19B39B' };
+const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'contact' ? '#131921' : slide.kind === 'services' ? REEL.paper : PAPER;
+const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind === 'contact';
 
 const item = (delay: number) => ({
   initial: { opacity: 0, y: 18 },
@@ -121,7 +122,7 @@ export function TourPage() {
             ))}
           </div>
           <div className="mt-3 flex items-center justify-between">
-            <BrandLogo nameClassName={slide.kind === 'services' ? 'text-xs !text-white [&_span]:!text-[#F5C748]' : dark ? 'text-xs !text-white' : 'text-xs'} />
+            <BrandLogo nameClassName={dark ? 'text-xs !text-white' : 'text-xs'} />
             <div className="flex items-center gap-1">
               <span className={`mr-1 font-mono text-[11px] font-bold ${dark ? 'text-white/60' : 'text-[#64748B]'}`}>{paused && !last ? 'Paused' : `${String(index + 1).padStart(2, '0')}/${SLIDES.length}`}</span>
               <button type="button" onClick={() => setPaused((value) => !value)} aria-label={paused ? 'Play' : 'Pause'}
@@ -276,27 +277,60 @@ function ProjectSlide({ id, number, reduce }: { id: string; number: number; redu
   );
 }
 
+const TICKET_TONES = [
+  { bg: REEL.clay, ink: REEL.ink, rotate: -2 },
+  { bg: REEL.paper2, ink: REEL.ink, rotate: 1.5 },
+  { bg: REEL.teal, ink: REEL.ink, rotate: -1 },
+  { bg: '#FFFFFF', ink: REEL.ink, rotate: 2 },
+];
+
+/** One perforated claim ticket, drawn like the ones on the reel covers. */
+function Ticket({ number, title, flow, tone, notch }: { number: number; title: string; flow: string[]; tone: (typeof TICKET_TONES)[number]; notch: string }) {
+  return (
+    <div className="relative flex overflow-hidden rounded-[10px] border-2" style={{ backgroundColor: tone.bg, borderColor: REEL.ink, color: tone.ink, boxShadow: `5px 5px 0 ${REEL.ink}` }}>
+      <div className="flex w-[3.4rem] shrink-0 flex-col items-center justify-center border-r-2 border-dashed py-2" style={{ borderColor: `${REEL.ink}99` }}>
+        <span className="font-plex text-[9px] font-bold tracking-[0.2em] opacity-70">NO.</span>
+        <span className="font-print text-[2rem] leading-[0.9]">{String(number).padStart(2, '0')}</span>
+      </div>
+      <div className="min-w-0 flex-1 px-3 py-3.5 [@media(max-height:600px)]:py-2">
+        <p className="font-shout text-[1.35rem] uppercase leading-[1.02] tracking-tight [@media(max-height:600px)]:text-[1.2rem]">{title}</p>
+        <p className="mt-1.5 truncate font-plex text-[10px] font-bold uppercase tracking-wide opacity-75">{flow.join(' → ')}</p>
+      </div>
+      <span aria-hidden="true" className="absolute -top-[9px] left-[2.95rem] h-4 w-4 rounded-full border-2" style={{ backgroundColor: notch, borderColor: REEL.ink }} />
+      <span aria-hidden="true" className="absolute -bottom-[9px] left-[2.95rem] h-4 w-4 rounded-full border-2" style={{ backgroundColor: notch, borderColor: REEL.ink }} />
+    </div>
+  );
+}
+
 function ServicesSlide() {
   return (
-    <div className="flex flex-1 flex-col text-white">
-      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C748]">How I can help</motion.p>
-      <motion.h2 {...item(0.12)} className="mt-3 text-[2.3rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.9rem]">
-        From a rough idea to a{' '}
-        <span className="relative inline-block font-serif font-normal italic">
-          shipped product.
-          <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.5} />
-        </span>
+    <div className="relative flex flex-1 flex-col" style={{ color: REEL.ink }}>
+      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-6 -bottom-10 top-1/3 overflow-hidden [mask-image:linear-gradient(transparent,#000_35%)]">
+        <div className="rays-turn absolute left-1/2 top-full h-[260%] w-[260%] -translate-x-1/2 -translate-y-1/2"
+          style={{ background: `repeating-conic-gradient(${REEL.clay}24 0deg 7deg, transparent 7deg 14deg)` }} />
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute -right-6 top-0 h-40 w-40 opacity-30 [mask-image:radial-gradient(circle_at_top_right,#000,transparent_70%)]"
+        style={{ backgroundImage: `radial-gradient(${REEL.ink} 1.4px, transparent 1.6px)`, backgroundSize: '9px 9px' }} />
+
+      <motion.p initial={{ opacity: 0, x: -20, rotate: -6 }} animate={{ opacity: 1, x: 0, rotate: -2 }} transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.05 }}
+        className="relative self-start px-2 py-1 font-plex text-[11px] font-bold uppercase tracking-[0.14em]" style={{ backgroundColor: REEL.ink, color: REEL.paper }}>
+        How I can help // pick one
+      </motion.p>
+      <motion.h2 {...item(0.12)} className="relative mt-4 font-shout text-[3.2rem] uppercase leading-[0.92] tracking-tight [@media(max-height:600px)]:text-[2.2rem]">
+        What should<br />we <span style={{ color: REEL.clay }}>build?</span>
       </motion.h2>
-      <div className="mt-6 grid flex-1 grid-cols-2 grid-rows-2 gap-2.5">
-        {CAPABILITIES.map((capability, i) => (
-          <motion.div key={capability.id} initial={{ opacity: 0, y: 20, rotate: i % 2 ? 1.5 : -1.5 }} animate={{ opacity: 1, y: 0, rotate: 0 }}
-            transition={{ duration: 0.5, ease: EASE.out, delay: 0.25 + i * 0.09 }}
-            className={`flex flex-col justify-between rounded-2xl p-3.5 ${i === 0 ? 'bg-[#F5C748] text-[#131921]' : 'bg-white/10'}`}>
-            <span className={`font-mono text-[11px] font-bold ${i === 0 ? 'text-[#131921]/60' : 'text-white/50'}`}>0{i + 1}</span>
-            <span className="mt-auto text-[17px] font-extrabold leading-tight">{capability.title}</span>
-            <span className={`mt-2 font-mono text-[10px] leading-4 ${i === 0 ? 'text-[#131921]/70' : 'text-white/70'}`}>{capability.flow.join(' → ')}</span>
-          </motion.div>
-        ))}
+
+      <div className="relative mt-auto space-y-4 pb-1 pt-4 [@media(max-height:600px)]:space-y-2.5">
+        {CAPABILITIES.map((capability, i) => {
+          const tone = TICKET_TONES[i];
+          return (
+            <motion.div key={capability.id}
+              initial={{ opacity: 0, x: '110%', rotate: 10 }} animate={{ opacity: 1, x: 0, rotate: tone.rotate }}
+              transition={{ type: 'spring', stiffness: 170, damping: 19, delay: 0.25 + i * 0.13 }}>
+              <Ticket number={i + 1} title={capability.title} flow={capability.flow} tone={tone} notch={REEL.paper} />
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

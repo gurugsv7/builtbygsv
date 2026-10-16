@@ -201,3 +201,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, [role="link"]:focu
     scroll-behavior: auto !important;
   }
 }
+
+/* Reel voices, shared with the BuiltbyGSV Instagram covers. */
+.font-shout { font-family: 'Archivo Black', 'Plus Jakarta Sans', sans-serif; font-weight: 400; }
+.font-print { font-family: 'League Gothic', 'Arial Narrow', sans-serif; font-weight: 400; }
+.font-plex { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+@keyframes rays-turn { to { transform: rotate(360deg); } }
+.rays-turn { animation: rays-turn 90s linear infinite; }
