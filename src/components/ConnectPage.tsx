@@ -7,6 +7,7 @@ import { DotQR } from './DotQR';
 import { brandEntity, SITE_URL } from '../seo';
 import { CONNECT_PAGE } from '../content/devday';
 import guruHello from '../assets/guru/guru-hello.webp';
+import { useInstallPrompt } from '../useInstallPrompt';
 
 const INK = '#1C1714';
 const PAPER = '#EFE6D3';
@@ -83,6 +84,7 @@ function CardFace({ face, index }: { face: Face; index: number }) {
  * opens that profile directly.
  */
 function ShowMode({ onExit }: { onExit: () => void }) {
+  const install = useInstallPrompt();
   const [side, setSide] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -130,6 +132,11 @@ function ShowMode({ onExit }: { onExit: () => void }) {
         <header className="flex items-center justify-between">
           <a href="/devday" aria-label="BuiltbyGSV"><BrandLogo nameClassName="text-xs" /></a>
           <div className="flex items-center gap-2">
+            {install && (
+              <button type="button" onClick={install} className="flex h-9 items-center rounded-full px-3 text-xs font-bold text-white" style={{ backgroundColor: INK }}>
+                Install
+              </button>
+            )}
             <button type="button" onClick={share} aria-label="Share this page" className="flex h-9 w-9 items-center justify-center rounded-full border-2" style={{ borderColor: INK }}>
               <Share2 className="h-3.5 w-3.5" />
             </button>

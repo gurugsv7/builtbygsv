@@ -18,3 +18,9 @@ export const CONNECT_PAGE = {
   title: 'Connect with Guru on LinkedIn and X | BuiltbyGSV',
   description: 'Scan to connect with Gurusabarivasan on LinkedIn or follow BuiltbyGSV on X.',
 };
+
+/** Pages that install as their own home-screen apps, each with a separate manifest and icon. */
+export const HOME_APPS: Record<string, { manifest: string; icon: string; title: string; theme: string }> = {
+  '/tour': { manifest: '/apps/tour.webmanifest', icon: '/apps/tour-apple.png', title: 'GSV Tour', theme: '#131921' },
+  '/connect': { manifest: '/apps/connect.webmanifest', icon: '/apps/connect-apple.png', title: 'GSV Connect', theme: '#EFE6D3' },
+};

@@ -19,7 +19,7 @@ import { serviceAreaPages, serviceAreaPagesForCity } from '../src/serviceAreas.t
 import {
   createStudentPageSchema, LAST_CHECKED, PACK_EXTRAS, STUDENT_FAQS, STUDENT_PAGE, STUDENT_SOURCES, STUDENT_TOOLS,
 } from '../src/content/studentTools.ts';
-import { CONNECT_PAGE, DEVDAY_PAGE, TOUR_PAGE } from '../src/content/devday.ts';
+import { CONNECT_PAGE, DEVDAY_PAGE, HOME_APPS, TOUR_PAGE } from '../src/content/devday.ts';
 
 const distDir = resolve('dist');
 const template = await readFile(resolve(distDir, 'index.html'), 'utf8');
@@ -670,7 +670,18 @@ const tourPage: RenderPage = {
   sections: [],
 };
 await mkdir(resolve(distDir, 'tour'), { recursive: true });
-await writeFile(resolve(distDir, 'tour', 'index.html'), renderDocument(tourPage, { noindex: true }));
+
+/** Gives a page its own home-screen app identity: manifest, icon, name and colour. */
+const withHomeApp = (html: string, app: { manifest: string; icon: string; title: string; theme: string }) => html
+  .replace('<link rel="manifest" href="/site.webmanifest" />', `<link rel="manifest" href="${app.manifest}" />`)
+  .replace('<link rel="apple-touch-icon" href="/icon-192.png" />', `<link rel="apple-touch-icon" href="${app.icon}" />`)
+  .replace('<meta name="theme-color" content="#0F8B75" />', `<meta name="theme-color" content="${app.theme}" />`)
+  .replace('</head>', `  <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="${app.title}" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  </head>`);
+await writeFile(resolve(distDir, 'tour', 'index.html'), withHomeApp(renderDocument(tourPage, { noindex: true }), HOME_APPS['/tour']));
 const connectPage: RenderPage = {
   path: CONNECT_PAGE.path,
   title: CONNECT_PAGE.title,
@@ -681,7 +692,7 @@ const connectPage: RenderPage = {
   sections: [],
 };
 await mkdir(resolve(distDir, 'connect'), { recursive: true });
-await writeFile(resolve(distDir, 'connect', 'index.html'), renderDocument(connectPage, { noindex: true }));
+await writeFile(resolve(distDir, 'connect', 'index.html'), withHomeApp(renderDocument(connectPage, { noindex: true }), HOME_APPS['/connect']));
 
 /**
  * Sitemap and llms.txt are generated from the same page list that was just

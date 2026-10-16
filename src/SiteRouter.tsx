@@ -2,7 +2,7 @@ import { BusinessFooter } from './components/BusinessFooter';
 import React, { lazy, Suspense, useEffect } from 'react';
 import App from './App';
 import { createStudentPageSchema, STUDENT_PAGE } from './content/studentTools';
-import { CONNECT_PAGE, DEVDAY_PAGE, TOUR_PAGE } from './content/devday';
+import { CONNECT_PAGE, DEVDAY_PAGE, HOME_APPS, TOUR_PAGE } from './content/devday';
 
 // Standalone pages load on demand so the main studio app ships a smaller first bundle.
 const BlogArticlePage = lazy(() => import('./components/BlogContent').then((m) => ({ default: m.BlogArticlePage })));
@@ -65,6 +65,25 @@ export default function SiteRouter() {
       !serviceAreaPage &&
       !contentPage &&
       !isKnownAppPath(pathname));
+
+  // Tour and Connect install as their own home-screen apps.
+  useEffect(() => {
+    const app = HOME_APPS[normalizedPath];
+    const setHead = (selector: string, attribute: string, value: string) => {
+      document.head.querySelector(selector)?.setAttribute(attribute, value);
+    };
+    setHead('link[rel="manifest"]', 'href', app?.manifest ?? '/site.webmanifest');
+    setHead('link[rel="apple-touch-icon"]', 'href', app?.icon ?? '/icon-192.png');
+    setHead('meta[name="theme-color"]', 'content', app?.theme ?? '#0F8B75');
+    if (app && !document.head.querySelector('meta[name="apple-mobile-web-app-title"]')) {
+      for (const [name, content] of [['mobile-web-app-capable', 'yes'], ['apple-mobile-web-app-capable', 'yes'], ['apple-mobile-web-app-title', app.title]]) {
+        const meta = document.createElement('meta');
+        meta.name = name;
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    }
+  }, [normalizedPath]);
 
   useEffect(() => {
     const handleRouteChange = () => setPathname(window.location.pathname);

@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedM
 import { ArrowRight, ArrowUpRight, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
 import { BrandMark } from './BrandIcons';
 import { caseStudyHref } from '../returnTo';
+import { useInstallPrompt } from '../useInstallPrompt';
 import { BrandLogo } from './BrandLogo';
 import { CONCEPT_SCREENS, ConceptCover, REEL_COVERS } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
@@ -52,6 +53,7 @@ export function TourPage() {
   const progress = useMotionValue(0);
   const press = useRef<{ x: number; y: number; time: number } | null>(null);
   const reduce = useReducedMotion();
+  const install = useInstallPrompt();
   const slide = SLIDES[index];
   const last = index === SLIDES.length - 1;
 
@@ -128,6 +130,11 @@ export function TourPage() {
           <div className="mt-3 flex items-center justify-between">
             <BrandLogo nameClassName={dark ? 'text-xs !text-white' : 'text-xs'} />
             <div className="flex items-center gap-1">
+              {install && (
+                <button type="button" onClick={install} className={`mr-1 rounded-full px-2.5 py-1 text-[11px] font-bold ${dark ? 'bg-white text-[#131921]' : 'bg-[#131921] text-white'}`}>
+                  Install
+                </button>
+              )}
               <span className={`mr-1 font-mono text-[11px] font-bold ${dark ? 'text-white/60' : 'text-[#64748B]'}`}>{paused && !last ? 'Paused' : `${String(index + 1).padStart(2, '0')}/${SLIDES.length}`}</span>
               <button type="button" onClick={() => setPaused((value) => !value)} aria-label={paused ? 'Play' : 'Pause'}
                 className={`flex h-9 w-9 items-center justify-center rounded-full ${dark ? 'text-white hover:bg-white/10' : 'text-[#131921] hover:bg-black/5'}`}>

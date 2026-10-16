@@ -1,0 +1,32 @@
+{
+  "id": "/tour",
+  "name": "GSV Tour",
+  "short_name": "GSV Tour",
+  "description": "One-minute, story-style tour of BuiltbyGSV's work.",
+  "start_url": "/tour",
+  "background_color": "#F4F1EA",
+  "theme_color": "#131921",
+  "display": "standalone",
+  "scope": "/tour",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/apps/tour-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apps/tour-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apps/tour-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
