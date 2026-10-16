@@ -130,7 +130,7 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${projectTheme(project.id).accent} 1px, transparent 1px)` }} />
                   {projectMedia[project.id]?.hero
                     ? <img src={projectMedia[project.id].hero} alt={`${project.title} interface`} loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-[1.03]" />
-                    : <ConceptCover projectId={project.id} className="relative max-h-full w-full max-w-md transition-transform duration-700 group-hover:scale-[1.03]" />}
+                    : <ConceptCover projectId={project.id} peek={0.6} className="relative h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />}
                 </span>
               )}
               <div className="flex flex-1 flex-col p-7">

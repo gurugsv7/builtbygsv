@@ -79,7 +79,7 @@ export function MobileProjectDetail({ project, onBack, onOpenStartProject }: Pro
               <motion.img src={media.hero} alt={`${project.title} project preview`} fetchPriority="high" className="max-h-full w-full object-contain drop-shadow-xl"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE.out }} />
             ) : CONCEPT_SCREENS[project.id] ? (
-              <ConceptCover projectId={project.id} className="max-h-full w-full" />
+              <ConceptCover projectId={project.id} className="h-full w-full" />
             ) : (
               <PhoneCover project={project} Icon={Icon} accent={accent} />
             )}

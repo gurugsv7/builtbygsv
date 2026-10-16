@@ -53,7 +53,7 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
                 <span className="relative flex aspect-[16/10] items-center justify-center p-3" style={{ backgroundColor: theme.bg }}>
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:12px_12px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
                   {hero ? <img src={hero} alt="" loading={index === 0 ? undefined : 'lazy'} className="relative max-h-full w-full object-contain drop-shadow-lg" />
-                    : <ConceptCover projectId={project.id} className="relative max-h-full w-full" />}
+                    : <ConceptCover projectId={project.id} peek={0.6} className="relative h-full w-full" />}
                 </span>
                 <span className="flex items-center gap-2 px-3.5 py-3">
                   <span className="min-w-0 flex-1">

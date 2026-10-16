@@ -14,7 +14,7 @@ const themeOf = (project: Project) => projectTheme(project.id);
 function Cover({ project, size = 'lg' }: { project: Project; size?: 'lg' | 'md' | 'sm' }) {
   const image = projectMedia[project.id]?.hero;
   if (!image && CONCEPT_SCREENS[project.id]) {
-    return <ConceptCover projectId={project.id} className={size === 'sm' ? 'mx-auto max-h-full w-full' : 'mx-auto max-h-full w-full max-w-[30rem]'} />;
+    return <ConceptCover projectId={project.id} peek={size === 'sm' ? 0.62 : undefined} className={size === 'sm' ? 'h-full w-full' : 'h-full min-h-[16rem] w-full'} />;
   }
   const theme = themeOf(project);
   const Icon = PROJECT_ICONS[project.iconName] ?? Briefcase;
@@ -124,7 +124,7 @@ export function WorkIndexHero({ projects, allProjects = projects, onOpenProjectD
           </AnimatePresence>
           <div className="absolute inset-x-8 top-10 bottom-36 flex items-center justify-center">
             <AnimatePresence mode="popLayout" initial={false}>
-              <motion.div key={current.id} className="w-full" initial={{ opacity: 0, y: 24, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }}
+              <motion.div key={current.id} className="h-full w-full" initial={{ opacity: 0, y: 24, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -16, scale: 1.02 }} transition={{ duration: 0.55, ease: EASE.out }}>
                 <Cover project={current} />
               </motion.div>

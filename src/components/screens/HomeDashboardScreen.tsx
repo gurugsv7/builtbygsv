@@ -126,16 +126,15 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
           </div>
         </button>
 
-        <a href="/tour" className="group relative flex items-center gap-3 overflow-hidden rounded-3xl bg-gradient-to-r from-violet-600 to-fuchsia-500 p-4 text-white shadow-lg shadow-violet-500/25 active:scale-[0.98]">
-          <span aria-hidden="true" className="absolute -right-6 -top-10 h-28 w-28 rounded-full bg-white/15 blur-xl" />
-          <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-violet-600">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-30" />
-            <Play className="relative h-5 w-5 fill-current" />
+        <a href="/tour" className="flex items-center gap-3 rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-2xs active:scale-[0.98]">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#131921] text-[#F5C748]">
+            <Play className="ml-0.5 h-4 w-4 fill-current" />
           </span>
-          <span className="relative min-w-0">
-            <span className="block text-sm font-extrabold">Watch the 1-minute tour</span>
-            <span className="block truncate text-[11px] font-medium text-white/80">Tap through every product, story-style</span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-extrabold">The one-minute tour</span>
+            <span className="block truncate text-[11px] text-slate-500">Every product, one tap at a time</span>
           </span>
+          <ArrowRight className="h-4 w-4 shrink-0 text-[#0F8B75]" />
         </a>
         <NowBuilding onNavigate={onNavigate} />
         <ProjectMarquee compact onOpenProjectDetail={onOpenProjectDetail} />
@@ -186,7 +185,7 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
                 <h1 className="text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-[3.85rem] font-extrabold tracking-tight text-[#131921] leading-[1.06]">
                   We build digital<br />
                   products that<br />
-                  <span className="text-sheen font-serif italic relative inline-block font-normal pt-1">
+                  <span className="font-serif italic text-[#0F8B75] relative inline-block font-normal pt-1">
                     create real impact.
                     <DrawnUnderline className="-bottom-2 h-4" delay={0.7} />
                   </span>
@@ -265,14 +264,14 @@ export const HomeDashboardScreen: React.FC<HomeDashboardScreenProps> = ({
 function NowBuilding({ onNavigate }: { onNavigate: (screen: ScreenType) => void }) {
   return (
     <button type="button" onClick={() => onNavigate('projects')}
-      className="group inline-flex max-w-full items-center gap-2.5 rounded-full border border-violet-200 bg-gradient-to-r from-violet-50 to-indigo-50 py-1.5 pl-2 pr-3.5 text-left text-xs font-bold text-slate-700 shadow-2xs transition hover:border-violet-300">
+      className="group inline-flex max-w-full items-center gap-2.5 rounded-full border border-slate-200 bg-white py-1.5 pl-2.5 pr-3.5 text-left text-xs font-semibold text-slate-700 shadow-2xs transition hover:border-slate-400">
       <span className="relative flex h-2 w-2 shrink-0">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#F59E0B] opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#F59E0B]" />
       </span>
-      <span className="shrink-0 whitespace-nowrap font-mono text-[10px] font-extrabold uppercase tracking-wider text-violet-600">Now building</span>
-      <span className="truncate">Reelcut AI video editor · Campus One portal</span>
-      <ArrowUpRight className="nudge-ur h-3.5 w-3.5 shrink-0 text-violet-500" />
+      <span className="shrink-0 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">In the lab</span>
+      <span className="truncate font-bold text-[#131921]">Reelcut · Campus One</span>
+      <ArrowUpRight className="nudge-ur h-3.5 w-3.5 shrink-0 text-[#0F8B75]" />
     </button>
   );
 }

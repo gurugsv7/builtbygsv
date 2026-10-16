@@ -26,7 +26,7 @@ export function ProjectMarquee({ onOpenProjectDetail, compact = false }: { onOpe
                 <span className="relative flex aspect-[16/10] items-center justify-center overflow-hidden p-3" style={{ backgroundColor: theme.bg }}>
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:12px_12px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
                   {hero ? <img src={hero} alt="" loading="lazy" className="relative max-h-full w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105" />
-                    : <ConceptCover projectId={project.id} className="relative max-h-full w-full transition-transform duration-500 group-hover:scale-105" />}
+                    : <ConceptCover projectId={project.id} peek={0.6} className="relative h-full w-full transition-transform duration-500 group-hover:scale-105" />}
                 </span>
                 <span className="flex items-center gap-2 px-3.5 py-2.5">
                   <span className="min-w-0 flex-1">

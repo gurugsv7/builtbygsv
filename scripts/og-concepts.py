@@ -19,23 +19,23 @@ CARDS = [
         'id': 'reelcut-ai-video-editor',
         'title': 'Reelcut',
         'subtitle': 'AI-assisted editing that turns long recordings into captioned reels.',
-        'bg': '#120E1F', 'accent': '#A78BFA', 'text': '#FFFFFF', 'muted': '#CBD5E1', 'dot': 'rgba(167,139,250,.35)',
+        'bg': '#1C1916', 'accent': '#FF5A36', 'text': '#FFFFFF', 'muted': '#D6D3D1', 'dot': 'rgba(255,255,255,.10)',
     },
     {
         'id': 'campus-one-institute-portal',
         'title': 'Campus One',
         'subtitle': 'One portal for attendance, courses, fees and notices.',
-        'bg': '#ECEBFF', 'accent': '#4F46E5', 'text': '#131921', 'muted': '#475569', 'dot': 'rgba(79,70,229,.25)',
+        'bg': '#E6ECF3', 'accent': '#1F4E79', 'text': '#131921', 'muted': '#475569', 'dot': 'rgba(19,25,33,.12)',
     },
 ]
 
 COMPOSE = """
 (card) => {
-  const source = [...document.querySelectorAll('div[aria-hidden="true"].w-full.overflow-hidden.rounded-xl')]
-    .find((node) => node.offsetParent !== null);
+  const source = [...document.querySelectorAll('[data-concept-screen]')].find((node) => node.offsetParent !== null);
   if (!source) throw new Error('preview not found');
   const preview = source.cloneNode(true);
-  preview.style.width = '600px';
+  preview.style.width = '300px';
+  preview.style.height = '640px';
   const wrap = document.createElement('div');
   wrap.id = 'og-card';
   wrap.style.cssText = `position:fixed;inset:0 auto auto 0;width:1200px;height:630px;z-index:99999;overflow:hidden;
@@ -49,8 +49,7 @@ COMPOSE = """
       <p style="margin:24px 0 0;font-size:27px;line-height:1.4;color:${card.muted}">${card.subtitle}</p>
     </div>
     <p style="position:absolute;left:64px;bottom:44px;margin:0;font-family:'Space Grotesk',monospace;font-size:20px;font-weight:700;color:${card.muted}">builtbygsv.in/projects</p>
-    <div style="position:absolute;right:-30px;top:50%;width:660px;height:480px;transform:translateY(-50%);border-radius:50%;background:${card.accent};opacity:.25;filter:blur(70px)"></div>
-    <div id="og-preview" style="position:absolute;left:560px;top:50%;transform:translateY(-50%) perspective(1600px) rotateY(-8deg) rotateX(3deg);"></div>`;
+    <div id="og-preview" style="position:absolute;left:700px;top:64px;transform:scale(1.12);transform-origin:top left;"></div>`;
   wrap.querySelector('#og-preview').appendChild(preview);
   document.body.appendChild(wrap);
 }

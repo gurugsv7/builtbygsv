@@ -167,9 +167,9 @@ export const ProjectDetailScreen = ({
               transition={{ duration: 0.8, ease: EASE.out, delay: 0.1 }}
             />
           ) : CONCEPT_SCREENS[project.id] ? (
-            <motion.div className="relative mx-auto max-w-2xl" initial={{ opacity: 0, y: 18, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }}
+            <motion.div className="relative mx-auto h-[34rem] max-w-2xl" initial={{ opacity: 0, y: 18, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease: EASE.out, delay: 0.1 }}>
-              <ConceptCover projectId={project.id} className="rounded-2xl" />
+              <ConceptCover projectId={project.id} className="h-full w-full" />
             </motion.div>
           ) : (
             <div className="relative mx-auto flex aspect-[4/3] max-w-xl items-center justify-center overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl">

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion } from 'motion/react';
-import { ArrowUpRight, Cpu, Code2, Laptop, Linkedin, MessageCircle, Pause, Play, RotateCcw, UserPlus, Workflow, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Linkedin, MessageCircle, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import { ConceptCover } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
@@ -8,6 +8,7 @@ import { CAPABILITIES, WORK_SUMMARIES } from '../data/studio';
 import { projectMedia, projectTheme } from '../data/projectMedia';
 import { brandEntity } from '../seo';
 import { EASE } from '../motion/tokens';
+import { DrawnUnderline } from '../motion/primitives';
 
 /** How long each slide stays up before advancing, in ms. */
 const SLIDE_MS = 6500;
@@ -24,8 +25,9 @@ const SLIDES: Slide[] = [
 ];
 
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
-const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'services' ? '#E2F1ED' : '#09121F';
-const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind !== 'services';
+const PAPER = '#F4F1EA';
+const slideBg = (slide: Slide) => slide.kind === 'project' ? projectTheme(slide.id).bg : slide.kind === 'contact' ? '#131921' : PAPER;
+const slideDark = (slide: Slide) => slide.kind === 'project' ? Boolean(projectTheme(slide.id).dark) : slide.kind === 'contact';
 
 const item = (delay: number) => ({
   initial: { opacity: 0, y: 18 },
@@ -102,7 +104,7 @@ export function TourPage() {
   const dark = slideDark(slide);
 
   return (
-    <main className="fixed inset-0 flex justify-center bg-black font-sans text-white antialiased" aria-roledescription="carousel" aria-label="BuiltbyGSV tour">
+    <main className="fixed inset-0 flex justify-center bg-[#131921] font-sans text-white antialiased" aria-roledescription="carousel" aria-label="BuiltbyGSV tour">
       <motion.div className="relative h-full w-full max-w-[480px] touch-pan-y select-none overflow-hidden"
         animate={{ backgroundColor: slideBg(slide) }} transition={{ duration: 0.5 }}
         onPointerDown={down} onPointerUp={up} onPointerCancel={() => { press.current = null; setPaused(false); }}
@@ -118,8 +120,9 @@ export function TourPage() {
             ))}
           </div>
           <div className="mt-3 flex items-center justify-between">
-            <span className={`rounded-xl px-1.5 py-1 ${dark ? '' : 'bg-[#09121F]'}`}><BrandLogo nameClassName="text-xs !text-white" /></span>
+            <BrandLogo nameClassName={dark ? 'text-xs !text-white' : 'text-xs'} />
             <div className="flex items-center gap-1">
+              <span className={`mr-1 font-mono text-[11px] font-bold ${dark ? 'text-white/60' : 'text-[#64748B]'}`}>{paused && !last ? 'Paused' : `${String(index + 1).padStart(2, '0')}/${SLIDES.length}`}</span>
               <button type="button" onClick={() => setPaused((value) => !value)} aria-label={paused ? 'Play' : 'Pause'}
                 className={`flex h-9 w-9 items-center justify-center rounded-full ${dark ? 'text-white hover:bg-white/10' : 'text-[#131921] hover:bg-black/5'}`}>
                 {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
@@ -138,20 +141,12 @@ export function TourPage() {
             initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: EASE.out }}
             aria-label={`Slide ${index + 1} of ${SLIDES.length}`}>
             {slide.kind === 'intro' && <IntroSlide />}
-            {slide.kind === 'project' && <ProjectSlide id={slide.id} reduce={Boolean(reduce)} />}
+            {slide.kind === 'project' && <ProjectSlide id={slide.id} number={index} reduce={Boolean(reduce)} />}
             {slide.kind === 'services' && <ServicesSlide />}
             {slide.kind === 'contact' && <ContactSlide onReplay={() => go(0)} />}
           </motion.section>
         </AnimatePresence>
 
-        <AnimatePresence>
-          {paused && !last && (
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="pointer-events-none absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-30 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">
-              Paused
-            </motion.span>
-          )}
-        </AnimatePresence>
       </motion.div>
     </main>
   );
@@ -163,67 +158,69 @@ function close() {
 }
 
 function IntroSlide() {
-  const projects = PROJECTS.length;
   return (
-    <div className="relative flex flex-1 flex-col justify-center">
-      <motion.span aria-hidden="true" className="absolute -right-24 top-8 h-64 w-64 rounded-full bg-emerald-500/30 blur-3xl"
-        animate={{ scale: [1, 1.2, 1], x: [0, -20, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.span aria-hidden="true" className="absolute -left-24 bottom-24 h-64 w-64 rounded-full bg-violet-500/30 blur-3xl"
-        animate={{ scale: [1.1, 0.9, 1.1], y: [0, -30, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.p {...item(0.1)} className="relative text-5xl">👋</motion.p>
-      <motion.h1 {...item(0.2)} className="relative mt-4 text-[2.6rem] font-extrabold leading-[1.05] tracking-tight">
-        Hi, I’m Guru.<br /><span className="text-sheen font-serif font-normal italic">I build products.</span>
+    <div className="flex flex-1 flex-col text-[#131921]">
+      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">BuiltbyGSV · Puducherry, India</motion.p>
+      <motion.h1 {...item(0.12)} className="mt-5 text-[2.6rem] font-extrabold leading-[1.04] tracking-tight [@media(max-height:700px)]:text-[2.2rem]">
+        I’m Guru.<br />I build{' '}
+        <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">
+          software
+          <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.6} />
+        </span>
+        <br />that ships.
       </motion.h1>
-      <motion.p {...item(0.35)} className="relative mt-5 text-base leading-7 text-slate-300">
-        Founder of <strong className="text-white">BuiltbyGSV</strong>, a product & AI engineering studio. Web platforms, custom software and AI, built around real problems.
+      <motion.p {...item(0.22)} className="mt-5 max-w-sm text-[15px] leading-7 text-[#475569]">
+        Founder of BuiltbyGSV. I design and engineer web platforms, business software and AI products, from the first sketch to production.
       </motion.p>
-      <motion.dl {...item(0.5)} className="relative mt-8 grid grid-cols-3 gap-3">
-        {[[String(projects), 'Products'], ['4', 'Capabilities'], ['AI', 'First']].map(([value, label]) => (
-          <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur">
-            <dd className="font-mono text-2xl font-extrabold">{value}</dd>
-            <dt className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">{label}</dt>
-          </div>
+      <ol className="mt-auto border-t border-[#131921]/15">
+        {CAPABILITIES.map((capability, i) => (
+          <motion.li key={capability.id} {...item(0.32 + i * 0.07)} className="flex items-baseline gap-4 border-b border-[#131921]/15 py-3">
+            <span className="font-mono text-xs font-bold text-[#94A3B8]">0{i + 1}</span>
+            <span className="text-[17px] font-bold">{capability.title}</span>
+          </motion.li>
         ))}
-      </motion.dl>
-      <motion.p {...item(0.9)} className="relative mt-auto flex items-center justify-center gap-2 pt-6 text-xs font-bold text-slate-400">
-        <motion.span animate={{ x: [0, 6, 0] }} transition={{ duration: 1.2, repeat: Infinity }}>👉</motion.span> Tap to see the work · hold to pause
+      </ol>
+      <motion.p {...item(0.7)} className="mt-4 flex items-center justify-between text-xs font-semibold text-[#64748B]">
+        <span>{PROJECTS.length} projects inside</span>
+        <span className="flex items-center gap-1.5 text-[#131921]">Tap to start <ArrowRight className="h-3.5 w-3.5" /></span>
       </motion.p>
     </div>
   );
 }
 
-function ProjectSlide({ id, reduce }: { id: string; reduce: boolean }) {
+function ProjectSlide({ id, number, reduce }: { id: string; number: number; reduce: boolean }) {
   const project = PROJECTS.find((entry) => entry.id === id)!;
   const theme = projectTheme(id);
   const hero = projectMedia[id]?.hero;
   const summary = WORK_SUMMARIES[id];
   const dark = Boolean(theme.dark);
+  const muted = dark ? 'text-white/70' : 'text-[#475569]';
+  const rule = dark ? 'border-white/15' : 'border-[#131921]/15';
   return (
     <div className={`flex flex-1 flex-col ${dark ? 'text-white' : 'text-[#131921]'}`}>
-      <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:18px_18px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
-      <motion.p {...item(0.05)} className="relative text-[11px] font-extrabold uppercase tracking-[0.16em]" style={{ color: theme.accent }}>
-        {project.detailData?.engagement} · {project.category} · {project.status}
+      <span aria-hidden="true" className="absolute inset-0 opacity-[0.12] [background-size:18px_18px]" style={{ backgroundImage: `radial-gradient(${dark ? '#FFFFFF' : '#131921'} 1px, transparent 1px)` }} />
+      <motion.p {...item(0.05)} className={`relative font-mono text-[11px] font-bold uppercase tracking-[0.16em] ${muted}`}>
+        <span style={{ color: theme.accent }}>{String(number).padStart(2, '0')}</span> — {project.category} · {project.status}
       </motion.p>
       <motion.h2 {...item(0.12)} className="relative mt-2 text-[2.5rem] font-extrabold leading-none tracking-tight">{project.title}</motion.h2>
-      <motion.p {...item(0.2)} className={`relative mt-3 text-[15px] leading-6 ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{summary?.problem ?? project.subtitle}</motion.p>
+      <motion.p {...item(0.2)} className={`relative mt-3 text-[15px] leading-6 ${muted}`}>{summary?.problem ?? project.subtitle}</motion.p>
 
       <div className="relative my-5 flex min-h-0 flex-1 items-center justify-center">
-        <span aria-hidden="true" className="absolute inset-x-6 top-1/2 h-48 -translate-y-1/2 rounded-full opacity-40 blur-3xl" style={{ backgroundColor: theme.accent }} />
         <motion.div className="relative flex h-full w-full items-center justify-center"
-          initial={{ opacity: 0, y: 30, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: reduce ? 1 : [0.92, 1, 1.05] }}
-          transition={{ opacity: { duration: 0.5 }, y: { duration: 0.6, ease: EASE.out }, scale: { duration: SLIDE_MS / 1000, times: [0, 0.12, 1], ease: 'easeOut' } }}>
+          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0, scale: reduce ? 1 : [1, 1.04] }}
+          transition={{ opacity: { duration: 0.5 }, y: { duration: 0.6, ease: EASE.out }, scale: { duration: SLIDE_MS / 1000, ease: 'linear' } }}>
           {hero
-            ? <img src={hero} alt={`${project.title} interface`} className="max-h-full w-full object-contain drop-shadow-2xl" draggable={false} />
-            : <ConceptCover projectId={id} className="max-h-full w-full shadow-2xl" />}
+            ? <img src={hero} alt={`${project.title} interface`} className="max-h-full w-full object-contain drop-shadow-xl" draggable={false} />
+            : <ConceptCover projectId={id} peek={0.58} className="h-full w-full [mask-image:linear-gradient(#000_80%,transparent)]" />}
         </motion.div>
       </div>
 
-      <motion.div {...item(0.35)} className={`relative rounded-2xl p-4 backdrop-blur-md ${dark ? 'bg-white/10' : 'bg-white/80'}`}>
-        <p className="font-mono text-[10px] font-bold uppercase tracking-wider" style={{ color: theme.accent }}>What we built</p>
-        <p className="mt-1 text-sm font-semibold leading-6">{summary?.built ?? project.subtitle}</p>
+      <motion.div {...item(0.35)} className={`relative border-t pt-4 ${rule}`}>
+        <p className={`font-mono text-[10px] font-bold uppercase tracking-wider ${muted}`}>What we built</p>
+        <p className="mt-1 text-[15px] font-semibold leading-6">{summary?.built ?? project.subtitle}</p>
         <div className="mt-3 flex items-center justify-between gap-3">
-          <span className={`truncate font-mono text-[10px] font-bold ${dark ? 'text-slate-300' : 'text-slate-500'}`}>{project.tags.slice(0, 3).join(' · ')}</span>
-          <a href={`/projects/${id}`} className="inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-extrabold text-white" style={{ backgroundColor: theme.accent }}>
+          <span className={`truncate font-mono text-[11px] ${muted}`}>{project.tags.slice(0, 3).join(' · ')}</span>
+          <a href={`/projects/${id}`} className="inline-flex shrink-0 items-center gap-1 text-[13px] font-bold underline decoration-2 underline-offset-4" style={{ textDecorationColor: theme.accent }}>
             Case study <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -232,63 +229,52 @@ function ProjectSlide({ id, reduce }: { id: string; reduce: boolean }) {
   );
 }
 
-const CAPABILITY_ICONS = { 'web-dev': Laptop, 'software-dev': Code2, 'ai-solutions': Cpu, automation: Workflow } as const;
-
 function ServicesSlide() {
   return (
     <div className="flex flex-1 flex-col text-[#131921]">
-      <motion.p {...item(0.05)} className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#0F8B75]">What we can build for you</motion.p>
-      <motion.h2 {...item(0.12)} className="mt-2 text-[2.3rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.9rem]">
-        From idea<br /><span className="font-serif font-normal italic text-[#0F8B75]">to shipped product.</span>
+      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">How I can help</motion.p>
+      <motion.h2 {...item(0.12)} className="mt-3 text-[2.3rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.9rem]">
+        From a rough idea<br /><span className="font-serif font-normal italic text-[#0F8B75]">to a shipped product.</span>
       </motion.h2>
-      <div className="mt-5 flex min-h-0 flex-1 flex-col justify-center gap-2.5">
-        {CAPABILITIES.map((capability, i) => {
-          const Icon = CAPABILITY_ICONS[capability.id];
-          return (
-            <motion.div key={capability.id} initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: EASE.out, delay: 0.25 + i * 0.12 }}
-              className="rounded-2xl border border-[#0F8B75]/15 bg-white p-3.5 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0F8B75] text-white"><Icon className="h-5 w-5" /></span>
-                <div className="min-w-0">
-                  <p className="text-base font-extrabold">{capability.title}</p>
-                  <p className="mt-0.5 line-clamp-1 text-xs leading-5 text-slate-600 [@media(max-height:700px)]:hidden">{capability.description}</p>
-                </div>
-              </div>
-              <div className="mt-2.5 flex flex-wrap items-center gap-1 [@media(max-height:700px)]:hidden">
-                {capability.flow.map((step, s) => (
-                  <motion.span key={step} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 + i * 0.12 + s * 0.08 }}
-                    className="flex items-center gap-1 text-[10px] font-bold text-[#0F8B75]">
-                    {s > 0 && <span className="text-slate-300">→</span>}<span className="rounded-full bg-[#E2F1ED] px-2 py-0.5">{step}</span>
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+      <ol className="mt-auto border-t border-[#131921]/15">
+        {CAPABILITIES.map((capability, i) => (
+          <motion.li key={capability.id} {...item(0.25 + i * 0.1)} className="border-b border-[#131921]/15 py-3.5">
+            <div className="flex items-baseline gap-4">
+              <span className="font-mono text-xs font-bold text-[#94A3B8]">0{i + 1}</span>
+              <span className="text-[17px] font-bold">{capability.title}</span>
+            </div>
+            <p className="mt-1 pl-9 font-mono text-[11px] text-[#475569]">{capability.flow.join(' → ')}</p>
+          </motion.li>
+        ))}
+      </ol>
     </div>
   );
 }
 
 function ContactSlide({ onReplay }: { onReplay: () => void }) {
   return (
-    <div className="flex flex-1 flex-col items-center text-center">
-      <motion.h2 {...item(0.05)} className="text-[2.2rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.75rem]">
-        Let’s build<br /><span className="text-sheen font-serif font-normal italic">something together.</span>
+    <div className="flex flex-1 flex-col text-white">
+      <motion.p {...item(0.05)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C748]">Let’s talk</motion.p>
+      <motion.h2 {...item(0.12)} className="mt-3 text-[2.3rem] font-extrabold leading-[1.05] tracking-tight [@media(max-height:700px)]:text-[1.8rem]">
+        Got a problem<br />worth{' '}
+        <span className="relative inline-block font-serif font-normal italic">
+          solving?
+          <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.5} />
+        </span>
       </motion.h2>
-      <motion.div className="my-4 flex min-h-0 w-full flex-1 items-center justify-center"
-        initial={{ opacity: 0, scale: 0.85, rotate: -3 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 220, damping: 20, delay: 0.15 }}>
-        <div className="aspect-square rounded-[1.75rem] bg-white p-4 shadow-[0_0_60px_rgba(16,185,129,.35)]" style={{ height: 'min(18rem, 32dvh)' }}>
-          <img src="/devday-qr.svg" alt="QR code linking to builtbygsv.in/devday" className="h-full w-full" draggable={false} />
+      <motion.div className="my-5 flex min-h-0 flex-1 items-center justify-center"
+        initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out, delay: 0.2 }}>
+        <div className="flex flex-col items-center rounded-[1.5rem] bg-white p-4 text-[#131921]">
+          <img src="/devday-qr.svg" alt="QR code linking to builtbygsv.in/devday" className="aspect-square" style={{ height: 'min(15rem, 28dvh)' }} draggable={false} />
+          <p className="mt-2 font-mono text-[11px] font-bold">builtbygsv.in/devday</p>
         </div>
       </motion.div>
-      <motion.p {...item(0.3)} className="text-sm font-bold text-slate-300">Scan to save my contact · builtbygsv.in/devday</motion.p>
-      <motion.div {...item(0.4)} className="mt-5 grid w-full grid-cols-2 gap-2.5">
-        <a href="/gurusabarivasan.vcf" className="col-span-2 flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 py-3.5 text-sm font-extrabold text-[#09121F]"><UserPlus className="h-4 w-4" /> Save my contact</a>
-        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl bg-white/10 py-3 text-sm font-bold"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
-        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl bg-white/10 py-3 text-sm font-bold"><Linkedin className="h-4 w-4" /> LinkedIn</a>
+      <motion.div {...item(0.35)} className="grid grid-cols-2 gap-2.5">
+        <a href="/gurusabarivasan.vcf" className="col-span-2 flex items-center justify-center gap-2 rounded-2xl bg-[#F5C748] py-3.5 text-[15px] font-extrabold text-[#131921]"><UserPlus className="h-4 w-4" /> Save my contact</a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
+        <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><Linkedin className="h-4 w-4" /> LinkedIn</a>
       </motion.div>
-      <button type="button" onClick={onReplay} className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-slate-400"><RotateCcw className="h-3.5 w-3.5" /> Replay tour</button>
+      <button type="button" onClick={onReplay} className="mt-4 inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-white/60"><RotateCcw className="h-3.5 w-3.5" /> Replay</button>
     </div>
   );
 }

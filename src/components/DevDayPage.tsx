@@ -9,6 +9,7 @@ import { WORK_SUMMARIES } from '../data/studio';
 import { projectTheme } from '../data/projectMedia';
 import { brandEntity, SITE_URL } from '../seo';
 import { EASE } from '../motion/tokens';
+import { DrawnUnderline } from '../motion/primitives';
 import { DEVDAY_PAGE } from '../content/devday';
 import type { Project } from '../types';
 
@@ -50,7 +51,7 @@ export function DevDayPage() {
 
   return (
     <main className="relative min-h-screen overflow-x-clip bg-[#F8F9FA] pb-24 font-sans text-[#131921] antialiased lg:pb-0">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[28rem] bg-[radial-gradient(60%_60%_at_20%_0%,rgba(16,185,129,.18),transparent),radial-gradient(50%_60%_at_90%_10%,rgba(139,92,246,.16),transparent)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[26rem] bg-[radial-gradient(#131921_1px,transparent_1px)] opacity-[0.07] [background-size:18px_18px] [mask-image:linear-gradient(#000,transparent)]" />
       <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-5 sm:px-6 lg:px-10 lg:pt-8">
         <header className="flex items-center justify-between">
           <a href="/" aria-label="BuiltbyGSV home"><BrandLogo nameClassName="text-sm" /></a>
@@ -61,13 +62,12 @@ export function DevDayPage() {
 
         <section className="mt-8 grid gap-10 lg:mt-14 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
           <div>
-            <motion.p {...rise(0)} className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white/80 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.14em] text-violet-600 backdrop-blur">
-              <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" /></span>
-              DevDay · Hello 👋
+            <motion.p {...rise(0)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">
+              DevDay · We just met
             </motion.p>
             <motion.h1 {...rise(0.08)} className="mt-5 text-[2.4rem] font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl">
               Great to meet you.<br />
-              <span className="text-sheen font-serif font-normal italic">Let’s stay in touch.</span>
+              <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">Let’s stay in touch.<DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.6} /></span>
             </motion.h1>
             <motion.p {...rise(0.16)} className="mt-5 max-w-lg text-base leading-7 text-slate-600">
               I’m <strong className="text-[#131921]">{brandEntity.founderName}</strong>, founder of <strong className="text-[#131921]">BuiltbyGSV</strong>, a product & AI engineering studio. We build web platforms, custom software and AI products.
@@ -75,11 +75,11 @@ export function DevDayPage() {
 
             <motion.div {...rise(0.24)} className="mt-7 flex flex-wrap gap-3">
               <a href="/gurusabarivasan.vcf" className="press group inline-flex items-center gap-2.5 rounded-full bg-[#09121F] py-3 pl-5 pr-2 text-sm font-extrabold text-white shadow-lg hover:bg-slate-800">
-                <UserPlus className="h-4 w-4 text-emerald-400" /> Save my contact
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-400 text-[#09121F]"><ArrowRight className="nudge-r h-3.5 w-3.5" /></span>
+                <UserPlus className="h-4 w-4 text-[#F5C748]" /> Save my contact
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5C748] text-[#131921]"><ArrowRight className="nudge-r h-3.5 w-3.5" /></span>
               </a>
-              <a href="/tour" className="press inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 px-5 py-3 text-sm font-extrabold text-white shadow-lg shadow-violet-500/25">
-                <Play className="h-4 w-4 fill-current" /> 1-min tour
+              <a href="/tour" className="press inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-[#131921] hover:border-slate-500">
+                <Play className="h-3.5 w-3.5 fill-current" /> 1-min tour
               </a>
             </motion.div>
 
@@ -98,13 +98,12 @@ export function DevDayPage() {
 
           <motion.button type="button" onClick={() => setShowQr(true)} aria-label="Enlarge the QR code for this page"
             initial={{ opacity: 0, scale: 0.94, rotate: -2 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: 0.8, ease: EASE.out, delay: 0.2 }}
-            className="group relative mx-auto hidden w-full max-w-sm rounded-[2rem] bg-[#09121F] p-6 text-left text-white shadow-2xl lg:block">
-            <span aria-hidden="true" className="absolute -inset-px rounded-[2rem] bg-gradient-to-br from-emerald-400/40 via-transparent to-violet-500/40 opacity-60" />
+            className="group relative mx-auto hidden w-full max-w-sm rounded-[2rem] bg-[#131921] p-6 text-left text-white shadow-xl lg:block">
             <span className="relative block rounded-2xl bg-white p-4 transition-transform duration-500 group-hover:scale-[1.02]">
               <img src="/devday-qr.svg" alt="" width={300} height={300} className="h-auto w-full" />
             </span>
             <span className="relative mt-4 flex items-center justify-between">
-              <span><span className="block text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">Scan to connect</span><span className="mt-0.5 block text-sm font-bold">builtbygsv.in/devday</span></span>
+              <span><span className="block font-mono text-[10px] font-bold uppercase tracking-widest text-[#F5C748]">Scan to connect</span><span className="mt-0.5 block text-sm font-bold">builtbygsv.in/devday</span></span>
               <QrCode className="h-6 w-6 text-white/60" />
             </span>
           </motion.button>
@@ -123,7 +122,7 @@ export function DevDayPage() {
                   className="group block overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xs transition hover:-translate-y-1 hover:shadow-xl">
                   <span className="relative flex aspect-[16/10] items-center justify-center overflow-hidden px-6 pt-6" style={{ backgroundColor: theme.bg }}>
                     <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:16px_16px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
-                    <ConceptCover projectId={id} className="relative max-h-full w-full max-w-md transition-transform duration-700 group-hover:scale-[1.03]" />
+                    <ConceptCover projectId={id} peek={0.6} className="relative h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />
                   </span>
                   <span className="flex items-center justify-between gap-4 p-5">
                     <span className="min-w-0">
@@ -153,15 +152,15 @@ export function DevDayPage() {
             <p className="mt-2 text-sm text-slate-300">Tell me the problem. We’ll shape the right first version together.</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="press inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-3 text-sm font-extrabold text-[#09121F]"><MessageCircle className="h-4 w-4" /> Message me</a>
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="press inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-extrabold text-white"><MessageCircle className="h-4 w-4" /> Message me</a>
             <a href="/start-project" className="press inline-flex items-center gap-2 rounded-full bg-[#F5C748] px-5 py-3 text-sm font-extrabold text-[#09121F]">Start a Project <ArrowRight className="h-4 w-4" /></a>
           </div>
         </section>
       </div>
 
       <motion.nav aria-label="Quick actions" initial={{ y: 100 }} animate={{ y: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 26, delay: 0.6 }}
-        className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-1.5 rounded-[1.4rem] border border-white/10 bg-[#09121F]/90 p-1.5 shadow-2xl backdrop-blur-md lg:hidden">
-        <a href="/gurusabarivasan.vcf" className="flex items-center justify-center gap-1.5 rounded-2xl bg-emerald-400 py-3 text-xs font-extrabold text-[#09121F] active:scale-95"><UserPlus className="h-4 w-4" /> Save contact</a>
+        className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 grid grid-cols-[1.6fr_1fr_1fr_1fr] gap-1.5 rounded-[1.4rem] border border-white/10 bg-[#131921]/95 p-1.5 shadow-2xl backdrop-blur-md lg:hidden">
+        <a href="/gurusabarivasan.vcf" className="flex items-center justify-center gap-1.5 rounded-2xl bg-[#F5C748] py-3 text-xs font-extrabold text-[#131921] active:scale-95"><UserPlus className="h-4 w-4" /> Save contact</a>
         <a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><MessageCircle className="h-4 w-4" /> Chat</a>
         <button type="button" onClick={() => setShowQr(true)} className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><QrCode className="h-4 w-4" /> QR</button>
         <a href="/tour" className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 text-[10px] font-bold text-white active:scale-95"><Play className="h-4 w-4" /> Tour</a>

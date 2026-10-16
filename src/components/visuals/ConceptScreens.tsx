@@ -1,192 +1,287 @@
-import type { ComponentType } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { BookOpen, Captions, GraduationCap, Bell, CalendarDays, Scissors, Sparkles, Wand2, Wallet } from 'lucide-react';
+import {
+  BatteryFull, Bell, BookOpen, CalendarDays, Check, ChevronLeft, Home, Scissors, Signal, User, Wallet, Wifi,
+} from 'lucide-react';
 
 /**
- * Animated interface previews for builds that have no captured screens yet. They are
- * drawn in code, labelled as previews, and stand in for the screenshot covers.
+ * Phone-screen previews for builds that have no captured screens yet. Each screen is
+ * drawn at a fixed device size and scaled to fit whatever frame it is placed in.
  */
 
-const loop = (reduce: boolean | null, duration: number, delay = 0) =>
-  reduce ? { duration: 0 } : { duration, delay, repeat: Infinity, ease: 'easeInOut' as const };
+const DEVICE = { width: 300, height: 640 };
 
-function WindowChrome({ dark, label }: { dark?: boolean; label: string }) {
+/**
+ * Scales a fixed-size child into its parent, which needs a height. By default the whole
+ * device fits, centred. With `peek` (0-1) only that top fraction of the device has to
+ * fit: it is drawn larger, anchored near the top, and the rest is cropped by the frame.
+ */
+function FitBox({ children, peek }: { children: ReactNode; peek?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0);
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const update = () => {
+      const width = element.clientWidth;
+      const height = element.clientHeight || Infinity;
+      const fitHeight = peek ? DEVICE.height * peek : DEVICE.height;
+      setScale(Math.min((peek ? 0.86 : 1) * width / DEVICE.width, height / fitHeight));
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [peek]);
   return (
-    <div className={`flex items-center gap-1.5 border-b px-3 py-2 ${dark ? 'border-white/10' : 'border-slate-200'}`}>
-      {['#F87171', '#FBBF24', '#34D399'].map((color) => <span key={color} className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />)}
-      <span className={`ml-2 truncate font-mono text-[8px] font-bold ${dark ? 'text-white/40' : 'text-slate-400'}`}>{label}</span>
-      <span className={`ml-auto rounded-full px-1.5 py-0.5 text-[7px] font-extrabold uppercase tracking-wider ${dark ? 'bg-violet-500/20 text-violet-200' : 'bg-indigo-50 text-indigo-600'}`}>Preview</span>
+    <div ref={ref} className={`relative h-full w-full ${peek ? 'overflow-hidden' : ''}`}>
+      <div className={`absolute left-1/2 ${peek ? 'top-[6%] origin-top' : 'top-1/2'}`}
+        style={{ width: DEVICE.width, height: DEVICE.height, transform: peek ? `translateX(-50%) scale(${scale})` : `translate(-50%, -50%) scale(${scale})` }}>
+        {children}
+      </div>
     </div>
   );
 }
 
-const CAPTION = ['Every', 'cut', 'lands', 'on', 'the', 'beat'];
-const CLIPS = [
-  { w: 22, color: '#8B5CF6' }, { w: 16, color: '#EC4899' }, { w: 28, color: '#6366F1' }, { w: 14, color: '#A855F7' }, { w: 20, color: '#F472B6' },
-];
+function Phone({ children, dark }: { children: ReactNode; dark?: boolean }) {
+  return (
+    <div data-concept-screen className="h-full w-full rounded-[46px] bg-[#0B0B0C] p-[7px] shadow-[0_30px_60px_-25px_rgba(0,0,0,.55)]">
+      <div className={`relative flex h-full w-full flex-col overflow-hidden rounded-[39px] font-sans ${dark ? 'bg-[#121212] text-white' : 'bg-[#F4F6F9] text-[#0F1A2A]'}`}>
+        <div className="flex h-9 shrink-0 items-center justify-between px-6 pt-1 text-[12px] font-semibold">
+          <span>9:41</span>
+          <span className="absolute left-1/2 top-2 h-[22px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
+          <span className="flex items-center gap-1"><Signal className="h-3 w-3" /><Wifi className="h-3 w-3" /><BatteryFull className="h-3.5 w-3.5" /></span>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
 
-/** Reelcut: an AI video editor with a live preview, suggestions and a moving timeline. */
-export function ReelcutScreen() {
+/** Loops an index from 0 to count - 1 every `ms`, unless reduced motion is on. */
+function useTicker(count: number, ms: number) {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (reduce) return;
+    const timer = window.setInterval(() => setIndex((value) => (value + 1) % count), ms);
+    return () => window.clearInterval(timer);
+  }, [count, ms, reduce]);
+  return index;
+}
+
+/* ------------------------------------------------------------------ Reelcut */
+
+const CAPTION_LINES = [['THIS', 'IS', 'HOW'], ['WE', 'SHIP', 'FASTER']];
+const CAPTION_WORDS = CAPTION_LINES.flat();
+type Word = { text: string; cut?: boolean };
+const TRANSCRIPT: Word[] = [
+  { text: 'So' }, { text: 'um,', cut: true }, { text: 'this' }, { text: 'is' }, { text: 'how' }, { text: 'we' },
+  { text: 'you know,', cut: true }, { text: 'ship' }, { text: 'faster.' }, { text: 'Every' }, { text: 'release' },
+  { text: 'starts' }, { text: 'with' }, { text: 'like,', cut: true }, { text: 'one' }, { text: 'real' }, { text: 'problem.' },
+];
+const SPOKEN = TRANSCRIPT.map((word, index) => ({ ...word, index })).filter((word) => !word.cut);
+const CUTS = [14, 37, 61, 83];
+
+function Speaker() {
   const reduce = useReducedMotion();
   return (
-    <div aria-hidden="true" className="w-full overflow-hidden rounded-xl border border-white/10 bg-[#0D0A18] text-white shadow-2xl shadow-violet-950/50">
-      <WindowChrome dark label="reelcut.app / project / launch-teaser" />
-      <div className="grid grid-cols-[1fr_32%] gap-2 p-2">
-        <div className="relative aspect-video overflow-hidden rounded-lg bg-gradient-to-br from-violet-600 via-fuchsia-600 to-orange-400">
-          <motion.div className="absolute -left-1/4 top-0 h-full w-1/2 bg-white/20 blur-2xl" animate={{ x: ['0%', '220%'] }} transition={loop(reduce, 4)} />
-          <motion.div className="absolute bottom-[30%] left-[18%] h-[38%] w-[22%] rounded-full bg-white/25" animate={{ scale: [1, 1.08, 1] }} transition={loop(reduce, 2.4)} />
-          <motion.div className="absolute right-[14%] top-[18%] h-[30%] w-[30%] rounded-lg border border-white/50"
-            animate={{ opacity: [0.2, 1, 0.2] }} transition={loop(reduce, 3)}>
-            <span className="absolute -top-3 left-0 rounded bg-white px-1 text-[6px] font-extrabold text-violet-700">Subject tracked</span>
-          </motion.div>
-          <div className="absolute inset-x-0 bottom-2 flex flex-wrap justify-center gap-1 px-2">
-            {CAPTION.map((word, index) => (
-              <motion.span key={word} className="rounded px-0.5 text-[9px] font-black uppercase leading-none sm:text-[11px]"
-                animate={reduce ? undefined : { backgroundColor: ['rgba(0,0,0,0)', '#FACC15', 'rgba(0,0,0,0)'], color: ['#FFFFFF', '#111827', '#FFFFFF'] }}
-                transition={reduce ? undefined : { duration: 0.6, delay: index * 0.45, repeat: Infinity, repeatDelay: CAPTION.length * 0.45 - 0.6 }}>
-                {word}
-              </motion.span>
+    <svg viewBox="0 0 270 300" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <rect width="270" height="300" fill="#2A2420" />
+      <rect x="150" y="26" width="96" height="120" rx="4" fill="#3A322C" />
+      <rect x="156" y="32" width="84" height="108" rx="2" fill="#4B4038" />
+      <line x1="198" y1="32" x2="198" y2="140" stroke="#3A322C" strokeWidth="3" />
+      <rect x="18" y="168" width="54" height="132" fill="#221D1A" />
+      <path d="M36 168 C 30 140, 52 128, 48 104 M48 120 C 62 112, 66 98, 74 92 M44 140 C 30 128, 22 124, 16 112" stroke="#5E7A55" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <motion.g animate={reduce ? undefined : { y: [0, -1.5, 0] }} transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}>
+        <path d="M58 300 C 62 236, 92 214, 135 212 C 178 214, 208 236, 212 300 Z" fill="#2F5D50" />
+        <path d="M118 212 L135 236 L152 212 Z" fill="#E9E2D6" />
+        <rect x="122" y="182" width="26" height="34" rx="10" fill="#B07A57" />
+        <ellipse cx="135" cy="150" rx="38" ry="44" fill="#C08A65" />
+        <path d="M97 146 C 94 108, 120 96, 138 98 C 162 98, 178 114, 173 146 C 168 128, 156 118, 136 118 C 116 118, 102 128, 97 146 Z" fill="#1E1916" />
+        <motion.ellipse cx="135" cy="172" rx="9" fill="#7A4632" animate={reduce ? { ry: 2.5 } : { ry: [2, 5, 2.5, 4.5, 2] }} transition={{ duration: 1.1, repeat: Infinity }} />
+        <circle cx="122" cy="148" r="3" fill="#2A1C14" />
+        <circle cx="148" cy="148" r="3" fill="#2A1C14" />
+      </motion.g>
+    </svg>
+  );
+}
+
+/** Reelcut: transcript-first video editing on a phone. */
+export function ReelcutScreen() {
+  const spoken = useTicker(SPOKEN.length, 520);
+  const captionIndex = useTicker(CAPTION_WORDS.length, 520);
+  const reduce = useReducedMotion();
+  const activeWord = SPOKEN[spoken].index;
+  return (
+    <Phone dark>
+      <div className="flex shrink-0 items-center gap-2 px-4 pb-2 pt-1">
+        <ChevronLeft className="h-5 w-5 text-white/70" />
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[14px] font-bold leading-tight">Launch teaser</p>
+          <p className="text-[11px] text-white/50">0:58 · 9:16 · 2 speakers</p>
+        </div>
+        <span className="rounded-full bg-[#FF5A36] px-3 py-1.5 text-[12px] font-bold">Export</span>
+      </div>
+
+      <div className="relative mx-3 h-[262px] shrink-0 overflow-hidden rounded-[18px]">
+        <Speaker />
+        <span className="absolute left-2.5 top-2.5 rounded-md bg-black/55 px-1.5 py-0.5 text-[10px] font-semibold text-white/90">Auto-framed</span>
+        <span className="absolute right-2.5 top-2.5 font-mono text-[10px] font-semibold text-white/80">00:12</span>
+        <div className="absolute inset-x-0 bottom-5 flex flex-col items-center gap-0.5">
+          {CAPTION_LINES.map((line, lineIndex) => (
+            <p key={lineIndex} className="flex gap-1.5 text-[19px] font-black leading-none tracking-tight [text-shadow:0_2px_0_#000,0_0_6px_rgba(0,0,0,.6)]">
+              {line.map((word) => {
+                const on = CAPTION_WORDS[captionIndex] === word;
+                return <span key={word} className={on ? 'text-[#FFD43B]' : 'text-white'}>{word}</span>;
+              })}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-3 mt-3 shrink-0 rounded-[16px] bg-white/[0.06] p-3">
+        <div className="flex items-center justify-between">
+          <p className="text-[12px] font-bold">Transcript</p>
+          <span className="flex items-center gap-1.5 text-[11px] text-white/60">
+            Remove fillers
+            <span className="flex h-4 w-7 items-center justify-end rounded-full bg-[#FF5A36] px-0.5"><span className="h-3 w-3 rounded-full bg-white" /></span>
+          </span>
+        </div>
+        <p className="mt-2 text-[13px] leading-[1.55] text-white/85">
+          {TRANSCRIPT.map((word, index) => (
+            <span key={index}>
+              <span className={word.cut ? 'text-[#FF8A70] line-through decoration-[#FF5A36] opacity-70'
+                : index === activeWord ? 'rounded bg-white px-0.5 text-[#121212]' : ''}>{word.text}</span>{' '}
+            </span>
+          ))}
+        </p>
+      </div>
+
+      <div className="mx-3 mt-3 shrink-0">
+        <div className="relative h-10 overflow-hidden rounded-[10px]">
+          <div className="flex h-full gap-[2px]">
+            {['#3A322C', '#2F5D50', '#4B4038', '#2A2420', '#3A322C', '#2F5D50', '#4B4038', '#3A322C'].map((color, index) => (
+              <span key={index} className="h-full flex-1" style={{ backgroundColor: color }} />
             ))}
           </div>
+          {CUTS.map((left) => <span key={left} className="absolute inset-y-0 w-[3px] bg-[#FF5A36]" style={{ left: `${left}%` }} />)}
+          <motion.span className="absolute inset-y-0 w-[2px] bg-white" animate={reduce ? { left: '40%' } : { left: ['0%', '99%'] }}
+            transition={reduce ? { duration: 0 } : { duration: 8, repeat: Infinity, ease: 'linear' }} />
         </div>
-        <div className="space-y-1.5">
-          <p className="flex items-center gap-1 text-[8px] font-extrabold uppercase tracking-wider text-violet-300"><Sparkles className="h-2.5 w-2.5" /> AI assist</p>
-          {[
-            { icon: Scissors, label: 'Remove silences', done: '−42s' },
-            { icon: Captions, label: 'Auto captions', done: 'EN · TA' },
-            { icon: Wand2, label: 'Smart reframe', done: '9:16' },
-          ].map(({ icon: Icon, label, done }, index) => (
-            <motion.div key={label} className="flex items-center gap-1.5 rounded-md bg-white/5 px-1.5 py-1"
-              animate={reduce ? undefined : { backgroundColor: ['rgba(255,255,255,.05)', 'rgba(139,92,246,.35)', 'rgba(255,255,255,.05)'] }}
-              transition={reduce ? undefined : { duration: 1.6, delay: index * 1.2, repeat: Infinity, repeatDelay: 2 }}>
-              <Icon className="h-2.5 w-2.5 shrink-0 text-violet-300" />
-              <span className="min-w-0 flex-1 truncate text-[8px] font-bold">{label}</span>
-              <span className="font-mono text-[7px] text-white/50">{done}</span>
-            </motion.div>
-          ))}
-          <motion.div className="rounded-md bg-gradient-to-r from-violet-500 to-fuchsia-500 px-1.5 py-1 text-center text-[8px] font-extrabold"
-            animate={reduce ? undefined : { scale: [1, 1.04, 1] }} transition={loop(reduce, 1.8)}>
-            Export reel
-          </motion.div>
+        <div className="mt-2.5 flex gap-1.5 text-[11px] font-semibold">
+          <span className="flex items-center gap-1 rounded-full bg-[#FF5A36]/15 px-2 py-1 text-[#FF8A70]"><Scissors className="h-3 w-3" /> 3 fillers · −42s silence</span>
+          <span className="rounded-full bg-white/10 px-2 py-1 text-white/70">Captions EN</span>
         </div>
       </div>
-      <div className="relative space-y-1 border-t border-white/10 p-2">
-        <div className="flex gap-0.5">
-          {CLIPS.map((clip, index) => (
-            <motion.span key={index} className="h-4 rounded-sm" style={{ width: `${clip.w}%`, backgroundColor: clip.color }}
-              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.08 }} />
-          ))}
-        </div>
-        <div className="flex h-4 items-center gap-[2px]">
-          {Array.from({ length: 48 }, (_, index) => (
-            <motion.span key={index} className="w-full rounded-full bg-emerald-400/70"
-              animate={reduce ? { height: '50%' } : { height: ['25%', `${30 + ((index * 37) % 70)}%`, '25%'] }}
-              transition={reduce ? { duration: 0 } : { duration: 1 + (index % 5) * 0.2, repeat: Infinity, ease: 'easeInOut' }} />
-          ))}
-        </div>
-        <div className="flex gap-0.5">
-          {[30, 18, 26, 20].map((w, index) => <span key={index} className="h-2 rounded-sm bg-yellow-300/70" style={{ width: `${w}%` }} />)}
-        </div>
-        <motion.span className="absolute bottom-1 top-1 w-0.5 rounded-full bg-white shadow-[0_0_8px_white]"
-          animate={reduce ? { left: '40%' } : { left: ['2%', '97%'] }} transition={reduce ? { duration: 0 } : { duration: 6, repeat: Infinity, ease: 'linear' }} />
-      </div>
-    </div>
+    </Phone>
   );
 }
 
-const COURSES = [
-  { name: 'Data Structures', pct: 78, color: '#4F46E5' },
-  { name: 'Engineering Maths', pct: 62, color: '#0EA5E9' },
-  { name: 'Digital Systems', pct: 91, color: '#10B981' },
+/* --------------------------------------------------------------- Campus One */
+
+const SUBJECTS = [
+  { name: 'Data Structures', pct: 94 },
+  { name: 'Engineering Maths', pct: 72 },
+  { name: 'DBMS', pct: 88 },
 ];
 
-/** Campus One: an institute portal dashboard with attendance, courses, fees and notices. */
+/** Campus One: a student's day in an institute portal. */
 export function CampusOneScreen() {
   const reduce = useReducedMotion();
-  const ring = 2 * Math.PI * 16;
+  const minutes = 12 - useTicker(3, 2600);
   return (
-    <div aria-hidden="true" className="w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-[#131921] shadow-2xl shadow-indigo-900/20">
-      <WindowChrome label="campusone.app / student / dashboard" />
-      <div className="grid grid-cols-[2.25rem_1fr]">
-        <div className="flex flex-col items-center gap-2 border-r border-slate-100 bg-indigo-600 py-2 text-white/70">
-          <GraduationCap className="h-4 w-4 text-white" />
-          {[BookOpen, CalendarDays, Wallet, Bell].map((Icon, index) => (
-            <span key={index} className={`flex h-6 w-6 items-center justify-center rounded-md ${index === 0 ? 'bg-white/20 text-white' : ''}`}><Icon className="h-3 w-3" /></span>
-          ))}
+    <Phone>
+      <div className="flex shrink-0 items-center justify-between px-5 pb-3 pt-2">
+        <div>
+          <p className="text-[11px] font-semibold text-[#5B6B80]">Mon, 14 Oct · Sem 4 · CSE</p>
+          <p className="text-[21px] font-extrabold leading-tight tracking-tight">Hi, Aarav</p>
         </div>
-        <div className="space-y-2 bg-slate-50 p-2">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-[7px] font-bold uppercase tracking-wider text-slate-400">Semester 4 · B.E. CSE</p>
-              <p className="text-[11px] font-extrabold">Good morning 👋</p>
-            </div>
-            <motion.span className="relative flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm"
-              animate={reduce ? undefined : { rotate: [0, -14, 14, -8, 0] }} transition={reduce ? undefined : { duration: 0.8, repeat: Infinity, repeatDelay: 2.4 }}>
-              <Bell className="h-2.5 w-2.5 text-indigo-600" />
-              <span className="absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-rose-500" />
-            </motion.span>
-          </div>
-          <div className="grid grid-cols-3 gap-1.5">
-            <div className="col-span-1 flex flex-col items-center rounded-lg bg-white p-1.5 shadow-sm">
-              <svg viewBox="0 0 40 40" className="h-10 w-10 -rotate-90">
-                <circle cx="20" cy="20" r="16" fill="none" stroke="#E0E7FF" strokeWidth="4" />
-                <motion.circle cx="20" cy="20" r="16" fill="none" stroke="#4F46E5" strokeWidth="4" strokeLinecap="round" strokeDasharray={ring}
-                  initial={{ strokeDashoffset: ring }} animate={{ strokeDashoffset: ring * 0.13 }} transition={{ duration: 1.4, ease: 'easeOut', delay: 0.3 }} />
-              </svg>
-              <p className="-mt-0.5 text-[9px] font-extrabold">87%</p>
-              <p className="text-[6px] font-bold uppercase text-slate-400">Attendance</p>
-            </div>
-            <div className="col-span-2 space-y-1 rounded-lg bg-white p-1.5 shadow-sm">
-              <p className="text-[7px] font-bold uppercase tracking-wider text-slate-400">Course progress</p>
-              {COURSES.map((course, index) => (
-                <div key={course.name}>
-                  <div className="flex justify-between text-[7px] font-bold"><span className="truncate">{course.name}</span><span className="text-slate-400">{course.pct}%</span></div>
-                  <div className="mt-0.5 h-1 rounded-full bg-slate-100">
-                    <motion.div className="h-full rounded-full" style={{ backgroundColor: course.color }}
-                      initial={{ width: 0 }} animate={{ width: `${course.pct}%` }} transition={{ duration: 1.1, ease: 'easeOut', delay: 0.4 + index * 0.15 }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-1.5">
-            <div className="space-y-1 rounded-lg bg-white p-1.5 shadow-sm">
-              <p className="text-[7px] font-bold uppercase tracking-wider text-slate-400">Today</p>
-              {[['09:00', 'DSA Lab'], ['11:15', 'Maths'], ['14:00', 'Seminar']].map(([time, title], index) => (
-                <motion.div key={time} className="flex items-center gap-1 text-[7px]"
-                  initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 + index * 0.12 }}>
-                  <span className="font-mono text-slate-400">{time}</span>
-                  <span className={`truncate rounded px-1 font-bold ${index === 0 ? 'bg-indigo-600 text-white' : 'bg-indigo-50 text-indigo-700'}`}>{title}</span>
-                </motion.div>
-              ))}
-            </div>
-            <div className="flex flex-col justify-between rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 p-1.5 text-white shadow-sm">
-              <p className="text-[7px] font-bold uppercase tracking-wider text-white/70">Fee status</p>
-              <p className="text-[10px] font-extrabold">Term 2 paid ✓</p>
-              <span className="self-start rounded bg-white/20 px-1 text-[6px] font-bold">Receipt</span>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-lg bg-amber-50 px-1.5 py-1">
-            <motion.p className="whitespace-nowrap text-[7px] font-bold text-amber-800"
-              animate={reduce ? undefined : { x: ['100%', '-100%'] }} transition={reduce ? undefined : { duration: 9, repeat: Infinity, ease: 'linear' }}>
-              📢 Internal assessment schedule published · Hackathon registrations open · Library hours extended
-            </motion.p>
-          </div>
+        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[#1F4E79] text-[12px] font-bold text-white">
+          AK<span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#F4F6F9] bg-[#F59E0B]" />
+        </span>
+      </div>
+
+      <div className="mx-4 shrink-0 rounded-[18px] bg-[#1F4E79] p-4 text-white">
+        <div className="flex items-center justify-between text-[11px] font-semibold">
+          <span className="text-white/70">NEXT CLASS</span>
+          <span className="rounded-full bg-[#F59E0B] px-2 py-0.5 font-bold text-[#1F2937]">in {minutes} min</span>
+        </div>
+        <p className="mt-2 text-[17px] font-bold leading-tight">Data Structures Lab</p>
+        <p className="mt-0.5 text-[12px] text-white/75">Lab 3 · Prof. R. Meena · 09:00–10:40</p>
+        <div className="mt-3 h-1 rounded-full bg-white/20">
+          <motion.div className="h-full rounded-full bg-white" initial={{ width: '62%' }} animate={{ width: reduce ? '70%' : ['62%', '78%'] }}
+            transition={{ duration: 7.8, repeat: reduce ? 0 : Infinity, ease: 'linear' }} />
         </div>
       </div>
-    </div>
+
+      <div className="mx-4 mt-3 shrink-0 rounded-[18px] bg-white p-4 shadow-[0_1px_2px_rgba(15,26,42,.06)]">
+        <div className="flex items-baseline justify-between">
+          <p className="text-[13px] font-bold">Attendance</p>
+          <p className="text-[20px] font-extrabold tracking-tight">87%</p>
+        </div>
+        <div className="mt-2.5 space-y-2.5">
+          {SUBJECTS.map((subject, index) => {
+            const low = subject.pct < 75;
+            return (
+              <div key={subject.name}>
+                <div className="flex justify-between text-[12px]">
+                  <span className="text-[#334155]">{subject.name}</span>
+                  <span className={`font-semibold ${low ? 'text-[#B45309]' : 'text-[#334155]'}`}>{subject.pct}%</span>
+                </div>
+                <div className="relative mt-1 h-1.5 rounded-full bg-[#E5EAF0]">
+                  <span className="absolute inset-y-[-3px] left-[75%] w-px bg-[#94A3B8]" />
+                  <motion.div className="h-full rounded-full" style={{ backgroundColor: low ? '#F59E0B' : '#1F4E79' }}
+                    initial={{ width: 0 }} animate={{ width: `${subject.pct}%` }} transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 + index * 0.12 }} />
+                </div>
+                {low && <p className="mt-1 text-[11px] font-semibold text-[#B45309]">Below 75% · attend 4 more classes</p>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mx-4 mt-3 grid shrink-0 grid-cols-2 gap-3">
+        <div className="rounded-[16px] bg-white p-3 shadow-[0_1px_2px_rgba(15,26,42,.06)]">
+          <p className="text-[11px] font-semibold text-[#5B6B80]">Term 2 fees</p>
+          <p className="mt-1 flex items-center gap-1 text-[14px] font-bold text-[#15803D]"><Check className="h-4 w-4" /> Paid</p>
+          <p className="mt-0.5 text-[11px] text-[#5B6B80]">Receipt #2481</p>
+        </div>
+        <div className="rounded-[16px] bg-white p-3 shadow-[0_1px_2px_rgba(15,26,42,.06)]">
+          <p className="text-[11px] font-semibold text-[#5B6B80]">Assignments</p>
+          <p className="mt-1 text-[14px] font-bold">2 due</p>
+          <p className="mt-0.5 text-[11px] text-[#5B6B80]">DBMS · Fri</p>
+        </div>
+      </div>
+
+      <div className="mx-4 mt-3 flex shrink-0 items-start gap-2.5 rounded-[16px] bg-white p-3 shadow-[0_1px_2px_rgba(15,26,42,.06)]">
+        <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FEF3C7] text-[#B45309]"><Bell className="h-3.5 w-3.5" /></span>
+        <div className="min-w-0">
+          <p className="truncate text-[12px] font-bold">Internal assessment timetable</p>
+          <p className="text-[11px] text-[#5B6B80]">Exam cell · 2h ago</p>
+        </div>
+      </div>
+
+      <div className="mt-auto flex shrink-0 justify-around border-t border-[#E5EAF0] bg-white px-2 pb-5 pt-2">
+        {[{ icon: Home, label: 'Home' }, { icon: CalendarDays, label: 'Timetable' }, { icon: BookOpen, label: 'Courses' }, { icon: Wallet, label: 'Fees' }, { icon: User, label: 'Profile' }].map(({ icon: Icon, label }, index) => (
+          <span key={label} className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold ${index === 0 ? 'text-[#1F4E79]' : 'text-[#94A3B8]'}`}>
+            <Icon className="h-[18px] w-[18px]" />{label}
+          </span>
+        ))}
+      </div>
+    </Phone>
   );
 }
 
-/** Project id → animated preview, for projects without captured screens. */
+/** Project id → phone-screen preview, for projects without captured screens. */
 export const CONCEPT_SCREENS: Record<string, ComponentType> = {
   'reelcut-ai-video-editor': ReelcutScreen,
   'campus-one-institute-portal': CampusOneScreen,
 };
 
-/** The animated preview for a project, clipped to its frame; null when it has none. */
-export function ConceptCover({ projectId, className = '' }: { projectId: string; className?: string }) {
+/** The preview for a project, scaled to fill its frame; null when it has none. The frame needs a height. */
+export function ConceptCover({ projectId, className = '', peek }: { projectId: string; className?: string; peek?: number }) {
   const Screen = CONCEPT_SCREENS[projectId];
   if (!Screen) return null;
-  return <div className={`overflow-hidden rounded-xl ${className}`}><Screen /></div>;
+  return <div aria-hidden="true" className={className}><FitBox peek={peek}><Screen /></FitBox></div>;
 }
