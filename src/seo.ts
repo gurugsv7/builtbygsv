@@ -15,6 +15,7 @@ export const brandEntity = {
   linkedin: 'https://linkedin.com/in/gurugsv',
   github: 'https://github.com/gurugsv7',
   instagram: 'https://www.instagram.com/builtbygsv/',
+  x: 'https://x.com/BuiltbyGSV',
 };
 
 export type LocationSlug = 'karaikal' | 'bengaluru' | 'thanjavur';
@@ -122,7 +123,7 @@ export const createOrganizationSchema = () => ({
       founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
       email: brandEntity.email,
       telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram],
+      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram, brandEntity.x],
       areaServed: [
         { '@type': 'City', name: 'Karaikal' },
         { '@type': 'City', name: 'Bengaluru' },
@@ -163,7 +164,7 @@ export const createOrganizationSchema = () => ({
       jobTitle: 'Full Stack Developer',
       email: brandEntity.email,
       telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram],
+      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram, brandEntity.x],
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Puducherry',

@@ -2,7 +2,7 @@ import { BusinessFooter } from './components/BusinessFooter';
 import React, { lazy, Suspense, useEffect } from 'react';
 import App from './App';
 import { createStudentPageSchema, STUDENT_PAGE } from './content/studentTools';
-import { DEVDAY_PAGE, TOUR_PAGE } from './content/devday';
+import { CONNECT_PAGE, DEVDAY_PAGE, TOUR_PAGE } from './content/devday';
 
 // Standalone pages load on demand so the main studio app ships a smaller first bundle.
 const BlogArticlePage = lazy(() => import('./components/BlogContent').then((m) => ({ default: m.BlogArticlePage })));
@@ -11,6 +11,7 @@ const LocationHubPage = lazy(() => import('./components/LocationHubPage').then((
 const StudentToolsPage = lazy(() => import('./components/StudentToolsPage').then((m) => ({ default: m.StudentToolsPage })));
 const ServiceAreaLandingPage = lazy(() => import('./components/ServiceAreaContent').then((m) => ({ default: m.ServiceAreaLandingPage })));
 const StandaloneContentPage = lazy(() => import('./components/ServiceAreaContent').then((m) => ({ default: m.StandaloneContentPage })));
+const ConnectPage = lazy(() => import('./components/ConnectPage').then((m) => ({ default: m.ConnectPage })));
 const TourPage = lazy(() => import('./components/TourPage').then((m) => ({ default: m.TourPage })));
 const DevDayPage = lazy(() => import('./components/DevDayPage').then((m) => ({ default: m.DevDayPage })));
 const pageFallback = <div className="min-h-screen bg-[#F8F9FA]" />;
@@ -51,12 +52,14 @@ export default function SiteRouter() {
   const isStudentPage = normalizedPath === STUDENT_PAGE.path;
   const isDevDayPage = normalizedPath === DEVDAY_PAGE.path;
   const isTourPage = normalizedPath === TOUR_PAGE.path;
+  const isConnectPage = normalizedPath === CONNECT_PAGE.path;
   const isNotFound =
     normalizedPath === '/404' ||
     (!blogPost &&
       !isStudentPage &&
       !isDevDayPage &&
       !isTourPage &&
+      !isConnectPage &&
       !isBlogIndex &&
       !locationPage &&
       !serviceAreaPage &&
@@ -80,7 +83,9 @@ export default function SiteRouter() {
             ? DEVDAY_PAGE
             : isTourPage
               ? TOUR_PAGE
-              : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
+              : isConnectPage
+                ? CONNECT_PAGE
+                : serviceAreaPage ?? contentPage ?? locationPage ?? appMetadata ?? notFoundMetadata;
     const pagePath =
       isNotFound
         ? '/404'
@@ -107,7 +112,7 @@ export default function SiteRouter() {
       'meta[name="robots"]',
       'name',
       'robots',
-      isNotFound || isDevDayPage || isTourPage
+      isNotFound || isDevDayPage || isTourPage || isConnectPage
         ? 'noindex, follow'
         : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     );
@@ -228,6 +233,7 @@ export default function SiteRouter() {
     isStudentPage,
     isDevDayPage,
     isTourPage,
+    isConnectPage,
     locationPage,
     normalizedPath,
     pathname,
@@ -240,6 +246,10 @@ export default function SiteRouter() {
   };
 
   const withBusinessFooter = (page: React.ReactNode) => <Suspense fallback={pageFallback}>{page}<div className="pb-24 lg:pb-0"><BusinessFooter /></div></Suspense>;
+
+  if (isConnectPage) {
+    return <Suspense fallback={<div className="fixed inset-0 bg-[#EFE6D3]" />}><ConnectPage /></Suspense>;
+  }
 
   if (isTourPage) {
     return <Suspense fallback={<div className="fixed inset-0 bg-[#09121F]" />}><TourPage /></Suspense>;

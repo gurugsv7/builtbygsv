@@ -31,6 +31,8 @@ import { MobileProjectDetail } from './MobileProjectDetail';
 interface ProjectDetailScreenProps {
   project: Project;
   onBack: () => void;
+  /** Shown on the back control when the case study was opened from the tour or DevDay. */
+  backLabel?: string;
   onOpenStartProject: () => void;
 }
 
@@ -54,6 +56,7 @@ const ICONS: Record<string, LucideIcon> = {
 export const ProjectDetailScreen = ({
   project,
   onBack,
+  backLabel,
   onOpenStartProject,
 }: ProjectDetailScreenProps) => {
   const detail = project.detailData;
@@ -82,7 +85,7 @@ export const ProjectDetailScreen = ({
 
   return (
     <>
-    <div className="lg:hidden"><MobileProjectDetail project={project} onBack={onBack} onOpenStartProject={onOpenStartProject} /></div>
+    <div className="lg:hidden"><MobileProjectDetail project={project} onBack={onBack} backLabel={backLabel} onOpenStartProject={onOpenStartProject} /></div>
     <main className="hidden min-h-screen w-full bg-[#FBFBFB] pb-20 text-[#131921] lg:block">
       <header className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 lg:px-12">
         <button
@@ -91,7 +94,7 @@ export const ProjectDetailScreen = ({
           className="group inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#0F8B75]"
         >
           <ArrowLeft className="nudge-l h-4 w-4" />
-          Back to work
+          {backLabel ?? 'Back to work'}
         </button>
         <button
           type="button"

@@ -11,6 +11,7 @@ import { CONCEPT_SCREENS, ConceptCover } from '../visuals/ConceptScreens';
 interface Props {
   project: Project;
   onBack: () => void;
+  backLabel?: string;
   onOpenStartProject: () => void;
 }
 
@@ -22,7 +23,7 @@ const ICONS = PROJECT_ICONS;
  * same structure: a cover, a swipeable fact strip, the story as a card deck, then
  * screens, stack and what could come next.
  */
-export function MobileProjectDetail({ project, onBack, onOpenStartProject }: Props) {
+export function MobileProjectDetail({ project, onBack, backLabel, onOpenStartProject }: Props) {
   const detail = project.detailData;
   const media = projectMedia[project.id] ?? {};
   const accent = projectTheme(project.id).accent;
@@ -62,8 +63,9 @@ export function MobileProjectDetail({ project, onBack, onOpenStartProject }: Pro
     <main className="mx-auto max-w-xl text-[#131921]">
       <div className="sticky top-0 z-30 border-b border-slate-200/60 bg-[#F8F9FA]/90 backdrop-blur-md">
         <div className="flex items-center gap-3 px-4 py-3">
-          <button type="button" onClick={onBack} aria-label="Back to work" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 active:scale-95">
-            <ArrowLeft className="h-4 w-4" />
+          <button type="button" onClick={onBack} aria-label={backLabel ?? 'Back to work'}
+            className={`flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-full border text-slate-700 active:scale-95 ${backLabel ? 'border-[#131921] bg-[#131921] px-3 text-xs font-bold text-white' : 'w-9 border-slate-200 bg-white'}`}>
+            <ArrowLeft className="h-4 w-4" />{backLabel && <span>{backLabel}</span>}
           </button>
           <motion.p aria-hidden="true" className="min-w-0 flex-1 truncate text-sm font-extrabold" style={{ opacity: barTitle, y: barTitleY }}>{project.title}</motion.p>
           <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-extrabold ${project.statusColor ?? ''}`}>{project.status}</span>

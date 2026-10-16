@@ -72,11 +72,12 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
     <section aria-label="Connect with BuiltbyGSV" className="rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-2xs">
       <p className="text-xs font-extrabold">Let’s connect</p>
       <p className="mt-0.5 text-[10px] text-slate-500">Say hi from wherever you are.</p>
-      <div className="mt-3 grid grid-cols-4 gap-2">
+      <div className="mt-3 grid grid-cols-5 gap-1">
         {([
           { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', brand: 'whatsapp' },
           { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
           { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+          { href: brandEntity.x, label: 'X', brand: 'x' },
           { href: brandEntity.github, label: 'GitHub', brand: 'github' },
         ] satisfies { href: string; label: string; brand: BrandName }[]).map(({ href, label, brand }) => (
           <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1.5 rounded-xl py-1.5 text-[10px] font-bold text-slate-700 transition-transform active:scale-95">

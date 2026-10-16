@@ -34,6 +34,18 @@
       ]
     },
     {
+      "name": "LinkedIn & X card",
+      "short_name": "Connect",
+      "description": "Flip card with LinkedIn and X QR codes",
+      "url": "/connect",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "DevDay contact",
       "short_name": "DevDay",
       "description": "Save contact, WhatsApp and QR",

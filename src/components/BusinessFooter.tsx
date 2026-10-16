@@ -21,6 +21,7 @@ export function BusinessFooter() {
           { href: `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}`, label: 'WhatsApp', brand: 'whatsapp' },
           { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
           { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+          { href: brandEntity.x, label: 'X', brand: 'x' },
           { href: brandEntity.github, label: 'GitHub', brand: 'github' },
           { href: `mailto:${brandEntity.email}`, label: 'Email' },
         ] as { href: string; label: string; brand?: BrandName }[]).map(({ href, label, brand }) => (

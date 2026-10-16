@@ -127,6 +127,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="LinkedIn">
             <BrandMark name="linkedin" />
           </a>
+          <a href={brandEntity.x} target="_blank" rel="noopener noreferrer" className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="X">
+            <BrandMark name="x" />
+          </a>
           <a href={`mailto:${brandEntity.email}`} className="hover:text-[#0F8B75] transition-colors p-1.5 hover:bg-slate-200/50 rounded-lg" aria-label="Email">
             <Mail className="w-4 h-4" />
           </a>

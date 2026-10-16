@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Check, Play, QrCode, Share2, UserPlus, X } from 'lucide-react';
-import { BrandTile, WhatsappMark, type BrandName } from './BrandIcons';
+import { BrandMark, BrandTile, WhatsappMark, type BrandName } from './BrandIcons';
 import { BrandLogo } from './BrandLogo';
 import { ProjectMarquee } from './visuals/ProjectMarquee';
 import { ConceptCover } from './visuals/ConceptScreens';
@@ -12,13 +12,14 @@ import { brandEntity, SITE_URL } from '../seo';
 import { EASE } from '../motion/tokens';
 import { DrawnUnderline } from '../motion/primitives';
 import { DEVDAY_PAGE } from '../content/devday';
+import { caseStudyHref } from '../returnTo';
 import type { Project } from '../types';
 
 const PAGE_URL = `${SITE_URL}${DEVDAY_PAGE.path}`;
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
 const FEATURED = ['kamayuu-card-game', 'reelcut-ai-video-editor'];
 
-const open = (project: Project) => { window.location.href = `/projects/${project.id}`; };
+const open = (project: Project) => { window.location.href = caseStudyHref(project.id, 'devday'); };
 
 const rise = (delay: number) => ({
   initial: { opacity: 0, y: 14 },
@@ -47,6 +48,7 @@ export function DevDayPage() {
     { href: whatsapp, label: 'WhatsApp', brand: 'whatsapp' },
     { href: brandEntity.instagram, label: 'Instagram', brand: 'instagram' },
     { href: brandEntity.linkedin, label: 'LinkedIn', brand: 'linkedin' },
+    { href: brandEntity.x, label: 'X', brand: 'x' },
     { href: brandEntity.github, label: 'GitHub', brand: 'github' },
   ] satisfies { href: string; label: string; brand: BrandName }[];
 
@@ -82,9 +84,12 @@ export function DevDayPage() {
               <a href="/tour" className="press inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-[#131921] hover:border-slate-500">
                 <Play className="h-3.5 w-3.5 fill-current" /> 1-min tour
               </a>
+              <a href="/connect" className="press inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-[#131921] hover:border-slate-500">
+                <BrandMark name="linkedin" className="h-3.5 w-3.5" /><BrandMark name="x" className="h-3 w-3" /> Card
+              </a>
             </motion.div>
 
-            <motion.ul {...rise(0.32)} className="mt-6 grid grid-cols-4 gap-2.5 sm:max-w-md" aria-label="Ways to connect">
+            <motion.ul {...rise(0.32)} className="mt-6 grid grid-cols-5 gap-2 sm:max-w-lg" aria-label="Ways to connect">
               {channels.map(({ href, label, brand }) => (
                 <li key={label}>
                   <a href={href} target="_blank" rel="noopener noreferrer"
@@ -118,7 +123,7 @@ export function DevDayPage() {
               const project = PROJECTS.find((item) => item.id === id)!;
               const theme = projectTheme(id);
               return (
-                <motion.a key={id} href={`/projects/${id}`} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}
+                <motion.a key={id} href={caseStudyHref(id, 'devday')} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.6, ease: EASE.out, delay: index * 0.1 }}
                   className="group block overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xs transition hover:-translate-y-1 hover:shadow-xl">
                   <span className="relative flex aspect-[16/10] items-center justify-center overflow-hidden px-6 pt-6" style={{ backgroundColor: theme.bg }}>

@@ -19,7 +19,7 @@ import { serviceAreaPages, serviceAreaPagesForCity } from '../src/serviceAreas.t
 import {
   createStudentPageSchema, LAST_CHECKED, PACK_EXTRAS, STUDENT_FAQS, STUDENT_PAGE, STUDENT_SOURCES, STUDENT_TOOLS,
 } from '../src/content/studentTools.ts';
-import { DEVDAY_PAGE, TOUR_PAGE } from '../src/content/devday.ts';
+import { CONNECT_PAGE, DEVDAY_PAGE, TOUR_PAGE } from '../src/content/devday.ts';
 
 const distDir = resolve('dist');
 const template = await readFile(resolve(distDir, 'index.html'), 'utf8');
@@ -671,6 +671,17 @@ const tourPage: RenderPage = {
 };
 await mkdir(resolve(distDir, 'tour'), { recursive: true });
 await writeFile(resolve(distDir, 'tour', 'index.html'), renderDocument(tourPage, { noindex: true }));
+const connectPage: RenderPage = {
+  path: CONNECT_PAGE.path,
+  title: CONNECT_PAGE.title,
+  description: CONNECT_PAGE.description,
+  eyebrow: 'Connect',
+  heading: 'Connect with Guru on LinkedIn and X',
+  intro: CONNECT_PAGE.description,
+  sections: [],
+};
+await mkdir(resolve(distDir, 'connect'), { recursive: true });
+await writeFile(resolve(distDir, 'connect', 'index.html'), renderDocument(connectPage, { noindex: true }));
 
 /**
  * Sitemap and llms.txt are generated from the same page list that was just

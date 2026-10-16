@@ -24,6 +24,7 @@ import { getProjectFromPath, getScreenFromPath, SCREEN_PATHS } from './routes';
 import { X, Home, LayoutGrid, Briefcase, Building2, GitCommit, Mail } from 'lucide-react';
 import { BrandLogo } from './components/BrandLogo';
 import { PageTransition, ScrollProgress } from './motion/primitives';
+import { getReturnTarget } from './returnTo';
 import { AnimatePresence, motion } from 'motion/react';
 import { DURATION, EASE } from './motion/tokens';
 
@@ -91,6 +92,8 @@ export default function App() {
   };
 
   const handleCloseProject = () => {
+    const target = getReturnTarget();
+    if (target) { window.location.href = target.href; return; }
     setSelectedProject(null);
     setCurrentScreenState('projects');
     if (window.location.pathname.startsWith('/projects/')) {
@@ -242,6 +245,7 @@ export default function App() {
           <ProjectDetailScreen
             project={selectedProject || PROJECTS[0]}
             onBack={handleCloseProject}
+            backLabel={getReturnTarget()?.label}
             onOpenStartProject={() => handleOpenStartProject('web-dev')}
           />
         );

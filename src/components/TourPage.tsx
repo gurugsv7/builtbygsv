@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useReducedMotion } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Pause, Play, RotateCcw, UserPlus, X } from 'lucide-react';
 import { BrandMark } from './BrandIcons';
+import { caseStudyHref } from '../returnTo';
 import { BrandLogo } from './BrandLogo';
 import { CONCEPT_SCREENS, ConceptCover, REEL_COVERS } from './visuals/ConceptScreens';
 import { PROJECTS } from '../data/mockData';
@@ -42,7 +43,10 @@ const item = (delay: number) => ({
  * along the top, auto-advance, tap the edges to move, hold anywhere to pause.
  */
 export function TourPage() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => {
+    const start = Number.parseInt(new URLSearchParams(window.location.search).get('slide') ?? '', 10);
+    return start > 0 && start < SLIDES.length ? start : 0;
+  });
   const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
   const progress = useMotionValue(0);
@@ -143,7 +147,7 @@ export function TourPage() {
             initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: EASE.out }}
             aria-label={`Slide ${index + 1} of ${SLIDES.length}`}>
             {slide.kind === 'intro' && <IntroSlide />}
-            {slide.kind === 'project' && <ProjectSlide id={slide.id} number={index} reduce={Boolean(reduce)} />}
+            {slide.kind === 'project' && <ProjectSlide id={slide.id} number={index} slideIndex={index} reduce={Boolean(reduce)} />}
             {slide.kind === 'services' && <ServicesSlide />}
             {slide.kind === 'contact' && <ContactSlide onReplay={() => go(0)} />}
           </motion.section>
@@ -236,7 +240,7 @@ function IntroSlide() {
   );
 }
 
-function ProjectSlide({ id, number, reduce }: { id: string; number: number; reduce: boolean }) {
+function ProjectSlide({ id, number, slideIndex, reduce }: { id: string; number: number; slideIndex: number; reduce: boolean }) {
   const project = PROJECTS.find((entry) => entry.id === id)!;
   const theme = projectTheme(id);
   const hero = projectMedia[id]?.hero;
@@ -268,7 +272,7 @@ function ProjectSlide({ id, number, reduce }: { id: string; number: number; redu
         <p className="mt-1 text-[15px] font-semibold leading-6">{summary?.built ?? project.subtitle}</p>
         <div className="mt-3 flex items-center justify-between gap-3">
           <span className={`truncate font-mono text-[11px] ${muted}`}>{project.tags.slice(0, 3).join(' · ')}</span>
-          <a href={`/projects/${id}`} className="inline-flex shrink-0 items-center gap-1 text-[13px] font-bold underline decoration-2 underline-offset-4" style={{ textDecorationColor: theme.accent }}>
+          <a href={caseStudyHref(id, 'tour', slideIndex)} onClick={() => window.history.replaceState(null, '', `/tour?slide=${slideIndex}`)} className="inline-flex shrink-0 items-center gap-1 text-[13px] font-bold underline decoration-2 underline-offset-4" style={{ textDecorationColor: theme.accent }}>
             Case study <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -361,6 +365,7 @@ function ContactSlide({ onReplay }: { onReplay: () => void }) {
         <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><span className="rounded-[3px] bg-white"><BrandMark name="linkedin" /></span> LinkedIn</a>
       </motion.div>
       <button type="button" onClick={onReplay} className="mt-4 inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-white/60"><RotateCcw className="h-3.5 w-3.5" /> Replay</button>
+      <a href="/connect" className="mt-2 text-center text-xs font-semibold text-white/60 underline underline-offset-4">LinkedIn &amp; X card</a>
     </div>
   );
 }
