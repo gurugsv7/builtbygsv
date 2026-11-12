@@ -5,6 +5,12 @@ import { BUSINESS_REGISTRATION, EXCLUDED_EVIDENCE_PROJECTS, TRUST_PAGE, type Web
 import { createOrganizationSchema } from '../src/seo';
 import { getAppRouteMetadata, getScreenFromPath } from '../src/routes';
 import { PROJECTS } from '../src/data/mockData';
+import { FEATURED_WORK } from '../src/data/studio';
+
+test('every shared homepage and work-page selection resolves to a public project', () => {
+  for (const id of FEATURED_WORK) assert.ok(PROJECTS.some(project => project.id === id), `Missing public featured project: ${id}`);
+  assert.ok(FEATURED_WORK.length > 0);
+});
 
 test('trust route and organization identifiers share the same business evidence', () => {
   assert.equal(getScreenFromPath(TRUST_PAGE.path), 'trust');

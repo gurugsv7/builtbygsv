@@ -5,11 +5,9 @@ import type { Project, ScreenType } from '../types';
 import { motion } from 'motion/react';
 import { groupVariants, itemVariants } from '../motion/primitives';
 import { PROJECTS } from '../data/mockData';
+import { FEATURED_WORK } from '../data/studio';
 import { projectMedia, projectTheme } from '../data/projectMedia';
 import { ConceptCover } from './visuals/ConceptScreens';
-
-/** Shown after the featured project in the home strip: work with real screens to show. */
-const STRIP_IDS = ['kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail'];
 
 interface Props {
   recentProject: Project;
@@ -44,7 +42,7 @@ export function MobileStudioOverview({ recentProject, onNavigate, onOpenProjectD
         <button onClick={() => onNavigate('projects')} id="btn-mobile-recent-projects-view-all" className="py-1 text-xs font-bold text-[#0F8B75]">View all</button>
       </div>
       <ol aria-label="Selected work covers" className="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1">
-        {[recentProject, ...STRIP_IDS.map((id) => PROJECTS.find((project) => project.id === id)!)].map((project, index) => {
+        {[recentProject, ...FEATURED_WORK.flatMap(id => PROJECTS.filter(project => project.id === id && project.id !== recentProject.id))].map((project, index) => {
           const theme = projectTheme(project.id);
           const hero = projectMedia[project.id]?.hero;
           return (
