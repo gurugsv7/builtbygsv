@@ -112,12 +112,6 @@
     <image:image><image:loc>https://www.builtbygsv.in/og/projects/karaikal-one.jpg</image:loc></image:image>
   </url>
   <url>
-    <loc>https://www.builtbygsv.in/projects/neon-rail</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image><image:loc>https://www.builtbygsv.in/og/projects/neon-rail.jpg</image:loc></image:image>
-  </url>
-  <url>
     <loc>https://www.builtbygsv.in/projects/tempo-word-game</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

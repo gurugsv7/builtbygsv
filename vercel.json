@@ -7,6 +7,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/projects/neon-rail",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "builtbygsv.in" }],
       "destination": "https://www.builtbygsv.in/:path*",

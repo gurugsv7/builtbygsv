@@ -68,4 +68,4 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
 };
 
 /** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
-export const FEATURED_WORK = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail'];
+export const FEATURED_WORK = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one'];

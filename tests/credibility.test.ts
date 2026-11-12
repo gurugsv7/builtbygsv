@@ -4,6 +4,7 @@ import test from 'node:test';
 import { BUSINESS_REGISTRATION, EXCLUDED_EVIDENCE_PROJECTS, TRUST_PAGE, type WebsiteAudit } from '../src/data/credibility';
 import { createOrganizationSchema } from '../src/seo';
 import { getAppRouteMetadata, getScreenFromPath } from '../src/routes';
+import { PROJECTS } from '../src/data/mockData';
 
 test('trust route and organization identifiers share the same business evidence', () => {
   assert.equal(getScreenFromPath(TRUST_PAGE.path), 'trust');
@@ -11,6 +12,7 @@ test('trust route and organization identifiers share the same business evidence'
   const organization = createOrganizationSchema()['@graph'].find(node => node['@type'] === 'Organization');
   assert.equal(organization?.taxID, BUSINESS_REGISTRATION.gstin);
   assert.equal(organization?.identifier?.value, BUSINESS_REGISTRATION.udyamNumber);
+  assert.ok(!PROJECTS.some(project => EXCLUDED_EVIDENCE_PROJECTS.includes(project.id)));
 });
 
 test('every published score is backed by a matching successful Lighthouse report', async () => {

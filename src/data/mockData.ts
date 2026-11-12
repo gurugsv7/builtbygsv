@@ -1,5 +1,6 @@
 import { Project, ServiceDetail, NotificationItem } from '../types';
 import { LAB_PROJECTS } from './labProjects';
+import { EXCLUDED_EVIDENCE_PROJECTS } from './credibility';
 
 const CORE_PROJECTS: Project[] = [
   {
@@ -185,7 +186,7 @@ const CORE_PROJECTS: Project[] = [
 const coreById = (id: string) => CORE_PROJECTS.find((project) => project.id === id)!;
 export const PROJECTS: Project[] = [
   coreById('v2-productions'),
-  ...LAB_PROJECTS,
+  ...LAB_PROJECTS.filter(project => !EXCLUDED_EVIDENCE_PROJECTS.includes(project.id)),
   coreById('thaai-clinic-website'),
 ];
 
