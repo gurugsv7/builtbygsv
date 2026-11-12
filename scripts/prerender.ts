@@ -1,6 +1,8 @@
 import { BRIEF_STEPS } from '../src/data/projectBrief.ts';
 import { CAREERS, careerPath } from '../src/data/careers.ts';
 import { WEBSITE_INFORMATION } from '../src/data/websiteInformation.ts';
+import { AUDIT_METHOD, BUSINESS_REGISTRATION, EXCLUDED_EVIDENCE_PROJECTS, type WebsiteAudit } from '../src/data/credibility.ts';
+import auditData from '../src/data/websiteAudits.json';
 import { CAPABILITIES, DELIVERY_STEPS, PRINCIPLES, STUDIO } from '../src/data/studio.ts';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -57,6 +59,7 @@ const primaryLinks = [
   ['/services', 'Services'],
   ['/process', 'Process'],
   ['/about', 'About us'],
+  ['/trust', 'Registration & audits'],
   ['/careers', 'Careers'],
   ['/insights', 'Insights'],
   ['/contact', 'Contact'],
@@ -248,6 +251,22 @@ staticPageContent['/website-information'] = {
   intro: 'How BuiltbyGSV project briefs, internship applications and external links work on this website.',
   sections: WEBSITE_INFORMATION.map(section => ({ heading: section.title, paragraphs: [section.text] })),
 };
+staticPageContent['/trust'] = {
+  eyebrow: 'Business details & delivery evidence', heading: 'Know who you’re building with.',
+  intro: 'BuiltbyGSV is a product and AI engineering studio founded by Gurusabarivasan M, based in Karaikal, Puducherry, India.',
+  sections: [
+    { heading: 'Business registration', paragraphs: [
+      `Enterprise name: ${BUSINESS_REGISTRATION.enterpriseName}. Udyam registration: ${BUSINESS_REGISTRATION.udyamNumber}, registered 8 October 2026. Certificate classification: Micro enterprise, 2026–27. Major activity: services.`,
+      `GSTIN: ${BUSINESS_REGISTRATION.gstin}. Registration approval communicated by GSTN on 21 October 2026 for Puducherry.`,
+      'Details reviewed 12 November 2026 against our Udyam certificate and registration emails. Registration identifies the enterprise; it is not a government endorsement of our services. This page does not provide a live tax-compliance status.',
+      `Verify Udyam via Print/Verify at ${BUSINESS_REGISTRATION.udyamPortal}. Check current GST taxpayer details at ${BUSINESS_REGISTRATION.gstPortal}. The portals may require a CAPTCHA.`,
+    ] },
+    { heading: 'Website quality audits', paragraphs: [AUDIT_METHOD, 'Performance, accessibility, best practices and technical SEO are scored out of 100. An automated accessibility score is not a full accessibility assessment.'],
+      bullets: (auditData as WebsiteAudit[]).filter(audit => !EXCLUDED_EVIDENCE_PROJECTS.includes(audit.id)).map(audit => `${audit.title} (${audit.engagement}), ${audit.url}, ${audit.strategy}, ${audit.checkedAt}: ${audit.status === 'complete' && audit.scores ? `Performance ${audit.scores.performance}/100, accessibility ${audit.scores.accessibility}/100, best practices ${audit.scores.bestPractices}/100, SEO ${audit.scores.seo}/100. Lighthouse ${audit.lighthouseVersion}. Report: ${SITE_URL}${audit.report}` : 'Audit unavailable. No score is claimed.'}`) },
+    { heading: 'Inspect the work and its scope', bullets: PROJECTS.filter(project => !EXCLUDED_EVIDENCE_PROJECTS.includes(project.id)).map(project => `${project.title}: ${project.detailData?.engagement} · ${project.status}. ${SITE_URL}/projects/${project.id}`) },
+    { heading: 'Talk directly to the studio', paragraphs: ['Ask about project scope, ownership, delivery milestones or supporting business documents. Contact admin@builtbygsv.in.'] },
+  ],
+};
 
 const renderHeader = () => `
   <header style="border-bottom:1px solid #d9dfdd;padding-bottom:20px;margin-bottom:48px">
@@ -263,11 +282,17 @@ const renderSections = (sections: ContentSection[]) =>
       (section) => `
         <section style="margin-top:42px">
           <h2 style="font-size:26px;line-height:1.2;margin:0 0 14px">${escapeHtml(section.heading)}</h2>
-          ${(section.paragraphs ?? []).map((paragraph) => `<p style="line-height:1.75;color:#475569">${escapeHtml(paragraph)}</p>`).join('')}
-          ${section.bullets?.length ? `<ul style="line-height:1.75;color:#334155">${section.bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : ''}
+          ${(section.paragraphs ?? []).map((paragraph) => `<p style="line-height:1.75;color:#475569">${linkSiteUrls(paragraph)}</p>`).join('')}
+          ${section.bullets?.length ? `<ul style="line-height:1.75;color:#334155">${section.bullets.map((item) => `<li>${linkSiteUrls(item)}</li>`).join('')}</ul>` : ''}
         </section>`,
     )
     .join('');
+
+// Preserve real anchors in the initial HTML; a plain URL is not a crawlable link.
+const linkSiteUrls = (value: string) => escapeHtml(value).replace(
+  /https:\/\/www\.builtbygsv\.in(?:\/[a-zA-Z0-9_/#-]*)?/g,
+  url => `<a href="${url}" style="color:#087260;text-decoration:underline">${url}</a>`,
+);
 
 const renderSnapshot = (page: RenderPage) => `
   <!-- SEO_SNAPSHOT_START -->
@@ -708,8 +733,6 @@ const CHANGE_FREQUENCY: { match: (path: string) => boolean; freq: string; priori
   { match: () => true, freq: 'monthly', priority: '0.8' },
 ];
 
-const today = new Date().toISOString().slice(0, 10);
-
 const sitemapXml = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
@@ -717,11 +740,12 @@ const sitemapXml = [
     const rule = CHANGE_FREQUENCY.find((entry) => entry.match(page.path))!;
     const lastmod =
       blogPosts.find((post) => post.path === page.path)?.updated ??
-      (page.path === STUDENT_PAGE.path ? STUDENT_PAGE.updated : today);
+      (page.path === STUDENT_PAGE.path ? STUDENT_PAGE.updated :
+        page.path === '/trust' ? BUSINESS_REGISTRATION.reviewedDate : undefined);
     return [
       '  <url>',
       `    <loc>${SITE_URL}${page.path === '/' ? '/' : page.path}</loc>`,
-      `    <lastmod>${lastmod}</lastmod>`,
+      ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
       `    <changefreq>${rule.freq}</changefreq>`,
       `    <priority>${rule.priority}</priority>`,
       ...(page.image ? [`    <image:image><image:loc>${escapeHtml(page.image.url)}</image:loc></image:image>`] : []),
@@ -749,6 +773,10 @@ const llmsTxt = [
   '> office and no Google Business Profile listing.',
   '',
   `Contact: admin@builtbygsv.in | +91-74488-65095 | ${SITE_URL}/contact`,
+  '',
+  '## Business registration and evidence',
+  `Enterprise: ${BUSINESS_REGISTRATION.enterpriseName}. Udyam: ${BUSINESS_REGISTRATION.udyamNumber}. GSTIN: ${BUSINESS_REGISTRATION.gstin}.`,
+  `- [Business registration and dated website audits](${SITE_URL}/trust): Official verification routes, project scope and Lighthouse lab reports. Registration is not a government endorsement; lab scores are not search rankings.`,
   '',
   '## Careers',
   ...CAREERS.map(role => `- [${role.title}](${SITE_URL}${careerPath(role)}): ${role.duration} internship. ${role.description} Apply to admin@builtbygsv.in.`),

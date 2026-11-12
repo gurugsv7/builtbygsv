@@ -1,4 +1,5 @@
 import { CAREERS, careerPath } from './data/careers';
+import { TRUST_PAGE } from './data/credibility';
 import { PROJECTS } from './data/mockData';
 import { ScreenType } from './types';
 
@@ -17,6 +18,7 @@ export const SCREEN_PATHS: Record<ScreenType, string> = {
   careers: '/careers',
   'start-project': '/start-project',
   'website-information': '/website-information',
+  trust: '/trust',
   'not-found': '/404',
   'project-detail': '/projects',
 };
@@ -34,6 +36,7 @@ const PATH_SCREENS: Record<string, ScreenType> = {
   '/careers': 'careers',
   '/start-project': 'start-project',
   '/website-information': 'website-information',
+  '/trust': 'trust',
   ...Object.fromEntries(CAREERS.map(role => [careerPath(role), 'careers' as ScreenType])),
   '/404': 'not-found',
 };
@@ -59,6 +62,7 @@ export const isKnownAppPath = (pathname: string) => {
 };
 
 export const appRouteMetadata: Record<string, { title: string; description: string }> = {
+  '/trust': TRUST_PAGE,
   '/start-project': { title: 'Start a Project | Client Brief | BuiltbyGSV', description: 'Tell BuiltbyGSV about your goals, users, project requirements, budget and timeline. Create, review and share a complete project brief with our studio.' },
   '/careers': { title: 'Careers | Six-Month Engineering Internships | BuiltbyGSV', description: 'Apply for Software Engineer Intern and Web Developer Intern roles at BuiltbyGSV. Both internships run for six months. Explore the roles and apply by email.' },
   '/website-information': { title: 'Website Information & Enquiries | BuiltbyGSV', description: 'How BuiltbyGSV project enquiries, career applications and external links work, plus contact information for website and accessibility questions.' },

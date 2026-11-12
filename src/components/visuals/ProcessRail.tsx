@@ -40,10 +40,10 @@ export function ProcessRail() {
               >
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </motion.span>
-              <span className="mt-4 font-mono text-[11px] font-bold text-[#0F8B75]">0{index + 1}</span>
+              <span className="mt-4 font-mono text-[11px] font-bold text-[#087260]">0{index + 1}</span>
               <h3 className="mt-1 text-sm font-extrabold">{stage.title}</h3>
               <motion.p className="mt-2 max-w-[13rem] text-xs leading-5 text-slate-600"
-                initial={false} animate={{ opacity: on ? 1 : 0.35 }} transition={{ duration: 0.4 }}>
+                initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
                 {stage.description}
               </motion.p>
             </li>

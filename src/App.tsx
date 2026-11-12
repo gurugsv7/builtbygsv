@@ -31,6 +31,7 @@ import { DURATION, EASE } from './motion/tokens';
 // Secondary screens load on demand; home, work and case studies stay in the first bundle.
 const CareersScreen = lazy(() => import('./components/screens/CareersScreen').then((m) => ({ default: m.CareersScreen })));
 const WebsiteInformationScreen = lazy(() => import('./components/screens/WebsiteInformationScreen').then((m) => ({ default: m.WebsiteInformationScreen })));
+const TrustPage = lazy(() => import('./components/TrustPage').then((m) => ({ default: m.TrustPage })));
 const ServicesOverviewScreen = lazy(() => import('./components/screens/ServicesOverviewScreen').then((m) => ({ default: m.ServicesOverviewScreen })));
 const WebDevServiceScreen = lazy(() => import('./components/screens/WebDevServiceScreen').then((m) => ({ default: m.WebDevServiceScreen })));
 const SoftwareDevServiceScreen = lazy(() => import('./components/screens/SoftwareDevServiceScreen').then((m) => ({ default: m.SoftwareDevServiceScreen })));
@@ -275,6 +276,8 @@ export default function App() {
 
       case 'website-information':
         return <WebsiteInformationScreen />;
+      case 'trust':
+        return <TrustPage />;
 
       case 'contact':
         return (

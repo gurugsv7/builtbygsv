@@ -7,6 +7,10 @@
 
 Contact: admin@builtbygsv.in | +91-74488-65095 | https://www.builtbygsv.in/contact
 
+## Business registration and evidence
+Enterprise: BUILTBYGSV. Udyam: UDYAM-PY-01-0011724. GSTIN: 34EAMPG8995J1ZV.
+- [Business registration and dated website audits](https://www.builtbygsv.in/trust): Official verification routes, project scope and Lighthouse lab reports. Registration is not a government endorsement; lab scores are not search rankings.
+
 ## Careers
 - [Software Engineer Intern](https://www.builtbygsv.in/careers/software-engineer-intern): 6 months internship. Contribute to application features, APIs and internal tools, with attention to how the whole system works. Apply to admin@builtbygsv.in.
 - [Web Developer Intern](https://www.builtbygsv.in/careers/web-developer-intern): 6 months internship. Contribute to responsive websites and web interfaces where clear design and reliable implementation matter. Apply to admin@builtbygsv.in.

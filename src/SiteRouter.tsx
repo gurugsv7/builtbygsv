@@ -27,6 +27,7 @@ import {
 } from './routes';
 import {
   createContentPageSchema,
+  createBreadcrumbSchema,
   createOrganizationSchema,
   createServiceAreaSchema,
   getLocationPage,
@@ -224,6 +225,16 @@ export default function SiteRouter() {
         keywords: [...project.tags, project.category, 'BuiltbyGSV'],
         inLanguage: 'en-IN',
       } as never);
+    }
+    if (!isNotFound && normalizedPath !== '/' && !serviceAreaPage && !contentPage && !isStudentPage) {
+      const segments = normalizedPath.split('/').filter(Boolean);
+      schema['@graph'].push(createBreadcrumbSchema(canonicalUrl, [
+        { path: '/', label: 'Home' },
+        ...segments.map((segment, index) => ({
+          path: `/${segments.slice(0, index + 1).join('/')}`,
+          label: index === segments.length - 1 ? metadata.title : segment.replaceAll('-', ' '),
+        })),
+      ]) as never);
     }
     const serviceNames: Record<string, string> = {
       '/services/web-development': 'Website Development',

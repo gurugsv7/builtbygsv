@@ -23,7 +23,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     />
     {showName ? (
       <span className={`font-extrabold tracking-tight text-[#131921] ${nameClassName}`}>
-        Builtby<span className="text-[#0F8B75]">GSV</span>
+        Builtby<span className="text-[#087260]">GSV</span>
       </span>
     ) : null}
   </span>

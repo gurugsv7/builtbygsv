@@ -14,6 +14,7 @@ export type ScreenType =
   | 'start-project'
   | 'careers'
   | 'website-information'
+  | 'trust'
   | 'not-found';
 
 export type ServiceType = 'web-dev' | 'software-dev' | 'ai-solutions' | 'automation';

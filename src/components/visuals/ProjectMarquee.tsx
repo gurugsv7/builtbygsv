@@ -21,7 +21,7 @@ export function ProjectMarquee({ onOpenProjectDetail, compact = false }: { onOpe
           const duplicate = index >= PROJECTS.length;
           return (
             <li key={`${project.id}-${index}`} aria-hidden={duplicate || undefined} className={compact ? 'w-56 shrink-0' : 'w-72 shrink-0 xl:w-80'}>
-              <button type="button" tabIndex={duplicate ? -1 : undefined} onClick={() => onOpenProjectDetail(project)} aria-label={`${project.title} case study`}
+              <button type="button" tabIndex={duplicate ? -1 : undefined} onClick={() => onOpenProjectDetail(project)}
                 className="group block w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-left shadow-2xs transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <span className="relative flex aspect-[16/10] items-center justify-center overflow-hidden p-3" style={{ backgroundColor: theme.bg }}>
                   <span aria-hidden="true" className="absolute inset-0 opacity-20 [background-size:12px_12px]" style={{ backgroundImage: `radial-gradient(${theme.accent} 1px, transparent 1px)` }} />
@@ -31,7 +31,7 @@ export function ProjectMarquee({ onOpenProjectDetail, compact = false }: { onOpe
                 <span className="flex items-center gap-2 px-3.5 py-2.5">
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-extrabold">{project.title}</span>
-                    <span className="block truncate text-[10px] font-bold" style={{ color: theme.accent }}>{project.category} · {project.status}</span>
+                    <span className="block truncate text-[10px] font-bold text-slate-600">{project.category} · {project.status}</span>
                   </span>
                   <ArrowUpRight className="nudge-ur h-4 w-4 shrink-0 text-slate-400 group-hover:text-[#0F8B75]" />
                 </span>

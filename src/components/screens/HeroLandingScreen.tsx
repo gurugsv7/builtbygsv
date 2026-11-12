@@ -11,13 +11,13 @@ interface HeroLandingScreenProps {
 
 export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStarted }) => {
   return (
-    <div className="flex h-[100dvh] min-h-[440px] flex-col overflow-hidden bg-[#F8F9FA] px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-[#131921] sm:px-8">
+    <main className="flex h-[100dvh] min-h-[440px] flex-col overflow-hidden bg-[#F8F9FA] px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] text-[#131921] sm:px-8">
       {/* Top Header Logo */}
       <div className="z-10 flex shrink-0 items-center justify-between">
         <BrandLogo nameClassName="text-[13px] sm:text-sm" />
       </div>
 
-      <p className="mt-4 text-[9px] font-extrabold uppercase tracking-widest text-[#0F8B75]">Product &amp; AI Engineering Studio</p>
+      <p className="mt-4 text-[9px] font-extrabold uppercase tracking-widest text-[#087260]">Product &amp; AI Engineering Studio</p>
       {/* Main Heading & Subtitle */}
       <motion.div className="relative z-20 mt-6 shrink-0 space-y-3 sm:mt-8" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE.out }}>
         <h1 className="text-[clamp(1.75rem,8.6vw,3.25rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#131921]">
@@ -118,6 +118,6 @@ export const HeroLandingScreen: React.FC<HeroLandingScreenProps> = ({ onGetStart
         </button>
         <p className="mt-3 text-center text-[11px] font-semibold text-slate-500">Work, services and how we build — all inside.</p>
       </motion.div>
-    </div>
+    </main>
   );
 };

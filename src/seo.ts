@@ -1,4 +1,5 @@
 import type { ContentPage } from './contentPages';
+import { BUSINESS_REGISTRATION } from './data/credibility';
 import type { Faq, ServiceAreaPage } from './serviceAreas';
 
 export const SITE_URL = 'https://www.builtbygsv.in';
@@ -116,6 +117,20 @@ export const createOrganizationSchema = () => ({
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: brandEntity.studioName,
+      taxID: BUSINESS_REGISTRATION.gstin,
+      identifier: {
+        '@type': 'PropertyValue',
+        propertyID: 'Udyam Registration Number',
+        value: BUSINESS_REGISTRATION.udyamNumber,
+        url: BUSINESS_REGISTRATION.udyamPortal,
+      },
+      foundingDate: BUSINESS_REGISTRATION.commencementDate,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Karaikal',
+        addressRegion: 'Puducherry',
+        addressCountry: 'IN',
+      },
       description: homeMetadata.description,
       logo: `${SITE_URL}/assets/builtbygsv-logo.png`,
       alternateName: ['Built by GSV'],

@@ -93,6 +93,7 @@ export function MobileProjectDetail({ project, onBack, backLabel, onOpenStartPro
         <p className="text-[10px] font-extrabold uppercase tracking-widest" style={{ color: accent }}>{detail?.engagement} · {project.category} case study</p>
         <h1 className="mt-2 text-3xl font-extrabold leading-tight tracking-tight">{project.title}</h1>
         <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{project.subtitle}</p>
+        <a href="/trust#audits" className="mt-4 inline-block text-xs font-bold text-[#087260] underline underline-offset-4">Website audit evidence →</a>
         {detail?.heroDoodleText && <p className="mt-3 font-handwritten text-lg" style={{ color: accent }}>{detail.heroDoodleText}</p>}
       </motion.header>
 

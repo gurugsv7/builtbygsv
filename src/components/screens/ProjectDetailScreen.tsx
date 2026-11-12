@@ -126,6 +126,7 @@ export const ProjectDetailScreen = ({
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
+            <a href="/trust#audits" className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-bold text-[#087260]">Website audit evidence <Shield className="h-4 w-4" /></a>
             {detail?.liveUrl ? (
               <a
                 href={detail.liveUrl}

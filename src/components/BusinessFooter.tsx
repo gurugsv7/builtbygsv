@@ -1,10 +1,11 @@
 import { ArrowUpRight, Mail } from 'lucide-react';
 import { BrandMark, type BrandName } from './BrandIcons';
 import { brandEntity } from '../seo';
+import { BUSINESS_REGISTRATION as registration } from '../data/credibility';
 
 const groups = [
   { title: 'Build with us', links: [['/services', 'Services'], ['/projects', 'Selected work'], ['/process', 'Our process'], ['/pricing', 'Pricing & scope'], ['/start-project', 'Start a Project']] },
-  { title: 'BuiltbyGSV', links: [['/about', 'About us'], ['/careers', 'Careers · We’re hiring'], ['/insights', 'Insights'], ['/contact', 'Contact']] },
+  { title: 'BuiltbyGSV', links: [['/about', 'About us'], ['/trust', 'Registration & website audits'], ['/careers', 'Careers · We’re hiring'], ['/insights', 'Insights'], ['/contact', 'Contact']] },
   { title: 'Helpful information', links: [['/faq', 'FAQs'], ['/website-information', 'Website & enquiries'], ['/web-software-developer-karaikal', 'Karaikal'], ['/web-software-developer-bengaluru', 'Bengaluru']] },
 ];
 
@@ -33,6 +34,7 @@ export function BusinessFooter() {
           </li>
         ))}
       </ul>
+      <a href="/trust" className="mt-5 block rounded-xl border border-slate-200 bg-white p-4 text-xs leading-6 text-slate-600"><span className="font-bold text-[#087260]">Business registration &amp; public website audits →</span><br />Udyam: {registration.udyamNumber}<br />GSTIN: {registration.gstin}</a>
       <p className="mt-5 border-t border-slate-200 pt-4 text-[10px] leading-5 text-slate-500">© {new Date().getFullYear()} BuiltbyGSV. Product, software &amp; AI engineering.</p>
     </div>
   </footer>;

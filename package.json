@@ -7,6 +7,7 @@
     "node": "^20.0.0 || >=22.0.0"
   },
   "scripts": {
+    "audit:websites": "tsx scripts/audit-websites.ts",
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "postbuild": "tsx scripts/og-image.ts && tsx scripts/prerender.ts",
@@ -14,7 +15,8 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit",
     "test": "tsx --test tests/**/*.test.ts",
-    "check": "npm run lint && npm test && npm run build",
+    "check": "npm run lint && npm test && npm run build && npm run check:seo",
+    "check:seo": "tsx scripts/check-seo-output.ts",
     "og": "tsx scripts/og-image.ts",
     "og:student": "tsx scripts/og-student.ts"
   },
@@ -32,6 +34,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "lighthouse": "^13.6.0",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
