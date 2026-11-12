@@ -30,6 +30,7 @@ type ContentSection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  links?: { label: string; href: string }[];
 };
 
 type RenderPage = {
@@ -284,6 +285,7 @@ const renderSections = (sections: ContentSection[]) =>
           <h2 style="font-size:26px;line-height:1.2;margin:0 0 14px">${escapeHtml(section.heading)}</h2>
           ${(section.paragraphs ?? []).map((paragraph) => `<p style="line-height:1.75;color:#475569">${linkSiteUrls(paragraph)}</p>`).join('')}
           ${section.bullets?.length ? `<ul style="line-height:1.75;color:#334155">${section.bullets.map((item) => `<li>${linkSiteUrls(item)}</li>`).join('')}</ul>` : ''}
+          ${section.links?.length ? `<ul>${section.links.map(link => `<li><a href="${escapeHtml(link.href)}" style="color:#087260">${escapeHtml(link.label)}</a></li>`).join('')}</ul>` : ''}
         </section>`,
     )
     .join('');
@@ -393,6 +395,15 @@ for (const service of Object.values(SERVICES)) {
   };
 }
 
+staticPageContent['/services'].sections.push({
+  heading: 'Explore each service',
+  links: Object.values(SERVICES).map(service => ({ label: service.title, href: servicePaths[service.id] })),
+});
+staticPageContent['/'].sections.push({
+  heading: 'Explore our services',
+  links: Object.values(SERVICES).map(service => ({ label: service.title, href: servicePaths[service.id] })),
+});
+
 const appPages: RenderPage[] = Object.entries(appRouteMetadata).map(([path, metadata]) => {
   const content = staticPageContent[path];
   if (!content) throw new Error(`Missing prerender content for ${path}`);
@@ -417,6 +428,16 @@ for (const service of Object.values(SERVICES)) {
     {
       heading: 'A focused first release',
       paragraphs: ['Before development starts, BuiltbyGSV identifies the core outcome, the smallest useful release and the checks that prove it is ready. Optional features stay separate so the launch does not depend on untested assumptions.'],
+    },
+    {
+      heading: 'Explore the work and plan your project',
+      links: [
+        { label: 'Compare all services', href: '/services' },
+        { label: 'See project case studies', href: '/projects' },
+        ...(service.id === 'software-dev' || service.id === 'web-dev' ? [{ label: 'S4SkillUp career platform case study', href: '/projects/s4skillup' }] : []),
+        { label: 'Development process', href: '/process' },
+        { label: 'Start a project brief', href: '/start-project' },
+      ],
     },
   ];
   page.schemaNodes = [{
@@ -454,6 +475,14 @@ const projectPages: RenderPage[] = PROJECTS.map((project) => {
         bullets: [`Status: ${project.status}`, `Engagement: ${project.detailData?.engagement ?? project.category}`, `Technology: ${project.tags.join(', ')}`, `Year: ${project.year ?? 'Current'}`],
       },
       { heading: 'Next steps', paragraphs: [(project.detailData?.whatsNextItems ?? ['Measure real use, resolve launch feedback and prioritize the next release from evidence.']).join(' ')] },
+      {
+        heading: 'Project evidence and related services',
+        links: [
+          ...(project.detailData?.liveUrl ? [{ label: `Visit ${project.title}`, href: project.detailData.liveUrl }] : []),
+          ...(project.detailData?.sourceCodeUrl ? [{ label: 'View source code', href: project.detailData.sourceCodeUrl }] : []),
+          ...(project.detailData?.relatedLinks ?? []),
+        ],
+      },
     ],
     schemaNodes: [{
       '@type': 'CreativeWork',

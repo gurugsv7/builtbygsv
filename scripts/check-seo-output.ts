@@ -39,6 +39,14 @@ for (const url of urls) {
 const work = await readFile('dist/projects/index.html', 'utf8');
 assert.match(work, /<a href="https:\/\/www\.builtbygsv\.in\/projects\/s4skillup"/, 'Case studies need crawlable links before JavaScript runs');
 const trust = await readFile('dist/trust/index.html', 'utf8');
+const servicePaths = ['/services/web-development', '/services/custom-software-development', '/services/ai-solutions', '/services/automation'];
+for (const source of ['dist/index.html', 'dist/services/index.html']) {
+  const html = await readFile(source, 'utf8');
+  for (const path of servicePaths) assert.ok(html.includes(`href="${path}"`), `${source}: missing crawlable service link ${path}`);
+}
+const skillup = await readFile('dist/projects/s4skillup/index.html', 'utf8');
+assert.ok(skillup.includes('href="https://s4skillup.com"'), 'S4SkillUp needs its live evidence link in initial HTML');
+assert.ok(skillup.includes('href="/services/custom-software-development"'), 'S4SkillUp needs a crawlable related service');
 await readFile('dist/og/projects/s4skillup.jpg');
 assert.doesNotMatch(trust, /Neon Rail/, 'Personal experiments do not belong in business evidence');
 assert.match(trust, /34EAMPG8995J1ZV/);

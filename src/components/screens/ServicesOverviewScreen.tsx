@@ -4,6 +4,7 @@ import {
   Zap, Bot, Layers, Cloud, Calendar, Sparkles, Mail
 } from 'lucide-react';
 import { ScreenType, ServiceType } from '../../types';
+import { SCREEN_PATHS } from '../../routes';
 import { BrandLogo } from '../BrandLogo';
 import { CapabilityScene } from '../visuals/CapabilityScenes';
 
@@ -20,11 +21,10 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
   onStartProject,
   onOpenMenu,
 }) => {
-  const handleServiceKeyDown = (event: React.KeyboardEvent, screen: ScreenType) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      onNavigateToService(screen);
-    }
+  const navigateService = (event: React.MouseEvent<HTMLAnchorElement>, screen: ScreenType) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    onNavigateToService(screen);
   };
 
   return (
@@ -141,11 +141,9 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
         <div className="flex flex-col gap-3.5">
           
           {/* CARD 01: Product Engineering */}
-          <div
-            onClick={() => onNavigateToService('web-dev')}
-            onKeyDown={(event) => handleServiceKeyDown(event, 'web-dev')}
-            role="link"
-            tabIndex={0}
+          <a
+            href={SCREEN_PATHS['web-dev']}
+              onClick={(event) => navigateService(event, 'web-dev')}
             className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all cursor-pointer space-y-3"
           >
             {/* Top Header: Step Number & Arrow Button */}
@@ -213,15 +211,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 <span>SEO Ready</span>
               </span>
             </div>
-          </div>
+          </a>
 
 
           {/* CARD 02: Software Engineering */}
-          <div
-            onClick={() => onNavigateToService('software-dev')}
-            onKeyDown={(event) => handleServiceKeyDown(event, 'software-dev')}
-            role="link"
-            tabIndex={0}
+          <a
+            href={SCREEN_PATHS['software-dev']}
+              onClick={(event) => navigateService(event, 'software-dev')}
             className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all cursor-pointer space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -283,15 +279,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 <span>APIs</span>
               </span>
             </div>
-          </div>
+          </a>
 
 
           {/* CARD 03: AI Engineering */}
-          <div
-            onClick={() => onNavigateToService('ai-solutions')}
-            onKeyDown={(event) => handleServiceKeyDown(event, 'ai-solutions')}
-            role="link"
-            tabIndex={0}
+          <a
+            href={SCREEN_PATHS['ai-solutions']}
+              onClick={(event) => navigateService(event, 'ai-solutions')}
             className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all cursor-pointer space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -350,15 +344,13 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 <span>RPA</span>
               </span>
             </div>
-          </div>
+          </a>
 
 
           {/* CARD 04: Automation */}
-          <div
-            onClick={() => onNavigateToService('automation')}
-            onKeyDown={(event) => handleServiceKeyDown(event, 'automation')}
-            role="link"
-            tabIndex={0}
+          <a
+            href={SCREEN_PATHS['automation']}
+              onClick={(event) => navigateService(event, 'automation')}
             className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all cursor-pointer space-y-3"
           >
             <div className="flex items-center justify-between">
@@ -412,7 +404,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                 <span>Data Sync</span>
               </span>
             </div>
-          </div>
+          </a>
 
         </div>
 
@@ -560,11 +552,9 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
           <div className="grid grid-cols-4 gap-4 my-2">
             
             {/* CARD 01: WEB DEVELOPMENT */}
-            <div
-              onClick={() => onNavigateToService('web-dev')}
-              onKeyDown={(event) => handleServiceKeyDown(event, 'web-dev')}
-              role="link"
-              tabIndex={0}
+            <a
+              href={SCREEN_PATHS['web-dev']}
+              onClick={(event) => navigateService(event, 'web-dev')}
               id="card-service-01"
               className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
@@ -607,14 +597,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
-            </div>
+            </a>
 
             {/* CARD 02: CUSTOM SOFTWARE DEVELOPMENT */}
-            <div
-              onClick={() => onNavigateToService('software-dev')}
-              onKeyDown={(event) => handleServiceKeyDown(event, 'software-dev')}
-              role="link"
-              tabIndex={0}
+            <a
+              href={SCREEN_PATHS['software-dev']}
+              onClick={(event) => navigateService(event, 'software-dev')}
               id="card-service-02"
               className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
@@ -657,14 +645,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
-            </div>
+            </a>
 
             {/* CARD 03: AI & AUTOMATION */}
-            <div
-              onClick={() => onNavigateToService('ai-solutions')}
-              onKeyDown={(event) => handleServiceKeyDown(event, 'ai-solutions')}
-              role="link"
-              tabIndex={0}
+            <a
+              href={SCREEN_PATHS['ai-solutions']}
+              onClick={(event) => navigateService(event, 'ai-solutions')}
               id="card-service-03"
               className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
@@ -707,14 +693,12 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
-            </div>
+            </a>
 
             {/* CARD 04: BACKEND & CLOUD SOLUTIONS */}
-            <div
-              onClick={() => onNavigateToService('automation')}
-              onKeyDown={(event) => handleServiceKeyDown(event, 'automation')}
-              role="link"
-              tabIndex={0}
+            <a
+              href={SCREEN_PATHS['automation']}
+              onClick={(event) => navigateService(event, 'automation')}
               id="card-service-04"
               className="lift group bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs cursor-pointer flex flex-col justify-between relative overflow-hidden"
             >
@@ -757,7 +741,7 @@ export const ServicesOverviewScreen: React.FC<ServicesOverviewScreenProps> = ({
                   <ArrowRight className="nudge-r w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
-            </div>
+            </a>
 
           </div>
 
