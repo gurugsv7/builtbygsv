@@ -7,6 +7,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/projects/v2-productions",
+      "destination": "/projects",
+      "permanent": true
+    },
+    {
       "source": "/projects/neon-rail",
       "destination": "/projects",
       "permanent": true

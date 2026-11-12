@@ -2,9 +2,8 @@ import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { Project, ScreenType } from '../types';
 import { PROJECTS } from '../data/mockData';
-import { WORK_SUMMARIES } from '../data/studio';
+import { FEATURED_WORK, WORK_SUMMARIES } from '../data/studio';
 import { projectMedia, projectTheme } from '../data/projectMedia';
-import v2Preview from '../assets/v2productions/hero.png';
 import { CapabilityExplorer } from './visuals/CapabilityExplorer';
 import { ProcessRail } from './visuals/ProcessRail';
 import { Reveal, RevealGroup, RevealItem, Tilt, useSequence } from '../motion/primitives';
@@ -82,7 +81,7 @@ function ProductSystemDiagram() {
 }
 
 export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStartProject }: Props) {
-  const work = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'thaai-clinic-website'].map(id => PROJECTS.find(project => project.id === id)!);
+  const work = FEATURED_WORK.flatMap(id => PROJECTS.filter(project => project.id === id));
   const [featured, ...others] = work;
   return <div className="space-y-20 pb-12 pt-10 lg:space-y-28 lg:pt-16">
     <section aria-labelledby="home-capabilities" className="border-t border-slate-200 pt-10 lg:pt-14">
@@ -106,16 +105,16 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
       <Reveal>
         <button onClick={() => onOpenProjectDetail(featured)} id="btn-explore-case-study" className="group grid w-full gap-8 overflow-hidden rounded-[2rem] bg-[#09121F] p-7 text-left text-white lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:p-10">
           <div>
-            <Eyebrow dark>Client work · Creative Studio Platform</Eyebrow>
-            <h3 className="mt-4 text-4xl font-extrabold tracking-tight">V² Productions</h3>
+            <Eyebrow dark>Product development · Career platform</Eyebrow>
+            <h3 className="mt-4 text-4xl font-extrabold tracking-tight">{featured.title}</h3>
             <div className="mt-6"><SummaryRows id={featured.id} dark /></div>
-            <p className="mt-5 font-mono text-xs text-slate-400">React · TypeScript · Vite · Tailwind CSS</p>
+            <p className="mt-5 font-mono text-xs text-slate-400">React · TypeScript · Supabase · Tailwind CSS</p>
             <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-emerald-400"><span className="u-link">Explore Case Study</span> <ArrowRight className="nudge-r h-4 w-4" /></span>
           </div>
           <div className="relative">
             <div aria-hidden="true" className="absolute -inset-4 rounded-[2rem] bg-[radial-gradient(#10B981_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
             <div className="zoom-frame relative rounded-2xl">
-              <img src={v2Preview} alt="V² Productions interface from the delivered platform" loading="lazy" className="max-h-96 w-full object-contain" />
+              <img src={projectMedia[featured.id]?.hero} alt={`${featured.title}: career platform on desktop and mobile`} loading="lazy" className="max-h-96 w-full object-contain" />
             </div>
           </div>
         </button>
@@ -192,7 +191,7 @@ export function StudioHomeSections({ onNavigate, onOpenProjectDetail, onOpenStar
 
     <RevealGroup as="section" className="grid gap-4 border-t border-slate-200 pt-8 lg:grid-cols-2">
       {[
-        { eyebrow: 'Built for V² Productions', text: 'Explore the actual screens, responsive architecture and scope delivered in our creative studio case study.', cta: 'See the implementation', go: () => onOpenProjectDetail(featured) },
+        { eyebrow: 'Inside S4SkillUp', text: 'Explore the career workspaces, responsive interface and implementation scope in our S4SkillUp case study.', cta: 'See the implementation', go: () => onOpenProjectDetail(featured) },
         { eyebrow: 'The studio', text: 'BuiltbyGSV is a Product & AI Engineering Studio. We build useful, dependable software around the people and problems it needs to serve.', cta: 'About BuiltbyGSV', go: () => onNavigate('about') },
       ].map(item => (
         <RevealItem key={item.eyebrow}>

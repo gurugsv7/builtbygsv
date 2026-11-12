@@ -33,9 +33,9 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
     problem: 'Turning long recordings into short reels takes hours of trimming, captioning and reframing.',
     built: 'An AI-assisted editor with transcript editing, silence removal, word-timed captions and vertical reframing.',
   },
-  'v2-productions': {
-    problem: 'A creative studio needed one place for showcases, services, courses and enquiries.',
-    built: 'A responsive React platform with distinct mobile and desktop experiences.',
+  's4skillup': {
+    problem: 'Career preparation is split across role lists, learning plans, resume files and application notes.',
+    built: 'A connected workspace for role exploration, resume editing, job discovery and interview preparation.',
   },
   'thaai-clinic-website': {
     problem: 'Clinic visits depend on queues, phone calls and paper records.',
@@ -48,10 +48,6 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
   'karaikal-one': {
     problem: 'Transport, local services and community help depend on scattered information, calls and informal messages.',
     built: 'One accessible interface for buses, trains, service providers, community requests and local guidance.',
-  },
-  'neon-rail': {
-    problem: 'Most browser runners use standard keyboard controls, leaving room to make movement part of the play.',
-    built: 'A three-lane runner where players dodge, jump and slide using body movement or a keyboard.',
   },
   'kamayuu-card-game': {
     problem: 'Many card games rely on visible information, leaving room for one built around memory and reading the table.',
@@ -68,4 +64,4 @@ export const WORK_SUMMARIES: Record<string, { problem: string; built: string }> 
 };
 
 /** Projects highlighted in the Work page's desktop index and mobile spotlight, in order. */
-export const FEATURED_WORK = ['v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one'];
+export const FEATURED_WORK = ['s4skillup', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one'];

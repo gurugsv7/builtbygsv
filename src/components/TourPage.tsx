@@ -16,7 +16,7 @@ import { DrawnUnderline } from '../motion/primitives';
 /** How long each slide stays up before advancing, in ms. */
 const SLIDE_MS = 6500;
 const TOUR_PROJECTS = [
-  'v2-productions', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one', 'neon-rail',
+  's4skillup', 'kamayuu-card-game', 'striatum-4-symposium-platform', 'reelcut-ai-video-editor', 'karaikal-one',
 ];
 type Slide = { kind: 'intro' } | { kind: 'project'; id: string } | { kind: 'services' } | { kind: 'contact' };
 const SLIDES: Slide[] = [

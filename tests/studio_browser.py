@@ -11,7 +11,7 @@ urls = [node.text.replace('https://www.builtbygsv.in', '') for node in
         ElementTree.parse('public/sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
 screens = {'/start-project': 'project-brief', '/': 'home', '/about': 'company', '/services': 'services', '/projects': 'work',
            '/careers': 'careers', '/careers/software-engineer-intern': 'software-intern', '/careers/web-developer-intern': 'web-intern', '/website-information': 'website-information', '/process': 'process', '/contact': 'contact', '/services/ai-solutions': 'ai',
-           '/projects/v2-productions': 'case-study', '/clinic-website-development-karaikal': 'local'}
+           '/projects/s4skillup': 'case-study', '/clinic-website-development-karaikal': 'local'}
 if '--quick' in sys.argv:
     urls = list(screens)
 
@@ -52,13 +52,13 @@ with sync_playwright() as p:
         page.wait_for_url(BASE + '/projects')
         page.get_by_role('button', name='AI', exact=True).click()
         assert page.get_by_role('button', name='View PULSE case study').is_visible()
-        assert page.get_by_role('button', name='View V² Productions case study').count() == 0
+        assert page.get_by_role('button', name='View S4SkillUp case study').count() == 0
         page.get_by_role('button', name='All', exact=True).first.click()
-        page.get_by_role('button', name='View V² Productions case study').click()
-        page.wait_for_url(BASE + '/projects/v2-productions')
+        page.get_by_role('button', name='View S4SkillUp case study').click()
+        page.wait_for_url(BASE + '/projects/s4skillup')
         if width < 1024:
             assert page.get_by_role('dialog').count() == 0, 'mobile case study should be a page, not a dialog'
-            assert page.get_by_role('heading', name='V² Productions', exact=True).is_visible()
+            assert page.get_by_role('heading', name='S4SkillUp', exact=True).is_visible()
             assert page.locator('main:visible').get_by_text('Client Work · Web case study', exact=True).is_visible()
             page.get_by_role('button', name='Back to work').click()
             page.wait_for_url(BASE + '/projects')

@@ -42,7 +42,7 @@ const AboutScreen = lazy(() => import('./components/screens/AboutScreen').then((
 const ContactScreen = lazy(() => import('./components/screens/ContactScreen').then((m) => ({ default: m.ContactScreen })));
 const StartProjectScreen = lazy(() => import('./components/screens/StartProjectScreen').then((m) => ({ default: m.StartProjectScreen })));
 
-const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 'v2-productions') ?? PROJECTS[0];
+const FEATURED_PROJECT = PROJECTS.find((project) => project.id === 's4skillup') ?? PROJECTS[0];
 const QUICK_NAV_ITEMS = [
   { screen: 'home' as const, label: 'Home', icon: Home, color: 'text-[#0F8B75]' },
   { screen: 'projects' as const, label: 'Work', icon: LayoutGrid, color: 'text-[#0F8B75]' },

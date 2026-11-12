@@ -1,96 +1,9 @@
 import { Project, ServiceDetail, NotificationItem } from '../types';
+import { S4SKILLUP } from './s4skillup';
 import { LAB_PROJECTS } from './labProjects';
 import { EXCLUDED_EVIDENCE_PROJECTS } from './credibility';
 
 const CORE_PROJECTS: Project[] = [
-  {
-    id: 'v2-productions',
-    title: 'V² Productions',
-    subtitle: 'Creative Studio Platform. Responsive service showcases, course discovery and enquiry flows.',
-    category: 'Web',
-    status: 'Completed',
-    statusColor: 'text-[#0284C7] bg-[#E0F2FE] border-sky-200',
-    iconName: 'Video',
-    iconBgColor: 'bg-[#E2F1ED]',
-    iconTextColor: 'text-[#0F8B75]',
-    description: 'A premium, cinematic creative studio website built for V² Productions with React 19, TypeScript, Vite, and Tailwind CSS. Showcases video editing, web design, digital marketing, live 1-on-1 courses, and dual mobile/desktop interactive UX.',
-    tags: ['React 19', 'TypeScript', 'Vite', 'Tailwind', 'Motion'],
-    metrics: [],
-    problemStatement: 'Creative agencies require a cinematic visual style and a high-conversion web platform that seamlessly bridges portfolio storytelling, video editing course enrollments, and interactive lead-generation.',
-    solutionProvided: 'Architected a responsive dual-experience platform using React 19, TypeScript, Vite, and Framer Motion. Implemented mobile/desktop UI switching, animated hero showcases, lead gen flows, and modular course catalog structures.',
-    client: 'V² Productions Studio',
-    location: 'Remote',
-    year: '2026',
-    featured: true,
-    detailData: {
-      seoTitle: 'V² Productions Website Case Study | BuiltbyGSV',
-      seoDescription: 'BuiltbyGSV designed a responsive React website for V² Productions to present video editing, web design, digital marketing and live courses.',
-      publicImageUrl: 'https://www.builtbygsv.in/og/projects/v2-productions.jpg',
-      answerBlock: {
-        question: 'What did BuiltbyGSV build for V² Productions?',
-        answer: 'BuiltbyGSV designed and developed a premium creative studio website for V² Productions using React, TypeScript, Vite, Tailwind CSS and motion-led UI. The project presents video editing, web design, digital marketing and live 1-on-1 course offerings through a cinematic, responsive experience.',
-      },
-      storyHeadline: 'Cinematic visual storytelling.',
-      storyParagraphs: [
-        'Creative agencies need a digital platform that conveys high production value from the first frame. Static business card sites fail to capture the energy of live video editing and creative studio courses.',
-        'We engineered the platform with React 19, TypeScript and Vite, with distinct mobile and desktop layouts for service discovery and enquiries.'
-      ],
-      stickyNoteText: 'Great design isn\'t just aesthetic. It is clear service discovery and straightforward enquiries.',
-      stickyNoteHighlight: 'clear service discovery',
-      heroDoodleText: 'Cinematic style. Real results.',
-      glimpseScreenshots: [{ title: 'Creative services' }, { title: 'Course discovery' }, { title: 'Studio experience' }, { title: 'Enquiry journey' }],
-      builtWithTech: [
-        { name: 'React 19', iconName: 'React' },
-        { name: 'TypeScript', iconName: 'Code' },
-        { name: 'Vite', iconName: 'Zap' },
-        { name: 'Tailwind CSS', iconName: 'Globe' },
-        { name: 'Framer Motion', iconName: 'Zap' },
-        { name: 'Node.js', iconName: 'Database' },
-      ],
-      timeline: 'Feb 2026 – Mar 2026',
-      capabilities: 'UX Design · Frontend Engineering',
-      engagement: 'Client Work',
-      platform: 'Web, Mobile, PWA',
-      impactMetrics: [],
-      whatsNextItems: [
-        'Integrated video course streaming',
-        'Real-time student chat & feedback',
-        'Automated lead scheduling calendar',
-        'Client video proofing dashboard',
-      ],
-      proofSignals: [
-        {
-          value: 'Creative Studio',
-          label: 'Website Development',
-          description: 'A service-led website structure for video editing, web design, digital marketing and course enquiries.',
-          iconName: 'Globe',
-        },
-        {
-          value: 'BuiltbyGSV',
-          label: 'Engineering Studio',
-          description: 'Product experience and frontend implementation by BuiltbyGSV.',
-          iconName: 'User',
-        },
-        {
-          value: 'React + Vite',
-          label: 'Frontend Stack',
-          description: 'A fast, component-driven implementation focused on performance, responsive UX and visual polish.',
-          iconName: 'Code',
-        },
-        {
-          value: 'Remote',
-          label: 'Service Reach',
-          description: 'A remotely delivered web platform for a creative business.',
-          iconName: 'TrendingUp',
-        },
-      ],
-      relatedLinks: [
-        { label: 'Website development services', href: '/services/web-development' },
-        { label: 'Explore BuiltbyGSV work', href: '/projects' },
-        { label: 'About us', href: '/about' },
-      ],
-    }
-  },
   {
     id: 'thaai-clinic-website',
     title: 'Thaai Clinic',
@@ -182,10 +95,10 @@ const CORE_PROJECTS: Project[] = [
   }
 ];
 
-/** Client work first, then lab builds; the three original case studies keep their ids. */
+/** Featured product first, followed by public lab builds and the clinic concept. */
 const coreById = (id: string) => CORE_PROJECTS.find((project) => project.id === id)!;
 export const PROJECTS: Project[] = [
-  coreById('v2-productions'),
+  S4SKILLUP,
   ...LAB_PROJECTS.filter(project => !EXCLUDED_EVIDENCE_PROJECTS.includes(project.id)),
   coreById('thaai-clinic-website'),
 ];

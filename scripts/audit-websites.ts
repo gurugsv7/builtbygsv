@@ -18,14 +18,17 @@ const targets = [
   })),
 ];
 const selectedId = process.argv[2];
+const selectedStrategy = process.argv[3];
+if (selectedStrategy && selectedStrategy !== 'mobile' && selectedStrategy !== 'desktop') throw new Error('Choose mobile or desktop.');
+const strategies: ('mobile' | 'desktop')[] = selectedStrategy ? [selectedStrategy] : ['mobile', 'desktop'];
 const auditTargets = selectedId ? targets.filter(target => target.id === selectedId) : targets;
 if (!auditTargets.length) throw new Error(`Unknown public audit target: ${selectedId}`);
 const results: WebsiteAudit[] = selectedId
   ? (JSON.parse(await readFile('src/data/websiteAudits.json', 'utf8')) as WebsiteAudit[])
-      .filter(audit => audit.id !== selectedId && !EXCLUDED_EVIDENCE_PROJECTS.includes(audit.id))
+      .filter(audit => (audit.id !== selectedId || (selectedStrategy && audit.strategy !== selectedStrategy)) && !EXCLUDED_EVIDENCE_PROJECTS.includes(audit.id))
   : [];
 for (const target of auditTargets) {
-  for (const strategy of ['mobile', 'desktop'] as const) {
+  for (const strategy of strategies) {
     const entry: WebsiteAudit = { ...target, strategy, checkedAt: new Date().toISOString(), status: 'unavailable' };
     const name = `${target.id}-${strategy}`;
     try {

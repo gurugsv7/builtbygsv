@@ -162,7 +162,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       { question: 'Can I add products myself afterwards?', answer: 'Yes. Adding products, changing prices and running a seasonal collection are handled through an admin interface. You should never need a developer to change a price.' },
     ],
     proof:
-      'The catalogue and media patterns used here come from the same product process as the V2 Productions build: structured content, fast media handling, and an enquiry path that stays visible on every screen.',
+      'S4SkillUp demonstrates structured catalogue browsing through role and job discovery, filters and detail views. Ecommerce engagements extend that product approach with a separately scoped checkout, payments and stock workflow.',
     related: [
       { path: '/web-software-developer-karaikal', label: 'Web & software developer in Karaikal' },
       { path: '/seo-services-karaikal', label: 'SEO services in Karaikal' },
@@ -432,7 +432,7 @@ export const serviceAreaPages: ServiceAreaPage[] = [
       { question: 'How long will this take to build?', answer: 'Three to six weeks for the store itself once product data and photography are ready. Product content is almost always the bottleneck, so it is worth beginning that before development starts.' },
     ],
     proof:
-      'The V2 Productions build applied the same demands - heavy media handled fast, structured catalogue content, and a booking or enquiry path visible from every screen - to a creative studio selling work that has to be seen before it is bought.',
+      'S4SkillUp demonstrates how structured content, filters and source-linked detail views can make a large catalogue easier to navigate. An ecommerce engagement applies those discovery principles to product content, with payments, shipping and stock handled in its own scope.',
     related: [
       { path: '/web-software-developer-thanjavur', label: 'Web & software developer in Thanjavur' },
       { path: '/custom-software-development-thanjavur', label: 'Custom software in Thanjavur' },

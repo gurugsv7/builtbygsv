@@ -82,10 +82,10 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.builtbygsv.in/projects/v2-productions</loc>
+    <loc>https://www.builtbygsv.in/projects/s4skillup</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://www.builtbygsv.in/og/projects/v2-productions.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.builtbygsv.in/og/projects/s4skillup.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.builtbygsv.in/projects/kamayuu-card-game</loc>

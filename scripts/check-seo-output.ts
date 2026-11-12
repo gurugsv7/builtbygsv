@@ -8,11 +8,13 @@ const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]
 assert.ok(urls.length > 0, 'Sitemap must contain public pages');
 assert.equal(new Set(urls).size, urls.length, 'Sitemap contains duplicate pages');
 const knownPaths = new Set(urls.map(url => new URL(url).pathname));
+assert.ok(!knownPaths.has('/projects/v2-productions') && !knownPaths.has('/projects/neon-rail'), 'Removed projects must stay outside search inventory');
 const titles = new Set<string>();
 for (const url of urls) {
   const path = new URL(url).pathname;
   assert.equal(new URL(url).origin, SITE_URL);
   const html = await readFile(resolve('dist', `.${path}`, 'index.html'), 'utf8');
+  assert.doesNotMatch(html, /V² Productions|Neon Rail/, `${path}: removed project content is still published`);
   const canonicals = [...html.matchAll(/<link rel="canonical" href="([^"]+)"/g)];
   assert.equal(canonicals.length, 1, `${path}: expected one canonical`);
   assert.equal(canonicals[0][1], url, `${path}: wrong canonical`);
@@ -35,8 +37,9 @@ for (const url of urls) {
   }
 }
 const work = await readFile('dist/projects/index.html', 'utf8');
-assert.match(work, /<a href="https:\/\/www\.builtbygsv\.in\/projects\/v2-productions"/, 'Case studies need crawlable links before JavaScript runs');
+assert.match(work, /<a href="https:\/\/www\.builtbygsv\.in\/projects\/s4skillup"/, 'Case studies need crawlable links before JavaScript runs');
 const trust = await readFile('dist/trust/index.html', 'utf8');
+await readFile('dist/og/projects/s4skillup.jpg');
 assert.doesNotMatch(trust, /Neon Rail/, 'Personal experiments do not belong in business evidence');
 assert.match(trust, /34EAMPG8995J1ZV/);
 assert.match(trust, /UDYAM-PY-01-0011724/);

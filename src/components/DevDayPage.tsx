@@ -17,7 +17,7 @@ import type { Project } from '../types';
 
 const PAGE_URL = `${SITE_URL}${DEVDAY_PAGE.path}`;
 const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
-const FEATURED = ['kamayuu-card-game', 'reelcut-ai-video-editor'];
+const FEATURED = ['s4skillup', 'kamayuu-card-game', 'reelcut-ai-video-editor'];
 
 const open = (project: Project) => { window.location.href = caseStudyHref(project.id, 'devday'); };
 

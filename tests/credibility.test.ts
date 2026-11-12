@@ -10,6 +10,9 @@ import { FEATURED_WORK } from '../src/data/studio';
 test('every shared homepage and work-page selection resolves to a public project', () => {
   for (const id of FEATURED_WORK) assert.ok(PROJECTS.some(project => project.id === id), `Missing public featured project: ${id}`);
   assert.ok(FEATURED_WORK.length > 0);
+  assert.equal(PROJECTS[0].id, 's4skillup');
+  assert.ok(!PROJECTS.some(project => ['v2-productions', 'neon-rail'].includes(project.id)));
+  assert.equal(PROJECTS[0].detailData?.liveUrl, 'https://s4skillup.com');
 });
 
 test('trust route and organization identifiers share the same business evidence', () => {
