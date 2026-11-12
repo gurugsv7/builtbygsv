@@ -39,4 +39,13 @@ Add verified information before expanding the Gurusabarivasan/GuruGSV personal e
 
 ## Ranking expectations
 
+## Verified account actions — 12 November 2026
+
+- Vercel deployment, canonical host redirect, public sitemap, robots.txt and `/trust` were verified live.
+- Search Console accepted the resubmitted `https://www.builtbygsv.in/sitemap.xml`, showing Success and 53 discovered pages.
+- Google's live inspection of `/trust` reported that the URL is available to Google, can be indexed and has one valid breadcrumb item.
+- Search Console confirmed the `/trust` indexing request. This confirms a crawl-queue request, not indexing or ranking.
+
+## Ongoing visibility
+
 Technical SEO makes the site understandable and indexable; it cannot guarantee a first-place Google result. Branded queries usually improve fastest after the domain is indexed and consistent profiles link back to it. Competitive city terms also need genuine reviews, citations/backlinks, strong case studies and ongoing useful content.

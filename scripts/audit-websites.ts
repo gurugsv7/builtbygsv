@@ -17,8 +17,14 @@ const targets = [
     engagement: p.detailData?.engagement ?? 'Portfolio project',
   })),
 ];
-const results: WebsiteAudit[] = [];
-for (const target of targets) {
+const selectedId = process.argv[2];
+const auditTargets = selectedId ? targets.filter(target => target.id === selectedId) : targets;
+if (!auditTargets.length) throw new Error(`Unknown public audit target: ${selectedId}`);
+const results: WebsiteAudit[] = selectedId
+  ? (JSON.parse(await readFile('src/data/websiteAudits.json', 'utf8')) as WebsiteAudit[])
+      .filter(audit => audit.id !== selectedId && !EXCLUDED_EVIDENCE_PROJECTS.includes(audit.id))
+  : [];
+for (const target of auditTargets) {
   for (const strategy of ['mobile', 'desktop'] as const) {
     const entry: WebsiteAudit = { ...target, strategy, checkedAt: new Date().toISOString(), status: 'unavailable' };
     const name = `${target.id}-${strategy}`;
@@ -40,6 +46,9 @@ for (const target of targets) {
       const htmlPath = resolve(output, `${name}.report.html`);
       await writeFile(htmlPath, (await readFile(htmlPath, 'utf8')).replace(/^[ \t]+$/gm, ''));
       if (report.runtimeError) throw new Error(report.runtimeError.message);
+      if (report.audits['errors-in-console']?.details?.items?.some((item: { source?: string }) => item.source === 'exception')) {
+        throw new Error('The page threw a JavaScript exception during the audit; do not publish a score for a broken page.');
+      }
       const finalUrl = new URL(report.finalDisplayedUrl ?? report.finalUrl);
       if (finalUrl.hostname !== new URL(target.url).hostname) throw new Error('Page redirected to a different host; review access before publishing a score.');
       const categories = report.categories;

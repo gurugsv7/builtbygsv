@@ -34,6 +34,7 @@ test('every published score is backed by a matching successful Lighthouse report
     assert.match(audit.report!, /^\/audits\/[a-z0-9-]+\.report\.html$/);
     const report = JSON.parse(await readFile(`public${audit.report!.replace('.html', '.json')}`, 'utf8'));
     assert.equal(report.runtimeError, undefined);
+    assert.equal((report.audits['errors-in-console']?.details?.items ?? []).some((item: { source?: string }) => item.source === 'exception'), false, 'A page with browser exceptions must not claim a completed audit');
     assert.equal(report.fetchTime, audit.checkedAt);
     assert.equal(report.lighthouseVersion, audit.lighthouseVersion);
     assert.equal(new URL(report.requestedUrl).href, new URL(audit.url).href);
