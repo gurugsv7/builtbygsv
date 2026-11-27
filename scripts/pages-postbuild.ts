@@ -7,7 +7,7 @@
  *    exists, which would break every canonical URL (they have no trailing slash).
  * 2. Writes dist/_headers from vercel.json "headers".
  * 3. Writes dist/_redirects from vercel.json path redirects. Host-based redirects
- *    (apex -> www, gurugsv.in) cannot be expressed in _redirects; they belong in
+ *    (apex -> www, the legacy domain) cannot be expressed in _redirects; they belong in
  *    Cloudflare Redirect Rules on the zone (see DEPLOYMENT.md).
  */
 import { readdir, readFile, rename, rmdir, stat, writeFile } from 'node:fs/promises';
