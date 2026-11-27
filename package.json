@@ -12,6 +12,7 @@
     "prebuild": "tsx scripts/gen-blog-manifest.ts",
     "build": "vite build",
     "postbuild": "tsx scripts/og-image.ts && tsx scripts/prerender.ts",
+    "build:pages": "npm run build && tsx scripts/pages-postbuild.ts",
     "preview": "vite preview",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit",
