@@ -15,8 +15,7 @@ const ConnectPage = lazy(() => import('./components/ConnectPage').then((m) => ({
 const TourPage = lazy(() => import('./components/TourPage').then((m) => ({ default: m.TourPage })));
 const DevDayPage = lazy(() => import('./components/DevDayPage').then((m) => ({ default: m.DevDayPage })));
 const pageFallback = <div className="min-h-screen bg-[#F8F9FA]" />;
-import { getBlogRoute } from './blogRoutes';
-import { BLOG_INDEX_METADATA, blogPosts } from './blog';
+import { BLOG_INDEX_METADATA, getBlogRoute } from './blogRoutes';
 import { getContentPage } from './contentPages';
 import { getServiceAreaPage } from './serviceAreas';
 import {
@@ -194,11 +193,16 @@ export default function SiteRouter() {
         schema['@graph'].push(node as never);
       }
     }
-    const fullBlogPost = blogPost && blogPosts.find((post) => post.path === blogPost.path);
-    if (fullBlogPost) {
-      for (const node of createBlogPostSchema(fullBlogPost)) {
-        schema['@graph'].push(node as never);
-      }
+    // Article schema needs the full text (FAQs, word count), which lives in the blog
+    // chunk. Crawlers already get it from the prerendered HTML; the SPA adds it once loaded.
+    let cancelled = false;
+    if (blogPost) {
+      void import('./blog').then(({ blogPosts }) => {
+        const fullPost = blogPosts.find((post) => post.path === blogPost.path);
+        if (cancelled || !fullPost) return;
+        for (const node of createBlogPostSchema(fullPost)) schema['@graph'].push(node as never);
+        schemaElement.textContent = JSON.stringify(schema);
+      });
     }
     if (project) {
       schema['@graph'].push({
@@ -244,6 +248,7 @@ export default function SiteRouter() {
       } as never);
     }
     schemaElement.textContent = JSON.stringify(schema);
+    return () => { cancelled = true; };
   }, [
     appMetadata,
     blogPost,

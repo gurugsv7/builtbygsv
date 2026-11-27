@@ -9,6 +9,7 @@
   "scripts": {
     "audit:websites": "tsx scripts/audit-websites.ts",
     "dev": "vite --port=3000 --host=0.0.0.0",
+    "prebuild": "tsx scripts/gen-blog-manifest.ts",
     "build": "vite build",
     "postbuild": "tsx scripts/og-image.ts && tsx scripts/prerender.ts",
     "preview": "vite preview",

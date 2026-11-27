@@ -60,8 +60,10 @@ test('unknown project slugs do not silently resolve to a different project', () 
 
 test('blog route metadata is derived from the rendered blog content', () => {
   assert.deepEqual(
-    blogRouteMetadata.map(({ path }) => path),
-    blogPosts.map(({ path }) => path),
+    blogRouteMetadata,
+    blogPosts.map(({ path, title, seoTitle, description, published, updated }) =>
+      ({ path, title, seoTitle, description, published, updated })),
+    'src/blogManifest.ts is stale: run npx tsx scripts/gen-blog-manifest.ts',
   );
   for (const post of blogPosts) assert.equal(getBlogRoute(`${post.path}/`)?.title, post.title);
 });

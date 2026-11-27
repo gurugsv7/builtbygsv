@@ -1,15 +1,9 @@
-import { blogPosts } from './blog';
+import { blogManifest } from './blogManifest';
 
-export const blogRouteMetadata = blogPosts.map(
-  ({ path, title, seoTitle, description, published, updated }) => ({
-    path,
-    title,
-    seoTitle,
-    description,
-    published,
-    updated,
-  }),
-);
+export { BLOG_INDEX_METADATA } from './blogIndexMeta';
+
+/** Lightweight route metadata. Article text stays out of the main bundle. */
+export const blogRouteMetadata = blogManifest.map((post) => ({ ...post }));
 
 export const getBlogRoute = (pathname: string) =>
   blogRouteMetadata.find(
