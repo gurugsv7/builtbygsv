@@ -286,6 +286,38 @@ export const createServiceAreaSchema = (page: ServiceAreaPage) => {
   ];
 };
 
+/** BlogPosting plus, where the article answers questions, an FAQPage node. Shared by the SPA and prerender. */
+export const createBlogPostSchema = (post: {
+  path: string; title: string; description: string; published: string; updated: string;
+  category: string; sections: { paragraphs: string[]; bullets?: string[] }[];
+  faqs?: Faq[];
+}) => {
+  const canonicalUrl = `${SITE_URL}${post.path}`;
+  const words = post.sections
+    .flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])])
+    .join(' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return [
+    {
+      '@type': 'BlogPosting',
+      '@id': `${canonicalUrl}#article`,
+      headline: post.title,
+      description: post.description,
+      image: `${SITE_URL}/og-cover.png`,
+      datePublished: post.published,
+      dateModified: post.updated,
+      mainEntityOfPage: canonicalUrl,
+      articleSection: post.category,
+      ...(words ? { wordCount: words } : {}),
+      author: { '@id': `${SITE_URL}/#organization` },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      inLanguage: 'en-IN',
+    },
+    ...(post.faqs?.length ? [createFaqSchema(canonicalUrl, post.faqs)] : []),
+  ];
+};
+
 export const createContentPageSchema = (page: ContentPage) => {
   const canonicalUrl = `${SITE_URL}${page.path}`;
   return [

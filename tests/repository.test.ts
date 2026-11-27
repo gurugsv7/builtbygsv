@@ -192,6 +192,14 @@ test('every internal link on a new page points at a page that exists', () => {
       assert.ok(known.has(link.path), `${page.path} links to missing page ${link.path}`);
     }
   }
+  for (const post of blogPosts) {
+    for (const link of post.related ?? []) {
+      assert.ok(known.has(link.path), `${post.path} links to missing page ${link.path}`);
+    }
+    for (const source of post.sources ?? []) {
+      assert.match(source.url, /^https:\/\//, `${post.path} cites a non-https source`);
+    }
+  }
 });
 
 test('every spoke is reachable from its city hub, so none are orphaned', () => {
@@ -326,5 +334,14 @@ test('public-facing source presents the company, not an individual', async () =>
       .replace(/https?:\/\/(www\.)?github\.com\/gurugsv7[^\s'"`)]*/g, '')
       .replace(/https?:\/\/(www\.)?linkedin\.com\/in\/gurugsv\/?/g, '');
     assert.doesNotMatch(text, /guru|sabarivasan/i, `${file} mentions an individual instead of BuiltbyGSV`);
+  }
+});
+
+test('blog posts have search-sized metadata and unique FAQ questions', () => {
+  for (const post of blogPosts) {
+    assert.ok(post.seoTitle.length <= 70, `${post.path}: seoTitle is ${post.seoTitle.length} characters`);
+    assert.ok(post.description.length >= 70 && post.description.length <= 170, `${post.path}: description is ${post.description.length} characters`);
+    const questions = (post.faqs ?? []).map((faq) => faq.question);
+    assert.equal(new Set(questions).size, questions.length, `${post.path}: duplicate FAQ question`);
   }
 });

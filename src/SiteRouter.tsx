@@ -16,6 +16,7 @@ const TourPage = lazy(() => import('./components/TourPage').then((m) => ({ defau
 const DevDayPage = lazy(() => import('./components/DevDayPage').then((m) => ({ default: m.DevDayPage })));
 const pageFallback = <div className="min-h-screen bg-[#F8F9FA]" />;
 import { getBlogRoute } from './blogRoutes';
+import { BLOG_INDEX_METADATA, blogPosts } from './blog';
 import { getContentPage } from './contentPages';
 import { getServiceAreaPage } from './serviceAreas';
 import {
@@ -27,6 +28,7 @@ import {
 } from './routes';
 import {
   createContentPageSchema,
+  createBlogPostSchema,
   createBreadcrumbSchema,
   createOrganizationSchema,
   createServiceAreaSchema,
@@ -34,11 +36,7 @@ import {
   SITE_URL,
 } from './seo';
 
-const blogIndexMetadata = {
-  title: 'Karaikal Website & Local SEO Guides | BuiltbyGSV',
-  description:
-    'Practical guides from BuiltbyGSV about websites, custom software and local search visibility for businesses in Karaikal.',
-};
+const blogIndexMetadata = BLOG_INDEX_METADATA;
 
 export default function SiteRouter() {
   const [pathname, setPathname] = React.useState(window.location.pathname);
@@ -196,19 +194,11 @@ export default function SiteRouter() {
         schema['@graph'].push(node as never);
       }
     }
-    if (blogPost) {
-      schema['@graph'].push({
-        '@type': 'BlogPosting',
-        '@id': `${canonicalUrl}#article`,
-        headline: blogPost.title,
-        description: blogPost.description,
-        datePublished: blogPost.published,
-        dateModified: blogPost.updated,
-        mainEntityOfPage: canonicalUrl,
-        author: { '@id': `${SITE_URL}/#organization` },
-        publisher: { '@id': `${SITE_URL}/#organization` },
-        inLanguage: 'en-IN',
-      } as never);
+    const fullBlogPost = blogPost && blogPosts.find((post) => post.path === blogPost.path);
+    if (fullBlogPost) {
+      for (const node of createBlogPostSchema(fullBlogPost)) {
+        schema['@graph'].push(node as never);
+      }
     }
     if (project) {
       schema['@graph'].push({

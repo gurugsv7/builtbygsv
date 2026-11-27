@@ -1,4 +1,5 @@
 import { guideSections } from './content/reelPressGuide';
+import { problemGuides } from './content/problemGuides';
 
 export interface BlogSection {
   heading: string;
@@ -19,9 +20,22 @@ export interface BlogPost {
   readTime: string;
   takeaway: string;
   sections: BlogSection[];
+  /** Questions answered in a visible FAQ block and emitted as FAQPage schema. */
+  faqs?: { question: string; answer: string }[];
+  /** Internal service, project or reference pages this article supports. */
+  related?: { path: string; label: string }[];
+  /** External evidence: official docs, source repositories and data cited in the text. */
+  sources?: { label: string; url: string }[];
   /** 'guide' renders the rich, chapter-based layout instead of the standard article. */
   layout?: 'guide';
 }
+
+/** One source for the /insights index metadata, shared by the SPA and the prerenderer so they never drift. */
+export const BLOG_INDEX_METADATA = {
+  title: 'Website, Software & AI Guides for Indian Businesses | BuiltbyGSV',
+  description:
+    'Practical BuiltbyGSV guides on website cost and ownership, local SEO, MVP planning, AI automation and the open-source tools we build, for Karaikal, Thanjavur, Bengaluru and beyond.',
+};
 
 export const blogPosts: BlogPost[] = [
   {
@@ -42,6 +56,7 @@ export const blogPosts: BlogPost[] = [
     sections: guideSections(),
     layout: 'guide',
   },
+  ...problemGuides,
   {
     slug: 'website-cost-karaikal',
     path: '/insights/website-cost-karaikal',
@@ -666,3 +681,12 @@ export const blogPosts: BlogPost[] = [
 
 export const getBlogPost = (pathname: string) =>
   blogPosts.find((post) => post.path === pathname.replace(/\/$/, '') || post.path === pathname);
+
+/** Articles a reader of `post` is most likely to want next: same category first, then newest. */
+export const relatedBlogPosts = (post: BlogPost, count = 2) =>
+  blogPosts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .sort((a, b) =>
+      Number(b.category === post.category) - Number(a.category === post.category)
+      || b.published.localeCompare(a.published))
+    .slice(0, count);
