@@ -1,5 +1,10 @@
 # Hosting on Cloudflare Pages
 
+**Status (27 Nov 2026):** live. `www.builtbygsv.in` serves from the `builtbygsv` Pages
+project (GitHub-connected, deploys on every push to `main`); `builtbygsv.in` redirects to www
+with a zone Redirect Rule; the API is at `api.builtbygsv.in`. Vercel is no longer used, and
+`vercel.json` remains only as the source the Pages build converts into `_headers`/`_redirects`.
+
 The site is static (every page is prerendered), so it runs on Cloudflare Pages' free
 plan, which allows commercial use. `npm run build:pages` builds the site and converts
 `vercel.json` into Pages' `_headers` and `_redirects`, so `vercel.json` stays the single
