@@ -111,12 +111,16 @@ them. Review these three articles every quarter.
 The E-CARE case study is deferred: it is a research intervention and needs explicit
 approval before any public detail is published.
 
-## 5. Next articles (backlog)
+## 5. Third batch (published the same day)
 
-- Clinic appointment systems: what to build versus subscribe to.
-- How to brief an AI chatbot project so it does not hallucinate about your business.
-- School and coaching-centre fee management, from register to app.
-- Cost of maintaining a website after launch (hosting, renewals, updates).
+| Article | Primary query intent | Supports |
+| --- | --- | --- |
+| `/insights/clinic-appointment-system-build-or-subscribe` | Clinic appointment software, build or buy | Clinic websites, Thaai Clinic prototype |
+| `/insights/brief-an-ai-chatbot-that-does-not-make-things-up` | Business AI chatbot without hallucinations | AI solutions, AI automation spokes |
+| `/insights/school-coaching-centre-fee-management` | School / coaching fee management | Custom software spokes |
+| `/insights/website-maintenance-cost-after-launch` | Website maintenance cost in India | Pricing, ownership guide |
+
+Recheck quarterly: DPDP Rules phase dates (clinic guide) and .in renewal prices (maintenance guide).
 
 ## Sources
 

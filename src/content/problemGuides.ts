@@ -1073,4 +1073,316 @@ export const problemGuides: BlogPost[] = [
       { path: '/insights/ai-automation-small-business-tamil-nadu', label: 'Where AI automation actually pays' },
     ],
   },
+  {
+    slug: 'clinic-appointment-system-build-or-subscribe',
+    path: '/insights/clinic-appointment-system-build-or-subscribe',
+    title: 'Clinic appointment software: subscribe or build your own?',
+    seoTitle: 'Clinic Appointment Software: Subscribe or Build? | BuiltbyGSV',
+    description:
+      'When a subscription clinic app is enough, when a custom booking system pays off, and what any system holding patient data must handle under India’s DPDP Act.',
+    excerpt:
+      'Most clinics should start with a subscription booking tool. Some outgrow it quickly. Here is how to tell which you are, and what a patient-data system must get right either way.',
+    category: 'Healthcare & records',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'Subscribe if you are a single-doctor or small clinic with a standard OPD flow. Consider custom software when your workflow is unusual (several doctors and procedures, packages, follow-up programmes, multiple branches) or when you need your own branded patient experience and data. Either way, patient data needs consent, access control and a plan for the DPDP Act.',
+    sections: [
+      {
+        heading: 'What a clinic actually needs from booking',
+        bullets: [
+          'Patients can book or request a slot from a phone without calling during busy hours.',
+          'Reception sees the day’s queue, walk-ins and tokens in one place.',
+          'Confirmations and reminders go out automatically, which reduces no-shows.',
+          'Doctors see the patient’s previous visits before calling them in.',
+          'Billing, receipts and follow-up dates connect to the same visit.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'When subscription software is the right answer',
+        paragraphs: [
+          'Ready-made clinic and practice-management products cover the standard OPD flow well: slots, tokens, prescriptions, billing and reminders, often with mobile apps and support included. For a single doctor or a small clinic, a monthly subscription is almost always cheaper and faster than building anything.',
+          'Before signing, check that you can export all patient and visit data, that the vendor explains where data is stored and who can access it, and how pricing changes as you add doctors or branches.',
+        ],
+      },
+      {
+        heading: 'When custom software starts to pay off',
+        bullets: [
+          'Your flow does not fit the template: procedure packages, dialysis or physiotherapy schedules, camps, or programmes with fixed follow-up visits.',
+          'Several branches or doctors share patients and the subscription prices per doctor or per branch.',
+          'You want booking on your own website and WhatsApp under your own brand, not inside a marketplace that also lists competing clinics.',
+          'Staff are maintaining spreadsheets alongside the subscription to cover what it cannot do.',
+        ],
+        paragraphs: [
+          'A middle path also works: keep a subscription for billing and records, and build only a branded booking front end and reminders that connect to it.',
+        ],
+      },
+      {
+        heading: 'Patient data: what any system must handle',
+        paragraphs: [
+          'India’s Digital Personal Data Protection Act, 2023 and the DPDP Rules notified in November 2025 are being phased in over roughly 12 to 18 months. Health information is sensitive regardless of the dates: collect only what you need, tell patients clearly why, and control who on your staff can see what.',
+        ],
+        bullets: [
+          'Role-based access: reception, doctors and billing see different things.',
+          'An audit trail of who viewed or changed a record.',
+          'No medical reports sent as open WhatsApp attachments without the patient’s agreement.',
+          'Backups, and a tested way to restore them.',
+          'A written answer to “where is this data stored, and who else can reach it?”.',
+        ],
+      },
+      {
+        heading: 'A sensible first version',
+        paragraphs: [
+          'If you do build, start with booking, the reception queue and reminders, connected to your existing billing. Add patient history and follow-up programmes once the first part is in daily use. Our Thaai Clinic prototype shows the patient-side booking and record experience we design; it is a concept, not a deployed healthcare system.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'What is the best appointment system for a small clinic?', answer: 'For most single-doctor or small clinics, a subscription practice-management app with booking, tokens, reminders and billing. Check data export and access controls before choosing.' },
+      { question: 'How much does custom clinic software cost?', answer: 'It depends on scope. A branded booking and reminder system connected to existing billing costs far less than a full hospital system. Get a fixed-scope quote for the first module.' },
+      { question: 'Does the DPDP Act apply to clinics?', answer: 'Yes, it applies to digital personal data processed by clinics, with obligations phased in after the 2025 rules. Take legal advice on the specific dates and duties.' },
+    ],
+    related: [
+      { path: '/clinic-website-development-karaikal', label: 'Clinic and hospital websites in Karaikal' },
+      { path: '/projects/thaai-clinic-website', label: 'Thaai Clinic prototype' },
+      { path: '/insights/whatsapp-business-app-vs-api-clinics-shops', label: 'WhatsApp app or API for clinics' },
+      { path: '/insights/organise-family-medical-records-india', label: 'Keeping family medical records in order' },
+    ],
+    sources: [
+      { label: 'PIB: Digital Personal Data Protection Rules, 2025', url: 'https://static.pib.gov.in/WriteReadData/specificdocs/documents/2025/nov/doc20251117695301.pdf' },
+      { label: 'YourStory: DPDP Rules rollout over 18 months', url: 'https://yourstory.com/2025/11/digital-personal-data-protection-dpdp-rules-2025-rollout-over-18-months' },
+    ],
+  },
+  {
+    slug: 'brief-an-ai-chatbot-that-does-not-make-things-up',
+    path: '/insights/brief-an-ai-chatbot-that-does-not-make-things-up',
+    title: 'How to brief an AI chatbot that does not make things up about your business',
+    seoTitle: 'AI Chatbot for Your Business Without Hallucinations | BuiltbyGSV',
+    description:
+      'Why business chatbots invent prices and policies, how grounding answers in your own documents works, and the brief and tests to agree before anyone builds one.',
+    excerpt:
+      'A chatbot that confidently quotes the wrong price is worse than no chatbot. Here is what to prepare, what to ask a developer and how to test it before customers ever see it.',
+    category: 'AI & automation',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '9 min read',
+    takeaway:
+      'A useful business chatbot answers only from documents you approve, says “I don’t know, let me connect you” when the answer is not there, and hands sensitive or high-stakes questions to a person. The quality depends far more on the source documents and test questions you prepare than on which AI model is used.',
+    sections: [
+      {
+        heading: 'Why chatbots make things up',
+        paragraphs: [
+          'Large language models generate fluent text from patterns. Asked about your clinic’s Sunday timings or your shop’s return policy, a model with no access to your real information will produce a plausible answer anyway. That is a hallucination, and to a customer it looks exactly like a fact.',
+          'The fix is not a bigger model. It is giving the model your actual information at the moment it answers, and instructing it to refuse when that information does not contain the answer.',
+        ],
+      },
+      {
+        heading: 'Grounding: answering from your own documents',
+        paragraphs: [
+          'The standard approach, often called retrieval-augmented generation, works in two steps. First, the system searches your approved documents for the passages relevant to the question. Then the model writes an answer using only those passages, ideally showing which source it used.',
+          'This means your documents become the product. Outdated price lists, contradictory FAQs and policies that live only in the owner’s head will show up directly in the chatbot’s answers.',
+        ],
+      },
+      {
+        heading: 'What to prepare before talking to a developer',
+        bullets: [
+          'A single, current source for prices, timings, locations, services and policies, with an owner who updates it.',
+          'Fifty real questions customers have asked, taken from WhatsApp, calls and email, with the correct answer for each.',
+          'A list of questions the bot must never answer itself: medical, legal or financial advice, complaints, refunds, anything involving a specific customer’s account.',
+          'The hand-off route: which person or WhatsApp number takes over, and during which hours.',
+          'The languages customers actually use, including mixed Tamil and English.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Test it like a sceptical customer',
+        bullets: [
+          'Run all fifty real questions and check every answer against your sheet.',
+          'Ask questions whose answers are not in the documents. The correct response is a polite refusal and a hand-off, not a guess.',
+          'Try to make it promise discounts, delivery dates or outcomes you do not offer.',
+          'Ask in Tamil, in Tanglish and with spelling mistakes.',
+          'Repeat the tests after every document update or model change.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Running costs and ownership',
+        paragraphs: [
+          'AI chatbots have usage-based running costs that grow with traffic and with how much text is sent to the model on each question. Ask for an estimate per thousand conversations and a monthly cap. Make sure the documents, conversation logs and configuration belong to you and can be exported.',
+          'Read conversation logs every week for the first month. They show exactly which questions customers ask and where your documents are missing answers, which is useful even beyond the chatbot.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'Why does my chatbot give wrong answers?', answer: 'Usually because it is answering from the model’s general knowledge instead of your documents, or your documents are outdated or contradictory. Ground it in approved sources and test it.' },
+      { question: 'What is retrieval-augmented generation?', answer: 'A method where the system first finds relevant passages in your documents, then has the AI answer using only those passages.' },
+      { question: 'Can a chatbot replace my customer support staff?', answer: 'It can answer repeated factual questions. Complaints, refunds, sensitive and high-stakes questions should be handed to a person.' },
+      { question: 'Can an AI chatbot answer in Tamil?', answer: 'Current models handle Tamil and mixed Tamil-English, but test with real customer questions before launch.' },
+    ],
+    related: [
+      { path: '/services/ai-solutions', label: 'AI solutions' },
+      { path: '/ai-automation-agency-bengaluru', label: 'AI automation in Bengaluru' },
+      { path: '/insights/ai-automation-small-business-tamil-nadu', label: 'Where AI automation actually pays' },
+      { path: '/insights/whatsapp-business-app-vs-api-clinics-shops', label: 'WhatsApp app or API?' },
+    ],
+  },
+  {
+    slug: 'school-coaching-centre-fee-management',
+    path: '/insights/school-coaching-centre-fee-management',
+    title: 'Fee management for schools and coaching centres: from register to app',
+    seoTitle: 'Fee Management for Schools & Coaching Centres | BuiltbyGSV',
+    description:
+      'Stop fee leakage and chasing parents: what a fee system must track, UPI collection with automatic receipts, reminders that work, and when an app beats a register.',
+    excerpt:
+      'Fee collection is where many schools and coaching centres quietly lose money and goodwill. Here is how to set it up properly, whether you use a register, a ready-made app or custom software.',
+    category: 'Planning guide',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'Whatever tool you use, every student needs a fee plan, every payment needs a receipt with a number, and dues need a single list you trust. Collect by UPI or payment link with automatic receipts, send reminders on fixed dates, and give parents a way to check their balance without calling the office.',
+    sections: [
+      {
+        heading: 'Where fee collection goes wrong',
+        bullets: [
+          'Concessions, sibling discounts and instalment plans agreed verbally and never written down.',
+          'Cash and UPI payments recorded in different places, so the balance is never quite right.',
+          'Receipts written by hand, numbered inconsistently, or not given at all.',
+          'Office staff spending the first week of every month phoning parents.',
+          'Parents disputing amounts because they cannot see what was paid and when.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'What a fee system must track',
+        bullets: [
+          'Each student’s fee plan: heads (tuition, transport, exam, materials), amounts, due dates and approved concessions.',
+          'Every payment with date, mode (cash, UPI, bank transfer, cheque), reference and the staff member who recorded it.',
+          'A numbered receipt for every payment, sent to the parent.',
+          'Outstanding dues by student, class and batch, at any moment.',
+          'Refunds and adjustments as separate entries, never by editing old payments.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Collecting online without losing track',
+        paragraphs: [
+          'A static UPI QR at the counter is convenient but leaves staff matching screenshots to students. Payment links or a gateway that carries the student ID let each payment mark the right dues as paid and trigger the receipt automatically.',
+          'Keep cash, but record it in the same system on the same day, so the outstanding list stays the single source of truth.',
+        ],
+      },
+      {
+        heading: 'Reminders parents do not ignore',
+        bullets: [
+          'One reminder a few days before the due date, one on the date and one a week after. Not daily messages.',
+          'Each reminder shows the exact amount, what it is for and a link to pay.',
+          'Polite wording, sent in the language parents use, and never shared in class or group chats.',
+          'A clear contact for families who need an instalment arrangement.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Register, ready-made app or custom software',
+        paragraphs: [
+          'A well-kept register or spreadsheet can work for a small coaching centre with one person in charge. School management software covers standard fee, attendance and report-card needs at a subscription cost and suits most schools.',
+          'Custom software makes sense when your structure is unusual, such as many batches and courses with different instalment plans, several branches, or fees tied to attendance or materials, or when you want fee status, attendance and results in one branded parent app. Confirm the tax treatment of each fee head with your accountant, because education services and other charges can be treated differently under GST.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'How can a coaching centre collect fees online?', answer: 'Use payment links or a gateway that carries the student reference, so each payment updates the right dues and sends a receipt automatically.' },
+      { question: 'What should a fee receipt include?', answer: 'Institution name, receipt number, date, student name and class or batch, fee heads paid, amount, payment mode and reference, plus any applicable tax details.' },
+      { question: 'Do I need custom software for fee management?', answer: 'Not usually. Ready-made school software fits standard structures. Custom software helps with unusual plans, several branches or a branded parent app.' },
+    ],
+    related: [
+      { path: '/insights/move-business-off-excel-and-paper-registers', label: 'Moving off Excel and paper registers' },
+      { path: '/custom-software-development-karaikal', label: 'Custom software in Karaikal' },
+      { path: '/custom-software-development-thanjavur', label: 'Custom software in Thanjavur' },
+      { path: '/insights/gst-invoices-and-payments-in-your-first-web-app', label: 'Payments and GST in a web app' },
+    ],
+  },
+  {
+    slug: 'website-maintenance-cost-after-launch',
+    path: '/insights/website-maintenance-cost-after-launch',
+    title: 'What a website costs to keep running after launch',
+    seoTitle: 'Website Maintenance Cost After Launch in India | BuiltbyGSV',
+    description:
+      'Domain renewals, hosting, email, security updates, backups and edits: what each costs to keep a business website running in India, and which charges to avoid.',
+    excerpt:
+      'The build price is only the first bill. Here is every recurring cost of a business website, typical ranges, and the questions that stop a cheap launch turning into an expensive year two.',
+    category: 'Planning guide',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '7 min read',
+    takeaway:
+      'Every website has a domain renewal and somewhere to host it. Everything else depends on how it was built: a WordPress site needs regular plugin and security updates, a static or pre-rendered site needs very little. Ask for the renewal price, not the introductory offer, and know exactly what your maintenance fee covers.',
+    sections: [
+      {
+        heading: 'Costs every website has',
+        bullets: [
+          'Domain renewal: a .in domain typically renews at roughly ₹600 to ₹1,500 a year before GST, depending on the registrar. First-year offers are often far lower, so compare renewal prices.',
+          'Hosting: from free tiers for small static sites to a few thousand rupees a year for shared hosting, and more for servers running applications. Introductory hosting prices often rise sharply at renewal.',
+          'SSL certificate: free from providers such as Let’s Encrypt on most modern hosts. Paying extra for a basic certificate is rarely necessary.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Costs that depend on how the site was built',
+        bullets: [
+          'WordPress and similar platforms need core, theme and plugin updates every month. Skipping them is the most common way small-business sites get hacked.',
+          'Premium themes and plugins often carry yearly licence fees.',
+          'Static or pre-rendered sites have fewer moving parts and much less to update, though any forms or integrations still need checking.',
+          'Web applications with databases, logins or payments need monitoring, backups and dependency updates as a matter of routine.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Costs people forget',
+        bullets: [
+          'Business email on your domain, usually priced per user per month.',
+          'Backups stored somewhere other than the hosting account, and a tested restore.',
+          'Paid services the site uses: maps, SMS, WhatsApp API, payment gateway fees.',
+          'Content updates: new prices, staff, photos and services. These are usually the most frequent requests.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Questions to ask about any maintenance plan',
+        bullets: [
+          'Exactly which tasks are included each month, and how many content edits?',
+          'How quickly will you respond if the site goes down?',
+          'Where are backups kept and when was a restore last tested?',
+          'Are renewals in my name and on my card, or bundled into your fee?',
+          'What happens to the site and domain if I stop the plan?',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'How to keep the yearly bill low',
+        paragraphs: [
+          'Register the domain and hosting in your business’s name with auto-renew on, so renewals never depend on a third party. Choose a build that matches how often the site changes: a site updated twice a year does not need the same platform as a shop updating stock daily.',
+          'Ask for a short handover document listing every account, renewal date and recurring charge. It is the cheapest insurance a business website can have.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'How much does it cost to renew a .in domain?', answer: 'Roughly ₹600 to ₹1,500 a year before GST at common registrars in 2026. Check the renewal price, not the first-year offer.' },
+      { question: 'Does a website need monthly maintenance?', answer: 'WordPress and plugin-based sites need monthly updates for security. Static and pre-rendered sites need far less, mainly renewals and content changes.' },
+      { question: 'Do I need to pay for an SSL certificate?', answer: 'Usually not. Most modern hosts provide free SSL certificates that renew automatically.' },
+      { question: 'What happens if my domain expires?', answer: 'The site and email on it stop working. Registrars usually allow a short late-renewal period, often at extra cost, before the domain can be lost.' },
+    ],
+    related: [
+      { path: '/pricing', label: 'BuiltbyGSV pricing' },
+      { path: '/insights/who-owns-your-website-domain-hosting-code', label: 'Who owns your website?' },
+      { path: '/insights/compare-website-quotes-india', label: 'How to compare website quotes' },
+      { path: '/insights/website-cost-karaikal', label: 'What a website costs in Karaikal' },
+    ],
+    sources: [
+      { label: 'OVHcloud: .in domain pricing (India)', url: 'https://www.ovhcloud.com/en-in/domains/tld/in/' },
+      { label: 'Gandi: .in domain pricing (India)', url: 'https://www.gandi.net/en-IN/domain/tld/in' },
+      { label: 'Let’s Encrypt', url: 'https://letsencrypt.org/' },
+    ],
+  },
 ];
