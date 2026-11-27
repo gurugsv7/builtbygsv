@@ -7,7 +7,7 @@ The repository is configured with `https://www.builtbygsv.in` as the canonical o
 1. Import this repository into Vercel and keep the detected **Vite** framework preset.
 2. Confirm the build command is `npm run build` and output directory is `dist`.
 3. Set `www.builtbygsv.in` as the primary Vercel domain and redirect `builtbygsv.in` to it. The repository includes a host redirect preserving the path.
-4. Add both `gurugsv.in` and `www.gurugsv.in` as aliases so the repository redirect rules can preserve paths.
+4. Keep the legacy `gurugsv.in` and `www.gurugsv.in` domains as aliases so the repository redirect rules forward old links to `www.builtbygsv.in` with their paths.
 5. Apply the DNS records Vercel shows for the apex and `www` host. DNS values are account-specific, so they are intentionally not hard-coded here.
 
 ## Google indexing
@@ -16,14 +16,14 @@ The repository is configured with `https://www.builtbygsv.in` as the canonical o
 2. Submit `https://www.builtbygsv.in/sitemap.xml`.
 3. Inspect the homepage, `/trust`, `/projects`, priority service pages and all three location pages; request indexing after their live inspections pass. Requesting indexing is not a guarantee of indexing or ranking.
 4. Create or update a Google Business Profile only for a real, eligible business location. Do not create virtual offices or duplicate city listings.
-5. Keep GitHub, LinkedIn and other public profiles consistent with the same name variants used on the site: BuiltbyGSV, GuruGSV, Guru GSV and Gurusabarivasan M.
+5. Keep GitHub, LinkedIn, Instagram and X profiles consistent with the company name used on the site: BuiltbyGSV. Link company-owned profiles, not personal ones.
 
 ## Content needed next
 
-Add verified information before expanding the Gurusabarivasan/GuruGSV personal entity further:
+Add verified company information before expanding the BuiltbyGSV entity further:
 
-- professional headshot and short biography;
-- years of experience and verified qualifications;
+- company LinkedIn page and GitHub organization to replace the personal profile links in `brandEntity`;
+- verified delivery history and qualifications held by the studio;
 - client-approved testimonials and case-study links;
 - business address only if it is public and genuinely staffed.
 

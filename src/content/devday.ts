@@ -2,7 +2,7 @@
 export const DEVDAY_PAGE = {
   path: '/devday',
   title: 'Great to meet you at DevDay | BuiltbyGSV',
-  description: 'Save Gurusabarivasan’s contact, connect on WhatsApp or LinkedIn, and see what BuiltbyGSV is building: web, software and AI products.',
+  description: 'Save BuiltbyGSV’s contact, connect on WhatsApp or LinkedIn, and see what BuiltbyGSV is building: web, software and AI products.',
 };
 
 /** Full-screen, story-style tour of the work for showing on a phone. Also kept out of the sitemap. */
@@ -15,8 +15,8 @@ export const TOUR_PAGE = {
 /** A two-sided LinkedIn and X card for networking. Shared by QR, kept out of the sitemap. */
 export const CONNECT_PAGE = {
   path: '/connect',
-  title: 'Connect with Guru on LinkedIn and X | BuiltbyGSV',
-  description: 'Scan to connect with Gurusabarivasan on LinkedIn or follow BuiltbyGSV on X.',
+  title: 'Connect with BuiltbyGSV on LinkedIn and X',
+  description: 'Scan to connect with BuiltbyGSV on LinkedIn or follow the studio on X.',
 };
 
 /** Pages that install as their own home-screen apps, each with a separate manifest and icon. */

@@ -265,7 +265,7 @@ export function createStudentPageSchema() {
       datePublished: STUDENT_PAGE.published,
       dateModified: STUDENT_PAGE.updated,
       mainEntityOfPage: url,
-      author: { '@id': `${SITE_URL}/#gurusabarivasan` },
+      author: { '@id': `${SITE_URL}/#organization` },
       publisher: { '@id': `${SITE_URL}/#organization` },
       inLanguage: 'en-IN',
       about: STUDENT_TOOLS.map((tool) => ({ '@type': 'SoftwareApplication', name: tool.name, url: tool.url })),

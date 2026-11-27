@@ -221,7 +221,7 @@ Ordered by impact.
    automated spam scoring 0.01, so a small number of genuine local links overtakes them outright.
    Confirmed opportunities, in order:
 
-   - **kaaraikarangal.com** already credits "Developed by Guru, SnapLearnKkl" in its footer, **but
+   - **kaaraikarangal.com** already credits an individual ("Developed by Guru, SnapLearnKkl") in its footer, **but
      as plain text, not a hyperlink**. A text mention passes nothing. Two-minute fix:
      `Developed by <a href="https://builtbygsv.in/">BuiltbyGSV</a>, SnapLearnKkl`.
      High value: registered Karaikal NGO (Reg. 31/2025), real local address, Tamil content.
@@ -229,7 +229,7 @@ Ordered by impact.
      Adding a footer credit requires the client to extend the page first.
    - "The Striatum" and other city projects — domain not yet supplied.
 
-   Vary the anchor text. Brand anchors ("BuiltbyGSV", "Gurusabarivasan") on most; at most one
+   Vary the anchor text. Brand anchors ("BuiltbyGSV", "Built by GSV") on most; at most one
    descriptive anchor. Exact-match "web developer in Karaikal" across every client footer is an
    obvious footprint. Do not nofollow these — they are legitimate editorial credits.
 

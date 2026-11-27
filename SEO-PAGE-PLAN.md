@@ -1,6 +1,6 @@
 # BuiltbyGSV Page Plan
 
-This plan is for pages that should be designed and written manually. The goal is not to create many city/keyword pages. The goal is to create a small set of useful pages with real proof, clear services, and strong identity signals for BuiltbyGSV, GuruGSV, Guru GSV, and Gurusabarivasan M.
+This plan is for pages that should be designed and written manually. The goal is not to create many city/keyword pages. The goal is to create a small set of useful pages with real proof, clear services, and strong identity signals for BuiltbyGSV as a registered company.
 
 ## Page Types
 
@@ -28,35 +28,34 @@ These answer real questions people search before hiring a developer. They should
 
 ### 1. `/about`
 
-Type: Core page, personal entity page
+Type: Core page, company entity page
 
 Main SEO targets:
 
-- Gurusabarivasan M
-- GuruGSV
-- Guru GSV
-- BuiltbyGSV founder
-- full stack developer
+- BuiltbyGSV
+- Built by GSV
+- BuiltbyGSV studio
+- product and AI engineering studio
 
 Purpose:
 
-Make Google and visitors understand that Gurusabarivasan M, GuruGSV, Guru GSV, and BuiltbyGSV are connected.
+Make Google and visitors understand BuiltbyGSV as a registered company: what it does, where it is based and how to verify it. The site presents the company, not an individual.
 
 Design/content needed:
 
-- Short real bio
+- Short company story
 - Why BuiltbyGSV exists
 - Current location: Puducherry / Karaikal context
-- Skills and stack
-- Certifications
-- GitHub and LinkedIn
+- Capabilities and stack
+- Registration details (link to `/trust`)
+- Company GitHub, LinkedIn, Instagram and X
 - Contact email/phone
-- Real photo or clean personal visual
+- Studio visuals or brand mascot
 - Working style and values
 
 Notes:
 
-This is the most important page for personal-name searches.
+This is the most important page for branded searches.
 
 ### 2. `/projects`
 
@@ -65,7 +64,7 @@ Type: Proof page
 Main SEO targets:
 
 - BuiltbyGSV projects
-- GuruGSV portfolio
+- BuiltbyGSV portfolio
 - web development portfolio
 - software development projects
 - AI projects
@@ -346,7 +345,7 @@ Type: Info page, blog index
 Main SEO targets:
 
 - BuiltbyGSV blog
-- GuruGSV web development notes
+- BuiltbyGSV web development notes
 - Karaikal website guides
 
 Purpose:
@@ -358,7 +357,7 @@ Design/content needed:
 - Featured article
 - Categories
 - Article cards
-- Short intro from GuruGSV
+- Short intro from the studio
 - Links to services and local pages
 
 Recommended categories:
@@ -491,6 +490,6 @@ Thin duplicate pages can look low-quality. The current local landing pages are e
 - Use screenshots, project proof, and specific examples.
 - Keep each page useful even if Google did not exist.
 - Do not repeat the same paragraphs across location pages.
-- Use the names consistently: BuiltbyGSV, GuruGSV, Guru GSV, Gurusabarivasan M.
+- Use the company name consistently: BuiltbyGSV (registered as BUILTBYGSV). Do not attribute work to individuals.
 - Avoid fake awards, fake reviews, fake addresses, and inflated results.
 - Prefer one strong page over five weak pages.

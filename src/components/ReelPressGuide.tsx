@@ -440,7 +440,7 @@ function ScenesMobile() {
   );
 }
 
-/** The feedback rounds as a thread: my note, a beat, then what Claude changed. */
+/** The feedback rounds as a thread: our note, a beat, then what Claude changed. */
 function Rounds({ items }: { items: { label: string; quote: string; text: string }[] }) {
   return (
     <div className="my-7 overflow-hidden rounded-3xl border border-slate-200 bg-[#F1F4F2]">
@@ -766,7 +766,7 @@ export function ReelPressGuide({ onStartProject, title, readTime, published }: P
   const byline = (
     <div className="flex items-center gap-3">
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0F8B75] font-mono text-[11px] font-black text-white">GSV</span>
-      <span className="text-xs"><span className="block font-extrabold text-white">Gurusabarivasan M · GuruGSV</span><span className="mt-0.5 block font-semibold text-white/50">{date} · {readTime}</span></span>
+      <span className="text-xs"><span className="block font-extrabold text-white">BuiltbyGSV Studio</span><span className="mt-0.5 block font-semibold text-white/50">{date} · {readTime}</span></span>
     </div>
   );
   const heroDots = <div aria-hidden="true" className="absolute inset-0 opacity-[.12] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />;
@@ -788,7 +788,7 @@ export function ReelPressGuide({ onStartProject, title, readTime, published }: P
                 {lead}{' '}
                 <span className="font-serif font-normal italic text-[#48C9A9] underline decoration-[#F5C748] decoration-[3px] underline-offset-[10px]">{accent}</span>
               </motion.h1>
-              <motion.p {...heroMotion(0.16)} className="mt-7 max-w-xl text-lg leading-8 text-white/70">The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and my voice recording. This page walks through the exact setup, every command, the scene plan, the feedback rounds, and the prompts, so you can make your own.</motion.p>
+              <motion.p {...heroMotion(0.16)} className="mt-7 max-w-xl text-lg leading-8 text-white/70">The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from our script and voice recording. This page walks through the exact setup, every command, the scene plan, the feedback rounds, and the prompts, so you can make your own.</motion.p>
               <motion.div {...heroMotion(0.24)} className="mt-8 flex flex-wrap items-center gap-6">
                 <a href="#what" className="press group inline-flex items-center gap-2 rounded-full bg-[#F5C748] px-5 py-3 text-sm font-extrabold text-[#09121F]">Start reading <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" /></a>
                 <a href="#prompts" className="group inline-flex items-center gap-2 text-sm font-bold text-white/80 hover:text-white"><span className="u-link">Jump to the prompts</span> <ArrowRight className="nudge-r h-4 w-4" /></a>
@@ -816,7 +816,7 @@ export function ReelPressGuide({ onStartProject, title, readTime, published }: P
           <motion.div className="mt-7 flex justify-center" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: EASE.out, delay: 0.2 }}>
             <ReelPlayer size="sm" />
           </motion.div>
-          <motion.p {...heroMotion(0.3)} className="mt-6 text-sm leading-6 text-white/70">The reel was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and voice. Here’s the exact setup, every command and the prompts.</motion.p>
+          <motion.p {...heroMotion(0.3)} className="mt-6 text-sm leading-6 text-white/70">The reel was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from our script and voice. Here’s the exact setup, every command and the prompts.</motion.p>
           <div className="mt-5">{byline}</div>
           <div className="mt-6"><Stats compact /></div>
           <a href="#what" className="mt-6 flex items-center justify-center gap-2 rounded-full bg-[#F5C748] py-3 text-sm font-extrabold text-[#09121F] active:scale-[0.99]">Start reading <ArrowDown className="h-4 w-4" /></a>

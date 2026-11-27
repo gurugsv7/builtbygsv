@@ -254,7 +254,7 @@ staticPageContent['/website-information'] = {
 };
 staticPageContent['/trust'] = {
   eyebrow: 'Business details & delivery evidence', heading: 'Know who you’re building with.',
-  intro: 'BuiltbyGSV is a product and AI engineering studio founded by Gurusabarivasan M, based in Karaikal, Puducherry, India.',
+  intro: 'BuiltbyGSV is a registered product and AI engineering studio based in Karaikal, Puducherry, India.',
   sections: [
     { heading: 'Business registration', paragraphs: [
       `Enterprise name: ${BUSINESS_REGISTRATION.enterpriseName}. Udyam registration: ${BUSINESS_REGISTRATION.udyamNumber}, registered 8 October 2026. Certificate classification: Micro enterprise, 2026–27. Major activity: services.`,
@@ -534,7 +534,7 @@ const locationRenderPages: RenderPage[] = locationPages.map((page) => ({
 const blogIndex: RenderPage = {
   path: '/insights',
   title: 'Karaikal Website & Local SEO Guides | BuiltbyGSV',
-  description: 'Practical guides about website planning, local SEO and launch decisions for Karaikal businesses, written by Gurusabarivasan M.',
+  description: 'Practical guides about website planning, local SEO and launch decisions for Karaikal businesses, written by the BuiltbyGSV studio team.',
   eyebrow: 'BuiltbyGSV field notes',
   heading: 'Practical notes for a stronger business website.',
   intro: 'These guides answer the questions local business owners ask before they hire a developer, publish a new site or invest in search visibility.',
@@ -570,7 +570,7 @@ const blogRenderPages: RenderPage[] = blogPosts.map((post) => ({
     datePublished: post.published,
     dateModified: post.updated,
     mainEntityOfPage: `${SITE_URL}${post.path}`,
-    author: { '@id': `${SITE_URL}/#gurusabarivasan` },
+    author: { '@id': `${SITE_URL}/#organization` },
     publisher: { '@id': `${SITE_URL}/#organization` },
     inLanguage: 'en-IN',
   }],
@@ -741,7 +741,7 @@ const connectPage: RenderPage = {
   title: CONNECT_PAGE.title,
   description: CONNECT_PAGE.description,
   eyebrow: 'Connect',
-  heading: 'Connect with Guru on LinkedIn and X',
+  heading: 'Connect with BuiltbyGSV on LinkedIn and X',
   intro: CONNECT_PAGE.description,
   sections: [],
 };

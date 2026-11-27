@@ -124,7 +124,7 @@ export const BlogArticlePage: React.FC<BlogArticleProps> = ({ onStartProject }) 
                 GSV
               </div>
               <div className="text-xs">
-                <p className="font-extrabold text-slate-900">Gurusabarivasan M · GuruGSV</p>
+                <p className="font-extrabold text-slate-900">BuiltbyGSV Studio</p>
                 <p className="mt-1 font-semibold text-slate-500">
                   Published {new Date(`${post.published}T00:00:00`).toLocaleDateString('en-IN', {
                     day: 'numeric',

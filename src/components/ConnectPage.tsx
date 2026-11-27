@@ -6,7 +6,7 @@ import { BrandMark, LinkedinMark, XMark } from './BrandIcons';
 import { DotQR } from './DotQR';
 import { brandEntity, SITE_URL } from '../seo';
 import { CONNECT_PAGE } from '../content/devday';
-import guruHello from '../assets/guru/guru-hello.webp';
+import mascotHello from '../assets/brand/mascot-hello.webp';
 import { useInstallPrompt } from '../useInstallPrompt';
 
 const INK = '#1C1714';
@@ -23,7 +23,7 @@ type Face = {
   body: string;
 };
 const FACES: Face[] = [
-  { key: 'linkedin', label: 'LinkedIn', url: brandEntity.linkedin, handle: 'linkedin.com/in/gurugsv', cta: 'Connect on LinkedIn', accent: '#0A66C2', body: '#FFFFFF' },
+  { key: 'linkedin', label: 'LinkedIn', url: brandEntity.linkedin, handle: 'BuiltbyGSV on LinkedIn', cta: 'Connect on LinkedIn', accent: '#0A66C2', body: '#FFFFFF' },
   { key: 'x', label: 'X', url: brandEntity.x, handle: 'x.com/BuiltbyGSV', cta: 'Follow @BuiltbyGSV', accent: '#000000', body: '#F4F1EA' },
 ];
 
@@ -61,8 +61,8 @@ function CardFace({ face, index }: { face: Face; index: number }) {
         <span aria-hidden="true" className="absolute -left-[11px] -top-[10px] h-5 w-5 rounded-full border-2" style={{ backgroundColor: PAPER, borderColor: INK }} />
         <span aria-hidden="true" className="absolute -right-[11px] -top-[10px] h-5 w-5 rounded-full border-2" style={{ backgroundColor: PAPER, borderColor: INK }} />
         <div className="min-w-0" style={{ color: INK }}>
-          <p className="font-shout text-[0.95rem] uppercase leading-none tracking-tight">Gurusabarivasan M</p>
-          <p className="mt-1 whitespace-nowrap font-plex text-[10px] font-bold uppercase tracking-wide opacity-70">Founder · BuiltbyGSV</p>
+          <p className="font-shout text-[0.95rem] uppercase leading-none tracking-tight">BuiltbyGSV</p>
+          <p className="mt-1 whitespace-nowrap font-plex text-[10px] font-bold uppercase tracking-wide opacity-70">Product & AI Engineering Studio</p>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ function CardFace({ face, index }: { face: Face; index: number }) {
 }
 
 /**
- * Show mode, for Guru's own phone: one card, two faces, LinkedIn on the front and X
+ * Show mode, for the studio team's own phones: one card, two faces, LinkedIn on the front and X
  * on the back. Swipe, tap the toggle or use the arrow keys to flip. Each face's QR
  * opens that profile directly.
  */
@@ -115,7 +115,7 @@ function ShowMode({ onExit }: { onExit: () => void }) {
   const share = async () => {
     const url = `${SITE_URL}${CONNECT_PAGE.path}`;
     try {
-      if (navigator.share) { await navigator.share({ title: 'Connect with Guru', url }); return; }
+      if (navigator.share) { await navigator.share({ title: 'Connect with BuiltbyGSV', url }); return; }
       await navigator.clipboard.writeText(url);
     } catch { /* dismissed */ }
   };
@@ -209,7 +209,7 @@ function ShowMode({ onExit }: { onExit: () => void }) {
 
 type Step = 'linkedin' | 'x';
 const STEPS: { key: Step; title: string; detail: string; url: string; accent: string }[] = [
-  { key: 'linkedin', title: 'Connect on LinkedIn', detail: 'in/gurugsv · Founder, BuiltbyGSV', url: 'https://www.linkedin.com/in/gurugsv/', accent: '#0A66C2' },
+  { key: 'linkedin', title: 'Connect on LinkedIn', detail: 'BuiltbyGSV · studio updates', url: brandEntity.linkedin, accent: '#0A66C2' },
   { key: 'x', title: 'Follow on X', detail: '@BuiltbyGSV · builds, drops, reels', url: brandEntity.x, accent: '#000000' },
 ];
 const STORE = 'gsv-connect-v1';
@@ -313,15 +313,15 @@ function VisitorMode({ onShow }: { onShow: () => void }) {
           <motion.div className="relative z-10 mb-16 flex-1" initial={{ opacity: 0, y: 12, rotate: -4 }} animate={{ opacity: 1, y: 0, rotate: -2 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.15 }}>
             <div className="relative rounded-2xl border-2 bg-white px-3.5 py-3" style={{ borderColor: INK, boxShadow: `4px 4px 0 ${INK}` }}>
-              <p className="font-shout text-[1.35rem] uppercase leading-[1.02]">Hey, I’m Guru!</p>
-              <p className="mt-1.5 text-[13px] font-semibold leading-snug">Two taps and we’re connected. I’ll stamp each one when you’re back.</p>
+              <p className="font-shout text-[1.35rem] uppercase leading-[1.02]">Hey, we’re BuiltbyGSV!</p>
+              <p className="mt-1.5 text-[13px] font-semibold leading-snug">Two taps and we’re connected. We’ll stamp each one when you’re back.</p>
               <svg aria-hidden="true" viewBox="0 0 30 22" className="absolute -right-[22px] bottom-5 h-[22px] w-[30px]">
                 <path d="M0 2 L28 12 L0 20" fill="#FFFFFF" stroke={INK} strokeWidth="2" strokeLinejoin="round" />
                 <rect x="-2" y="3.5" width="3" height="15" fill="#FFFFFF" />
               </svg>
             </div>
           </motion.div>
-          <motion.img src={guruHello} alt="Guru, the BuiltbyGSV character" width={720} height={647} draggable={false}
+          <motion.img src={mascotHello} alt="The BuiltbyGSV mascot waving hello" width={720} height={647} draggable={false}
             className="w-[52%] max-w-[13rem] shrink-0 select-none"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: [0, -4, 0] }}
             transition={{ opacity: { duration: 0.4 }, y: { duration: 3.4, repeat: Infinity, ease: 'easeInOut', delay: 0.6 } }} />
@@ -355,12 +355,12 @@ function VisitorMode({ onShow }: { onShow: () => void }) {
                 <Stamp big>Connected ✓</Stamp>
                 <p className="mt-4 text-sm font-semibold">That’s it. See you in the feed.</p>
                 <a href="/tour" className="mt-3 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-extrabold text-white" style={{ backgroundColor: INK, boxShadow: `4px 4px 0 ${CLAY}` }}>
-                  Now see what I build <ArrowRight className="h-4 w-4" />
+                  Now see what we build <ArrowRight className="h-4 w-4" />
                 </a>
               </motion.div>
             ) : (
               <motion.div key="more" exit={{ opacity: 0 }} className="flex items-center justify-center gap-4 font-plex text-[12px] font-bold">
-                <a href="/gurusabarivasan.vcf" className="underline decoration-2 underline-offset-4">Save my number</a>
+                <a href={brandEntity.vcard} className="underline decoration-2 underline-offset-4">Save our contact</a>
                 <span aria-hidden="true" className="opacity-40">/</span>
                 <a href="/tour" className="underline decoration-2 underline-offset-4">1-min tour</a>
               </motion.div>
@@ -375,7 +375,7 @@ function VisitorMode({ onShow }: { onShow: () => void }) {
 /**
  * /connect is mostly opened by someone who just scanned a code, so it defaults to a
  * checklist with no QR codes. `?show` (or the QR button) switches to the two-sided
- * card for showing from Guru's own phone.
+ * card for showing from a team member's phone.
  */
 export function ConnectPage() {
   const [showing, setShowing] = useState(() => new URLSearchParams(window.location.search).has('show'));

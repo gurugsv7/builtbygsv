@@ -27,12 +27,12 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'reel-press-workflow',
     path: '/insights/reel-press-workflow',
-    title: 'How I made a reel without opening a video editor',
+    title: 'How we made a reel without opening a video editor',
     seoTitle: 'Make Reels with Claude Code & HyperFrames | BuiltbyGSV',
     description:
       'The full workflow behind an AI-made Instagram reel with Claude Code, HyperFrames and FFmpeg: every command, the scene plan, voice timing and prompts to copy.',
     excerpt:
-      'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and my voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
+      'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from our script and voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
     category: 'Workflow guide',
     published: '2026-09-29',
     updated: '2026-09-29',

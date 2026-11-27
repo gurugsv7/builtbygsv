@@ -205,7 +205,7 @@ export default function SiteRouter() {
         datePublished: blogPost.published,
         dateModified: blogPost.updated,
         mainEntityOfPage: canonicalUrl,
-        author: { '@id': `${SITE_URL}/#gurusabarivasan` },
+        author: { '@id': `${SITE_URL}/#organization` },
         publisher: { '@id': `${SITE_URL}/#organization` },
         inLanguage: 'en-IN',
       } as never);

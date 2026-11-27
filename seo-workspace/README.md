@@ -21,11 +21,11 @@ from a blank conversation.
 | Search Console | Not connected | OpenSEO returned `not_connected`; no CSV export is present | Connect GSC from the project's Search Performance page or add exports under `gsc/` |
 | Production basics | Verified | The canonical host, bare-domain redirect, robots file, sitemap, and four representative prerendered pages were checked on 2026-08-12 | Recheck after deployment or routing changes |
 | Goals and metrics | Proposed | Qualified service enquiries are the apparent primary conversion; organic visibility for commercial and local-intent pages is secondary | Confirm targets and a 90-day baseline after GSC is connected |
-| Positioning | Inferred | Independent product studio led by Gurusabarivasan M, offering web development, custom software, AI solutions, and automation | Confirm ideal customer size, strongest differentiator, exclusions, and known competitors |
+| Positioning | Inferred | Registered product and AI engineering studio (BUILTBYGSV), offering web development, custom software, AI solutions, and automation | Confirm ideal customer size, strongest differentiator, exclusions, and known competitors |
 
 ## Scope currently inferred from the repository
 
-- Brand: BuiltbyGSV, also presented as GuruGSV / Gurusabarivasan M.
+- Brand: BuiltbyGSV, a registered company (enterprise name BUILTBYGSV). No personal-name branding.
 - Primary market: India, with local landing pages for Karaikal, Bengaluru, and
   Thanjavur/Tanjore.
 - Published language: English (`en-IN`); Tamil is listed as a contact language,
@@ -61,7 +61,7 @@ available:
 ## First OpenSEO workflow
 
 Resume `seo-audit` after the hosted account is provisioned. The workflow must
-begin with `whoami` and `list_projects`, then crawl `www.gurugsv.in`. Do not
+begin with `whoami` and `list_projects`, then crawl `www.builtbygsv.in`. Do not
 infer OpenSEO backlink, ranking, keyword-volume, or Search Console results from
 source code.
 
