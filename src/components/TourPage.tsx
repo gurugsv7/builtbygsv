@@ -26,7 +26,7 @@ const SLIDES: Slide[] = [
   { kind: 'contact' },
 ];
 
-const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi Guru, we met at DevDay!')}`;
+const whatsapp = `https://wa.me/${brandEntity.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Hi BuiltbyGSV, we met at DevDay!')}`;
 const PAPER = '#F4F1EA';
 /** The house tokens from the BuiltbyGSV reel covers. */
 const REEL = { paper: '#EFE6D3', paper2: '#E2D6BD', ink: '#1C1714', clay: '#E4572E', teal: '#19B39B' };
@@ -218,7 +218,7 @@ function IntroSlide() {
       <div className="relative -mx-6 mt-auto bg-gradient-to-t from-[#F4F1EA] from-[82%] to-transparent px-6 pt-10">
         <motion.p {...item(0.1)} className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-[#0F8B75]">BuiltbyGSV · Puducherry, India</motion.p>
         <motion.h1 {...item(0.18)} className="mt-3 text-[2.5rem] font-extrabold leading-[1.04] tracking-tight [@media(max-height:700px)]:text-[2.1rem]">
-          I’m Guru. I build{' '}
+          We build{' '}
           <span className="relative inline-block font-serif font-normal italic text-[#0F8B75]">
             software
             <DrawnUnderline className="-bottom-1.5 h-3.5" delay={0.7} />
@@ -239,7 +239,7 @@ function IntroSlide() {
           </p>
         </motion.div>
         <motion.p {...item(0.55)} className="mt-4 flex items-center justify-between text-xs font-semibold text-[#64748B]">
-          <span>Founder, BuiltbyGSV</span>
+          <span>Product & AI Engineering Studio</span>
           <span className="flex items-center gap-1.5 text-[#131921]">Tap to start <ArrowRight className="h-3.5 w-3.5" /></span>
         </motion.p>
       </div>
@@ -325,7 +325,7 @@ function ServicesSlide() {
 
       <motion.p initial={{ opacity: 0, x: -20, rotate: -6 }} animate={{ opacity: 1, x: 0, rotate: -2 }} transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.05 }}
         className="relative self-start px-2 py-1 font-plex text-[11px] font-bold uppercase tracking-[0.14em]" style={{ backgroundColor: REEL.ink, color: REEL.paper }}>
-        How I can help // pick one
+        How we can help // pick one
       </motion.p>
       <motion.h2 {...item(0.12)} className="relative mt-4 font-shout text-[3.2rem] uppercase leading-[0.92] tracking-tight [@media(max-height:600px)]:text-[2.2rem]">
         What should<br />we <span style={{ color: REEL.clay }}>build?</span>
@@ -366,7 +366,7 @@ function ContactSlide({ onReplay }: { onReplay: () => void }) {
         </div>
       </motion.div>
       <motion.div {...item(0.35)} className="grid grid-cols-3 gap-2.5">
-        <a href="/gurusabarivasan.vcf" className="col-span-3 flex items-center justify-center gap-2 rounded-2xl bg-[#F5C748] py-3.5 text-[15px] font-extrabold text-[#131921]"><UserPlus className="h-4 w-4" /> Save my contact</a>
+        <a href={brandEntity.vcard} className="col-span-3 flex items-center justify-center gap-2 rounded-2xl bg-[#F5C748] py-3.5 text-[15px] font-extrabold text-[#131921]"><UserPlus className="h-4 w-4" /> Save our contact</a>
         <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><BrandMark name="whatsapp" /> WhatsApp</a>
         <a href={brandEntity.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><BrandMark name="instagram" /> Reels</a>
         <a href={brandEntity.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-white/20 py-3 text-sm font-bold"><span className="rounded-[3px] bg-white"><BrandMark name="linkedin" /></span> LinkedIn</a>

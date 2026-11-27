@@ -1,0 +1,17 @@
+{
+  "name": "builtbygsv-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply builtbygsv --local",
+    "db:migrate:remote": "wrangler d1 migrations apply builtbygsv --remote",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261127.1",
+    "typescript": "~5.8.2",
+    "wrangler": "^4.169.0"
+  }
+}

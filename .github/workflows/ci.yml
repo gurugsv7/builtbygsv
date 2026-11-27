@@ -20,4 +20,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - name: Prepare Cloudflare Pages output
+        run: npx tsx scripts/pages-postbuild.ts
       - run: npm audit --audit-level=high
+      - name: Type-check API worker
+        working-directory: worker
+        run: npm ci && npx tsc --noEmit

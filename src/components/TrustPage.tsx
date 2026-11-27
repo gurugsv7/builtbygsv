@@ -14,7 +14,7 @@ export function TrustPage() {
     <header className="my-10 max-w-3xl">
       <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#087260]"><ShieldCheck className="h-4 w-4" />Business details &amp; delivery evidence</p>
       <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-6xl">Know who you’re<br /><span className="font-serif font-normal italic text-[#087260]">building with.</span></h1>
-      <p className="mt-6 text-base leading-8 text-slate-600">BuiltbyGSV is a product and AI engineering studio founded by {brandEntity.founderName}, based in Karaikal, Puducherry, India. Explore our registration details, inspect our work and review dated website quality reports.</p>
+      <p className="mt-6 text-base leading-8 text-slate-600">BuiltbyGSV is a registered product and AI engineering studio based in Karaikal, Puducherry, India. Explore our registration details, inspect our work and review dated website quality reports.</p>
     </header>
     <section aria-labelledby="registration-heading">
       <h2 id="registration-heading" className="text-2xl font-extrabold">Business registration</h2>

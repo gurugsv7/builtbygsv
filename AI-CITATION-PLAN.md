@@ -4,7 +4,7 @@ This plan is for making BuiltbyGSV easier to discover, retrieve, trust, and cite
 
 The goal is not to trick LLMs. The goal is to make the web say the same true thing in enough clear, crawlable, evidence-backed places:
 
-> BuiltbyGSV is the web and software development studio of Gurusabarivasan M, known as GuruGSV / Guru GSV, serving Karaikal, Bengaluru, Thanjavur, Puducherry, and remote clients with websites, custom software, AI solutions, automation, and local SEO-ready builds.
+> BuiltbyGSV (registered enterprise BUILTBYGSV) is a product and AI engineering studio serving Karaikal, Bengaluru, Thanjavur, Puducherry, and remote clients with websites, custom software, AI solutions, automation, and local SEO-ready builds.
 
 ## Research Basis
 
@@ -39,15 +39,13 @@ Current status:
 
 ### 2. One Clear Source Of Truth
 
-AI systems need to connect the entity names without confusion.
+AI systems need one entity, named without confusion. BuiltbyGSV is presented as a registered company, never as an individual's personal brand.
 
 Use these names consistently:
 
-- BuiltbyGSV
-- GuruGSV
-- Guru GSV
-- Gurusabarivasan M
-- Gurusabarivasan
+- BuiltbyGSV (primary)
+- Built by GSV (alternate spelling)
+- BUILTBYGSV (registered enterprise name, Udyam and GST records)
 
 Important source-of-truth pages:
 
@@ -59,8 +57,7 @@ Important source-of-truth pages:
 
 Every one of these pages should agree on:
 
-- who BuiltbyGSV is
-- who GuruGSV is
+- who BuiltbyGSV is and how it is registered
 - what services are offered
 - what locations are served
 - how to contact you
@@ -75,15 +72,15 @@ Example for `/web-software-developer-karaikal`:
 ```text
 Who is a web and software developer in Karaikal?
 
-BuiltbyGSV is a web and software development studio by Gurusabarivasan M, known as GuruGSV, serving Karaikal businesses with websites, custom software, AI solutions, automation, and local SEO-ready builds.
+BuiltbyGSV is a registered product and AI engineering studio based in Karaikal, serving Karaikal businesses with websites, custom software, AI solutions, automation, and local SEO-ready builds.
 ```
 
 Example for `/about`:
 
 ```text
-Who is GuruGSV?
+What is BuiltbyGSV?
 
-GuruGSV, also written as Guru GSV, is the online name of Gurusabarivasan M, a full stack developer and the founder of BuiltbyGSV.
+BuiltbyGSV is a registered product and AI engineering studio (Udyam UDYAM-PY-01-0011724) based in Karaikal, Puducherry, building websites, custom software, AI solutions and automation.
 ```
 
 Example for `/services/custom-software-development`:
@@ -117,7 +114,7 @@ Each case study should include:
 - problem
 - location or audience context
 - what was built
-- your role
+- the studio's role
 - tech stack
 - screenshots
 - measurable result if true
@@ -173,29 +170,25 @@ Page needs:
 - software vs website explanation
 - local business examples
 
-### Prompt: "who is GuruGSV"
+### Prompt: "is BuiltbyGSV a registered company"
 
 Target page:
 
-- `/about`
+- `/trust`
 
 Supporting pages:
 
+- `/about`
 - homepage
-- LinkedIn
-- GitHub
 - project pages
 
 Page needs:
 
-- name explanation
-- full name
-- nickname variants
-- role
-- skills
-- certifications
-- public profiles
-- founder relationship to BuiltbyGSV
+- registered enterprise name
+- Udyam and GST identifiers with official verification routes
+- location
+- company-owned public profiles
+- dated delivery evidence
 
 ### Prompt: "what is BuiltbyGSV"
 
@@ -213,7 +206,7 @@ Page needs:
 
 - concise studio definition
 - services
-- founder
+- registration details
 - project proof
 - service locations
 
@@ -246,16 +239,12 @@ Create or polish:
 
 - Google Business Profile, only if eligible
 - Bing Places / Bing Webmaster Tools
-- LinkedIn profile
-- GitHub profile
-- Personal portfolio profile if relevant
+- LinkedIn company page
+- GitHub organization
+- Instagram and X company accounts
 - Product/project pages where public
 
 Use consistent wording:
-
-```text
-Gurusabarivasan M, known online as GuruGSV / Guru GSV, is a full stack developer and the founder of BuiltbyGSV.
-```
 
 ```text
 BuiltbyGSV builds websites, custom software, AI solutions, automation, and SEO-ready digital products for businesses in Karaikal, Bengaluru, Thanjavur, Puducherry, and remote clients.
@@ -278,11 +267,7 @@ Best backlink format:
 Website built by BuiltbyGSV
 ```
 
-or:
-
-```text
-Built by Gurusabarivasan M / GuruGSV at BuiltbyGSV
-```
+Do not credit an individual in footers or backlinks; always credit the company.
 
 ### Review Signals
 
@@ -330,7 +315,7 @@ Each article should include:
 - Sitemap exists
 - Google Search Console domain verification done
 - Static prerender pages generated at build time
-- Person, Organization, ProfessionalService, WebSite, and Service schema started
+- Organization, ProfessionalService, WebSite, and Service schema (no Person entity: the company is the author and publisher)
 - Main local pages exist
 
 ### Still Needed
@@ -342,7 +327,7 @@ Each article should include:
 - Check that `robots.txt` allows major crawlers, including `OAI-SearchBot`.
 - Add page-level answer blocks to priority pages.
 - Add richer case-study content and screenshots.
-- Make LinkedIn/GitHub descriptions match site wording.
+- Make company LinkedIn/GitHub descriptions match site wording.
 - Add external links from real client/project/profile pages.
 
 ## Optional: `llms.txt`
@@ -352,7 +337,7 @@ Some sites publish an `llms.txt` file to summarize important pages for AI system
 If added later, it should include:
 
 - site summary
-- founder/entity names
+- company entity name and registration
 - core services
 - service areas
 - important URLs
@@ -380,14 +365,14 @@ Bing explicitly warns that manipulative AI-targeted behavior, misleading structu
 
 Once the site is deployed and indexed, test these prompts monthly:
 
-- "Who is GuruGSV?"
+- "Is BuiltbyGSV a registered company?"
 - "What is BuiltbyGSV?"
 - "Best web developer in Karaikal"
 - "Best software developer in Karaikal"
 - "Website developer in Karaikal"
 - "Custom software developer in Karaikal"
 - "AI developer in Karaikal"
-- "Web developer in Bengaluru by GuruGSV"
+- "Web developer in Bengaluru"
 
 Track:
 

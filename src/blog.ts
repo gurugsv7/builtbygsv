@@ -1,4 +1,5 @@
 import { guideSections } from './content/reelPressGuide';
+import { problemGuides } from './content/problemGuides';
 
 export interface BlogSection {
   heading: string;
@@ -19,20 +20,28 @@ export interface BlogPost {
   readTime: string;
   takeaway: string;
   sections: BlogSection[];
+  /** Questions answered in a visible FAQ block and emitted as FAQPage schema. */
+  faqs?: { question: string; answer: string }[];
+  /** Internal service, project or reference pages this article supports. */
+  related?: { path: string; label: string }[];
+  /** External evidence: official docs, source repositories and data cited in the text. */
+  sources?: { label: string; url: string }[];
   /** 'guide' renders the rich, chapter-based layout instead of the standard article. */
   layout?: 'guide';
 }
+
+export { BLOG_INDEX_METADATA } from './blogIndexMeta';
 
 export const blogPosts: BlogPost[] = [
   {
     slug: 'reel-press-workflow',
     path: '/insights/reel-press-workflow',
-    title: 'How I made a reel without opening a video editor',
+    title: 'How we made a reel without opening a video editor',
     seoTitle: 'Make Reels with Claude Code & HyperFrames | BuiltbyGSV',
     description:
       'The full workflow behind an AI-made Instagram reel with Claude Code, HyperFrames and FFmpeg: every command, the scene plan, voice timing and prompts to copy.',
     excerpt:
-      'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from my script and my voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
+      'The reel you watched was animated, edited and sound-designed with AI: Claude Code writing a HyperFrames project from our script and voice recording. Here is the exact setup, every command, the scene plan, the feedback rounds and the prompts.',
     category: 'Workflow guide',
     published: '2026-09-29',
     updated: '2026-09-29',
@@ -42,6 +51,7 @@ export const blogPosts: BlogPost[] = [
     sections: guideSections(),
     layout: 'guide',
   },
+  ...problemGuides,
   {
     slug: 'website-cost-karaikal',
     path: '/insights/website-cost-karaikal',
@@ -666,3 +676,12 @@ export const blogPosts: BlogPost[] = [
 
 export const getBlogPost = (pathname: string) =>
   blogPosts.find((post) => post.path === pathname.replace(/\/$/, '') || post.path === pathname);
+
+/** Articles a reader of `post` is most likely to want next: same category first, then newest. */
+export const relatedBlogPosts = (post: BlogPost, count = 2) =>
+  blogPosts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .sort((a, b) =>
+      Number(b.category === post.category) - Number(a.category === post.category)
+      || b.published.localeCompare(a.published))
+    .slice(0, count);

@@ -12,3 +12,8 @@ declare module '*.svg' {
   const value: string;
   export default value;
 }
+
+interface ImportMetaEnv {
+  readonly VITE_API_BASE?: string;
+  readonly VITE_ANALYTICS_DEBUG?: string;
+}

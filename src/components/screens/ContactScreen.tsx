@@ -13,6 +13,7 @@ import { ChevronRight, FileText } from 'lucide-react';
 import { brandEntity } from '../../seo';
 import { DrawnUnderline, Reveal, RevealGroup, RevealItem, groupVariants, itemVariants, useSequence } from '../../motion/primitives';
 import { EASE } from '../../motion/tokens';
+import { QuickEnquiryForm } from '../QuickEnquiryForm';
 
 interface ContactScreenProps {
   onBack: () => void;
@@ -82,7 +83,7 @@ function MobileContact({ onBack, onStartProject }: ContactScreenProps) {
         <span className="relative flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-widest text-emerald-400"><FileText className="h-3.5 w-3.5" /> Guided project brief</span>
         <span className="relative mt-2 block text-lg font-extrabold leading-snug">Start with a short brief.</span>
         <span className="relative mt-4 flex items-center gap-1.5 text-[10px] font-bold text-slate-300" aria-hidden="true">
-          {['Answer', 'Review', 'Send by email'].map((step, index) => (
+          {['Answer', 'Review', 'Send'].map((step, index) => (
             <span key={step} className="flex items-center gap-1.5">
               {index > 0 && <span className="h-px w-3 bg-emerald-400/60" />}
               <span className="rounded-full border border-white/15 px-2 py-1">{step}</span>
@@ -90,10 +91,12 @@ function MobileContact({ onBack, onStartProject }: ContactScreenProps) {
           ))}
         </span>
         <span className="relative mt-4 flex items-center justify-between gap-3">
-          <span className="text-[11px] leading-5 text-slate-400">You stay in control of what gets sent.</span>
+          <span className="text-[11px] leading-5 text-slate-400">Six steps · reference number on sending.</span>
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5C748] text-[#131921]"><ArrowUpRight className="h-5 w-5" /></span>
         </span>
       </button>
+
+      <QuickEnquiryForm idPrefix="quick-mobile" />
 
       <section className="rounded-2xl border border-slate-200/80 bg-[#F2EFE4] p-4" aria-labelledby="first-message">
         <div className="flex items-baseline justify-between">
@@ -203,6 +206,8 @@ function DesktopContact({ onBack, onStartProject }: ContactScreenProps) {
             ))}
           </RevealGroup>
 
+          <div className="mt-6"><QuickEnquiryForm idPrefix="quick-desktop" /></div>
+
           <div className="mt-6 grid grid-cols-2 gap-3">
             <a href="/careers" className="lift group rounded-2xl border border-slate-200 bg-white p-4">
               <span className="flex items-center justify-between text-sm font-extrabold">Careers <ArrowUpRight className="nudge-ur h-4 w-4 text-[#0F8B75]" /></span>
@@ -227,7 +232,7 @@ function DesktopContact({ onBack, onStartProject }: ContactScreenProps) {
             <div>
               <p className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-widest text-emerald-400"><Send className="h-3.5 w-3.5" /> Recommended</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Start with a short project brief.</h2>
-              <p className="mt-3 max-w-md text-sm leading-7 text-slate-300">The guided brief prepares the email on your device. You stay in control of what gets sent, and this website stores none of your details.</p>
+              <p className="mt-3 max-w-md text-sm leading-7 text-slate-300">Six guided steps turn your idea into a brief our team can quote from. Send it in one tap, or email it yourself.</p>
             </div>
           </div>
 

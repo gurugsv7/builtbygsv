@@ -36,9 +36,9 @@ export const REEL_TOOLS = ['Claude Code', 'HyperFrames', 'FFmpeg'];
 
 export const REEL_INPUTS = [
   { title: 'The script', text: 'Five sentences, with the hook kept word for word.' },
-  { title: 'My voice recording', text: 'One WAV file of that script.' },
-  { title: 'My character', text: 'A vector avatar I already had as code, so the presenter looks the same in every reel.' },
-  { title: 'A set of "skills"', text: 'Instruction packs that tell Claude how HyperFrames works and what my house style is.' },
+  { title: 'Our voice recording', text: 'One WAV file of that script.' },
+  { title: 'Our character', text: 'The studio’s vector avatar, already written as code, so the presenter looks the same in every reel.' },
+  { title: 'A set of "skills"', text: 'Instruction packs that tell Claude how HyperFrames works and what our house style is.' },
 ];
 
 export const REEL_SCENES = [
@@ -57,9 +57,9 @@ export const REEL_CHAPTERS: GuideChapter[] = [
     id: 'what', title: 'What you’re looking at', short: 'What it is',
     blocks: [
       { type: 'p', text: 'There is no timeline editor in this workflow. The video is a small website: HTML for the layout, CSS for the look, and a JavaScript animation library (GSAP) for the motion. **HyperFrames** is the framework that turns that HTML into an MP4. It opens the page in a headless browser, steps through time frame by frame, and records every frame together with the audio.' },
-      { type: 'p', text: 'Because the video is code, an AI coding agent can build it. I gave Claude Code four things:' },
+      { type: 'p', text: 'Because the video is code, an AI coding agent can build it. We gave Claude Code four things:' },
       { type: 'list', items: REEL_INPUTS.map((input) => `**${input.title}**: ${input.text}`) },
-      { type: 'p', text: 'Claude then planned the scenes, drew every asset as SVG and HTML, animated it, synced everything to the words in my voice, generated captions, placed sound effects, checked its own work with screenshots, and fixed what it found. My job was giving feedback, and there were four rounds of it (they’re further down, because that’s where most of the quality came from).' },
+      { type: 'p', text: 'Claude then planned the scenes, drew every asset as SVG and HTML, animated it, synced everything to the words in the voiceover, generated captions, placed sound effects, checked its own work with screenshots, and fixed what it found. Our job was giving feedback, and there were four rounds of it (they’re further down, because that’s where most of the quality came from).' },
       { type: 'pipeline', text: 'Script + voice recording → Claude Code plans the scenes → HyperFrames builds them as HTML → Claude checks screenshots and fixes problems → you give feedback → render to MP4.' },
     ],
   },
@@ -131,14 +131,14 @@ export const REEL_CHAPTERS: GuideChapter[] = [
       { type: 'code', code: 'npx hyperframes skills update\nnpx hyperframes skills check' },
       { type: 'p', text: 'Then create a project. This is the command Claude ran for this reel (the folder name is yours to pick):' },
       { type: 'code', code: 'npx hyperframes init my-reel --non-interactive --example=blank --skill=general-video' },
-      { type: 'p', text: 'For this reel I also used my own skill, _gsv-reel_, that I built after my first reel. It sets up the extras I reuse every time:' },
+      { type: 'p', text: 'For this reel we also used our own skill, _gsv-reel_, built after the studio’s first reel. It sets up the extras we reuse every time:' },
       { type: 'list', items: [
-        '**A character rig**: my avatar wrapped so it can change poses, facial expressions, blinks and hand shapes at exact times, without breaking when the renderer jumps around.',
-        '**A "world" style kit**: my palette, fonts, paper textures and reusable objects (gears, film spools, phones, a video-editor window).',
+        '**A character rig**: the studio avatar wrapped so it can change poses, facial expressions, blinks and hand shapes at exact times, without breaking when the renderer jumps around.',
+        '**A "world" style kit**: our palette, fonts, paper textures and reusable objects (gears, film spools, phones, a video-editor window).',
         '**A timing table** (`timing.json`) and a script that regenerates scene timings and captions from it.',
         '**The house rules**: caption style, safe zones for Instagram, sound-effect loudness rules, and a quality bar.',
       ] },
-      { type: 'note', tone: 'sun', title: 'Why a custom skill matters', text: 'Without it you re-explain your style every time. With it, a new reel starts from everything you approved last time. Whenever I approve an improvement, I ask Claude to fold it back into the skill.' },
+      { type: 'note', tone: 'sun', title: 'Why a custom skill matters', text: 'Without it you re-explain your style every time. With it, a new reel starts from everything you approved last time. Whenever we approve an improvement, we ask Claude to fold it back into the skill.' },
     ],
   },
   {
@@ -156,7 +156,7 @@ export const REEL_CHAPTERS: GuideChapter[] = [
         { title: 'Add captions', text: 'Captions are generated from the transcript, with the karaoke highlight, keyword colours and hidden stretches described in chapter 08.' },
         { title: 'Place the sound effects', text: 'A cue sheet puts one sound on each visible event, all kept quieter than the voice.' },
         { title: 'Verify', text: '`npx hyperframes check` must pass with 0 errors. An animation map confirms there are no "dead zones" (stretches with nothing moving), and a contact sheet covers every scene cut.' },
-        { title: 'Preview, give feedback, then render', text: 'Nothing gets rendered until I’ve watched the preview and approved it. That’s where the four revision rounds below happened.' },
+        { title: 'Preview, give feedback, then render', text: 'Nothing gets rendered until we’ve watched the preview and approved it. That’s where the four revision rounds below happened.' },
       ] },
     ],
   },
@@ -175,7 +175,7 @@ export const REEL_CHAPTERS: GuideChapter[] = [
       { type: 'steps', items: [
         { title: 'Record', text: 'Record the script in one take and drop the file into `assets/`.' },
         { title: 'Transcribe', text: 'Transcribe it locally. The output lists every word with a start and end time (the command is below).' },
-        { title: 'Map phrases to words', text: 'The script is split into phrases, and each phrase is matched to its range of transcribed words. The matching tolerates speech-recognition slips; in my take "Video editing" came out as one word and "long-form" as two.' },
+        { title: 'Map phrases to words', text: 'The script is split into phrases, and each phrase is matched to its range of transcribed words. The matching tolerates speech-recognition slips; in our take "Video editing" came out as one word and "long-form" as two.' },
         { title: 'Cut scenes on phrase edges', text: 'A scene ends exactly when its last phrase ends, so every cut lands between sentences.' },
         { title: 'Anchor animation to words, not seconds', text: 'Scenes ask the timing table where a word is, e.g. `REEL.word(scene, phrase, word)`. Re-record the voice, re-run the timing script, and everything moves with it.' },
       ] },
@@ -198,10 +198,10 @@ export const REEL_CHAPTERS: GuideChapter[] = [
       { type: 'h3', text: 'Sound effects' },
       { type: 'p', text: 'Sounds came from HyperFrames’ bundled library through its media tool, e.g.:' },
       { type: 'code', code: 'npx hyperframes media-use resolve --type sfx --intent "whoosh" --project .' },
-      { type: 'p', text: 'Each cue is a line in a cue sheet: which scene, the time within that scene, which sound, the volume, and the maximum length. The rules I ended up with:' },
+      { type: 'p', text: 'Each cue is a line in a cue sheet: which scene, the time within that scene, which sound, the volume, and the maximum length. The rules we ended up with:' },
       { type: 'cues' },
       { type: 'list', items: [
-        '**One sound per real story beat.** My first pass had 124 cues and felt like constant clicking. The final has 52: whooshes on transitions, pops on things appearing, beeps before "dead", a flatline tone, single hits on stamps.',
+        '**One sound per real story beat.** Our first pass had 124 cues and felt like constant clicking. The final has 52: whooshes on transitions, pops on things appearing, beeps before "dead", a flatline tone, single hits on stamps.',
         '**Never louder than the voice.** A script measures every cue’s effective loudness and flags anything within 3 dB of the voice.',
         '**No deep bass "impact" sounds.** On phone speakers they come out as a painful boom.',
         '**Silence is fine.** Your voice and the visuals can carry a moment on their own.',
@@ -218,13 +218,13 @@ export const REEL_CHAPTERS: GuideChapter[] = [
         { label: 'Round 3', quote: 'DEAD is too small.', text: 'DEAD became the hero moment: snap zoom into the flat line, black screen, and four giant letters punching up one at a time, with a flash and a jolt. It holds, then flies down into a stamp on the crashed editor.' },
         { label: 'Round 4', quote: 'Way too many clicking sounds — and make the razor splice the whole screen.', text: 'Sound effects went from 124 cues to 52, one per real story beat. The opening slice became a full-screen crack: the razor drags top to bottom, the frame cracks open along a jagged line, holds with the editor peeking through, and the two halves fly apart.' },
       ] },
-      { type: 'note', tone: 'sun', title: 'What I learned about retention', text: 'Something must visibly move in the first frame. Give the eye one obvious thing to look at. Build tension before the payoff, and make the payoff take over the whole screen. Hold key words long enough to read (about 1.2s or more). Sound should be sparse and hit on visible moments.' },
+      { type: 'note', tone: 'sun', title: 'What we learned about retention', text: 'Something must visibly move in the first frame. Give the eye one obvious thing to look at. Build tension before the payoff, and make the payoff take over the whole screen. Hold key words long enough to read (about 1.2s or more). Sound should be sparse and hit on visible moments.' },
     ],
   },
   {
     id: 'prompts', title: 'Prompts to copy', short: 'Prompts',
     blocks: [
-      { type: 'p', text: 'These are close to what I actually typed. Plain language works; the skills supply the technical detail.' },
+      { type: 'p', text: 'These are close to what we actually typed. Plain language works; the skills supply the technical detail.' },
       { type: 'prompts', items: [
         { label: 'Start the reel', code: `Make a 9:16 Instagram reel with HyperFrames from this script.
 Check the project folder, its skills and the HyperFrames skills first.
@@ -258,7 +258,7 @@ and the end frame from the rendered file.` },
         '**`/talking-head-recut`** keeps the clip as it is and layers designed graphics synced to the transcript: titles, lower-thirds, callouts, quotes.',
         '**`npx hyperframes transcribe`** gives you word-level timestamps for the whole long video.',
       ] },
-      { type: 'p', text: 'The outline I’d follow:' },
+      { type: 'p', text: 'The outline we’d follow:' },
       { type: 'list', ordered: true, items: [
         'Transcribe the long video.',
         'Give the transcript to Claude or ChatGPT and ask for the 3–5 strongest self-contained moments of 20–45 seconds, each with start and end timestamps and a one-line hook.',
@@ -266,7 +266,7 @@ and the end frame from the rendered file.` },
         'Add captions, a few graphics on the key words, and sparse sound effects, following the same rules as above.',
         'Preview each one, give feedback, render.',
       ] },
-      { type: 'note', tone: 'teal', title: 'Honest note', text: 'This reel didn’t go through the long-form path, so I’ve written this part as an outline rather than a tested recipe. I’ll share a full walkthrough once I’ve run it on my own footage.' },
+      { type: 'note', tone: 'teal', title: 'Honest note', text: 'This reel didn’t go through the long-form path, so we’ve written this part as an outline rather than a tested recipe. We’ll share a full walkthrough once we’ve run it on our own footage.' },
     ],
   },
   {

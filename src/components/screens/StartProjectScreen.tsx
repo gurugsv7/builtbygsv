@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, Building2, Check, ClipboardCheck, Copy, Download, FileText, ListChecks, Mail, Palette, Plus, Target, Wallet } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Building2, Check, ClipboardCheck, Copy, Download, FileText, ListChecks, Loader2, Mail, Palette, Plus, Send, Target, Wallet } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { DURATION, EASE, SPRING } from '../../motion/tokens';
 import { BRIEF_STEPS, BriefAnswers, BriefField, briefText, visibleFields } from '../../data/projectBrief';
 import { brandEntity } from '../../seo';
+import { track } from '../../analytics';
+import { canSubmitOnline, submitEnquiry } from '../../enquiry';
+import { HONEYPOT_FIELD } from '../../apiContract';
 
 const DRAFT_KEY = 'builtbygsv-project-brief-v1';
 const initialAnswers = (): BriefAnswers => {
@@ -36,6 +39,12 @@ export function StartProjectScreen() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [prepared, setPrepared] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState<string | null>(null);
+  const [sendError, setSendError] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const startedAt = useRef(Date.now());
+  const online = canSubmitOnline();
   const direction = useRef(1);
   const isMobile = useIsMobile();
   const [openOptional, setOpenOptional] = useState<Record<number, boolean>>({});
@@ -72,7 +81,20 @@ export function StartProjectScreen() {
       document.getElementById(`brief-${Object.keys(invalid)[0]}`)?.focus();
       return;
     }
+    if (step === 0) track('brief_started');
     changeStep(step + 1);
+  }
+  async function send() {
+    setSending(true); setSendError('');
+    const visible = Object.fromEntries(BRIEF_STEPS.flatMap((_, index) => visibleFields(index, answers))
+      .map(field => [field.id, answers[field.id]?.trim() ?? '']).filter(([, value]) => value));
+    const result = await submitEnquiry('brief', visible, startedAt.current, honeypot);
+    setSending(false);
+    if (result.ok) {
+      setSent(result.reference);
+      try { localStorage.removeItem(DRAFT_KEY); setHasDraft(false); } catch { /* nothing saved */ }
+      setStatus(`Brief sent. Your reference is ${result.reference}.`);
+    } else setSendError(result.message);
   }
   function saveDraft() {
     try { localStorage.setItem(DRAFT_KEY, JSON.stringify(answers)); setHasDraft(true); setStatus('Draft saved on this browser. Save again after making changes.'); }
@@ -125,7 +147,7 @@ export function StartProjectScreen() {
     <header className="mb-6 mt-5 lg:mb-12 lg:mt-6">
       <p className="text-[11px] font-extrabold uppercase tracking-[.2em] text-[#0F8B75]">Let’s build something useful</p>
       <h1 className="mt-2 text-3xl font-black tracking-tight lg:mt-3 lg:text-6xl">Start a Project<span className="text-[#E85D22]">.</span></h1>
-      <p className="mt-2 max-w-2xl text-xs leading-6 text-slate-600 lg:mt-4 lg:text-base lg:leading-7">A clear brief makes a better beginning.<span className="hidden lg:inline"> Tell us what your business needs, then review and email your brief to our team.</span><span className="lg:hidden"> Six short steps, then you review and email it.</span></p>
+      <p className="mt-2 max-w-2xl text-xs leading-6 text-slate-600 lg:mt-4 lg:text-base lg:leading-7">A clear brief makes a better beginning.<span className="hidden lg:inline"> Tell us what your business needs, then review and send your brief to our team.</span><span className="lg:hidden"> Six short steps, then you review and send it.</span></p>
     </header>
     <div className="grid items-start gap-8 xl:grid-cols-[240px_minmax(0,1fr)] xl:gap-12">
       <aside className="xl:sticky xl:top-8">
@@ -152,7 +174,7 @@ export function StartProjectScreen() {
       <div className="min-w-0">
         <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm lg:p-8">
           <div className="flex items-center gap-3">{!review && <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#E6F4F1] text-[#0F8B75] lg:hidden"><StepIcon size={18} /></span>}{review && <svg aria-hidden="true" viewBox="0 0 28 28" className="h-8 w-8 shrink-0" fill="none"><motion.circle cx="14" cy="14" r="12" stroke="#0F8B75" strokeWidth="2.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, ease: EASE.out }} /><motion.path d="M8.5 14.5 l4 4 l7 -8" stroke="#0F8B75" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.35, delay: 0.4, ease: EASE.out }} /></svg>}<h2 ref={heading} tabIndex={-1} className="scroll-mt-6 text-2xl font-extrabold tracking-tight outline-none">{review ? 'Review your project brief' : BRIEF_STEPS[step].title}</h2>{!review && required.length > 0 && <span className="ml-auto flex shrink-0 items-center gap-1.5 text-[10px] font-bold text-slate-500 lg:hidden" aria-label={`${requiredDone} of ${required.length} required questions answered`}><svg viewBox="0 0 24 24" className="h-6 w-6 -rotate-90" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#E2E8F0" strokeWidth="3" /><motion.circle cx="12" cy="12" r="9" fill="none" stroke="#0F8B75" strokeWidth="3" strokeLinecap="round" initial={false} animate={{ pathLength: requiredDone / required.length }} transition={{ duration: 0.4, ease: EASE.out }} /></svg>{requiredDone}/{required.length}</span>}</div>
-          <p className="mt-2 text-xs leading-6 text-slate-600 lg:text-sm">{review ? 'Check every section before sharing. Nothing has been sent to BuiltbyGSV yet.' : BRIEF_STEPS[step].description}</p>
+          <p className="mt-2 text-xs leading-6 text-slate-600 lg:text-sm">{review ? (sent ? 'Your brief has been sent to BuiltbyGSV.' : 'Check every section before sending. Nothing has been sent to BuiltbyGSV yet.') : BRIEF_STEPS[step].description}</p>
           <motion.div key={step} initial={{ opacity: 0, x: direction.current * 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: DURATION.base, ease: EASE.out }}>
           {!review ? <form noValidate onSubmit={event => { event.preventDefault(); nextStep(); }} className="mt-7 space-y-6">
             <p className="text-xs text-slate-500">{isMobile ? <>Only the essentials are shown. Use “not sure yet” where you need our guidance.</> : <>Optional questions are marked. Use “not sure yet” where you need our guidance.</>}</p>
@@ -168,7 +190,13 @@ export function StartProjectScreen() {
             <div className="sticky bottom-[5.5rem] z-20 -mx-5 flex items-center justify-between gap-3 rounded-b-3xl border-t border-slate-100 bg-white/95 px-5 py-3 backdrop-blur-md lg:static lg:mx-0 lg:rounded-none lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-6 lg:backdrop-blur-none">{step > 0 ? <button type="button" onClick={() => changeStep(step - 1)} className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold"><ArrowLeft size={16} className="nudge-l" /> Back</button> : <span className="text-xs text-slate-400">01 / 06</span>}<button type="submit" className="press group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#0F8B75] px-5 text-sm font-bold text-white hover:bg-[#096b59]">{step === 4 ? 'Review brief' : 'Continue'}<ArrowRight size={16} className="nudge-r" /></button></div>
           </form> : <div className="mt-6 space-y-6">
             {BRIEF_STEPS.map((section, index) => <section key={section.title} className="border-t border-slate-200 pt-5"><div className="flex items-center justify-between gap-3"><h3 className="font-extrabold">{section.title}</h3><button onClick={() => changeStep(index)} aria-label={`Edit ${section.title}`} className="min-h-11 px-2 text-sm font-bold text-[#0F8B75] underline">Edit</button></div><dl className="mt-3 space-y-4">{visibleFields(index, answers).map(field => <div key={field.id}><dt className="text-xs font-bold text-slate-500">{field.label}</dt><dd className="mt-1 whitespace-pre-wrap break-words text-sm leading-6">{answers[field.id]?.trim() || 'Not provided / to discuss'}</dd></div>)}</dl></section>)}
-            <div className="rounded-2xl bg-[#E6F4F1] p-5"><h3 className="text-lg font-extrabold">Ready to share?</h3><p className="mt-2 text-sm leading-6">1. Download or copy your complete brief.<br />2. Open your email, attach the file or paste the brief, then send it to <strong className="break-all">{brandEntity.email}</strong>.</p><div className="mt-5 flex flex-wrap gap-3"><button onClick={download} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#131921] px-4 text-sm font-bold text-white"><Download size={16} /> Download brief</button><button onClick={copy} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#0F8B75]/30 px-4 text-sm font-bold"><Copy size={16} /> Copy brief</button></div><AnimatePresence>{prepared && <motion.a key="email" href={emailHref} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: DURATION.base, ease: EASE.out }} className="press mt-4 inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#0F8B75] px-5 text-sm font-bold text-white"><Mail size={16} /> Open email to send</motion.a>}</AnimatePresence><p className="mt-4 text-xs leading-6 text-slate-600">Downloads are not attached automatically. This website does not submit your enquiry. Our team receives it after you send the email, then reviews the brief and follows up to clarify scope and next steps.</p></div>
+            {online && (sent ? <div role="status" className="rounded-2xl border-2 border-[#0F8B75] bg-white p-5"><p className="flex items-center gap-2 text-lg font-extrabold text-[#0F8B75]"><Check size={20} /> Brief received</p><p className="mt-2 text-sm leading-6">Thank you{answers.name ? `, ${answers.name.trim().split(' ')[0]}` : ''}. Your reference is <strong className="font-mono">{sent}</strong>. We read every brief and reply by email at <strong className="break-all">{answers.email}</strong>. For anything urgent, message us on WhatsApp and quote the reference.</p></div>
+              : <div className="rounded-2xl bg-[#131921] p-5 text-white"><h3 className="text-lg font-extrabold">Send your brief to BuiltbyGSV</h3><p className="mt-2 text-sm leading-6 text-slate-300">One tap sends everything above to our team. You get a reference number straight away and a reply by email.</p>
+                <label className="absolute left-[-9999px] h-px w-px overflow-hidden" aria-hidden="true">Leave this empty<input tabIndex={-1} autoComplete="off" name={HONEYPOT_FIELD} value={honeypot} onChange={event => setHoneypot(event.target.value)} /></label>
+                <button type="button" onClick={send} disabled={sending} className="press mt-4 inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#F5C748] px-5 text-sm font-extrabold text-[#131921] disabled:opacity-70">{sending ? <><Loader2 size={16} className="animate-spin" /> Sending…</> : <><Send size={16} /> Send brief</>}</button>
+                {sendError && <p role="alert" className="mt-3 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-800">{sendError}</p>}
+                <p className="mt-3 text-xs leading-5 text-slate-400">Your answers are stored securely by BuiltbyGSV to reply to your enquiry. <a href="/website-information" className="underline">How enquiries work</a></p></div>)}
+            {!sent && <div className="rounded-2xl bg-[#E6F4F1] p-5"><h3 className="text-lg font-extrabold">{online ? 'Prefer email?' : 'Ready to share?'}</h3><p className="mt-2 text-sm leading-6">1. Download or copy your complete brief.<br />2. Open your email, attach the file or paste the brief, then send it to <strong className="break-all">{brandEntity.email}</strong>.</p><div className="mt-5 flex flex-wrap gap-3"><button onClick={download} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#131921] px-4 text-sm font-bold text-white"><Download size={16} /> Download brief</button><button onClick={copy} className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#0F8B75]/30 px-4 text-sm font-bold"><Copy size={16} /> Copy brief</button></div><AnimatePresence>{prepared && <motion.a key="email" href={emailHref} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: DURATION.base, ease: EASE.out }} className="press mt-4 inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#0F8B75] px-5 text-sm font-bold text-white"><Mail size={16} /> Open email to send</motion.a>}</AnimatePresence><p className="mt-4 text-xs leading-6 text-slate-600">Downloads are not attached automatically. Sent by email, the brief reaches our team once you press send in your mail app. We then reviews the brief and follows up to clarify scope and next steps.</p></div>}
             <details><summary className="cursor-pointer text-sm font-bold text-[#0F8B75]">View plain-text brief</summary><textarea readOnly aria-label="Complete project brief" value={text} rows={12} className={`${controlClass} mt-3 text-sm`} /></details>
           </div>}
           </motion.div>

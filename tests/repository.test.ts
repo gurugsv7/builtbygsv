@@ -60,8 +60,10 @@ test('unknown project slugs do not silently resolve to a different project', () 
 
 test('blog route metadata is derived from the rendered blog content', () => {
   assert.deepEqual(
-    blogRouteMetadata.map(({ path }) => path),
-    blogPosts.map(({ path }) => path),
+    blogRouteMetadata,
+    blogPosts.map(({ path, title, seoTitle, description, published, updated }) =>
+      ({ path, title, seoTitle, description, published, updated })),
+    'src/blogManifest.ts is stale: run npx tsx scripts/gen-blog-manifest.ts',
   );
   for (const post of blogPosts) assert.equal(getBlogRoute(`${post.path}/`)?.title, post.title);
 });
@@ -123,7 +125,10 @@ test('organization schema has stable, internally referenced entities', () => {
   const schema = createOrganizationSchema();
   const ids = new Set(schema['@graph'].map((entity) => entity['@id']));
   assert(ids.has(`${SITE_URL}/#organization`));
-  assert(ids.has(`${SITE_URL}/#gurusabarivasan`));
+  assert(ids.has(`${SITE_URL}/#professional-service`));
+  const serialized = JSON.stringify(schema);
+  assert(!/guru/i.test(serialized), 'Schema must describe the company, not an individual');
+  assert(!serialized.includes('"Person"'), 'No Person entity: BuiltbyGSV is presented as a company');
   assert(ids.has(`${SITE_URL}/#website`));
 });
 
@@ -182,11 +187,20 @@ test('every internal link on a new page points at a page that exists', () => {
     ...serviceAreaPages.map((page) => page.path),
     ...contentPages.map((page) => page.path),
     ...blogPosts.map((post) => post.path),
+    STUDENT_PAGE.path,
     '/insights',
   ]);
   for (const page of [...serviceAreaPages, ...contentPages]) {
     for (const link of page.related) {
       assert.ok(known.has(link.path), `${page.path} links to missing page ${link.path}`);
+    }
+  }
+  for (const post of blogPosts) {
+    for (const link of post.related ?? []) {
+      assert.ok(known.has(link.path), `${post.path} links to missing page ${link.path}`);
+    }
+    for (const source of post.sources ?? []) {
+      assert.match(source.url, /^https:\/\//, `${post.path} cites a non-https source`);
     }
   }
 });
@@ -299,4 +313,38 @@ test('student tools page links only to official https pages and fits search snip
   assert.ok(STUDENT_PAGE.description.length >= 110 && STUDENT_PAGE.description.length <= 160, `description is ${STUDENT_PAGE.description.length} chars`);
   assert.ok(STUDENT_FAQS.length >= 3);
   assert.deepEqual(createStudentPageSchema().map((node) => node['@type']), ['Article', 'FAQPage']);
+});
+
+test('public-facing source presents the company, not an individual', async () => {
+  const { readdir } = await import('node:fs/promises');
+  const { join } = await import('node:path');
+  const walk = async (dir: string): Promise<string[]> => (await Promise.all(
+    (await readdir(dir, { withFileTypes: true })).map((entry) => {
+      const path = join(dir, entry.name);
+      return entry.isDirectory() ? walk(path) : [path];
+    }),
+  )).flat();
+  const files = [
+    ...(await walk('src')).filter((file) => /\.(tsx?|css)$/.test(file)),
+    ...(await walk('scripts')).filter((file) => /\.(ts|mjs)$/.test(file)),
+    'index.html',
+    'public/llms.txt',
+    'public/builtbygsv.vcf',
+  ];
+  for (const file of files) {
+    // Existing account URLs (github.com/gurugsv7, linkedin.com/in/gurugsv) are the only allowed matches.
+    const text = (await readFile(file, 'utf8'))
+      .replace(/https?:\/\/(www\.)?github\.com\/gurugsv7[^\s'"`)]*/g, '')
+      .replace(/https?:\/\/(www\.)?linkedin\.com\/in\/gurugsv\/?/g, '');
+    assert.doesNotMatch(text, /guru|sabarivasan/i, `${file} mentions an individual instead of BuiltbyGSV`);
+  }
+});
+
+test('blog posts have search-sized metadata and unique FAQ questions', () => {
+  for (const post of blogPosts) {
+    assert.ok(post.seoTitle.length <= 70, `${post.path}: seoTitle is ${post.seoTitle.length} characters`);
+    assert.ok(post.description.length >= 70 && post.description.length <= 170, `${post.path}: description is ${post.description.length} characters`);
+    const questions = (post.faqs ?? []).map((faq) => faq.question);
+    assert.equal(new Set(questions).size, questions.length, `${post.path}: duplicate FAQ question`);
+  }
 });

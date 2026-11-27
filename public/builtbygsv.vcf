@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:3.0
+X-ABShowAs:COMPANY
+N:BuiltbyGSV;;;;
+FN:BuiltbyGSV
+ORG:BuiltbyGSV
+TITLE:Product & AI Engineering Studio
+TEL;TYPE=WORK,VOICE:+917448865095
+EMAIL;TYPE=WORK:admin@builtbygsv.in
+URL:https://www.builtbygsv.in
+ADR;TYPE=WORK:;;;Karaikal;Puducherry;;India
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/builtbygsv/
+X-SOCIALPROFILE;TYPE=x:https://x.com/BuiltbyGSV
+NOTE:Product & AI Engineering Studio. Web platforms\, custom software and AI products.
+END:VCARD

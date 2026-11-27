@@ -15,7 +15,7 @@ const ConnectPage = lazy(() => import('./components/ConnectPage').then((m) => ({
 const TourPage = lazy(() => import('./components/TourPage').then((m) => ({ default: m.TourPage })));
 const DevDayPage = lazy(() => import('./components/DevDayPage').then((m) => ({ default: m.DevDayPage })));
 const pageFallback = <div className="min-h-screen bg-[#F8F9FA]" />;
-import { getBlogRoute } from './blogRoutes';
+import { BLOG_INDEX_METADATA, getBlogRoute } from './blogRoutes';
 import { getContentPage } from './contentPages';
 import { getServiceAreaPage } from './serviceAreas';
 import {
@@ -27,6 +27,7 @@ import {
 } from './routes';
 import {
   createContentPageSchema,
+  createBlogPostSchema,
   createBreadcrumbSchema,
   createOrganizationSchema,
   createServiceAreaSchema,
@@ -34,11 +35,7 @@ import {
   SITE_URL,
 } from './seo';
 
-const blogIndexMetadata = {
-  title: 'Karaikal Website & Local SEO Guides | BuiltbyGSV',
-  description:
-    'Practical guides from BuiltbyGSV about websites, custom software and local search visibility for businesses in Karaikal.',
-};
+const blogIndexMetadata = BLOG_INDEX_METADATA;
 
 export default function SiteRouter() {
   const [pathname, setPathname] = React.useState(window.location.pathname);
@@ -196,19 +193,16 @@ export default function SiteRouter() {
         schema['@graph'].push(node as never);
       }
     }
+    // Article schema needs the full text (FAQs, word count), which lives in the blog
+    // chunk. Crawlers already get it from the prerendered HTML; the SPA adds it once loaded.
+    let cancelled = false;
     if (blogPost) {
-      schema['@graph'].push({
-        '@type': 'BlogPosting',
-        '@id': `${canonicalUrl}#article`,
-        headline: blogPost.title,
-        description: blogPost.description,
-        datePublished: blogPost.published,
-        dateModified: blogPost.updated,
-        mainEntityOfPage: canonicalUrl,
-        author: { '@id': `${SITE_URL}/#gurusabarivasan` },
-        publisher: { '@id': `${SITE_URL}/#organization` },
-        inLanguage: 'en-IN',
-      } as never);
+      void import('./blog').then(({ blogPosts }) => {
+        const fullPost = blogPosts.find((post) => post.path === blogPost.path);
+        if (cancelled || !fullPost) return;
+        for (const node of createBlogPostSchema(fullPost)) schema['@graph'].push(node as never);
+        schemaElement.textContent = JSON.stringify(schema);
+      });
     }
     if (project) {
       schema['@graph'].push({
@@ -254,6 +248,7 @@ export default function SiteRouter() {
       } as never);
     }
     schemaElement.textContent = JSON.stringify(schema);
+    return () => { cancelled = true; };
   }, [
     appMetadata,
     blogPost,

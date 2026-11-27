@@ -1,0 +1,24 @@
+# BuiltbyGSV API: enquiries and first-party, cookieless analytics on Cloudflare's free tier.
+name = "builtbygsv-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+# Optional custom domain once builtbygsv.in DNS is on Cloudflare:
+# routes = [{ pattern = "api.builtbygsv.in", custom_domain = true }]
+
+[vars]
+ALLOWED_ORIGINS = "https://www.builtbygsv.in,https://builtbygsv.in"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "builtbygsv"
+# Created 2026-11-27 (APAC).
+database_id = "88fc7225-1741-4c5e-a63a-a805956b0f02"
+migrations_dir = "migrations"
+
+# Secrets (set with `wrangler secret put NAME`, never committed):
+#   IP_SALT            random string used to hash IPs for rate limiting
+#   STATS_TOKEN        bearer token for GET /stats and GET /enquiries
+#   TELEGRAM_BOT_TOKEN optional: alerts for new enquiries
+#   TELEGRAM_CHAT_ID   optional: chat that receives the alerts

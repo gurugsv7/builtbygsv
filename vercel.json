@@ -48,6 +48,11 @@
       "permanent": true
     },
     {
+      "source": "/gurusabarivasan.vcf",
+      "destination": "/builtbygsv.vcf",
+      "permanent": true
+    },
+    {
       "source": "/video",
       "destination": "/insights/reel-press-workflow",
       "permanent": false
@@ -105,7 +110,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://builtbygsv-api.beatchain.workers.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
         }
       ]
     },
@@ -126,7 +131,7 @@
       ]
     },
     {
-      "source": "/gurusabarivasan.vcf",
+      "source": "/builtbygsv.vcf",
       "headers": [
         {
           "key": "Content-Type",
@@ -134,7 +139,7 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "inline; filename=\"Gurusabarivasan-BuiltbyGSV.vcf\""
+          "value": "inline; filename=\"BuiltbyGSV.vcf\""
         }
       ]
     }

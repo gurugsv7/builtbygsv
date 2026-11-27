@@ -6,11 +6,12 @@ import auditData from '../src/data/websiteAudits.json';
 import { CAPABILITIES, DELIVERY_STEPS, PRINCIPLES, STUDIO } from '../src/data/studio.ts';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { blogPosts } from '../src/blog.ts';
+import { BLOG_INDEX_METADATA, blogPosts } from '../src/blog.ts';
 import { contentPages } from '../src/contentPages.ts';
 import { PROJECTS, SERVICES } from '../src/data/mockData.ts';
 import { appRouteMetadata, notFoundMetadata } from '../src/routes.ts';
 import {
+  createBlogPostSchema,
   createContentPageSchema,
   createOrganizationSchema,
   createServiceAreaSchema,
@@ -254,7 +255,7 @@ staticPageContent['/website-information'] = {
 };
 staticPageContent['/trust'] = {
   eyebrow: 'Business details & delivery evidence', heading: 'Know who you’re building with.',
-  intro: 'BuiltbyGSV is a product and AI engineering studio founded by Gurusabarivasan M, based in Karaikal, Puducherry, India.',
+  intro: 'BuiltbyGSV is a registered product and AI engineering studio based in Karaikal, Puducherry, India.',
   sections: [
     { heading: 'Business registration', paragraphs: [
       `Enterprise name: ${BUSINESS_REGISTRATION.enterpriseName}. Udyam registration: ${BUSINESS_REGISTRATION.udyamNumber}, registered 8 October 2026. Certificate classification: Micro enterprise, 2026–27. Major activity: services.`,
@@ -533,14 +534,14 @@ const locationRenderPages: RenderPage[] = locationPages.map((page) => ({
 
 const blogIndex: RenderPage = {
   path: '/insights',
-  title: 'Karaikal Website & Local SEO Guides | BuiltbyGSV',
-  description: 'Practical guides about website planning, local SEO and launch decisions for Karaikal businesses, written by Gurusabarivasan M.',
+  title: BLOG_INDEX_METADATA.title,
+  description: BLOG_INDEX_METADATA.description,
   eyebrow: 'BuiltbyGSV field notes',
   heading: 'Practical notes for a stronger business website.',
-  intro: 'These guides answer the questions local business owners ask before they hire a developer, publish a new site or invest in search visibility.',
+  intro: 'These guides answer the questions business owners and founders ask before they hire a developer, publish a new site, invest in search visibility or adopt a new tool.',
   sections: [
     {
-      heading: 'Website planning and local search',
+      heading: 'Guides and field notes',
       paragraphs: blogPosts.map((post) => `${post.title}: ${post.excerpt} The main takeaway is ${post.takeaway}`),
       bullets: blogPosts.map((post) => `${post.title}: ${SITE_URL}${post.path}`),
     },
@@ -561,19 +562,11 @@ const blogRenderPages: RenderPage[] = blogPosts.map((post) => ({
   sections: [
     { heading: 'The short answer', paragraphs: [post.takeaway] },
     ...post.sections.map((section) => ({ heading: section.heading, paragraphs: section.paragraphs, bullets: section.bullets })),
+    ...(post.faqs?.length ? [{ heading: 'Frequently asked questions', paragraphs: post.faqs.map((faq) => `${faq.question} ${faq.answer}`) }] : []),
+    ...(post.related?.length ? [{ heading: 'Related BuiltbyGSV pages', links: post.related.map((link) => ({ label: link.label, href: link.path })) }] : []),
+    ...(post.sources?.length ? [{ heading: 'Sources and project links', links: post.sources.map((source) => ({ label: source.label, href: source.url })) }] : []),
   ],
-  schemaNodes: [{
-    '@type': 'BlogPosting',
-    '@id': `${SITE_URL}${post.path}#article`,
-    headline: post.title,
-    description: post.description,
-    datePublished: post.published,
-    dateModified: post.updated,
-    mainEntityOfPage: `${SITE_URL}${post.path}`,
-    author: { '@id': `${SITE_URL}/#gurusabarivasan` },
-    publisher: { '@id': `${SITE_URL}/#organization` },
-    inLanguage: 'en-IN',
-  }],
+  schemaNodes: createBlogPostSchema(post) as Record<string, unknown>[],
 }));
 
 /** City spoke pages: one distinct service intent each. */
@@ -741,7 +734,7 @@ const connectPage: RenderPage = {
   title: CONNECT_PAGE.title,
   description: CONNECT_PAGE.description,
   eyebrow: 'Connect',
-  heading: 'Connect with Guru on LinkedIn and X',
+  heading: 'Connect with BuiltbyGSV on LinkedIn and X',
   intro: CONNECT_PAGE.description,
   sections: [],
 };

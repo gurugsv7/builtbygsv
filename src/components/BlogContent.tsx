@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, Check, Clock, Mail, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Check, Clock, Mail, MapPin } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
-import { blogPosts } from '../blog';
+import { blogPosts, relatedBlogPosts } from '../blog';
 import { ReelPressGuide } from './ReelPressGuide';
 
 const JournalHeader = () => (
@@ -34,9 +34,8 @@ export const BlogIndexPage: React.FC = () => (
             <span className="brush-teal-highlight text-[#0F8B75]">local business.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600">
-            Practical guides from BuiltbyGSV about websites, software
-            and local visibility, starting with the questions Karaikal businesses ask before they
-            build.
+            Practical guides from BuiltbyGSV about websites, software, AI and local visibility,
+            plus the problems behind the tools we build and open-source.
           </p>
         </div>
 
@@ -49,7 +48,7 @@ export const BlogIndexPage: React.FC = () => (
               <div>
                 <div className="flex items-center justify-between text-[11px] font-extrabold uppercase tracking-[0.14em]">
                   <span className="text-[#0F8B75]">{post.category}</span>
-                  <span className="font-mono text-slate-400">0{index + 1}</span>
+                  <span className="font-mono text-slate-400">{String(index + 1).padStart(2, '0')}</span>
                 </div>
                 <h2 className="mt-12 text-2xl font-extrabold leading-tight tracking-tight">
                   <a href={post.path} className="transition group-hover:text-[#0F8B75]">
@@ -88,7 +87,7 @@ export const BlogArticlePage: React.FC<BlogArticleProps> = ({ onStartProject }) 
       candidate.path === window.location.pathname.replace(/\/$/, '') ||
       candidate.path === window.location.pathname,
   )!;
-  const relatedPosts = blogPosts.filter((candidate) => candidate.slug !== post.slug).slice(0, 2);
+  const relatedPosts = relatedBlogPosts(post);
 
   if (post.layout === 'guide') {
     return (
@@ -124,7 +123,7 @@ export const BlogArticlePage: React.FC<BlogArticleProps> = ({ onStartProject }) 
                 GSV
               </div>
               <div className="text-xs">
-                <p className="font-extrabold text-slate-900">Gurusabarivasan M · GuruGSV</p>
+                <p className="font-extrabold text-slate-900">BuiltbyGSV Studio</p>
                 <p className="mt-1 font-semibold text-slate-500">
                   Published {new Date(`${post.published}T00:00:00`).toLocaleDateString('en-IN', {
                     day: 'numeric',
@@ -173,12 +172,62 @@ export const BlogArticlePage: React.FC<BlogArticleProps> = ({ onStartProject }) 
                   </section>
                 ))}
               </div>
+
+              {post.faqs?.length ? (
+                <section className="mt-14" aria-labelledby="article-faq">
+                  <h2 id="article-faq" className="text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">Common questions</h2>
+                  <div className="mt-6 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+                    {post.faqs.map((faq) => (
+                      <details key={faq.question} className="group px-5 py-4">
+                        <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-extrabold leading-7 text-slate-900 [&::-webkit-details-marker]:hidden">
+                          {faq.question}
+                          <span aria-hidden="true" className="mt-0.5 text-xl leading-none text-[#0F8B75] transition group-open:rotate-45">+</span>
+                        </summary>
+                        <p className="mt-2 text-[15px] font-medium leading-7 text-slate-600">{faq.answer}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+
+              {post.related?.length || post.sources?.length ? (
+                <section className="mt-14 grid gap-6 sm:grid-cols-2">
+                  {post.related?.length ? (
+                    <div>
+                      <h2 className="text-xs font-extrabold uppercase tracking-[0.14em] text-[#0F8B75]">Related BuiltbyGSV pages</h2>
+                      <ul className="mt-3 space-y-2">
+                        {post.related.map((link) => (
+                          <li key={link.path}>
+                            <a href={link.path} className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-800 underline decoration-teal-700/30 underline-offset-4 hover:text-[#0F8B75]">
+                              {link.label} <ArrowRight className="h-3.5 w-3.5" />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                  {post.sources?.length ? (
+                    <div>
+                      <h2 className="text-xs font-extrabold uppercase tracking-[0.14em] text-slate-500">Sources and project links</h2>
+                      <ul className="mt-3 space-y-2">
+                        {post.sources.map((source) => (
+                          <li key={source.url}>
+                            <a href={source.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-[#0F8B75]">
+                              {source.label} <ArrowUpRight className="h-3.5 w-3.5" />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </section>
+              ) : null}
             </div>
 
             <aside className="h-fit rounded-[1.75rem] bg-[#101A19] p-6 text-white lg:sticky lg:top-6">
               <p className="font-handwritten text-xl text-[#F3C258]">Need a sharper website?</p>
               <p className="mt-3 text-sm font-medium leading-6 text-slate-300">
-                BuiltbyGSV plans and builds fast websites and custom software for Karaikal businesses.
+                BuiltbyGSV plans and builds fast websites, custom software and AI tools for businesses in Karaikal, Bengaluru, Thanjavur and beyond.
               </p>
               <button
                 type="button"

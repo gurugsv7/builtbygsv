@@ -6,10 +6,9 @@ export const SITE_URL = 'https://www.builtbygsv.in';
 
 export const brandEntity = {
   studioName: 'BuiltbyGSV',
-  founderName: 'Gurusabarivasan M',
-  founderShortName: 'Gurusabarivasan',
-  nickname: 'GuruGSV',
-  spacedNickname: 'Guru GSV',
+  legalName: BUSINESS_REGISTRATION.enterpriseName,
+  /** Downloadable contact card for the studio, served from /public. */
+  vcard: '/builtbygsv.vcf',
   email: 'admin@builtbygsv.in',
   phone: '+91-74488-65095',
   location: 'Puducherry, India',
@@ -117,6 +116,7 @@ export const createOrganizationSchema = () => ({
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: brandEntity.studioName,
+      legalName: brandEntity.legalName,
       taxID: BUSINESS_REGISTRATION.gstin,
       identifier: {
         '@type': 'PropertyValue',
@@ -135,10 +135,10 @@ export const createOrganizationSchema = () => ({
       logo: `${SITE_URL}/assets/builtbygsv-logo.png`,
       alternateName: ['Built by GSV'],
       url: SITE_URL,
-      founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
       email: brandEntity.email,
       telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram, brandEntity.x],
+      // Only profiles owned by the company itself belong here.
+      sameAs: [brandEntity.instagram, brandEntity.x],
       areaServed: [
         { '@type': 'City', name: 'Karaikal' },
         { '@type': 'City', name: 'Bengaluru' },
@@ -170,53 +170,12 @@ export const createOrganizationSchema = () => ({
       },
     },
     {
-      '@type': 'Person',
-      '@id': `${SITE_URL}/#gurusabarivasan`,
-      name: brandEntity.founderName,
-      alternateName: [brandEntity.nickname, brandEntity.spacedNickname, brandEntity.founderShortName],
-      url: SITE_URL,
-      worksFor: { '@id': `${SITE_URL}/#organization` },
-      jobTitle: 'Full Stack Developer',
-      email: brandEntity.email,
-      telephone: brandEntity.phone,
-      sameAs: [brandEntity.linkedin, brandEntity.github, brandEntity.instagram, brandEntity.x],
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Puducherry',
-        addressCountry: 'IN',
-      },
-      knowsAbout: [
-        'React',
-        'TypeScript',
-        'Node.js',
-        'Python',
-        'MERN Stack',
-        'Web Development',
-        'Full Stack Development',
-        'Software Development',
-        'Artificial Intelligence',
-        'Machine Learning',
-        'AI/ML',
-        'Technical SEO',
-      ],
-      hasOccupation: {
-        '@type': 'Occupation',
-        name: 'Full Stack Developer',
-        occupationLocation: [
-          { '@type': 'City', name: 'Karaikal' },
-          { '@type': 'City', name: 'Bengaluru' },
-          { '@type': 'City', name: 'Thanjavur' },
-        ],
-        skills: 'React, TypeScript, Node.js, Python, AI/ML, Supabase, REST APIs, Docker, AWS',
-      },
-    },
-    {
       '@type': 'ProfessionalService',
       '@id': `${SITE_URL}/#professional-service`,
       name: 'BuiltbyGSV Product & AI Engineering Studio',
       url: SITE_URL,
       image: `${SITE_URL}/og-cover.png`,
-      founder: { '@id': `${SITE_URL}/#gurusabarivasan` },
+      parentOrganization: { '@id': `${SITE_URL}/#organization` },
       email: brandEntity.email,
       telephone: brandEntity.phone,
       priceRange: 'Custom project pricing',
@@ -324,6 +283,38 @@ export const createServiceAreaSchema = (page: ServiceAreaPage) => {
     },
     createFaqSchema(canonicalUrl, page.faqs),
     createBreadcrumbSchema(canonicalUrl, serviceAreaBreadcrumbTrail(page)),
+  ];
+};
+
+/** BlogPosting plus, where the article answers questions, an FAQPage node. Shared by the SPA and prerender. */
+export const createBlogPostSchema = (post: {
+  path: string; title: string; description: string; published: string; updated: string;
+  category: string; sections: { paragraphs: string[]; bullets?: string[] }[];
+  faqs?: Faq[];
+}) => {
+  const canonicalUrl = `${SITE_URL}${post.path}`;
+  const words = post.sections
+    .flatMap((section) => [...section.paragraphs, ...(section.bullets ?? [])])
+    .join(' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return [
+    {
+      '@type': 'BlogPosting',
+      '@id': `${canonicalUrl}#article`,
+      headline: post.title,
+      description: post.description,
+      image: `${SITE_URL}/og-cover.png`,
+      datePublished: post.published,
+      dateModified: post.updated,
+      mainEntityOfPage: canonicalUrl,
+      articleSection: post.category,
+      ...(words ? { wordCount: words } : {}),
+      author: { '@id': `${SITE_URL}/#organization` },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      inLanguage: 'en-IN',
+    },
+    ...(post.faqs?.length ? [createFaqSchema(canonicalUrl, post.faqs)] : []),
   ];
 };
 
