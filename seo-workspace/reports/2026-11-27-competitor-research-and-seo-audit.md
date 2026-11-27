@@ -93,14 +93,30 @@ Content rules followed: a direct answer first ("The short answer"), honest limit
 claims about our tools restricted to what their READMEs verify, external sources
 cited as links, and no fake rankings, reviews or guarantees.
 
-## 4. Next articles (backlog)
+## 4. Second batch (published the same day)
 
-- WhatsApp Business API vs the WhatsApp Business app for a clinic or shop (Karaikal/Thanjavur).
-- Tamil and English websites: when a bilingual site is worth it, and how to set `hreflang`.
-- GST invoicing and payments in a first-release web app (Bengaluru founders).
-- Google Business Profile suspensions: common causes and recovery (local).
-- Making a hackathon project shippable (students; builds on `/student`).
-- A case study on E-CARE, the emergency-care learning web app, once approved for public detail.
+| Article | Primary query intent | Supports |
+| --- | --- | --- |
+| `/insights/whatsapp-business-app-vs-api-clinics-shops` | WhatsApp Business app vs API, pricing in India | AI automation spokes, clinic pages |
+| `/insights/tamil-english-bilingual-website` | Tamil / bilingual website, hreflang | SEO spoke, Thanjavur hub |
+| `/insights/gst-invoices-and-payments-in-your-first-web-app` | Payments, subscriptions and GST invoices in an app | SaaS and MVP Bengaluru spokes |
+| `/insights/google-business-profile-suspended-fix` | Google Business Profile suspended, appeal | GBP setup guide, SEO spoke |
+| `/insights/make-a-hackathon-project-shippable` | Hackathon project to portfolio (students) | `/student`, `/careers` |
+| `/insights/move-business-off-excel-and-paper-registers` | Replace Excel / paper registers with software | Custom software spokes |
+
+Figures that change often (WhatsApp per-message rates, RBI e-mandate limits, e-invoicing
+thresholds) are stated as dated summaries with sources, and readers are told to confirm
+them. Review these three articles every quarter.
+
+The E-CARE case study is deferred: it is a research intervention and needs explicit
+approval before any public detail is published.
+
+## 5. Next articles (backlog)
+
+- Clinic appointment systems: what to build versus subscribe to.
+- How to brief an AI chatbot project so it does not hallucinate about your business.
+- School and coaching-centre fee management, from register to app.
+- Cost of maintaining a website after launch (hosting, renewals, updates).
 
 ## Sources
 

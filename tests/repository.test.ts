@@ -185,6 +185,7 @@ test('every internal link on a new page points at a page that exists', () => {
     ...serviceAreaPages.map((page) => page.path),
     ...contentPages.map((page) => page.path),
     ...blogPosts.map((post) => post.path),
+    STUDENT_PAGE.path,
     '/insights',
   ]);
   for (const page of [...serviceAreaPages, ...contentPages]) {

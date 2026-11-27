@@ -616,4 +616,461 @@ export const problemGuides: BlogPost[] = [
       { label: 'Codingclave: MVP development cost in India 2026', url: 'https://codingclave.com/blog/mvp-development-cost-india-2026' },
     ],
   },
+  {
+    slug: 'whatsapp-business-app-vs-api-clinics-shops',
+    path: '/insights/whatsapp-business-app-vs-api-clinics-shops',
+    title: 'WhatsApp Business app or WhatsApp API? A guide for clinics and shops',
+    seoTitle: 'WhatsApp Business App vs API for Clinics & Shops | BuiltbyGSV',
+    description:
+      'When the free WhatsApp Business app is enough, when the API is worth paying for, what per-message pricing in India means for your bill, and what to automate first.',
+    excerpt:
+      'Most clinics and shops in Karaikal and Thanjavur already run on WhatsApp. The question is whether the free app is still enough, or whether reminders and order updates need the API.',
+    category: 'AI & automation',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'Stay on the free WhatsApp Business app while one or two people can answer every chat from a phone. Move to the WhatsApp Business Platform (API) when you need automated reminders, several staff on one number, or messages triggered by your booking or billing software. Since July 2025 the API is billed per delivered template message, so budget by message type.',
+    sections: [
+      {
+        heading: 'What the free app does well',
+        paragraphs: [
+          'The WhatsApp Business app gives a business profile, a catalogue, quick replies, labels, a greeting message and an away message, all free on one phone plus linked devices. For a clinic receptionist or a shop owner handling a few dozen chats a day, that covers most needs.',
+          'Its limits appear with volume and process: there is no proper way to trigger messages from your own software, no structured hand-off between staff, and broadcast lists only reach people who saved your number.',
+        ],
+      },
+      {
+        heading: 'Signs you have outgrown the app',
+        bullets: [
+          'Staff are copying appointment times or order numbers into WhatsApp by hand every day.',
+          'No-shows or missed payments are costing more than an hour of someone’s time each week.',
+          'Several people need to answer the same number without sharing one phone.',
+          'You want messages to go out automatically when something happens in your system: a booking, a dispatch, a lab report ready.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'How API pricing works in India',
+        paragraphs: [
+          'The WhatsApp Business Platform is used through Meta directly or through a provider (a business solution provider) that adds a dashboard. Since 1 July 2025 Meta charges per delivered template message, with the rate depending on the category: marketing, utility or authentication. Replies within a customer-service conversation the customer starts are treated differently from templates you initiate.',
+          'Published third-party summaries for India mostly give around ₹0.86 per marketing message and around ₹0.12 for utility and authentication messages in 2026, but providers quote different figures and add their own fees and GST. Check Meta’s current rate card and your provider’s plan before budgeting.',
+          'The practical consequence: appointment reminders and order updates (utility) are cheap; promotional broadcasts (marketing) cost several times more and also annoy customers if overused.',
+        ],
+      },
+      {
+        heading: 'What to automate first',
+        bullets: [
+          'Appointment confirmations and a reminder the day before, with a reply option to reschedule.',
+          'Order, dispatch and delivery updates triggered from your billing or order system.',
+          '“Report ready” or “prescription ready” notifications, without attaching sensitive documents in the message itself.',
+          'Payment reminders with a payment link, sent once, not daily.',
+        ],
+        paragraphs: [
+          'Leave open-ended questions to a human at first. An AI assistant can draft replies or answer opening hours and directions later, once you know which questions actually repeat.',
+        ],
+      },
+      {
+        heading: 'Rules that keep your number healthy',
+        bullets: [
+          'Collect clear opt-in before sending template messages, and honour opt-outs immediately.',
+          'Keep templates specific and useful. Messages that many people block or report can lower your number’s quality rating and sending limits.',
+          'Do not send medical details or full documents over WhatsApp unless the patient has agreed; send a notice and let them collect or download securely.',
+        ],
+        paragraphs: [],
+      },
+    ],
+    faqs: [
+      { question: 'Is the WhatsApp Business app free?', answer: 'Yes. The app itself is free. The WhatsApp Business Platform (API) is billed per delivered template message, plus any provider fees.' },
+      { question: 'How much does WhatsApp API cost per message in India?', answer: 'It depends on the category. 2026 summaries mostly quote about ₹0.86 for marketing and about ₹0.12 for utility and authentication messages, before provider fees and GST. Confirm on Meta’s current rate card.' },
+      { question: 'Can I use the same number on the app and the API?', answer: 'A number is registered on one or the other. Moving a number to the API removes it from the app, so plan the switch and inform staff first.' },
+      { question: 'Can WhatsApp send automatic appointment reminders?', answer: 'Yes, through the API using approved utility templates triggered by your booking system.' },
+    ],
+    related: [
+      { path: '/ai-automation-agency-karaikal', label: 'AI automation in Karaikal' },
+      { path: '/ai-automation-agency-thanjavur', label: 'AI automation in Thanjavur' },
+      { path: '/insights/ai-automation-small-business-tamil-nadu', label: 'Where AI automation actually pays' },
+      { path: '/clinic-website-development-karaikal', label: 'Clinic websites in Karaikal' },
+    ],
+    sources: [
+      { label: 'Meta: pricing on the WhatsApp Business Platform', url: 'https://developers.facebook.com/docs/whatsapp/pricing' },
+      { label: 'MyOperator: WhatsApp API pricing in India (2026)', url: 'https://myoperator.com/blog/whatsapp-business-api-pricing-india-2026' },
+    ],
+  },
+  {
+    slug: 'tamil-english-bilingual-website',
+    path: '/insights/tamil-english-bilingual-website',
+    title: 'Should your business website be in Tamil, English or both?',
+    seoTitle: 'Tamil & English Bilingual Website: When It Pays | BuiltbyGSV',
+    description:
+      'When a Tamil version of your website brings real customers, how to structure a bilingual site so Google indexes both languages, and the mistakes that waste the effort.',
+    excerpt:
+      'Many customers in Tamil Nadu and Puducherry search in English but read more comfortably in Tamil. Here is how to decide, and how to build a second language properly instead of a translate button.',
+    category: 'Search visibility',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '7 min read',
+    takeaway:
+      'Add Tamil pages when your customers would choose them: older patients, rural buyers, government-facing services, or anyone who already messages you in Tamil. Build each language as its own URL with human-checked text and hreflang links between them. A machine-translate widget does not create pages Google can index.',
+    sections: [
+      {
+        heading: 'Who actually benefits from a Tamil version',
+        paragraphs: [
+          'Look at how customers already talk to you. If most WhatsApp messages and calls are in Tamil, if your customers include older people or rural families, or if you serve schools, clinics, temples or government programmes, Tamil pages usually earn their cost.',
+          'If your buyers are mostly businesses, startups or customers outside Tamil Nadu, English remains the primary language and a Tamil version is a lower priority.',
+        ],
+      },
+      {
+        heading: 'Start with the pages that matter',
+        paragraphs: ['You do not need to translate everything. The pages that convert:'],
+        bullets: [
+          'Home page with what you do, where you are and how to contact you.',
+          'The two or three main service pages.',
+          'Contact, timings, location and directions.',
+          'A short FAQ in the words customers actually use.',
+        ],
+      },
+      {
+        heading: 'How to structure it so Google sees both languages',
+        bullets: [
+          'Give each language its own URL, for example /ta/ for Tamil pages, rather than switching language on the same URL with JavaScript.',
+          'Add hreflang annotations so each page points to its other-language version (en-IN and ta-IN) and to itself.',
+          'Set the html lang attribute correctly on each page and translate the title and meta description too.',
+          'Link the language versions to each other visibly, and let visitors choose rather than redirecting them automatically by location.',
+          'Use a Unicode Tamil web font that renders cleanly on budget Android phones and keep it to the weights you use.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Mistakes that waste the effort',
+        bullets: [
+          'A Google Translate widget: the translated text is not on any indexable page, and the quality shows.',
+          'Literal translation of English marketing copy. Write how a customer would ask the question in Tamil, including common English words people really use.',
+          'Tamil text inside images, which cannot be searched, read aloud or edited easily.',
+          'Letting the Tamil pages fall out of date when prices or timings change in English.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Measuring whether it worked',
+        paragraphs: [
+          'In Search Console, filter performance by page to see impressions and clicks on the Tamil URLs, and watch which Tamil queries start appearing. Track enquiries that arrive from those pages separately for a few months before deciding whether to translate more.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'Does Google rank Tamil websites?', answer: 'Yes. Google indexes Tamil pages and shows them for Tamil queries. Each language version needs its own crawlable URL.' },
+      { question: 'What is hreflang?', answer: 'An annotation that tells search engines which pages are language versions of each other, so the right version appears for the right searcher.' },
+      { question: 'Is a website translation plugin enough?', answer: 'Not for search. Client-side translation widgets do not create indexable Tamil pages. Use separate, human-checked pages.' },
+      { question: 'Should I use Tanglish on my website?', answer: 'For headings and calls to action, mixing in the English words customers really use is fine. Keep body text in clear, natural Tamil.' },
+    ],
+    related: [
+      { path: '/seo-services-karaikal', label: 'SEO services in Karaikal' },
+      { path: '/insights/local-seo-karaikal-business', label: 'Local SEO plan for Karaikal businesses' },
+      { path: '/web-software-developer-thanjavur', label: 'Web development in Thanjavur' },
+    ],
+    sources: [
+      { label: 'Google Search Central: localized versions of your pages', url: 'https://developers.google.com/search/docs/specialty/international/localized-versions' },
+      { label: 'Google Search Central: managing multi-regional and multilingual sites', url: 'https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites' },
+    ],
+  },
+  {
+    slug: 'gst-invoices-and-payments-in-your-first-web-app',
+    path: '/insights/gst-invoices-and-payments-in-your-first-web-app',
+    title: 'Payments, subscriptions and GST invoices in your first web app',
+    seoTitle: 'Payments, Subscriptions & GST Invoices in Indian Apps | BuiltbyGSV',
+    description:
+      'What an Indian MVP needs for payments: one-time versus recurring, RBI e-mandate rules, GST invoice fields, e-invoicing thresholds and what to postpone until later.',
+    excerpt:
+      'Payments look like a single feature on a roadmap and turn into five. Here is what an Indian first release actually needs, what the rules require, and what can safely wait.',
+    category: 'Product',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '9 min read',
+    takeaway:
+      'Launch with one-time payments through a payment gateway’s hosted checkout and a correct GST invoice for every paid order. Add subscriptions only when the product proves people return, and design for RBI’s e-mandate rules: registration with additional authentication, and per-debit limits above which customers must authenticate again. Confirm tax treatment with your accountant.',
+    sections: [
+      {
+        heading: 'Why payments are never one feature',
+        paragraphs: [
+          'A “payments” line on a roadmap usually hides checkout, failure handling, refunds, invoices, reconciliation with the gateway’s settlement reports and, for subscriptions, mandates, renewals and cancellations. Each needs screens, edge cases and testing.',
+          'This is one of the main reasons first-release estimates grow. Deciding early which of these you genuinely need at launch keeps the scope honest.',
+        ],
+      },
+      {
+        heading: 'Start with hosted checkout and webhooks',
+        bullets: [
+          'Use the gateway’s hosted or embedded checkout rather than handling card details yourself. It keeps sensitive data off your servers.',
+          'Treat the gateway’s server-to-server webhook as the source of truth for “paid”, not the browser redirect, which can fail on a weak connection.',
+          'Make order fulfilment idempotent so a repeated webhook does not create a second order.',
+          'Store the gateway’s payment ID against every order for refunds and reconciliation.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Subscriptions and RBI e-mandate rules',
+        paragraphs: [
+          'Recurring card and UPI AutoPay payments run on e-mandates. The customer registers the mandate once with additional factor authentication; later debits up to the per-transaction limit, ₹15,000 for most categories under the 2022 RBI framework, can run without a fresh OTP. Reports on RBI’s consolidated 2026 framework describe higher limits for some categories such as insurance premiums and mutual fund investments.',
+          'For your product this means: build pre-debit notifications, handle mandate failures and cancellations gracefully, and offer a fallback to a one-time payment link. Check the gateway’s current documentation rather than relying on a summary.',
+        ],
+      },
+      {
+        heading: 'GST invoices',
+        paragraphs: [
+          'If you are GST-registered, every taxable sale needs a tax invoice with the required details: your name, address and GSTIN, a serial number, date, the customer’s details (and GSTIN for business customers), description, HSN or SAC code, taxable value, the tax rate and amounts split into CGST and SGST or IGST, and the place of supply.',
+          'Place of supply decides whether CGST plus SGST or IGST applies, so collect the customer’s state at checkout. Generate invoices from the confirmed payment, number them sequentially, and never edit an issued invoice; issue a credit note instead.',
+          'E-invoicing through the Invoice Registration Portal is mandatory once aggregate annual turnover exceeds ₹5 crore, and businesses at ₹10 crore and above must report invoices within 30 days. Most first releases are below these thresholds, but design invoice data so it can be sent to the IRP later.',
+        ],
+      },
+      {
+        heading: 'What can safely wait',
+        bullets: [
+          'Coupons and complex discount rules.',
+          'Split payouts to vendors, which need marketplace-specific gateway products and agreements.',
+          'Multiple currencies and international cards.',
+          'Self-service plan upgrades and pro-rated billing.',
+        ],
+        paragraphs: ['None of this is legal or tax advice. Confirm your invoice format and tax treatment with a chartered accountant before launch.'],
+      },
+    ],
+    faqs: [
+      { question: 'Do I need GST registration to accept online payments?', answer: 'Payment gateways may onboard unregistered businesses, but if your turnover or business type requires registration you must register and issue GST invoices. Confirm with an accountant.' },
+      { question: 'What is the RBI limit for recurring payments without OTP?', answer: 'Under the 2022 framework most recurring e-mandate debits up to ₹15,000 run without fresh authentication after registration. Some categories have higher limits under later rules.' },
+      { question: 'When is GST e-invoicing mandatory?', answer: 'When aggregate annual turnover exceeds ₹5 crore in any financial year from 2017–18. Businesses at ₹10 crore and above must report e-invoices within 30 days.' },
+      { question: 'Should my MVP support subscriptions?', answer: 'Only if recurring use is the core of the product. Many first releases validate demand with one-time or manual payments first.' },
+    ],
+    related: [
+      { path: '/saas-development-company-bengaluru', label: 'SaaS development in Bengaluru' },
+      { path: '/mvp-development-company-bengaluru', label: 'MVP development in Bengaluru' },
+      { path: '/insights/mvp-development-cost-india', label: 'What an MVP costs in India' },
+      { path: '/ecommerce-website-development-karaikal', label: 'Ecommerce development in Karaikal' },
+    ],
+    sources: [
+      { label: 'RBI: processing of e-mandates for recurring transactions', url: 'https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=12341' },
+      { label: 'Business Today: RBI e-mandate framework 2026', url: 'https://www.businesstoday.in/personal-finance/news/story/rbi-caps-recurring-payments-at-rs15000-without-otp-under-new-e-mandate-framework-526759-2026-04-21' },
+      { label: 'Tally: e-invoicing threshold limit', url: 'https://tallysolutions.com/gst/e-invoicing-threshold/' },
+    ],
+  },
+  {
+    slug: 'google-business-profile-suspended-fix',
+    path: '/insights/google-business-profile-suspended-fix',
+    title: 'Google Business Profile suspended? Causes and how to appeal',
+    seoTitle: 'Google Business Profile Suspended: Causes & Appeal Steps | BuiltbyGSV',
+    description:
+      'Why Google suspends business profiles, how a suspension differs from an unverified profile, what to fix before appealing, and the evidence that supports reinstatement.',
+    excerpt:
+      'A suspended profile disappears from Maps exactly when customers are looking. Most suspensions trace back to a handful of guideline problems. Fix those first, then appeal with evidence.',
+    category: 'Search visibility',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'Do not create a new profile. Read Google’s guidelines, fix anything that does not match them, usually the business name, address or category, then submit one appeal through Google’s official appeals process with real evidence of the business at that location.',
+    sections: [
+      {
+        heading: 'Suspended, disabled or just unverified?',
+        paragraphs: [
+          'Google uses different states for different problems. An unverified profile has not completed verification yet. A suspended or disabled profile has been restricted for a suspected guideline or policy issue, and may disappear from Search and Maps. Content can also be removed individually, such as a photo or a review.',
+          'The Business Profile manager and Google’s email usually tell you which applies. The fix and the appeal route depend on it.',
+        ],
+      },
+      {
+        heading: 'Common causes',
+        bullets: [
+          'Keywords added to the business name, such as “Best Dental Clinic Karaikal” instead of the real name on your signboard.',
+          'An address the business does not genuinely staff, such as a virtual office, a co-working desk or a relative’s house.',
+          'A service-area business showing a home address publicly.',
+          'Duplicate profiles for the same location, often created by an agency or a previous owner.',
+          'Categories that do not match what you actually do, or several edits made in quick succession.',
+          'A problem with the Google account itself, or a profile managed by someone you no longer work with.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'What to fix before appealing',
+        bullets: [
+          'Make the name match your signboard, registration and invoices exactly.',
+          'Correct the address, or hide it and set service areas if customers do not visit you.',
+          'Choose the most accurate primary category and remove unrelated ones.',
+          'Find and report duplicates instead of creating a new profile.',
+          'Make sure your website shows the same name, address and phone number.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Appeal with evidence',
+        paragraphs: [
+          'Use the official appeal or reinstatement process linked from your profile or Google’s help pages. Submit once and wait; repeated appeals do not speed things up.',
+          'Prepare evidence that the business operates at that location: the permanent signboard, a utility bill or registration document with the business name and address, and photos of the premises and equipment. Google sometimes asks for a continuous, unedited video showing the signage, the surroundings and proof you manage the business, such as unlocking the door or opening the counter.',
+          'Registration documents such as a Udyam certificate or GST registration help show the business is real, but the name and address on them must match the profile.',
+        ],
+      },
+      {
+        heading: 'Preventing it next time',
+        bullets: [
+          'Make edits only when something genuinely changes, and one at a time.',
+          'Keep ownership of the profile in an account the business controls, and add agencies as managers, not owners.',
+          'Never buy reviews or offer incentives for them.',
+        ],
+        paragraphs: [],
+      },
+    ],
+    faqs: [
+      { question: 'Why was my Google Business Profile suspended?', answer: 'Usually a mismatch with Google’s guidelines: keywords in the name, an address the business does not staff, duplicates or unsuitable categories. Google does not always state the reason.' },
+      { question: 'How long does a Google Business Profile appeal take?', answer: 'It varies. Many appeals are decided within days, but some take weeks. Submit once with complete evidence.' },
+      { question: 'Should I create a new profile if mine is suspended?', answer: 'No. A new profile for the same business is a duplicate and can make the situation worse. Fix and appeal the existing one.' },
+      { question: 'Can a web developer get my profile reinstated?', answer: 'Nobody can guarantee reinstatement. A developer can help correct your details and prepare evidence, but the appeal must come from the profile owner.' },
+    ],
+    related: [
+      { path: '/insights/google-business-profile-setup-guide', label: 'Setting up Google Business Profile properly' },
+      { path: '/insights/local-seo-karaikal-business', label: 'Local SEO plan for Karaikal businesses' },
+      { path: '/seo-services-karaikal', label: 'SEO services in Karaikal' },
+    ],
+    sources: [
+      { label: 'Google: fix suspended or disabled profiles', url: 'https://support.google.com/business/answer/4569145' },
+      { label: 'Google: appeal Business Profile restrictions', url: 'https://support.google.com/business/answer/13597551' },
+      { label: 'Google: guidelines for representing your business', url: 'https://support.google.com/business/answer/3038177' },
+    ],
+  },
+  {
+    slug: 'make-a-hackathon-project-shippable',
+    path: '/insights/make-a-hackathon-project-shippable',
+    title: 'Turning a hackathon project into something people can actually use',
+    seoTitle: 'Make Your Hackathon Project Shippable: A Student Guide | BuiltbyGSV',
+    description:
+      'Most hackathon builds die the week after judging. A practical checklist for students to turn a demo into a deployed product and a stronger portfolio story.',
+    excerpt:
+      'A hackathon rewards a convincing demo. Real users need something else. Here is the gap between the two and a two-week plan to close it, written for college students in India.',
+    category: 'Students & careers',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'After the hackathon, cut the project to the one flow that impressed judges, make that flow work for a stranger without your help, deploy it on a real URL, and write a README that explains the problem, what works and what does not. One finished, honest project beats five abandoned demos on a CV.',
+    sections: [
+      {
+        heading: 'Why demos die after judging',
+        paragraphs: [
+          'Hackathon projects are optimised for a five-minute pitch: hard-coded data, a happy path that only works in the order you click, API keys in the code and a deployment that ran on one laptop. That is the right trade-off for a weekend, and the wrong one for anything after it.',
+          'Recruiters and clients open the GitHub link. If it does not run, or the README is the hackathon pitch, the project counts against you rather than for you.',
+        ],
+      },
+      {
+        heading: 'Week one: make one flow real',
+        bullets: [
+          'Pick the single flow that best shows the idea and delete or hide everything else.',
+          'Replace hard-coded and mocked data in that flow with real storage and real responses.',
+          'Move secrets out of the code into environment variables, and rotate any key that was ever committed.',
+          'Handle the obvious failures: empty input, slow network, an API that returns an error.',
+          'Ask a friend who has never seen it to use it while you watch silently. Fix what confuses them.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Week two: ship and explain it',
+        bullets: [
+          'Deploy on a real URL. Free tiers from Vercel, Netlify, Render or Supabase are enough for a portfolio project.',
+          'Rewrite the README: the problem in two sentences, a screenshot, how to run it, what works, what does not, and what you would build next.',
+          'Remove inflated claims from the pitch deck. Statistics about the size of the problem are fine if cited; claims about impact you have not measured are not.',
+          'Add a short case study to LinkedIn or your portfolio describing a real decision you made and why.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'What interviewers actually ask about',
+        paragraphs: [
+          'Interviewers rarely ask about the feature list. They ask what broke, what you would change, how you handled data or security, and what you personally built in a team project. A project you finished after the hackathon gives you real answers to all four.',
+        ],
+      },
+      {
+        heading: 'Use the free tools you already have',
+        paragraphs: [
+          'Student offers such as the GitHub Student Developer Pack cover hosting credits, domains and developer tools worth far more than a student budget. Our free tools guide lists the ones that are genuinely useful and how to claim them from an Indian college.',
+          'If you want to work on shipped products alongside a studio, BuiltbyGSV runs six-month software and web engineering internships.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'Should I put hackathon projects on my resume?', answer: 'Yes, if the project runs, has a clear README and you can explain what you built. A broken link or unfinished demo is better left off.' },
+      { question: 'How do I deploy a student project for free?', answer: 'Static and frontend projects deploy free on Vercel or Netlify; small backends and databases fit free tiers from Render or Supabase. Student developer packs add more credits.' },
+      { question: 'What should a project README include?', answer: 'The problem, a screenshot, setup steps, what works, known limitations and next steps. Keep secrets and private data out of the repository.' },
+    ],
+    related: [
+      { path: '/student', label: 'Free tools for college students' },
+      { path: '/careers', label: 'Engineering internships at BuiltbyGSV' },
+      { path: '/insights/mvp-scope-mistakes-founders-make', label: 'The scope mistakes that sink a first release' },
+    ],
+    sources: [
+      { label: 'GitHub Student Developer Pack', url: 'https://education.github.com/pack' },
+    ],
+  },
+  {
+    slug: 'move-business-off-excel-and-paper-registers',
+    path: '/insights/move-business-off-excel-and-paper-registers',
+    title: 'When to move your business off Excel and paper registers',
+    seoTitle: 'Moving a Business Off Excel & Paper Registers | BuiltbyGSV',
+    description:
+      'Signs your spreadsheets and paper registers are costing more than software would, what to try before custom software, and how to move without stopping daily work.',
+    excerpt:
+      'Excel and a paper register run thousands of businesses perfectly well, until they do not. Here is how to tell when you have crossed that line and how to move without disrupting the counter.',
+    category: 'Planning guide',
+    published: '2026-11-27',
+    updated: '2026-11-27',
+    readTime: '8 min read',
+    takeaway:
+      'Keep Excel while one person owns the file and mistakes are cheap. Move when several people edit the same records, when errors cost real money, or when you spend hours a week compiling the same report. Try a good off-the-shelf tool first; build custom software only for the workflow that makes your business different.',
+    sections: [
+      {
+        heading: 'Excel is not the problem, until it is',
+        paragraphs: [
+          'Spreadsheets are flexible, familiar and free. For a single owner tracking stock, fees or appointments, they are often the right tool. The trouble starts when the business grows around the file: copies on different computers, a register that only one person understands, and a monthly report that takes a full day to assemble.',
+        ],
+      },
+      {
+        heading: 'Signs you have outgrown it',
+        bullets: [
+          'Several people edit the same sheet and nobody is sure which copy is current.',
+          'You find mistakes in billing, stock or fees regularly, and each one costs money or a customer.',
+          'Someone spends hours every week copying the same figures into a report.',
+          'Customers ask for things you cannot do quickly: “what did I order last time?”, “how much is pending?”.',
+          'The business would stall if the one person who understands the file were away for a week.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'Try off-the-shelf first',
+        paragraphs: [
+          'Accounting, billing, inventory, appointment and school-fee software already exists for most standard workflows, often with GST support and Tamil-speaking support teams. A month of subscription costs far less than custom development.',
+          'Custom software makes sense for the workflow that is specific to you: how a chit fund calculates dues, how a clinic handles its own patient journey, how a manufacturer tracks job work across units. That is where generic tools force painful workarounds.',
+        ],
+      },
+      {
+        heading: 'Moving without stopping the counter',
+        bullets: [
+          'Map the current process on paper first, including the workarounds staff actually use.',
+          'Clean the data before importing: one row per customer or item, consistent names and dates.',
+          'Run the old and new systems side by side for two to four weeks on real transactions.',
+          'Train the people who use it daily, not only the owner, and keep a one-page guide at the counter.',
+          'Switch off the old register on a fixed date, and keep an export of the old data.',
+        ],
+        paragraphs: [],
+      },
+      {
+        heading: 'What a good first version looks like',
+        paragraphs: [
+          'A first custom build should replace one painful register end to end, work on the phones and computers you already have, and export everything to Excel so you are never locked in. Reports that once took a day should take a click. If a proposal starts with ten modules, ask which single one removes the most hours, and start there.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'Is Excel enough for a small business?', answer: 'Often yes, while one person owns the file and errors are cheap. It struggles when several people share records or reports take hours to compile.' },
+      { question: 'Should I buy software or build custom software?', answer: 'Buy for standard workflows like accounting and billing. Build only for the process that makes your business different and that generic tools handle badly.' },
+      { question: 'How long does it take to move from paper registers to software?', answer: 'A focused first module with data clean-up and a parallel run typically takes a few weeks to two months, depending on how messy the existing records are.' },
+    ],
+    related: [
+      { path: '/custom-software-development-karaikal', label: 'Custom software in Karaikal' },
+      { path: '/custom-software-development-thanjavur', label: 'Custom software in Thanjavur' },
+      { path: '/services/custom-software-development', label: 'Custom software development' },
+      { path: '/insights/ai-automation-small-business-tamil-nadu', label: 'Where AI automation actually pays' },
+    ],
+  },
 ];
