@@ -11,3 +11,7 @@ artifacts/
 
 # First-party SEO performance exports may contain private business data.
 seo-workspace/gsc/*.csv
+
+# Cloudflare worker local state and secrets
+worker/.wrangler/
+worker/.dev.vars

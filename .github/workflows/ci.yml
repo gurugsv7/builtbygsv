@@ -21,3 +21,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm audit --audit-level=high
+      - name: Type-check API worker
+        working-directory: worker
+        run: npm ci && npx tsc --noEmit
