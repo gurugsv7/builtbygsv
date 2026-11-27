@@ -17,7 +17,14 @@ Spam protection: origin allow-list, a hidden honeypot field, a minimum fill time
 limits and five enquiries per hour per (hashed) connection. No cookies, no raw IP
 addresses, and visitor hashes rotate daily.
 
-## Deploy (one time)
+## Live deployment
+
+- Worker: `https://builtbygsv-api.beatchain.workers.dev` (Cloudflare account of the studio)
+- D1 database: `builtbygsv` (`88fc7225-1741-4c5e-a63a-a805956b0f02`, APAC), migration `0001_init.sql` applied
+- Secrets set: `IP_SALT`, `STATS_TOKEN` (the token is held by the studio, not in this repository)
+- The website reads the URL from `.env.production`, and the CSP `connect-src` allows exactly this host
+
+## Deploy from scratch
 
 ```bash
 cd worker && npm ci
@@ -52,7 +59,7 @@ New enquiries then arrive as Telegram messages. No code change or redeploy is ne
 ## Local development
 
 ```bash
-printf 'IP_SALT=dev\nSTATS_TOKEN=devtoken\n' > .dev.vars
+printf 'IP_SALT=dev\nSTATS_TOKEN=devtoken\nALLOWED_ORIGINS=http://localhost:3000,http://localhost:4173\n' > .dev.vars
 npm run db:migrate:local && npm run dev          # http://localhost:8787
 # in the site: VITE_API_BASE=http://localhost:8787 VITE_ANALYTICS_DEBUG=true npm run dev
 ```

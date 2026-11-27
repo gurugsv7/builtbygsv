@@ -8,13 +8,13 @@ workers_dev = true
 # routes = [{ pattern = "api.builtbygsv.in", custom_domain = true }]
 
 [vars]
-ALLOWED_ORIGINS = "https://www.builtbygsv.in,https://builtbygsv.in,http://localhost:3000,http://localhost:4173"
+ALLOWED_ORIGINS = "https://www.builtbygsv.in,https://builtbygsv.in"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "builtbygsv"
-# Replaced with the real id after `wrangler d1 create builtbygsv`.
-database_id = "00000000-0000-0000-0000-000000000000"
+# Created 2026-11-27 (APAC).
+database_id = "88fc7225-1741-4c5e-a63a-a805956b0f02"
 migrations_dir = "migrations"
 
 # Secrets (set with `wrangler secret put NAME`, never committed):
