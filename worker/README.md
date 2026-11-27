@@ -19,10 +19,10 @@ addresses, and visitor hashes rotate daily.
 
 ## Live deployment
 
-- Worker: `https://builtbygsv-api.beatchain.workers.dev` (Cloudflare account of the studio)
+- Worker: `https://api.builtbygsv.in` (custom domain; also reachable at `builtbygsv-api.beatchain.workers.dev`)
 - D1 database: `builtbygsv` (`88fc7225-1741-4c5e-a63a-a805956b0f02`, APAC), migration `0001_init.sql` applied
 - Secrets set: `IP_SALT`, `STATS_TOKEN` (the token is held by the studio, not in this repository)
-- The website reads the URL from `.env.production`, and the CSP `connect-src` allows exactly this host
+- The website reads the URL from `.env.production`; the CSP `connect-src` allows `api.builtbygsv.in` and, for visitors with an older cached page, the workers.dev address
 
 ## Deploy from scratch
 
@@ -43,8 +43,8 @@ environment settings) and redeploy the website. The site's CSP already allows
 ## Reading the data
 
 ```bash
-curl -H "Authorization: Bearer $STATS_TOKEN" https://builtbygsv-api.<account>.workers.dev/stats?days=30
-curl -H "Authorization: Bearer $STATS_TOKEN" https://builtbygsv-api.<account>.workers.dev/enquiries?status=new
+curl -H "Authorization: Bearer $STATS_TOKEN" https://api.builtbygsv.in/stats?days=30
+curl -H "Authorization: Bearer $STATS_TOKEN" https://api.builtbygsv.in/enquiries?status=new
 npx wrangler d1 execute builtbygsv --remote --command "UPDATE enquiries SET status='contacted' WHERE reference='BG-...'"
 ```
 
